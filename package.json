@@ -1,0 +1,43 @@
+{
+  "name": "lux",
+  "version": "0.0.1",
+  "description": "A system network proxy tool",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "webpack -c build/webpack.config.js --env NODE_ENV=production --mode production",
+    "electron-builder": "electron-builder --win --publish never --config builder.json  --config.extraMetadata.name lux",
+    "dev": "webpack -c build/webpack.config.js --env NODE_ENV=development --mode development",
+    "build:debugger": "webpack -c build/webpack.config.js --env NODE_ENV=production DEBUGGER=true --mode production ",
+    "start": "yarn dev && electron src/index.js",
+    "make": "yarn build && yarn electron-builder",
+    "make:dev": "yarn build:debugger && electron-builder --win --publish never --config builder.json --config.extraMetadata.name lux-dev",
+    "format": "prettier ./app -write",
+    "lint": "eslint --cache --ext .ts,.tsx app",
+    "lint-fix": "eslint --ext .ts,.tsx --fix app"
+  },
+  "keywords": [],
+  "author": "igoogolx",
+  "license": "MIT",
+  "dependencies": {
+    "@vscode/sudo-prompt": "^9.3.1",
+    "axios": "^0.24.0",
+    "exit-hook": "^3.0.0",
+    "get-port": "^6.0.0",
+    "isomorphic-ws": "^4.0.1",
+    "lux-js-sdk": "file:../lux-js-sdk",
+    "winston": "^3.3.3",
+    "ws": "^8.5.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.2.0",
+    "electron": "^19.0.3",
+    "electron-builder": "^23.0.3",
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-typescript-prettier": "^5.0.0",
+    "prettier": "^2.6.0",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.6.2",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
