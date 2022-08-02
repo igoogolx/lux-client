@@ -36,17 +36,6 @@ if (!gotTheLock) {
       setCorePort(corePort);
     }
 
-    let extraConfig = {};
-
-    if (!isWindows) {
-      extraConfig = {
-        titleBarStyle: "hidden",
-        titleBarOverlay: {
-          color: "#fff",
-        },
-      };
-    }
-
     // Create the browser window.
     mainWindow = new BrowserWindow({
       width: 768,
@@ -60,7 +49,10 @@ if (!gotTheLock) {
       webPreferences: {
         preload: path.resolve(__dirname, "preload.js"),
       },
-      ...extraConfig,
+      titleBarStyle: "hidden",
+      titleBarOverlay: {
+        color: "#fff",
+      },
     });
 
     mainWindow.once("ready-to-show", () => {
