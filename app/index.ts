@@ -28,7 +28,6 @@ if (!gotTheLock) {
   app.quit();
 } else {
   const isDev = process.env.NODE_ENV === "development";
-  const isDebugger = process.env.DEBUGGER;
 
   const createWindow = async () => {
     if (getCorePort() === undefined) {
@@ -82,7 +81,7 @@ if (!gotTheLock) {
       await core.start();
     }
 
-    if (isDev || isDebugger) {
+    if (isDev) {
       mainWindow.webContents.openDevTools();
     }
   };
