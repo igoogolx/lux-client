@@ -47,6 +47,7 @@ if (!gotTheLock) {
       show: false,
       webPreferences: {
         preload: path.resolve(__dirname, "preload.js"),
+        nodeIntegration: true,
       },
       titleBarStyle: "hidden",
       titleBarOverlay: {
