@@ -25,11 +25,11 @@
     "isomorphic-ws": "^4.0.1",
     "lux-js-sdk": "file:../lux-js-sdk",
     "winston": "^3.3.3",
-    "ws": "^8.5.0"
+    "ws": "^8.8.1"
   },
   "devDependencies": {
-    "@types/ws": "^8.2.0",
-    "electron": "^20.0.0",
+    "@types/ws": "^8.5.3",
+    "electron": "^20.1.1",
     "electron-builder": "^23.0.3",
     "eslint": "^8.11.0",
     "eslint-config-airbnb-typescript-prettier": "^5.0.0",
