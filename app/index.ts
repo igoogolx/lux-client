@@ -4,6 +4,7 @@ import exitHook from "exit-hook";
 import getPort from "get-port";
 import {
   DEFAULT_PORT,
+  elevate,
   getBasePath,
   getCorePort,
   getTray,
@@ -170,6 +171,8 @@ ipcMain.handle("close", () => {
 ipcMain.handle("minimize", () => {
   mainWindow?.minimize();
 });
+
+ipcMain.handle("elevate", elevate);
 
 exitHook(() => {
   if (core) {

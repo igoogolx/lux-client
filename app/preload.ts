@@ -1,10 +1,10 @@
 import { contextBridge, ipcRenderer, shell } from "electron";
 import os from "os";
-import { elevate, getCorePort } from "./utils";
+import { getCorePort } from "./utils";
 import packageInfo from "../package.json";
 
 contextBridge.exposeInMainWorld("elevate", async () => {
-  await elevate();
+  await ipcRenderer.invoke("elevate");
   await ipcRenderer.invoke("restart");
 });
 
