@@ -1,6 +1,5 @@
 import { contextBridge, ipcRenderer, shell } from "electron";
 import os from "os";
-import { getCorePort } from "./utils";
 import packageInfo from "../package.json";
 
 contextBridge.exposeInMainWorld("elevate", async () => {
@@ -42,4 +41,6 @@ contextBridge.exposeInMainWorld("getVersion", () => {
   return packageInfo.version;
 });
 
-contextBridge.exposeInMainWorld("getCorePort", getCorePort);
+contextBridge.exposeInMainWorld("getCorePort", async () => {
+  await ipcRenderer.invoke("getCorePort");
+});

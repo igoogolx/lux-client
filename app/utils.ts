@@ -9,12 +9,14 @@ const CORE_NAME = "lux-core";
 
 export const DEFAULT_PORT = 9001;
 
+let corePort = "";
+
 export const setCorePort = (port: number) => {
-  process.env.corePort = port.toString();
+  corePort = port.toString();
 };
 
 export const getCorePort = () => {
-  return process.env.corePort;
+  return corePort;
 };
 
 export const getBasePath = () => {

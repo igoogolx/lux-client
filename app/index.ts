@@ -31,7 +31,7 @@ if (!gotTheLock) {
   const isDev = process.env.NODE_ENV === "development";
 
   const createWindow = async () => {
-    if (getCorePort() === undefined) {
+    if (!getCorePort()) {
       const corePort = await getPort({ port: DEFAULT_PORT });
       setCorePort(corePort);
     }
@@ -173,6 +173,8 @@ ipcMain.handle("minimize", () => {
 });
 
 ipcMain.handle("elevate", elevate);
+
+ipcMain.handle("getCorePort", getCorePort);
 
 exitHook(() => {
   if (core) {
