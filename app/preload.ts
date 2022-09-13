@@ -42,5 +42,5 @@ contextBridge.exposeInMainWorld("getVersion", () => {
 });
 
 contextBridge.exposeInMainWorld("getCorePort", async () => {
-  await ipcRenderer.invoke("getCorePort");
+  return ipcRenderer.invoke("getCorePort");
 });
