@@ -68,7 +68,7 @@ if (!gotTheLock) {
           "web",
           "dist",
           "index.html"
-        )}`;
+        )}?port=${getCorePort()}`;
     await mainWindow.loadURL(url);
 
     const items = Menu.getApplicationMenu().items.filter(
