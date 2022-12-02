@@ -29,8 +29,8 @@
   },
   "devDependencies": {
     "@types/ws": "^8.5.3",
-    "electron": "^21.2.1",
-    "electron-builder": "^23.0.3",
+    "electron": "^22.0.0",
+    "electron-builder": "^23.6.0",
     "eslint": "^8.11.0",
     "eslint-config-airbnb-typescript-prettier": "^5.0.0",
     "prettier": "^2.6.0",
