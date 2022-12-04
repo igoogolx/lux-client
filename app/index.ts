@@ -50,10 +50,6 @@ if (!gotTheLock) {
         preload: path.resolve(__dirname, "preload.js"),
         nodeIntegration: true,
       },
-      titleBarStyle: "hidden",
-      titleBarOverlay: {
-        color: "#fff",
-      },
     });
 
     mainWindow.once("ready-to-show", () => {
