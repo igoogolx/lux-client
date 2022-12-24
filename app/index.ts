@@ -64,7 +64,7 @@ if (!gotTheLock) {
           "web",
           "dist",
           "index.html"
-        )}?hub_address=127.0.0.1${getCorePort()}`;
+        )}?hub_address=127.0.0.1:${getCorePort()}`;
     await mainWindow.loadURL(url);
 
     const items = Menu.getApplicationMenu().items.filter(
