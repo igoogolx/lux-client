@@ -25,7 +25,6 @@
     "get-port": "^6.0.0",
     "isomorphic-ws": "^4.0.1",
     "lux-js-sdk": "file:../lux-js-sdk",
-    "utf-8-validate": "^5.0.10",
     "winston": "^3.3.3",
     "ws": "^8.8.1"
   },
