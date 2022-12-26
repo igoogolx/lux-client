@@ -2517,8 +2517,9 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-"lux-js-sdk@file:../lux-js-sdk":
+lux-js-sdk@igoogolx/lux-js-sdk:
   version "0.0.4"
+  resolved "https://codeload.github.com/igoogolx/lux-js-sdk/tar.gz/e9383f9d2c53bb6bf3e08ddd4152cf8555652bb4"
 
 matcher@^3.0.0:
   version "3.0.0"
