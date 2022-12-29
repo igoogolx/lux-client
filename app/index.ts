@@ -170,6 +170,10 @@ ipcMain.handle("minimize", () => {
 
 ipcMain.handle("elevate", elevate);
 
+ipcMain.handle("openDevTools", () => {
+  mainWindow.webContents.openDevTools();
+});
+
 exitHook(() => {
   if (core) {
     core.stop();

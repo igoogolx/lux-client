@@ -35,3 +35,7 @@ contextBridge.exposeInMainWorld("getPlatform", () => {
 });
 
 contextBridge.exposeInMainWorld("IS_ELECTRON_ENV", true);
+
+contextBridge.exposeInMainWorld("openDevTools", async () => {
+  return ipcRenderer.invoke("openDevTools");
+});
