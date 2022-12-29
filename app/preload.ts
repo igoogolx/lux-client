@@ -35,7 +35,3 @@ contextBridge.exposeInMainWorld("getPlatform", () => {
 });
 
 contextBridge.exposeInMainWorld("IS_ELECTRON_ENV", true);
-
-contextBridge.exposeInMainWorld("getCorePort", async () => {
-  return ipcRenderer.invoke("getCorePort");
-});

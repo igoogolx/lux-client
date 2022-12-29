@@ -170,8 +170,6 @@ ipcMain.handle("minimize", () => {
 
 ipcMain.handle("elevate", elevate);
 
-ipcMain.handle("getCorePort", getCorePort);
-
 exitHook(() => {
   if (core) {
     core.stop();
