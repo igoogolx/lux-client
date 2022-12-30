@@ -39,9 +39,9 @@ if (!gotTheLock) {
     // Create the browser window.
     mainWindow = new BrowserWindow({
       width: 768,
-      resizable: false,
+      resizable: true,
       height: 600,
-      maximizable: false,
+      maximizable: true,
       useContentSize: true,
       frame: false,
       hasShadow: true,
@@ -166,6 +166,10 @@ ipcMain.handle("close", () => {
 
 ipcMain.handle("minimize", () => {
   mainWindow?.minimize();
+});
+
+ipcMain.handle("maximize", () => {
+  mainWindow?.maximize();
 });
 
 ipcMain.handle("elevate", elevate);

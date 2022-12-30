@@ -21,6 +21,9 @@ contextBridge.exposeInMainWorld("closeWindow", async () => {
 contextBridge.exposeInMainWorld("minimizeWindow", async () => {
   await ipcRenderer.invoke("minimize");
 });
+contextBridge.exposeInMainWorld("maximizeWindow", async () => {
+  await ipcRenderer.invoke("maximize");
+});
 
 contextBridge.exposeInMainWorld("shellOpenPath", async (path: string) => {
   await shell.openPath(path);
