@@ -41,6 +41,8 @@ if (!gotTheLock) {
       width: 768,
       resizable: true,
       height: 600,
+      minHeight: 300,
+      minWidth: 384,
       maximizable: true,
       useContentSize: true,
       frame: false,
