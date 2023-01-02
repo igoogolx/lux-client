@@ -45,7 +45,6 @@ if (!gotTheLock) {
       minWidth: 384,
       maximizable: true,
       useContentSize: true,
-      frame: false,
       hasShadow: true,
       show: false,
       webPreferences: {
@@ -69,11 +68,12 @@ if (!gotTheLock) {
         )}?hub_address=127.0.0.1:${getCorePort()}`;
     await mainWindow.loadURL(url);
 
-    const items = Menu.getApplicationMenu().items.filter(
-      (item) => !["View", "Help", "File", "Edit"].includes(item.label)
-    );
-    const menu = Menu.buildFromTemplate(items);
-    Menu.setApplicationMenu(menu);
+    // macOS only
+    // const items = Menu.getApplicationMenu().items.filter(
+    //   (item) => !["View", "Help", "File", "Edit"].includes(item.label)
+    // );
+    // const menu = Menu.buildFromTemplate(items);
+    Menu.setApplicationMenu(null);
     if (core === null) {
       core = new Core();
     }
@@ -160,18 +160,6 @@ ipcMain.handle("exit", () => {
 ipcMain.handle("restart", () => {
   app.relaunch();
   app.exit();
-});
-
-ipcMain.handle("close", () => {
-  mainWindow?.close();
-});
-
-ipcMain.handle("minimize", () => {
-  mainWindow?.minimize();
-});
-
-ipcMain.handle("maximize", () => {
-  mainWindow?.maximize();
 });
 
 ipcMain.handle("elevate", elevate);
