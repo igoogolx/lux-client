@@ -1,4 +1,12 @@
-import { app, BrowserWindow, ipcMain, Menu, Tray, nativeImage } from "electron";
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  Menu,
+  Tray,
+  nativeImage,
+  nativeTheme,
+} from "electron";
 import path from "path";
 import exitHook from "exit-hook";
 import getPort from "get-port";
@@ -166,6 +174,10 @@ ipcMain.handle("elevate", elevate);
 
 ipcMain.handle("openDevTools", () => {
   mainWindow.webContents.openDevTools();
+});
+
+ipcMain.handle("setNativeTheme", (event, theme) => {
+  nativeTheme.themeSource = theme;
 });
 
 exitHook(() => {

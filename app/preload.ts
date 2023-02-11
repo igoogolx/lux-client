@@ -1,4 +1,4 @@
-import { contextBridge, ipcRenderer, shell } from "electron";
+import { contextBridge, ipcRenderer, shell, nativeTheme } from "electron";
 import os from "os";
 
 contextBridge.exposeInMainWorld("elevate", async () => {
@@ -31,3 +31,10 @@ contextBridge.exposeInMainWorld("IS_ELECTRON_ENV", true);
 contextBridge.exposeInMainWorld("openDevTools", async () => {
   return ipcRenderer.invoke("openDevTools");
 });
+
+contextBridge.exposeInMainWorld(
+  "setClientTheme",
+  async (theme: typeof nativeTheme.themeSource) => {
+    return ipcRenderer.invoke("setNativeTheme", theme);
+  }
+);
