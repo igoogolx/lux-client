@@ -1,0 +1,13 @@
+{
+  "name": "lux",
+  "version": "0.1.8",
+  "description": "A system network proxy tool",
+  "scripts": {},
+  "keywords": [],
+  "author": "igoogolx",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.2.3"
+  }
+}
