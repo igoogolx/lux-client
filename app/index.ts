@@ -13,7 +13,6 @@ import getPort from "get-port";
 import {
   DEFAULT_PORT,
   elevate,
-  getBasePath,
   getCorePort,
   getTray,
   setCorePort,
@@ -65,15 +64,11 @@ if (!gotTheLock) {
       mainWindow.show();
     });
 
+    const hubAddress = `http://127.0.0.1:${getCorePort()}`;
+
     const url = isDev
       ? "http://localhost:3000"
-      : `file://${path.join(
-          getBasePath(),
-          "core",
-          "web",
-          "dist",
-          "index.html"
-        )}?hub_address=127.0.0.1:${getCorePort()}`;
+      : `${hubAddress}?hub_address=${hubAddress}`;
     await mainWindow.loadURL(url);
 
     // macOS only
