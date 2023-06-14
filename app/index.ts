@@ -10,6 +10,7 @@ import {
 import path from "path";
 import exitHook from "exit-hook";
 import getPort from "get-port";
+import os from "os";
 import {
   DEFAULT_PORT,
   elevate,
@@ -64,25 +65,28 @@ if (!gotTheLock) {
       mainWindow.show();
     });
 
-    const hubAddress = `http://127.0.0.1:${getCorePort()}`;
-
-    const url = isDev
-      ? "http://localhost:3000"
-      : `${hubAddress}?hub_address=${hubAddress}`;
-    await mainWindow.loadURL(url);
-
-    // macOS only
-    // const items = Menu.getApplicationMenu().items.filter(
-    //   (item) => !["View", "Help", "File", "Edit"].includes(item.label)
-    // );
-    // const menu = Menu.buildFromTemplate(items);
-    Menu.setApplicationMenu(null);
     if (core === null) {
       core = new Core();
     }
     if (!isDev) {
       await core.start();
     }
+
+    const hubAddress = `127.0.0.1:${getCorePort()}`;
+
+    const url = isDev
+      ? "http://localhost:3000"
+      : `http://${hubAddress}?hub_address=${hubAddress}`;
+    await mainWindow.loadURL(url);
+
+    let menu = null;
+    if (os.platform() === "darwin") {
+      const items = Menu.getApplicationMenu().items.filter(
+        (item) => !["View", "Help", "File", "Edit"].includes(item.label)
+      );
+      menu = Menu.buildFromTemplate(items);
+    }
+    Menu.setApplicationMenu(menu);
 
     if (isDev) {
       mainWindow.webContents.openDevTools();

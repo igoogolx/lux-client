@@ -29,12 +29,7 @@ export class Core {
       return;
     }
     this.stoppedManually = false;
-    const args = [
-      "-port",
-      getCorePort().toString(),
-      "-check_elevated",
-      "false",
-    ];
+    const args = [`-port=${getCorePort().toString()}`, `-check_elevated=false`];
     this.manager = new ProcessManager(getCorePath(), args);
     if (["darwin", "linux"].includes(os.platform())) {
       await makeFileExecuted(getCorePath());
