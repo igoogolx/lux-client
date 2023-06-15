@@ -22,7 +22,7 @@ export const getCorePort = () => {
 export const getBasePath = () => {
   const appPath = app.getAppPath();
   return process.env.NODE_ENV === "development"
-    ? path.dirname(appPath)
+    ? path.dirname(path.dirname(appPath))
     : appPath.replace("app.asar", "app.asar.unpacked");
 };
 
