@@ -25,8 +25,12 @@
     "icon": "assets/logo.ico"
   },
   "mac": {
-    "target" : "dmg",
-    "icon": "assets/logo.icns"
+    "target": "dmg",
+    "icon": "assets/logo.icns",
+    "arch": [
+      "x64",
+      "arm64"
+    ]
   },
   "nsis": {
     "perMachine": true,
