@@ -18,19 +18,16 @@
     "requestedExecutionLevel": "requireAdministrator",
     "target": [
       {
-        "target": "nsis",
-        "arch": "ia32"
+        "target": "nsis"
       }
     ],
     "icon": "assets/logo.ico"
   },
   "mac": {
-    "target": "dmg",
     "icon": "assets/logo.icns",
-    "arch": [
-      "x64",
-      "arm64"
-    ]
+    "target": {
+      "target": "dmg"
+    }
   },
   "nsis": {
     "perMachine": true,
