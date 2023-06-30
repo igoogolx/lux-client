@@ -87,7 +87,7 @@ if (!gotTheLock) {
     let menu = null;
     if (os.platform() === "darwin") {
       const items = Menu.getApplicationMenu().items.filter(
-        (item) => !["View", "Help", "File"].includes(item.label)
+        (item) => !["View", "Help", "Edit"].includes(item.label)
       );
       menu = Menu.buildFromTemplate(items);
     }
