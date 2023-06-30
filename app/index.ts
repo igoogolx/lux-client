@@ -135,7 +135,7 @@ if (!gotTheLock) {
   });
 
   let tray;
-  app.whenReady().then(() => {
+  const makeTray = () => {
     tray = new Tray(nativeImage.createFromPath(getTray()));
     const appNameLabel = isDev ? "Lux-dev" : "Lux";
     const contextMenu = Menu.buildFromTemplate([
@@ -162,6 +162,12 @@ if (!gotTheLock) {
       }
     });
     tray.setContextMenu(contextMenu);
+  };
+
+  app.whenReady().then(() => {
+    if (os.platform() === "win32") {
+      makeTray();
+    }
   });
 }
 
