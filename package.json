@@ -23,7 +23,7 @@
     "exit-hook": "^3.0.0",
     "get-port": "^6.0.0",
     "isomorphic-ws": "^4.0.1",
-    "lux-js-sdk": "igoogolx/lux-js-sdk",
+    "lux-js-sdk": "./modules/lux-js-sdk",
     "winston": "^3.3.3",
     "ws": "^8.8.1"
   },
