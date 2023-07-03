@@ -92,4 +92,7 @@ out/
 
 src/
 
+
+!modules/lux-dashboard/src/
+
 core/

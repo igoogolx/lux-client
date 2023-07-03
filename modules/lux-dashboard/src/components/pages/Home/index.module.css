@@ -1,0 +1,9 @@
+.wrapper {
+  @apply relative flex w-full flex-col overflow-auto;
+  & .header {
+    @apply absolute top-0 left-0 h-16 w-full;
+  }
+  & .content {
+    @apply h-full w-full pt-16;
+  }
+}

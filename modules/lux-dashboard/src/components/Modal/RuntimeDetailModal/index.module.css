@@ -1,0 +1,6 @@
+.item {
+  @apply flex flex-col;
+  & .content {
+    @apply flex justify-end;
+  }
+}

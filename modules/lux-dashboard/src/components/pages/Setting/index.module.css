@@ -1,0 +1,22 @@
+.wrapper {
+    @apply w-full py-2;
+
+    & .card {
+        @apply mb-6;
+
+        & .cardItem {
+            @apply flex items-center justify-between w-full mb-4;
+
+
+            & .desc {
+                @apply flex flex-col;
+            }
+
+        }
+    }
+}
+
+
+.dialogBody {
+    @apply flex flex-col;
+}
