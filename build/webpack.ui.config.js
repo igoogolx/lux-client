@@ -36,9 +36,16 @@ module.exports = (env) => {
       },
     },
     devtool: isDev ? "source-map" : false,
-    entry: path.resolve(__dirname, "..","modules","lux-dashboard", "src", "index.tsx"),
+    entry: path.resolve(
+      __dirname,
+      "..",
+      "modules",
+      "lux-dashboard",
+      "src",
+      "index.tsx"
+    ),
     output: {
-      path: path.resolve(__dirname, "..", "dist","ui"),
+      path: path.resolve(__dirname, "..", "dist", "ui"),
       filename: "bundle.js",
       clean: {
         dry: true,
@@ -62,7 +69,6 @@ module.exports = (env) => {
             options: {
               allowTsInNodeModules: true,
               happyPackMode: !isDev,
-              transpileOnly: true
             },
           },
         },
@@ -104,15 +110,22 @@ module.exports = (env) => {
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
       alias: {
-        "@": path.resolve(__dirname, "..","modules","lux-dashboard", "src"),
-        "lux-js-sdk": path.resolve(__dirname, "..","modules","lux-js-sdk"),
+        "@": path.resolve(__dirname, "..", "modules", "lux-dashboard", "src"),
+        "lux-js-sdk": path.resolve(__dirname, "..", "modules", "lux-js-sdk"),
       },
     },
     plugins: [
       env.withBundleAnalyzer && new BundleAnalyzerPlugin(),
       isDev && new Dotenv(),
       new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, "..","modules","lux-dashboard", "src", "index.html"),
+        template: path.resolve(
+          __dirname,
+          "..",
+          "modules",
+          "lux-dashboard",
+          "src",
+          "index.html"
+        ),
       }),
       new MiniCssExtractPlugin(),
       new webpack.DefinePlugin({
@@ -122,8 +135,14 @@ module.exports = (env) => {
       new CopyPlugin({
         patterns: [
           {
-            from: path.resolve(__dirname, "..","modules","lux-dashboard", "public"),
-            to: path.resolve(__dirname, "..","dist", "ui", "public"),
+            from: path.resolve(
+              __dirname,
+              "..",
+              "modules",
+              "lux-dashboard",
+              "public"
+            ),
+            to: path.resolve(__dirname, "..", "dist", "ui", "public"),
           },
         ],
       }),
