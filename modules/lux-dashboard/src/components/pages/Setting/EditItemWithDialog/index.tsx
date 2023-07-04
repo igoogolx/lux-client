@@ -10,7 +10,6 @@ import {
   DialogTrigger,
   Dropdown,
   Input,
-  Label,
   Option,
 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
@@ -24,7 +23,6 @@ type EditItemWithDialogProps = {
   setOpen: (open: boolean) => void;
   onSubmit: (value: string) => void;
   inputType?: "number";
-  label: string;
   value: string;
   disabled?: boolean;
   selectorItems?: MenuItemProps[];
@@ -34,7 +32,6 @@ type EditItemWithDialogProps = {
 export default function EditItemWithDialog(props: EditItemWithDialogProps) {
   const {
     title,
-    label,
     open,
     setOpen,
     value,
@@ -74,7 +71,6 @@ export default function EditItemWithDialog(props: EditItemWithDialogProps) {
         <DialogBody>
           <DialogTitle>{title}</DialogTitle>
           <DialogContent className={styles.dialogBody}>
-            <Label required>{label}</Label>
             {type === "input" ? (
               <Input
                 type={inputType}

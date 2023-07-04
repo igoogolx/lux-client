@@ -69,7 +69,6 @@ export default function DefaultInterface() {
           onSubmit={(value) => {
             onSubmit(value);
           }}
-          label="Default interface name"
           value={setting.defaultInterface}
           disabled={isStarted}
           type="selector"

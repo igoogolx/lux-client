@@ -103,7 +103,6 @@ export default function AutoMode() {
                   url: value,
                 });
               }}
-              label="Testing url"
               value={setting.autoMode.url}
             />
           </div>

@@ -69,7 +69,6 @@ export default function LocalHttpServer() {
             onSubmit={(value) => {
               onSubmit({ port: +value });
             }}
-            label="Http server port"
             value={setting.localServer.http.port.toString()}
             disabled={isStarted}
           />

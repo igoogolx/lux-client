@@ -40,7 +40,6 @@ export default function TrueProxyServer() {
           onSubmit={(value) => {
             onSubmit(value);
           }}
-          label="True proxy server"
           value={setting.trueProxyServer}
           disabled={isStarted}
         />
