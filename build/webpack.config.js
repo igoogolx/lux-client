@@ -21,7 +21,7 @@ module.exports = (env) => {
             loader: "ts-loader",
             options: {
               allowTsInNodeModules: true,
-              transpileOnly: true
+              onlyCompileBundledFiles: true,
             },
           },
         },
@@ -30,7 +30,7 @@ module.exports = (env) => {
     resolve: {
       extensions: [".ts", ".js"],
       alias: {
-        "lux-js-sdk": path.resolve(__dirname, "..","modules","lux-js-sdk"),
+        "lux-js-sdk": path.resolve(__dirname, "..", "modules", "lux-js-sdk"),
       },
     },
     externals: {

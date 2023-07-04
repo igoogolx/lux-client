@@ -69,6 +69,7 @@ module.exports = (env) => {
             options: {
               allowTsInNodeModules: true,
               happyPackMode: !isDev,
+              onlyCompileBundledFiles: true,
             },
           },
         },
