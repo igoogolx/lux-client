@@ -3,7 +3,8 @@
     pb-4;
 
   & .rulesDropdown {
-    @apply mr-8 w-36;
+    @apply w-32 h-8;
+    max-width: unset;
   }
   & .addButton {
     @apply mx-4;

@@ -101,7 +101,10 @@ export function Header(): JSX.Element {
       <AddingOptions className={styles.addButton} />
       <Menu>
         <MenuTrigger disableButtonEnhancement>
-          <MenuButton disabled={isStarted || isSettingRule}>
+          <MenuButton
+            disabled={isStarted || isSettingRule}
+            className={styles.rulesDropdown}
+          >
             {t(selectedRuleId)}
           </MenuButton>
         </MenuTrigger>
