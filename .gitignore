@@ -94,3 +94,5 @@ src/*
 
 
 core/*
+
+dist/

@@ -111,7 +111,7 @@ module.exports = (env) => {
       env.withBundleAnalyzer && new BundleAnalyzerPlugin(),
       isDev && new Dotenv(),
       new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, "..", "src", "index.html"),
+        template: path.resolve(__dirname, "..","modules","lux-dashboard", "src", "index.html"),
       }),
       new MiniCssExtractPlugin(),
       new webpack.DefinePlugin({
@@ -121,8 +121,8 @@ module.exports = (env) => {
       new CopyPlugin({
         patterns: [
           {
-            from: path.resolve(__dirname, "..", "public"),
-            to: path.resolve(__dirname, "..", "dist", "public"),
+            from: path.resolve(__dirname, "..","modules","lux-dashboard", "public"),
+            to: path.resolve(__dirname, "..","dist", "ui", "public"),
           },
         ],
       }),
