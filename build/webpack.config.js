@@ -33,7 +33,10 @@ module.exports = (env) => {
         "lux-js-sdk": path.resolve(__dirname, "..","modules","lux-js-sdk"),
       },
     },
-    externals: {},
+    externals: {
+      bufferutil: "bufferutil",
+      "utf-8-validate": "utf-8-validate",
+    },
     plugins: [
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(env.NODE_ENV),
