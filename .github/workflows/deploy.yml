@@ -35,12 +35,12 @@ jobs:
 
 
       - run: cp -r dist/ui ./dist-ui
-      - run: tar -cvzf dist.tar.gz dist-ui
-      - run: sha256sum dist.tar.gz > dist.tar.gz.sha256
+      - run: tar -cvzf dist-ui.tar.gz dist-ui
+      - run: sha256sum dist-ui.tar.gz > dist-ui.tar.gz.sha256
 
       - name: GH Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dist.tar.gz
-            dist.tar.gz.sha256        
+            dist-ui.tar.gz
+            dist-ui.tar.gz.sha256        
