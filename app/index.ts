@@ -30,7 +30,7 @@ if (isWindows) {
 app.commandLine.appendSwitch("disable-http-cache");
 
 const gotTheLock = app.requestSingleInstanceLock();
-let core: Core = null;
+let core: Core | null = null;
 let mainWindow: BrowserWindow | null = null;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -63,7 +63,7 @@ if (!gotTheLock) {
     });
 
     mainWindow.once("ready-to-show", () => {
-      mainWindow.show();
+      mainWindow?.show();
     });
 
     if (core === null) {
@@ -86,10 +86,12 @@ if (!gotTheLock) {
 
     let menu = null;
     if (os.platform() === "darwin") {
-      const items = Menu.getApplicationMenu().items.filter(
+      const items = Menu.getApplicationMenu()?.items.filter(
         (item) => !["View", "Help", "Edit"].includes(item.label)
       );
-      menu = Menu.buildFromTemplate(items);
+      if (items) {
+        menu = Menu.buildFromTemplate(items);
+      }
     }
     Menu.setApplicationMenu(menu);
 
@@ -183,7 +185,7 @@ ipcMain.handle("restart", () => {
 ipcMain.handle("elevate", elevate);
 
 ipcMain.handle("openDevTools", () => {
-  mainWindow.webContents.openDevTools();
+  mainWindow?.webContents.openDevTools();
 });
 
 ipcMain.handle("setNativeTheme", (event, theme) => {

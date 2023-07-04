@@ -3,15 +3,15 @@ import path from "path";
 import { logger } from "./logger";
 
 export class ProcessManager {
-  private handleStdout: (data: string) => void;
+  private handleStdout: ((code: string) => void) | null = null;
 
-  private handleError: (error: Error) => void;
+  private handleError: ((error: Error) => void) | null = null;
 
-  private handleClose: (code: number) => void;
+  private handleClose: ((code: number) => void) | null = null;
 
-  private handleExit: (code: number) => void;
+  private handleExit: ((code: number) => void) | null = null;
 
-  private runningProcess: ChildProcessWithoutNullStreams | null;
+  private runningProcess: ChildProcessWithoutNullStreams | null = null;
 
   private readonly filePath: string | null = null;
 
@@ -30,6 +30,9 @@ export class ProcessManager {
 
   public async run() {
     return new Promise((resolve, reject) => {
+      if (!this.filePath) {
+        return;
+      }
       this.runningProcess = spawn(this.filePath, this.args, {
         cwd: path.resolve(this.filePath, ".."),
         shell: false,
@@ -41,13 +44,17 @@ export class ProcessManager {
       this.runningProcess.on("close", (code) => {
         logger.info(`core closed, code: ${code}`);
         reject(new Error("process closed"));
-        this.handleClose?.(code);
+        if (code !== null) {
+          this.handleClose?.(code);
+        }
       });
 
       this.runningProcess.on("exit", (code) => {
         logger.info(`core exited, code: ${code}`);
         reject(new Error("process exited"));
-        this?.handleExit?.(code);
+        if (code !== null) {
+          this.handleClose?.(code);
+        }
       });
       this.runningProcess.on("error", (code) => {
         logger.error(`core errored, code: ${code}`);
