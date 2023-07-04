@@ -105,6 +105,7 @@ module.exports = (env) => {
       extensions: [".tsx", ".ts", ".js"],
       alias: {
         "@": path.resolve(__dirname, "..","modules","lux-dashboard", "src"),
+        "lux-js-sdk": path.resolve(__dirname, "..","modules","lux-js-sdk"),
       },
     },
     plugins: [

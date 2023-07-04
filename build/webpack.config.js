@@ -29,6 +29,9 @@ module.exports = (env) => {
     },
     resolve: {
       extensions: [".ts", ".js"],
+      alias: {
+        "lux-js-sdk": path.resolve(__dirname, "..","modules","lux-js-sdk"),
+      },
     },
     externals: {},
     plugins: [

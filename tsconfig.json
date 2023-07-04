@@ -7,7 +7,8 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@/*": ["modules/lux-dashboard/src/*"]
+      "@/*": ["modules/lux-dashboard/src/*"],
+      "lux-js-sdk": ["modules/lux-js-sdk"]
     },
     "strict": true,
     "jsx": "react",
