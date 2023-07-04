@@ -1,0 +1,39 @@
+.base {
+  @apply inline-flex
+  h-8
+  cursor-pointer
+      content-center
+  items-center
+      justify-center
+      border-none
+      pl-4
+      pr-4
+      outline-none;
+}
+
+.primary {
+  composes: base;
+  @apply rounded bg-blue-500 text-white;
+}
+
+.secondary {
+  composes: base;
+  @apply rounded border border-solid border-gray-300;
+}
+
+.blank {
+  composes: base;
+  @apply h-auto
+    bg-transparent
+    pl-0
+    pr-0;
+}
+
+.link{
+    composes: base;
+    @apply text-blue-600 underline hover:text-blue-500  pl-0 pr-0;;
+}
+
+.disabled {
+  @apply pointer-events-none opacity-50;
+}

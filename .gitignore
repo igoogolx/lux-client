@@ -90,9 +90,7 @@ out/
 
 .idea/
 
-src/
+src/*
 
 
-!modules/lux-dashboard/src/
-
-core/
+core/*
