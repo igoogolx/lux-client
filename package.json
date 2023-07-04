@@ -12,7 +12,9 @@
     "make:dev": "yarn build:debugger && electron-builder --win --publish never --config builder.json --config.extraMetadata.name lux-dev",
     "format": "prettier ./app -write",
     "lint": "eslint --cache --ext .ts,.tsx app",
-    "lint-fix": "eslint --ext .ts,.tsx --fix app"
+    "lint-fix": "eslint --ext .ts,.tsx --fix app",
+    "dev:ui": "webpack serve -c build/webpack.ui.config.js --env NODE_ENV=development --mode development --hot --open",
+    "build:ui": "webpack -c build/webpack.ui.config.js --env NODE_ENV=production --mode production"
   },
   "keywords": [],
   "author": "igoogolx",

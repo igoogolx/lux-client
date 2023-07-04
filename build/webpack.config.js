@@ -21,6 +21,7 @@ module.exports = (env) => {
             loader: "ts-loader",
             options: {
               allowTsInNodeModules: true,
+              transpileOnly: true
             },
           },
         },

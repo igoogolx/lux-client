@@ -36,9 +36,9 @@ module.exports = (env) => {
       },
     },
     devtool: isDev ? "source-map" : false,
-    entry: path.resolve(__dirname, "..", "src", "index.tsx"),
+    entry: path.resolve(__dirname, "..","modules","lux-dashboard", "src", "index.tsx"),
     output: {
-      path: path.resolve(__dirname, "..", "dist"),
+      path: path.resolve(__dirname, "..", "dist","ui"),
       filename: "bundle.js",
       clean: {
         dry: true,
@@ -62,6 +62,7 @@ module.exports = (env) => {
             options: {
               allowTsInNodeModules: true,
               happyPackMode: !isDev,
+              transpileOnly: true
             },
           },
         },
@@ -103,7 +104,7 @@ module.exports = (env) => {
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
       alias: {
-        "@": path.resolve(__dirname, "../src"),
+        "@": path.resolve(__dirname, "..","modules","lux-dashboard", "src"),
       },
     },
     plugins: [
