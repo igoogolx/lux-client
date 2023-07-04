@@ -31,7 +31,7 @@ jobs:
         with:
           node-version: '16'
       - run: yarn install
-      - run: yarn build
+      - run: yarn build:ui
 
       - run: tar -cvzf dist.tar.gz dist/ui
       - run: sha256sum dist.tar.gz > dist.tar.gz.sha256
