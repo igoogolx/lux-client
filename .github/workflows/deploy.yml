@@ -33,7 +33,9 @@ jobs:
       - run: yarn install
       - run: yarn build:ui
 
-      - run: tar -cvzf dist.tar.gz dist/ui
+
+      - run: cp dist/ui ./dist-ui
+      - run: tar -cvzf dist.tar.gz dist-ui
       - run: sha256sum dist.tar.gz > dist.tar.gz.sha256
 
       - name: GH Release
@@ -42,8 +44,3 @@ jobs:
           files: |
             dist.tar.gz
             dist.tar.gz.sha256        
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: dist/ui # The folder the action should deploy.
