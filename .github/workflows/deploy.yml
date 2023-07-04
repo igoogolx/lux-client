@@ -34,7 +34,7 @@ jobs:
       - run: yarn build:ui
 
 
-      - run: cp dist/ui ./dist-ui
+      - run: cp -r dist/ui ./dist-ui
       - run: tar -cvzf dist.tar.gz dist-ui
       - run: sha256sum dist.tar.gz > dist.tar.gz.sha256
 
