@@ -54,6 +54,7 @@ export const EditShadowsocksModal = React.memo(
     );
 
     const [editingPlugin, setEditingPlugin] = useState(false);
+    const [isPluginDirty, setIsPluginDirty] = useState(false);
 
     const initData = initialValue || INIT_DATA;
 
@@ -86,6 +87,7 @@ export const EditShadowsocksModal = React.memo(
         type={pluginData.plugin}
         initialValue={pluginData}
         onSave={(data) => {
+          setIsPluginDirty(true)
           setPluginData(data);
         }}
         close={() => {
@@ -143,7 +145,7 @@ export const EditShadowsocksModal = React.memo(
                 <Button
                   className={styles.button}
                   disabled={
-                    !dirty ||
+                    (!dirty && !isPluginDirty) ||
                     (!isValid && submitCount > 0) ||
                     (isSelected && isStarted)
                   }
