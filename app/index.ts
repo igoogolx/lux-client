@@ -74,7 +74,7 @@ if (!gotTheLock) {
     }
 
     const url = isDev
-      ? "http://localhost:3000"
+      ? "http://localhost:3001"
       : `file://${path.join(
           getBasePath(),
           "core",
