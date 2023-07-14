@@ -20,8 +20,8 @@
   "author": "igoogolx",
   "license": "MIT",
   "dependencies": {
-    "@fluentui/react-components": "^9.21.0",
-    "@fluentui/react-data-grid-react-window": "^9.0.0-beta.29",
+    "@fluentui/react-components": "^9.26.0",
+    "@fluentui/react-data-grid-react-window": "^9.0.0-beta.37",
     "@fortawesome/fontawesome-free": "^6.1.2",
     "@reduxjs/toolkit": "^1.6.1",
     "@vscode/sudo-prompt": "^9.3.1",
