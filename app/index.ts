@@ -78,8 +78,7 @@ if (!gotTheLock) {
       : `http://localhost:${getCorePort()}?hub_address=127.0.0.1:${getCorePort()}`;
     await mainWindow.loadURL(url);
 
-    let menu = null;
-    Menu.setApplicationMenu(menu);
+    Menu.setApplicationMenu(null);
 
     if (isDev) {
       mainWindow.webContents.openDevTools();
