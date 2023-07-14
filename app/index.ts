@@ -14,7 +14,6 @@ import os from "os";
 import {
   DEFAULT_PORT,
   elevate,
-  getBasePath,
   getCorePort,
   getTray,
   setCorePort,
