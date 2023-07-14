@@ -84,6 +84,17 @@ if (!gotTheLock) {
         )}?hub_address=127.0.0.1:${getCorePort()}`;
     await mainWindow.loadURL(url);
 
+    let menu = null;
+    if (os.platform() === "darwin") {
+      const items = Menu.getApplicationMenu()?.items.filter(
+        (item) => !["View", "Help", "Edit"].includes(item.label)
+      );
+      if (items) {
+        menu = Menu.buildFromTemplate(items);
+      }
+    }
+    Menu.setApplicationMenu(menu);
+
     if (isDev) {
       mainWindow.webContents.openDevTools();
     }
