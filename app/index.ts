@@ -70,18 +70,12 @@ if (!gotTheLock) {
       core = new Core();
     }
     if (!isDev) {
-      core.start();
+      await core.start();
     }
 
     const url = isDev
       ? "http://localhost:3001"
-      : `file://${path.join(
-          getBasePath(),
-          "core",
-          "web",
-          "dist",
-          "index.html"
-        )}?hub_address=127.0.0.1:${getCorePort()}`;
+      : `http://localhost:${getCorePort()}?hub_address=127.0.0.1:${getCorePort()}`;
     await mainWindow.loadURL(url);
 
     let menu = null;
