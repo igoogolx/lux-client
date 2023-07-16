@@ -27,7 +27,7 @@ export function EditV2rayPlugin(props: EditV2rayProps) {
       initialValues={initialValue}
       validationSchema={V2rayPluginSchema}
     >
-      {({ dirty, submitForm }) => {
+      {({  submitForm }) => {
         return (
           <>
             <Field name="mode" label={t(TRANSLATION_KEY.MODE)} />
@@ -45,7 +45,6 @@ export function EditV2rayPlugin(props: EditV2rayProps) {
               </Button>
               <Button
                 className={styles.button}
-                disabled={!dirty}
                 onClick={submitForm}
                 appearance="primary"
               >

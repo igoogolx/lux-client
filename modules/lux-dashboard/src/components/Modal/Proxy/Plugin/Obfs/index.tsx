@@ -38,7 +38,7 @@ export function EditObfsPlugin(props: EditObfsProps) {
       initialValues={initialValue}
       validationSchema={ObfsPluginSchema}
     >
-      {({ dirty, submitForm }) => {
+      {({ submitForm }) => {
         return (
           <>
             <Field name="host" label={t(TRANSLATION_KEY.HOST)} />
@@ -53,7 +53,6 @@ export function EditObfsPlugin(props: EditObfsProps) {
               </Button>
               <Button
                 className={styles.button}
-                disabled={!dirty}
                 onClick={submitForm}
                 appearance="primary"
               >
