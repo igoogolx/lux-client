@@ -17,6 +17,7 @@ export function EditV2rayPlugin(props: EditV2rayProps) {
   const { t } = useTranslation();
   const { close, initialValue, onChange } = props;
   const onSubmit = async (data: V2rayObfs) => {
+    console.log(data)
     onChange(data);
     close();
   };
@@ -27,7 +28,7 @@ export function EditV2rayPlugin(props: EditV2rayProps) {
       initialValues={initialValue}
       validationSchema={V2rayPluginSchema}
     >
-      {({  submitForm }) => {
+      {({ submitForm }) => {
         return (
           <>
             <Field name="mode" label={t(TRANSLATION_KEY.MODE)} />
