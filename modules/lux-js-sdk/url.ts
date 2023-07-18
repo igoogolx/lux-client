@@ -37,10 +37,6 @@ class UrlConfig {
     return `${this.httpPrefix}${this.baseUrl}/log`;
   }
 
-  get wsPing() {
-    return `${this.wsPrefix}${this.baseUrl}/ping`;
-  }
-
   get wsConnection() {
     return `${this.wsPrefix}${this.baseUrl}/connection`;
   }

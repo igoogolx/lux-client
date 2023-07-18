@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   lazy,
   Suspense,
-  useCallback,
   useEffect,
   useRef,
   useState,
@@ -11,18 +10,15 @@ import { Nav } from "@/components/Nav";
 import { Route, Routes } from "react-router-dom";
 import { NotificationContainer, notifier } from "@/components/Core";
 import { useDispatch } from "react-redux";
-import { getIsAdmin, getStatus, subscribeLog, subscribePing } from "lux-js-sdk";
+import { getIsAdmin, getStatus, ping, subscribeLog } from "lux-js-sdk";
 import { loggerSlice } from "@/reducers/logger";
 import { generalSlice } from "@/reducers/general";
 import { ElevateModal } from "@/components/Modal/ElevateModal";
 import axios from "axios";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import i18next from "i18next";
-import WsClient from "isomorphic-ws";
-import { delay } from "@/utils/delay";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import EditHubAddressModal from "@/components/Modal/EditHubAddressModal";
-import Splash from "@/components/Splash";
 import { ServerConfirmModal } from "@/components/Modal/ServerConfirmModal";
 import { managerSlice } from "@/reducers";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
@@ -42,7 +38,7 @@ axios.interceptors.response.use(
   }
 );
 
-const RECONNECT_TIMEOUT = 1000;
+const PING_TIMEOUT = 1000;
 
 const Home = lazy(() => import("@/components/pages/Home"));
 const Dashboard = lazy(() => import("@/components/pages/Dashboard"));
@@ -63,9 +59,8 @@ const useStyles = makeStyles({
 export function App(): JSX.Element {
   const dispatch = useDispatch();
   const [connected, setConnected] = useState(true);
-  const pingSubscriber = useRef<WsClient | null>(null);
-  const hasDisconnected = useRef(false);
-  const [loading, setLoading] = useState(true);
+
+  const timer = useRef<null|ReturnType<typeof setInterval>>(null)
 
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -77,26 +72,15 @@ export function App(): JSX.Element {
     );
   });
 
-  const createPingSubscriber = useCallback(() => {
-    pingSubscriber.current = subscribePing({
-      onMessage: () => {
-        if (hasDisconnected.current) {
-          window.location.reload();
-        }
-        setLoading(false);
-        setConnected(true);
-      },
-      onClose: async () => {
-        setConnected(false);
-        hasDisconnected.current = true;
-        await delay(RECONNECT_TIMEOUT);
-        console.log("Trying to reconnect ping");
-        createPingSubscriber();
-      },
-    });
-  }, []);
   useEffect(() => {
-    createPingSubscriber();
+    timer.current=setInterval(async ()=>{
+      try {
+        await ping()
+        setConnected(true)
+      }catch (e){
+       setConnected(false)
+      }
+    },PING_TIMEOUT)
     const logSubscriber = subscribeLog({
       onMessage: (m) => {
         dispatch(loggerSlice.actions.pushLog(m));
@@ -107,11 +91,8 @@ export function App(): JSX.Element {
     });
     return () => {
       logSubscriber.close();
-      if (pingSubscriber.current) {
-        pingSubscriber.current.close();
-      }
     };
-  }, [createPingSubscriber, dispatch]);
+  }, [ dispatch]);
   return (
     <div className={styles.wrapper} id={APP_CONTAINER_ID}>
       <NotificationContainer />
@@ -144,7 +125,6 @@ export function App(): JSX.Element {
           </div>
         </div>
         <div className={styles.content}>
-          {loading && <Splash />}
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Routes>
             <Route
