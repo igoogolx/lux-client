@@ -74,7 +74,7 @@ if (!gotTheLock) {
 
     const url = isDev
       ? "http://localhost:3001"
-      : `http://localhost:${getCorePort()}?hub_address=127.0.0.1:${getCorePort()}`;
+      : `http://localhost:${getCorePort()}}`;
     await mainWindow.loadURL(url);
 
     Menu.setApplicationMenu(null);
