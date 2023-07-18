@@ -1,6 +1,5 @@
 const getCoreAddress = () => {
-  const params = new URL(window.location.href).searchParams;
-  return params.get("hub_address") as string;
+  return window.location.host;
 };
 
 export type HubAddress = {
@@ -29,7 +28,7 @@ export function getHubAddress(): HubAddress {
   const hubAddress =
     (isDev
       ? process.env.HUB_ADDRESS
-      : getCoreAddress() || localStorage.getItem(HUB_ADDRESS_KEY)) || "";
+      : localStorage.getItem(HUB_ADDRESS_KEY)) || getCoreAddress()|| "";
 
   try {
     return parseAddress(hubAddress);
