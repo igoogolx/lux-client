@@ -1,7 +1,5 @@
 import * as React from "react";
 import {
-  lazy,
-  Suspense,
   useEffect,
   useRef,
   useState,
@@ -27,6 +25,12 @@ import { tokens } from "@fluentui/react-theme";
 import { Header } from "@/components/Header";
 import classNames from "classnames";
 import styles from "./index.module.css";
+import About from "@/components/pages/About";
+import Setting from "@/components/pages/Setting";
+import Logger from "@/components/pages/Logger";
+import Connections from "@/components/pages/Connections";
+import Dashboard from "@/components/pages/Dashboard";
+import Home from "@/components/pages/Home";
 
 axios.interceptors.response.use(
   (res) => res,
@@ -40,12 +44,6 @@ axios.interceptors.response.use(
 
 const PING_TIMEOUT = 1000;
 
-const Home = lazy(() => import("@/components/pages/Home"));
-const Dashboard = lazy(() => import("@/components/pages/Dashboard"));
-const Setting = lazy(() => import("@/components/pages/Setting"));
-const Connections = lazy(() => import("@/components/pages/Connections"));
-const Logger = lazy(() => import("@/components/pages/Logger"));
-const About = lazy(() => import("@/components/pages/About"));
 
 const useStyles = makeStyles({
   nav: {
@@ -130,49 +128,37 @@ export function App(): JSX.Element {
             <Route
               path={ROUTER_PATH.Home}
               element={
-                <Suspense fallback={<></>}>
-                  <Home />
-                </Suspense>
+                <Home />
               }
             />
             <Route
               path={ROUTER_PATH.Dashboard}
               element={
-                <Suspense fallback={<></>}>
-                  <Dashboard />
-                </Suspense>
+                <Dashboard />
               }
             />
             <Route
               path={ROUTER_PATH.Connections}
               element={
-                <Suspense fallback={<></>}>
                   <Connections />
-                </Suspense>
               }
             />
             <Route
               path={ROUTER_PATH.Logger}
               element={
-                <Suspense fallback={<></>}>
                   <Logger />
-                </Suspense>
               }
             />
             <Route
               path={ROUTER_PATH.Setting}
               element={
-                <Suspense fallback={<></>}>
                   <Setting />
-                </Suspense>
               }
             />
             <Route
               path={ROUTER_PATH.About}
               element={
-                <Suspense fallback={<></>}>
                   <About />
-                </Suspense>
               }
             />
           </Routes>
