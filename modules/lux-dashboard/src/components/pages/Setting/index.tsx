@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { settingSlice } from "@/reducers/setting";
 import { SettingForm } from "@/components/pages/Setting/Form";
 import styles from "./index.module.css";
+import Splash from "@/components/Splash";
 
 export default function Setting() {
   const dispatch = useDispatch();
@@ -19,5 +20,5 @@ export default function Setting() {
       });
   }, [dispatch]);
 
-  return <div className={styles.wrapper}>{!isLoading && <SettingForm />}</div>;
+  return <div className={styles.wrapper}>{isLoading ? <Splash/> : <SettingForm />}</div>;
 }
