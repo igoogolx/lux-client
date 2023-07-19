@@ -15,11 +15,8 @@ export class Core {
 
   private lastStatus = false;
 
-  private stoppedManually = false;
-
   stop() {
     if (this.manager) {
-      this.stoppedManually = true;
       this.manager.stop();
     }
   }
@@ -28,7 +25,6 @@ export class Core {
     if (this.manager) {
       return;
     }
-    this.stoppedManually = false;
     const args = [`-port=${getCorePort().toString()}`, `-check_elevated=false`];
     this.manager = new ProcessManager(getCorePath(), args);
     if (["darwin", "linux"].includes(os.platform())) {
@@ -45,14 +41,12 @@ export class Core {
       app.exit();
     };
     this.manager.onExit = () => {
-      if (!this.stoppedManually) {
-        new Notification({
-          title: "lux",
-          body: `lux_core has exited unexpectedly`,
-          icon: NotificationIcon,
-        }).show();
-        app.exit();
-      }
+      new Notification({
+        title: "lux",
+        body: `lux_core has exited unexpectedly`,
+        icon: NotificationIcon,
+      }).show();
+      app.exit();
     };
     init(`localhost:${getCorePort()}`);
     powerMonitor.on("suspend", async () => {

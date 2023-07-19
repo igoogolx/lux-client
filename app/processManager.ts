@@ -7,8 +7,6 @@ export class ProcessManager {
 
   private handleError: ((error: Error) => void) | null = null;
 
-  private handleClose: ((code: number) => void) | null = null;
-
   private handleExit: ((code: number) => void) | null = null;
 
   private runningProcess: ChildProcessWithoutNullStreams | null = null;
@@ -41,19 +39,12 @@ export class ProcessManager {
         resolve("");
         this.handleStdout?.(data.toString());
       });
-      this.runningProcess.on("close", (code) => {
-        logger.info(`core closed, code: ${code}`);
-        reject(new Error("process closed"));
-        if (code !== null) {
-          this.handleClose?.(code);
-        }
-      });
 
-      this.runningProcess.on("exit", (code) => {
+      this.runningProcess.on("close", (code) => {
         logger.info(`core exited, code: ${code}`);
         reject(new Error("process exited"));
         if (code !== null) {
-          this.handleClose?.(code);
+          this.handleExit?.(code);
         }
       });
       this.runningProcess.on("error", (code) => {
@@ -74,9 +65,5 @@ export class ProcessManager {
 
   set onExit(callback: (code: number) => void) {
     this.handleExit = callback;
-  }
-
-  set onClose(callback: (code: number) => void) {
-    this.handleClose = callback;
   }
 }
