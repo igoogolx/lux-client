@@ -124,7 +124,7 @@ export const EditShadowsocksModal = React.memo(
                 />
                 <FiledSelector
                   clearable
-                  value={pluginData.plugin}
+                  value={pluginData.plugin ? pluginData.plugin : NONE_ID}
                   name="plugin"
                   items={pluginOptions.current}
                   label={`${t(TRANSLATION_KEY.FORM_PLUGIN)}(${t(
