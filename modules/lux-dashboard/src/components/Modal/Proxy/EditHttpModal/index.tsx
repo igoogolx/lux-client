@@ -63,7 +63,7 @@ export function EditHttpModal(props: EditHttpModalProps) {
       initialValues={initialValue || INIT_DATA}
       validationSchema={HttpSchema}
     >
-      {({ dirty, submitForm }) => {
+      {({ isValid, submitForm }) => {
         return (
           <>
             <Field<keyof Http>
@@ -97,7 +97,7 @@ export function EditHttpModal(props: EditHttpModalProps) {
               </Button>
               <Button
                 className={styles.button}
-                disabled={!dirty || (isSelected && isStarted)}
+                disabled={!isValid || (isSelected && isStarted)}
                 onClick={submitForm}
                 appearance="primary"
               >

@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Field, Form } from "@/components/Core";
+import { Field, Form } from "@/components/Core";
 import { useDispatch, useSelector } from "react-redux";
 import { proxiesSlice, RootState } from "@/reducers";
 import { useTranslation } from "react-i18next";
@@ -63,7 +63,7 @@ export function EditSocks5Modal(props: EditSocks5ModalProps) {
       initialValues={initialValue || INIT_DATA}
       validationSchema={Socks5Schema}
     >
-      {({ dirty, submitForm }) => {
+      {({ isValid, submitForm }) => {
         return (
           <>
             <Field<keyof Socks5>
@@ -97,7 +97,7 @@ export function EditSocks5Modal(props: EditSocks5ModalProps) {
               </Button>
               <Button
                 className={styles.button}
-                disabled={!dirty || (isSelected && isStarted)}
+                disabled={!isValid || (isSelected && isStarted)}
                 onClick={submitForm}
                 appearance="primary"
               >

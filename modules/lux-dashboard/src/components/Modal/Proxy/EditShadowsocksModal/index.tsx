@@ -54,7 +54,6 @@ export const EditShadowsocksModal = React.memo(
     );
 
     const [editingPlugin, setEditingPlugin] = useState(false);
-    const [isPluginDirty, setIsPluginDirty] = useState(false);
 
     const initData = initialValue || INIT_DATA;
 
@@ -81,84 +80,86 @@ export const EditShadowsocksModal = React.memo(
       }
       close();
     };
+    return <div>
+      <div style={{display: editingPlugin ? 'block' : "none"}}>
+        <EditPlugin
+          type={pluginData.plugin}
+          initialValue={pluginData}
+          onSave={(data) => {
+            setPluginData(data);
+          }}
+          close={() => {
+            setEditingPlugin(false);
+            if (setPageStep) {
+              setPageStep(PageStepEnum.First);
+            }
+          }}
+        />
+      </div>
 
-    return editingPlugin ? (
-      <EditPlugin
-        type={pluginData.plugin}
-        initialValue={pluginData}
-        onSave={(data) => {
-          setIsPluginDirty(true)
-          setPluginData(data);
-        }}
-        close={() => {
-          setEditingPlugin(false);
-          if (setPageStep) {
-            setPageStep(PageStepEnum.First);
-          }
-        }}
-      />
-    ) : (
-      <Form
-        validationSchema={ShadowsocksSchema}
-        initialValues={initData}
-        onSubmit={onSubmit}
-      >
-        {({ dirty, submitForm, isValid, submitCount }) => {
-          return (
-            <div className={styles.container}>
-              <Field name="name" label={t(TRANSLATION_KEY.FORM_NAME)} />
-              <Field name="server" label={t(TRANSLATION_KEY.FORM_SERVER)} />
-              <FiledSelector
-                name="cipher"
-                items={methodsOptions.current}
-                label={t(TRANSLATION_KEY.FORM_ENCRYPTION)}
-              />
-              <Field
-                name="port"
-                label={t(TRANSLATION_KEY.FORM_PORT)}
-                type="number"
-              />
-              <PasswordFiled
-                name="password"
-                label={t(TRANSLATION_KEY.FORM_PASSWORD)}
-              />
-              <FiledSelector
-                clearable
-                value={pluginData.plugin}
-                name="plugin"
-                items={pluginOptions.current}
-                label={`${t(TRANSLATION_KEY.FORM_PLUGIN)}(${t(
-                  TRANSLATION_KEY.FORM_OPTIONAL
-                )})`}
-                editable
-                onEditClick={() => {
-                  setEditingPlugin(true);
-                  if (setPageStep) {
-                    setPageStep(PageStepEnum.Second);
-                  }
-                }}
-              />
-              <div className={styles.buttonContainer}>
-                <Button onClick={close} className={styles.button}>
-                  {t(TRANSLATION_KEY.FORM_CANCEL)}
-                </Button>
-                <Button
-                  className={styles.button}
-                  disabled={
-                    (!dirty && !isPluginDirty) ||
-                    (!isValid && submitCount > 0) ||
-                    (isSelected && isStarted)
-                  }
-                  onClick={submitForm}
-                  appearance="primary"
-                >
-                  {t(TRANSLATION_KEY.FORM_SAVE)}
-                </Button>
+      <div style={{display: !editingPlugin ? 'block' : "none"}}>
+        <Form
+          validationSchema={ShadowsocksSchema}
+          initialValues={initData}
+          onSubmit={onSubmit}
+        >
+          {({ submitForm, isValid }) => {
+            return (
+              <div className={styles.container}>
+                <Field name="name" label={t(TRANSLATION_KEY.FORM_NAME)} />
+                <Field name="server" label={t(TRANSLATION_KEY.FORM_SERVER)} />
+                <FiledSelector
+                  name="cipher"
+                  items={methodsOptions.current}
+                  label={t(TRANSLATION_KEY.FORM_ENCRYPTION)}
+                />
+                <Field
+                  name="port"
+                  label={t(TRANSLATION_KEY.FORM_PORT)}
+                  type="number"
+                />
+                <PasswordFiled
+                  name="password"
+                  label={t(TRANSLATION_KEY.FORM_PASSWORD)}
+                />
+                <FiledSelector
+                  clearable
+                  value={pluginData.plugin}
+                  name="plugin"
+                  items={pluginOptions.current}
+                  label={`${t(TRANSLATION_KEY.FORM_PLUGIN)}(${t(
+                    TRANSLATION_KEY.FORM_OPTIONAL
+                  )})`}
+                  editable
+                  onEditClick={() => {
+                    setEditingPlugin(true);
+                    if (setPageStep) {
+                      setPageStep(PageStepEnum.Second);
+                    }
+                  }}
+                />
+                <div className={styles.buttonContainer}>
+                  <Button onClick={close} className={styles.button}>
+                    {t(TRANSLATION_KEY.FORM_CANCEL)}
+                  </Button>
+                  <Button
+                    className={styles.button}
+                    disabled={
+                      !isValid ||
+                      (isSelected && isStarted)
+                    }
+                    onClick={submitForm}
+                    appearance="primary"
+                  >
+                    {t(TRANSLATION_KEY.FORM_SAVE)}
+                  </Button>
+                </div>
               </div>
-            </div>
-          );
-        }}
-      </Form>
-    );
+            );
+          }}
+        </Form>
+      </div>
+
+    </div>
   }
 );

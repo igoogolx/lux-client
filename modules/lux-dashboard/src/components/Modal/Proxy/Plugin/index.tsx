@@ -6,7 +6,6 @@ import {
   Shadowsocks,
   V2rayObfs,
 } from "lux-js-sdk";
-import { Modal } from "@/components/Core";
 import { Dropdown, Option, Text } from "@fluentui/react-components";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { useTranslation } from "react-i18next";
@@ -92,7 +91,7 @@ export function EditPlugin(props: EditPluginProps) {
     }
   }
   return (
-    <Modal close={close} hideCloseButton hideOkButton>
+    <div>
       <div className={styles.type}>
         <Text>{t(TRANSLATION_KEY.TYPE)}</Text>
         <Dropdown
@@ -113,6 +112,7 @@ export function EditPlugin(props: EditPluginProps) {
         </Dropdown>
       </div>
       {content}
-    </Modal>
+    </div>
+
   );
 }
