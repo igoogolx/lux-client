@@ -15,12 +15,6 @@ export class Core {
 
   private lastStatus = false;
 
-  stop() {
-    if (this.manager) {
-      this.manager.stop();
-    }
-  }
-
   start = async () => {
     if (this.manager) {
       return;

@@ -1,6 +1,5 @@
 import { ChildProcessWithoutNullStreams, spawn } from "child_process";
 import path from "path";
-import { logger } from "./logger";
 
 export class ProcessManager {
   private handleStdout: ((code: string) => void) | null = null;
@@ -20,12 +19,6 @@ export class ProcessManager {
     this.args = args;
   }
 
-  public stop() {
-    if (this.runningProcess) {
-      this.runningProcess.kill("SIGTERM");
-    }
-  }
-
   public async run() {
     return new Promise((resolve, reject) => {
       if (!this.filePath) {
@@ -40,15 +33,13 @@ export class ProcessManager {
         this.handleStdout?.(data.toString());
       });
 
-      this.runningProcess.on("close", (code) => {
-        logger.info(`core exited, code: ${code}`);
+      this.runningProcess.on("exit", (code) => {
         reject(new Error("process exited"));
         if (code !== null) {
           this.handleExit?.(code);
         }
       });
       this.runningProcess.on("error", (code) => {
-        logger.error(`core errored, code: ${code}`);
         reject(new Error("process errored"));
         this?.handleError?.(code);
       });

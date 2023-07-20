@@ -8,7 +8,6 @@ import {
   nativeTheme,
 } from "electron";
 import path from "path";
-import exitHook from "exit-hook";
 import getPort from "get-port";
 import os from "os";
 import {
@@ -21,6 +20,7 @@ import {
 import { Core } from "./core";
 
 const isWindows = process.platform === "win32";
+const isDev = process.env.NODE_ENV === "development";
 
 if (isWindows) {
   app.setAppUserModelId(app.name);
@@ -36,8 +36,6 @@ let mainWindow: BrowserWindow | null = null;
 if (!gotTheLock) {
   app.quit();
 } else {
-  const isDev = process.env.NODE_ENV === "development";
-
   const createWindow = async () => {
     if (!getCorePort()) {
       const corePort = await getPort({ port: DEFAULT_PORT });
@@ -174,10 +172,4 @@ ipcMain.handle("openDevTools", () => {
 
 ipcMain.handle("setNativeTheme", (event, theme) => {
   nativeTheme.themeSource = theme;
-});
-
-exitHook(() => {
-  if (core) {
-    core.stop();
-  }
 });
