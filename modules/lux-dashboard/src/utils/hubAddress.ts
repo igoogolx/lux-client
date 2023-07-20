@@ -28,7 +28,7 @@ export function getHubAddress(): HubAddress {
   const hubAddress =
     (isDev
       ? process.env.HUB_ADDRESS
-      : localStorage.getItem(HUB_ADDRESS_KEY)) || getCoreAddress()|| "";
+      : getCoreAddress() ) || "";
 
   try {
     return parseAddress(hubAddress);

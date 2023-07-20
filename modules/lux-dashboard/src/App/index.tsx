@@ -16,7 +16,7 @@ import axios from "axios";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import i18next from "i18next";
 import ThemeSwitch from "@/components/ThemeSwitch";
-import EditHubAddressModal from "@/components/Modal/EditHubAddressModal";
+import CheckHubAddressModal from "@/components/Modal/EditHubAddressModal";
 import { ServerConfirmModal } from "@/components/Modal/ServerConfirmModal";
 import { managerSlice } from "@/reducers";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
@@ -96,11 +96,7 @@ export function App(): JSX.Element {
       <NotificationContainer />
       <ServerConfirmModal />
       {!connected && (
-        <EditHubAddressModal
-          close={() => {
-            setConnected(true);
-          }}
-        />
+        <CheckHubAddressModal />
       )}
       <ElevateModal />
       <div className={styles.body}>
