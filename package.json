@@ -4,8 +4,8 @@
   "description": "A system network proxy tool",
   "main": "src/index.js",
   "scripts": {
-    "build": "webpack -c build/webpack.config.js --env NODE_ENV=production --mode production",
-    "electron-builder": "electron-builder --publish never --config builder.json  --config.extraMetadata.name lux",
+    "build": "webpack -c build/webpack.config.js --mode production --env NODE_ENV=production ",
+    "electron-builder": "electron-builder --publish never --config builder.json",
     "dev": "webpack -c build/webpack.config.js --env NODE_ENV=development --mode development",
     "start": "yarn dev && electron src/index.js",
     "make": "yarn build && yarn electron-builder",

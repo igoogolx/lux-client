@@ -10,6 +10,7 @@ import {
 import path from "path";
 import getPort from "get-port";
 import os from "os";
+import * as process from "process";
 import {
   DEFAULT_PORT,
   elevate,
@@ -72,7 +73,9 @@ if (!gotTheLock) {
 
     const url = isDev
       ? "http://localhost:3001"
-      : `http://localhost:${getCorePort()}`;
+      : `http://localhost:${getCorePort()}?client_version=${
+          process.env.CLIENT_VERSION
+        }`;
     await mainWindow.loadURL(url);
 
     Menu.setApplicationMenu(null);

@@ -1,5 +1,7 @@
 import pkg from "../../../../package.json";
 
 export const getVersion = () => {
-  return process.env.CLIENT_VERSION || pkg.version;
+  const params = new URL(window.location.href).searchParams;
+  const clientVersion =  (params.get("client_version")||"") as string;
+  return  clientVersion || pkg.version;
 };
