@@ -40,6 +40,7 @@ module.exports = (env) => {
     plugins: [
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(env.NODE_ENV),
+        "process.env.CLIENT_VERSION": JSON.stringify(env.CLIENT_VERSION),
       }),
     ],
     target: "electron-main",
