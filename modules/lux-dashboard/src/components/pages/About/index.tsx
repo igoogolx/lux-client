@@ -9,7 +9,6 @@ import { getVersion } from "@/utils/version";
 import { getVersion as getCoreVersion } from "lux-js-sdk";
 import {
   Button,
-  Display,
   Link,
   Text,
   Title1,
