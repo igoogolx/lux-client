@@ -81,22 +81,25 @@ export const EditShadowsocksModal = React.memo(
       close();
     };
     return <div>
-      <div style={{display: editingPlugin ? 'block' : "none"}}>
-        <EditPlugin
-          type={pluginData.plugin}
-          initialValue={pluginData}
-          onSave={(data) => {
-            setPluginData(data);
-          }}
-          close={() => {
-            setEditingPlugin(false);
-            if (setPageStep) {
-              setPageStep(PageStepEnum.First);
-            }
-          }}
-        />
-      </div>
-
+      {
+        editingPlugin ?
+          <div>
+            <EditPlugin
+              type={pluginData.plugin}
+              initialValue={pluginData}
+              onSave={(data) => {
+                setPluginData(data);
+              }}
+              close={() => {
+                setEditingPlugin(false);
+                if (setPageStep) {
+                  setPageStep(PageStepEnum.First);
+                }
+              }}
+            />
+          </div> :
+          null
+      }
       <div style={{display: !editingPlugin ? 'block' : "none"}}>
         <Form
           validationSchema={ShadowsocksSchema}
