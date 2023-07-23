@@ -58,13 +58,15 @@ export default function About(): JSX.Element {
       )}
       <Title1 as="h1">Lux</Title1>
       <div className={styles.desc}>
-        <Text>
-          {t(TRANSLATION_KEY.VERSION)}: {version}
-        </Text>
-        <Text>
-          {t(TRANSLATION_KEY.CORE_VERSION)}: {coreVersion}
-        </Text>
-        <div>
+        <div >
+          <Text className={styles.item}>
+            {t(TRANSLATION_KEY.VERSION)}: {version}
+          </Text>
+          <Text className={styles.item}>
+            {t(TRANSLATION_KEY.CORE_VERSION)}: {coreVersion}
+          </Text>
+        </div>
+        <div className={styles.item}>
           <Text>{t(TRANSLATION_KEY.REPOSITORY)}: </Text>
           <Button
             onClick={() => {
@@ -76,23 +78,26 @@ export default function About(): JSX.Element {
             <Link>{REPOSITORY_URL}</Link>
           </Button>
         </div>
-        <Button
-          onClick={onCheckForUpdate}
-          disabled={isCheckingUpdate}
-          appearance="primary"
-          className={styles.btn}
-        >
-          {t(TRANSLATION_KEY.CHECK_UPDATE)}
-        </Button>
-        {window.openDevTools && (
+        <div className={styles.item}>
           <Button
-            onClick={window.openDevTools}
+            onClick={onCheckForUpdate}
+            disabled={isCheckingUpdate}
             appearance="primary"
             className={styles.btn}
           >
-            {t(TRANSLATION_KEY.OPEN_DEV_TOOLS)}
+            {t(TRANSLATION_KEY.CHECK_UPDATE)}
           </Button>
-        )}
+          {window.openDevTools && (
+            <Button
+              onClick={window.openDevTools}
+              appearance="primary"
+              className={styles.btn}
+            >
+              {t(TRANSLATION_KEY.OPEN_DEV_TOOLS)}
+            </Button>
+          )}
+        </div>
+
       </div>
     </div>
   );
