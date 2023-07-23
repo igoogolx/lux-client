@@ -69,12 +69,12 @@ export const EditShadowsocksModal = React.memo(
       if (initialValue) {
         await updateProxy({
           id: value.id,
-          proxy: { ...value },
+          proxy: { ...value, ...pluginData },
         });
         dispatch(proxiesSlice.actions.updateOne({ proxy: {...value,...pluginData} }));
       } else {
         const { id } = await addProxy({
-          proxy: { ...value },
+          proxy: { ...value, ...pluginData },
         });
         dispatch(proxiesSlice.actions.addOne({ proxy: { ...value,...pluginData, id } }));
       }
