@@ -77,7 +77,7 @@ export default function About(): JSX.Element {
             <Link>{REPOSITORY_URL}</Link>
           </Button>
         </div>
-        <div className={styles.item}>
+        <div>
           <Button
             onClick={onCheckForUpdate}
             disabled={isCheckingUpdate}
