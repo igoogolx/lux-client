@@ -30,6 +30,11 @@ export const getConfigFileDir: GetConfigFileDir = async () => {
   return res.data.path;
 };
 
+export const getExecutablePath: GetConfigFileDir = async () => {
+  const res = await axios.get(`${urtConfig.setting}/executable-path`);
+  return res.data.path;
+};
+
 export const openConfigFileDir: OpenConfigFileDir = async () => {
   await axios.get(`${urtConfig.setting}/open-config-file-dir`);
 };

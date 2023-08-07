@@ -4,7 +4,7 @@ import { Modal } from "../Modal";
 
 type ConfirmModalPros = {
   title: string;
-  content: string;
+  content: React.ReactNode;
   cancelText?: string;
   confirmText?: string;
   onCancel?: () => void;

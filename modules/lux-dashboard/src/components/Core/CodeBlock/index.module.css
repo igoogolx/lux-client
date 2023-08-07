@@ -1,0 +1,8 @@
+.container{
+    @apply prose prose-slate relative;
+
+    .btn{
+        @apply absolute right-1 top-1/2 -translate-y-1/2;
+    }
+
+}

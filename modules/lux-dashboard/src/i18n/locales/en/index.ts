@@ -67,7 +67,7 @@ export default {
   [TRANSLATION_KEY.COPY_LOG_DIR_PATH]: "Copy log dir path",
   [TRANSLATION_KEY.ELEVATE_CORE]: "Elevate core",
   [TRANSLATION_KEY.ELEVATE_TIP]:
-    "The core is not run as admin. Confirm to elevate.",
+    "The core is not run as admin. Open terminal and copy following commands. Once it's finished, restart the app.",
   [TRANSLATION_KEY.CHECK_SERVER_NAME]: "Check server name",
   [TRANSLATION_KEY.DELETE_ALL_PROXIES_TIPS]:
     "Are you sure to delete all proxies?",
