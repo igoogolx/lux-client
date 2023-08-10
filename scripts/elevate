@@ -1,6 +1,0 @@
-#!/bin/sh
-app=$1
-
-chown root "$app"
-chmod  770 "$app"
-chmod  +sx "$app"

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { shellOpenExternal } from "@/clientContext";
 import { useTranslation } from "react-i18next";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { LATEST_RELEASE_URL, REPOSITORY_URL } from "@/utils/constants";
@@ -51,7 +50,7 @@ export default function About(): JSX.Element {
           }}
           confirmText={t(TRANSLATION_KEY.GO)}
           onConfirm={() => {
-            shellOpenExternal(LATEST_RELEASE_URL);
+            window.open(LATEST_RELEASE_URL);
           }}
         />
       )}
@@ -69,7 +68,7 @@ export default function About(): JSX.Element {
           <Text>{t(TRANSLATION_KEY.REPOSITORY)}: </Text>
           <Button
             onClick={() => {
-              shellOpenExternal(REPOSITORY_URL);
+              window.open(REPOSITORY_URL);
             }}
             appearance="transparent"
           >
