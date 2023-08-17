@@ -1,21 +1,18 @@
 import React, { useMemo, useState } from "react";
-import { getLogsDir, Log } from "lux-js-sdk";
+import { Log } from "lux-js-sdk";
 import { useSelector } from "react-redux";
 import { RootState } from "@/reducers";
 import {
-  notifier,
   PlacementEnum,
   Table,
   Tag,
   TagTypeEnum,
   Tooltip,
 } from "@/components/Core";
-import { isElectron, shellOpenPath } from "@/clientContext";
 import { useTranslation } from "react-i18next";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { TableColumnDefinition } from "@fluentui/react-table";
 import {
-  Button,
   createTableColumn,
   Input,
   TableCellLayout,
@@ -57,15 +54,6 @@ export default function Logger(): JSX.Element {
   const { t } = useTranslation();
   const logs = useSelector<RootState, Log[]>((state) => state.logger.logs);
   const [searchedValue, setSearchedValue] = useState("");
-  const onOpenLogDir = async () => {
-    const logDir = await getLogsDir();
-    if (isElectron) {
-      await shellOpenPath(logDir);
-    } else {
-      await navigator.clipboard.writeText(logDir);
-      notifier.success(t(TRANSLATION_KEY.COPY_LOG_DIR_PATH));
-    }
-  };
 
   const columns = useMemo<TableColumnDefinition<Log>[]>(() => {
     return [
@@ -152,9 +140,6 @@ export default function Logger(): JSX.Element {
           placeholder={t(TRANSLATION_KEY.SEARCH_LOG_TIP)}
           className={styles.input}
         />
-        <Button onClick={onOpenLogDir} className={styles.logBtn}>
-          {t(TRANSLATION_KEY.OPEN_LOG_DIR)}
-        </Button>
       </div>
       <Table
         columns={columns}

@@ -1,11 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { shellOpenExternal } from "@/clientContext";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { LATEST_RELEASE_URL, REPOSITORY_URL } from "@/utils/constants";
-import { ConfirmModal, notifier } from "@/components/Core";
-import checkForUpdate from "@/utils/checkForUpdate";
-import { getVersion } from "@/utils/version";
+import { ConfirmModal } from "@/components/Core";
 import { getVersion as getCoreVersion } from "lux-js-sdk";
 import {
   Button,
@@ -17,10 +14,8 @@ import styles from "./index.module.css";
 
 export default function About(): JSX.Element {
   const { t } = useTranslation();
-  const version = getVersion();
   const [coreVersion, setCoreVersion] = useState("");
   const [hasLatestVersion, setHasLatestVersion] = useState(false);
-  const [isCheckingUpdate, setIsCheckingUpdate] = useState(false);
 
   useEffect(() => {
     getCoreVersion().then((data) => {
@@ -28,18 +23,6 @@ export default function About(): JSX.Element {
     });
   }, []);
 
-  const onCheckForUpdate = useCallback(async () => {
-    try {
-      setIsCheckingUpdate(true);
-      const checkedResult = await checkForUpdate();
-      if (!checkedResult) {
-        notifier.info(t(TRANSLATION_KEY.NO_UPDATE_INFO));
-      }
-      setHasLatestVersion(checkedResult);
-    } finally {
-      setIsCheckingUpdate(false);
-    }
-  }, [t]);
   return (
     <div className={styles.container}>
       {hasLatestVersion && (
@@ -51,16 +34,13 @@ export default function About(): JSX.Element {
           }}
           confirmText={t(TRANSLATION_KEY.GO)}
           onConfirm={() => {
-            shellOpenExternal(LATEST_RELEASE_URL);
+            window.open(LATEST_RELEASE_URL);
           }}
         />
       )}
       <Title1 as="h1">Lux</Title1>
       <div className={styles.desc}>
         <div >
-          <Text className={styles.item}>
-            {t(TRANSLATION_KEY.VERSION)}: {version}
-          </Text>
           <Text className={styles.item}>
             {t(TRANSLATION_KEY.CORE_VERSION)}: {coreVersion}
           </Text>
@@ -69,7 +49,7 @@ export default function About(): JSX.Element {
           <Text>{t(TRANSLATION_KEY.REPOSITORY)}: </Text>
           <Button
             onClick={() => {
-              shellOpenExternal(REPOSITORY_URL);
+              window.open(REPOSITORY_URL);
             }}
             appearance="transparent"
           >
@@ -77,26 +57,6 @@ export default function About(): JSX.Element {
             <Link>{REPOSITORY_URL}</Link>
           </Button>
         </div>
-        <div>
-          <Button
-            onClick={onCheckForUpdate}
-            disabled={isCheckingUpdate}
-            appearance="primary"
-            className={styles.btn}
-          >
-            {t(TRANSLATION_KEY.CHECK_UPDATE)}
-          </Button>
-          {window.openDevTools && (
-            <Button
-              onClick={window.openDevTools}
-              appearance="primary"
-              className={styles.btn}
-            >
-              {t(TRANSLATION_KEY.OPEN_DEV_TOOLS)}
-            </Button>
-          )}
-        </div>
-
       </div>
     </div>
   );

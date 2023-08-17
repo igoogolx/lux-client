@@ -3,9 +3,8 @@ import { Modal } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { useTranslation } from "react-i18next";
 import { getHubAddress, stringAddress } from "@/utils/hubAddress";
-import { shellOpenExternal } from "@/clientContext";
 import { getRuntimeDetail, RuntimeDetail } from "lux-js-sdk";
-import { Button, Link, Subtitle2 } from "@fluentui/react-components";
+import { Subtitle2 } from "@fluentui/react-components";
 import styles from "./index.module.css";
 
 type RuntimeDetailModalProps = {
@@ -20,7 +19,7 @@ const TRANSLATION_KEY_MAP = {
   remoteDns: TRANSLATION_KEY.SETTING_SECONDARY_DNS,
   hubAddress: TRANSLATION_KEY.HUB_ADDRESS,
   boostDns: TRANSLATION_KEY.BOOST_DNS,
-  proxyServer: TRANSLATION_KEY.PROXY_SERVER,
+  proxyServer: TRANSLATION_KEY.PROXY_SERVER
 };
 
 export function RuntimeDetailModal(
@@ -50,19 +49,7 @@ export function RuntimeDetailModal(
             <div className={styles.item} key={key}>
               <Subtitle2>{`${t(TRANSLATION_KEY_MAP[key])}:`}</Subtitle2>
               <div className={styles.content}>
-                {key === "hubAddress" ? (
-                  <Button
-                    onClick={() => {
-                      shellOpenExternal(`http://${content}` as string);
-                    }}
-                    appearance="transparent"
-                  >
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <Link as="button">{content}</Link>
-                  </Button>
-                ) : (
-                  content
-                )}
+                {content}
               </div>
             </div>
           );
