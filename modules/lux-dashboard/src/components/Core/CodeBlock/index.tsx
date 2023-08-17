@@ -12,7 +12,7 @@ export default function CodeBlock(props: CodeBlockProps) {
 
   return <article className={styles.container}>
     <Button icon={<CopyRegular />} className={styles.btn} onClick={async () => {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(text.replace("\n", "&&"));
     }} />
     <pre>
     <code>
