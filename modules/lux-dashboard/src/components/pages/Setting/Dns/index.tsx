@@ -59,8 +59,8 @@ export default function Dns() {
   };
 
   const hasDoh =
-    setting.dns.remote.startsWith("https") ||
-    setting.dns.local.startsWith("https");
+    setting.dns.remote.value.startsWith("https") ||
+    setting.dns.local.value.startsWith("https");
 
   return (
     <Card className={styles.card}>
@@ -71,11 +71,14 @@ export default function Dns() {
         </div>
         <Dropdown
           disabled={isStarted}
-          value={setting.dns.remote}
+          value={setting.dns.remote.value}
           onOptionSelect={(e, data) => {
             onSubmit({
               ...setting.dns,
-              remote: data.optionValue as string,
+              remote: {
+                ...setting.dns.remote,
+                value: data.optionValue as string
+              },
             });
           }}
         >
@@ -93,11 +96,14 @@ export default function Dns() {
         </div>
         <Dropdown
           disabled={isStarted}
-          value={setting.dns.local}
+          value={setting.dns.local.value}
           onOptionSelect={(e, data) => {
             onSubmit({
               ...setting.dns,
-              local: data.optionValue as string,
+              local: {
+                ...setting.dns.boost,
+                value: data.optionValue as string
+              },
             });
           }}
         >
@@ -117,11 +123,14 @@ export default function Dns() {
           </div>
           <Dropdown
             disabled={isStarted}
-            value={setting.dns.boost}
+            value={setting.dns.boost.value}
             onOptionSelect={(e, data) => {
               onSubmit({
                 ...setting.dns,
-                boost: data.optionValue as string,
+                boost: {
+                  ...setting.dns.boost,
+                  value: data.optionValue as string
+                },
               });
             }}
           >

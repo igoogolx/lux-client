@@ -1,8 +1,13 @@
+type DnsServer = {
+  value: string;
+  type: "builtIn" | "custom";
+};
+
 export type SettingRes = {
   dns: {
-    boost: string;
-    remote: string;
-    local: string;
+    boost: DnsServer;
+    remote: DnsServer;
+    local: DnsServer;
   };
   defaultInterface: string;
   trueProxyServer: string;
