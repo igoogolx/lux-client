@@ -1,80 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "@/components/pages/Setting/index.module.css";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Caption1, Card, Subtitle2 } from "@fluentui/react-components";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, settingSlice } from "@/reducers";
-import {
-  getRuntimeOS,
-  getSettingInterfaces,
-  setSetting,
-  SettingRes,
-} from "lux-js-sdk";
-import { MenuItemProps, notifier } from "@/components/Core";
-import EditItemWithDialog from "modules/lux-dashboard/src/components/Core/EditItemWithDialog";
+import { Caption1, Subtitle2 } from "@fluentui/react-components";
+import { useSelector } from "react-redux";
+import { RootState } from "@/reducers";
+import { MenuItemProps } from "@/components/Core";
+import EditItemWithSelectDialog, { DnsTypeEnum } from "@/components/Core/EditItemWithSelectDialog";
 
-export default function EditDnsItem() {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
+type EditDnsItemProps = {
+  items: MenuItemProps[],
+  value: string,
+  type: DnsTypeEnum,
+  onSubmit: (data: {
+    value: string, type: DnsTypeEnum
+  }) => void,
+  title: string,
+  desc: string
+}
+
+export default function EditDnsItem(props: EditDnsItemProps) {
+  const { items, value, onSubmit, title, desc, type } = props;
   const [openModal, setOpenModal] = useState(false);
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared || state.manager.isLoading
   );
 
-  const setting = useSelector<RootState, SettingRes>((state) => state.setting);
-
-  const onSubmit = async (value: string) => {
-    const newSetting = { ...setting, defaultInterface: value };
-    await setSetting(newSetting);
-    dispatch(settingSlice.actions.setSetting(newSetting));
-    setOpenModal(false);
-    notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
-  };
-
-  const [networkInterfaces, setNetworkInterfaces] = useState<MenuItemProps[]>(
-    []
-  );
-
-  useEffect(() => {
-    (async function () {
-      const { os } = await getRuntimeOS();
-      // TODO: optimize
-      getSettingInterfaces().then((items) => {
-        const filteredItems = items.filter((item) => {
-          if (os === "darwin") return item.Name.startsWith("en");
-          return true;
-        });
-        const newInterfaces = [...filteredItems].map((item) => ({
-          id: item.Name,
-          content: item.Name,
-        }));
-        setNetworkInterfaces(newInterfaces);
-      });
-    })();
-  }, []);
-
   return (
-    <Card className={styles.card}>
-      <div className={styles.cardItem}>
-        <div className={styles.desc}>
-          <Subtitle2>{t(TRANSLATION_KEY.DEFAULT_INTERFACE)}</Subtitle2>
-          <Caption1>{t(TRANSLATION_KEY.DEFAULT_INTERFACE_TOOLTIP)}</Caption1>
-        </div>
-        <EditItemWithDialog
-          title="Edit the default interface name"
-          open={openModal}
-          setOpen={setOpenModal}
-          onSubmit={(value) => {
-            onSubmit(value);
-          }}
-          value={setting.defaultInterface}
-          disabled={isStarted}
-          type="selector"
-          selectorItems={networkInterfaces}
-        />
+    <div className={styles.cardItem}>
+      <div className={styles.desc}>
+        <Subtitle2>{title}</Subtitle2>
+        <Caption1>{desc}</Caption1>
       </div>
-    </Card>
+      <EditItemWithSelectDialog
+        title={title}
+        open={openModal}
+        setOpen={setOpenModal}
+        onSubmit={(value) => {
+          onSubmit(value);
+        }}
+        value={value}
+        disabled={isStarted}
+        selectorItems={items}
+        type={type}
+      />
+    </div>
   );
 }

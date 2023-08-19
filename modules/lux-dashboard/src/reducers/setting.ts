@@ -5,18 +5,27 @@ const initialState: SettingRes = {
   defaultInterface: "",
   trueProxyServer: "",
   localServer: {
-    http: { enabled: false, port: 0 },
+    http: { enabled: false, port: 0 }
   },
   dns: {
-    remote: "",
-    local: "",
-    boost: "",
+    remote: {
+      type: "builtIn",
+      value: ""
+    },
+    local: {
+      type: "builtIn",
+      value: ""
+    },
+    boost: {
+      type: "builtIn",
+      value: ""
+    }
   },
   autoMode: {
     enabled: false,
     url: "https://google.com",
-    type: "url-test",
-  },
+    type: "url-test"
+  }
 };
 
 export const settingSlice = createSlice({
@@ -25,6 +34,6 @@ export const settingSlice = createSlice({
   reducers: {
     setSetting(state, action: PayloadAction<SettingRes>) {
       return action.payload;
-    },
-  },
+    }
+  }
 });

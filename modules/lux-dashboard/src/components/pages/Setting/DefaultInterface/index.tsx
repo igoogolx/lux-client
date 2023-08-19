@@ -12,7 +12,7 @@ import {
   SettingRes,
 } from "lux-js-sdk";
 import { MenuItemProps, notifier } from "@/components/Core";
-import EditItemWithDialog from "modules/lux-dashboard/src/components/Core/EditItemWithDialog";
+import EditItemWithDialog from "@/components/Core/EditItemWithDialog";
 
 export default function DefaultInterface() {
   const { t } = useTranslation();

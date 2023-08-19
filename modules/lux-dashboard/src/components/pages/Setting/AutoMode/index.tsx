@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, settingSlice } from "@/reducers";
 import { setSetting, SettingRes } from "lux-js-sdk";
 import { notifier } from "@/components/Core";
-import EditItemWithDialog from "modules/lux-dashboard/src/components/Core/EditItemWithDialog";
+import EditItemWithDialog from "@/components/Core/EditItemWithDialog";
 
 export default function AutoMode() {
   const { t } = useTranslation();
