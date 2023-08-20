@@ -120,7 +120,7 @@ export default function EditItemWithSelectDialog(props: EditItemWithSelectDialog
                   required
                   value={editedValue}
                   onChange={(e) => {
-                    setEditedValue(e.target.value);
+                    setEditedValue(e.target.value.trim());
                   }}
                   className={styles.input}
                 />

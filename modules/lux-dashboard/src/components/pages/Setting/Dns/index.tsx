@@ -57,7 +57,6 @@ export default function Dns() {
   return (
     <Card className={styles.card}>
       <EditDnsItem
-
         type={setting.dns.remote.type as DnsTypeEnum}
         items={remoteDnsOptions.current} value={setting.dns.remote.value} onSubmit={(data) => {
         onSubmit({
