@@ -2,7 +2,6 @@ export * from "./Button";
 export * from "./Modal";
 export * from "./Dot";
 export * from "./Icon";
-export * from "./Input";
 export * from "./Menu";
 export * from "./Popover";
 export * from "./Switch";
