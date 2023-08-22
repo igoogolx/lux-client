@@ -131,7 +131,7 @@ export default function EditItemWithSelectDialog(props: EditItemWithSelectDialog
               <Button appearance="secondary">{t(TRANSLATION_KEY.CLOSE)}</Button>
             </DialogTrigger>
             <Button
-              disabled={!!editedValue.length}
+              disabled={!editedValue.length}
               appearance="primary"
               onClick={() => {
                 onSubmit({ value: editedValue, type: curType });
