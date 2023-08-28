@@ -85,15 +85,6 @@ export default function About(): JSX.Element {
           >
             {t(TRANSLATION_KEY.CHECK_UPDATE)}
           </Button>
-          {window.openDevTools && (
-            <Button
-              onClick={window.openDevTools}
-              appearance="primary"
-              className={styles.btn}
-            >
-              {t(TRANSLATION_KEY.OPEN_DEV_TOOLS)}
-            </Button>
-          )}
         </div>
 
       </div>

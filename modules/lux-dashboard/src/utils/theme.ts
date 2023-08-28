@@ -18,5 +18,4 @@ export const getTheme = (): ThemeEnum => {
 
 export const setTheme = (theme: ThemeEnum) => {
   localStorage.setItem("theme", theme);
-  window?.setClientTheme?.(theme);
 };
