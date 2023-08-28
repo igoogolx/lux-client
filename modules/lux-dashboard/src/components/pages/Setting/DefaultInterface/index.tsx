@@ -63,7 +63,7 @@ export default function DefaultInterface() {
           <Caption1>{t(TRANSLATION_KEY.DEFAULT_INTERFACE_TOOLTIP)}</Caption1>
         </div>
         <EditItemWithDialog
-          title="Edit the default interface name"
+          title={t(TRANSLATION_KEY.EDIT_INTERFACE_TITLE)}
           open={openModal}
           setOpen={setOpenModal}
           onSubmit={(value) => {

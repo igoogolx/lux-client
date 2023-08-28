@@ -94,7 +94,7 @@ export default function AutoMode() {
             </div>
             <EditItemWithDialog
               disabled={isStarted}
-              title="Edit testing url"
+              title={t(TRANSLATION_KEY.EDIT_TESTING_URL)}
               open={openModal}
               setOpen={setOpenModal}
               onSubmit={(value) => {

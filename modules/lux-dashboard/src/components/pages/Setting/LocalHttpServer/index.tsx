@@ -62,7 +62,7 @@ export default function LocalHttpServer() {
             <Caption1>{t(TRANSLATION_KEY.HTTP_SERVER_PORT_DESC)}</Caption1>
           </div>
           <EditItemWithDialog
-            title="Edit the local http server port"
+            title={t(TRANSLATION_KEY.EDIT_LOCAL_HTTP_SERVER_TITLE)}
             inputType="number"
             open={openModal}
             setOpen={setOpenModal}

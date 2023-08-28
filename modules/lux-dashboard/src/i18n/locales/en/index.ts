@@ -139,6 +139,10 @@ export default {
   [TRANSLATION_KEY.CHECK_HUB_ADDRESS]: "Check hub address",
   [TRANSLATION_KEY.CORE_VERSION]: "Core Version",
   [TRANSLATION_KEY.HTTP]: "Http",
+  [TRANSLATION_KEY.EDIT_INTERFACE_TITLE]: "Edit the default interface name",
+  [TRANSLATION_KEY.EDIT_PROXY_SERVER_TITLE]: "Edit the true proxy server",
+  [TRANSLATION_KEY.EDIT_TESTING_URL]: "Edit testing url",
+  [TRANSLATION_KEY.EDIT_LOCAL_HTTP_SERVER_TITLE]: "Edit the true proxy server",
   [TRANSLATION_KEY.SEARCH_CONNECTION_TIP]:
     "Type a destination, process or domain to search",
 };

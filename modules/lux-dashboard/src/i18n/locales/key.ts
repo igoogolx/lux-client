@@ -125,4 +125,8 @@ export const TRANSLATION_KEY = {
   PROXY_GFW_RULE: "proxy_gfw",
   CHECK_HUB_ADDRESS: "check_hub_address",
   SEARCH_CONNECTION_TIP: "search_connection_tip",
+  EDIT_INTERFACE_TITLE: "edit_interface_title",
+  EDIT_PROXY_SERVER_TITLE: "edit_proxy_server_title",
+  EDIT_TESTING_URL: "edit_testing_url",
+  EDIT_LOCAL_HTTP_SERVER_TITLE: "edit_local_http_server_title",
 };

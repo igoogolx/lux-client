@@ -34,7 +34,7 @@ export default function TrueProxyServer() {
           <Caption1>{t(TRANSLATION_KEY.TRUE_PROXY_SERVER_TOOLTIPS)}</Caption1>
         </div>
         <EditItemWithDialog
-          title="Edit the true proxy server"
+          title={t(TRANSLATION_KEY.EDIT_PROXY_SERVER_TITLE)}
           open={openModal}
           setOpen={setOpenModal}
           onSubmit={(value) => {
