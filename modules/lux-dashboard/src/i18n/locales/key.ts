@@ -113,7 +113,6 @@ export const TRANSLATION_KEY = {
   SEARCH_LOG_TIP: "search_log_tip",
   NEW_VERSION_INFO: "new_version_info",
   CHECK_UPDATE: "check_update",
-  OPEN_DEV_TOOLS: "open_dev_tools",
   CONFIRM: "confirm",
   GO: "go",
   OK: "ok",
