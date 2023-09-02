@@ -74,6 +74,6 @@ export default function Dashboard(): React.ReactNode {
       <TrafficCard speed={speed} total={total} />
     </div>
   ) : (
-    <></>
+    ""
   );
 }

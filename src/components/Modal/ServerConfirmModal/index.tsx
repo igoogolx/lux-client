@@ -51,6 +51,6 @@ export function ServerConfirmModal(): React.ReactNode {
       closeWhenClickOutside={false}
     />
   ) : (
-    <></>
+    ""
   );
 }
