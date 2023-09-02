@@ -5,7 +5,7 @@ import { Field, Form, Modal } from "../../Core";
 import { getHubAddress, HubAddress } from "../../../utils/hubAddress";
 import styles from "./index.module.css";
 
-export default function CheckHubAddressModal(): JSX.Element {
+export default function CheckHubAddressModal(): React.ReactNode {
   const { t } = useTranslation();
 
   const onSubmit = () => {

@@ -30,7 +30,7 @@ import styles from "./index.module.css";
 
 const TIMER_INTERVAL = 1000;
 
-export function Header(): JSX.Element {
+export function Header(): React.ReactNode {
   const { t } = useTranslation();
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared

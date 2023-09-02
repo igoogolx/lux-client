@@ -9,7 +9,7 @@ import checkForUpdate from "../../../utils/checkForUpdate";
 import { getVersion } from "../../../utils/version";
 import styles from "./index.module.css";
 
-export default function About(): JSX.Element {
+export default function About(): React.ReactNode {
   const { t } = useTranslation();
   const version = getVersion();
   const [coreVersion, setCoreVersion] = useState("");

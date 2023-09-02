@@ -10,7 +10,7 @@ type DeleteAllProxiesConfirmModalProps = {
 
 export function DeleteAllProxiesConfirmModal(
   props: DeleteAllProxiesConfirmModalProps
-): JSX.Element {
+): React.ReactNode {
   const { onConfirm, onClose } = props;
   const { t } = useTranslation();
 

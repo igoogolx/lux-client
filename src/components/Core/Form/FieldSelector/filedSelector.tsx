@@ -19,7 +19,7 @@ type FieldSelectorProps<T extends string> = {
 
 export function FiledSelector<T extends string>(
   props: FieldSelectorProps<T>
-): JSX.Element {
+): React.ReactNode {
   const {
     name,
     label,

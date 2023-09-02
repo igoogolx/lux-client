@@ -18,7 +18,7 @@ type TooltipProps = {
   className?: string;
 };
 
-export function Tooltip(props: TooltipProps): JSX.Element {
+export function Tooltip(props: TooltipProps): React.ReactNode {
   const {
     children,
     content,

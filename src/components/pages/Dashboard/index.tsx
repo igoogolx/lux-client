@@ -31,7 +31,7 @@ Chart.register(
   CategoryScale
 );
 
-export default function Dashboard(): JSX.Element {
+export default function Dashboard(): React.ReactNode {
   const speed = useSelector<RootState, Speed>((state) => {
     const result: Speed = {
       proxy: [],

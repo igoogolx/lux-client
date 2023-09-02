@@ -11,7 +11,7 @@ type DotProps = {
   type?: DotTypeEnum;
 };
 
-export function Dot(props: DotProps): JSX.Element {
+export function Dot(props: DotProps): React.ReactNode {
   const { className, type = DotTypeEnum.Disabled } = props;
   return <div className={classNames(className, styles[type])} />;
 }

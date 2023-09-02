@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 type NavProps = {
   onClick: () => void;
 };
-export function Nav(props: NavProps): JSX.Element {
+export function Nav(props: NavProps): React.ReactNode {
   const { onClick } = props;
 
   const { t } = useTranslation();

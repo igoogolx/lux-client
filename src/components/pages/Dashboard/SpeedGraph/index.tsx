@@ -72,7 +72,7 @@ type SpeedGraphProps = {
   data: { proxy: TrafficItem[]; direct: TrafficItem[] };
 };
 
-export function SpeedGraph(props: SpeedGraphProps): JSX.Element {
+export function SpeedGraph(props: SpeedGraphProps): React.ReactNode {
   const { data } = props;
 
   const [chartRef, chart] = useChartJs(getConfiguration());

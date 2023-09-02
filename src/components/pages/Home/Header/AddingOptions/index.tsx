@@ -31,7 +31,7 @@ type AddingOptionsProps = {
   className?: string;
 };
 
-export function AddingOptions(props: AddingOptionsProps): JSX.Element {
+export function AddingOptions(props: AddingOptionsProps): React.ReactNode {
   const { className } = props;
   const { t } = useTranslation();
   const [currentAddingType, setCurrentAddingType] =

@@ -18,7 +18,7 @@ function getCurrent(items: TrafficItem[]) {
   return items.length ? items[items.length - 1] : { upload: 0, download: 0 };
 }
 
-export function TrafficCard(props: TrafficCardProps): JSX.Element {
+export function TrafficCard(props: TrafficCardProps): React.ReactNode {
   const { speed, total } = props;
   const currentProxy = getCurrent(speed.proxy);
   const currentDirect = getCurrent(speed.direct);

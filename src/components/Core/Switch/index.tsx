@@ -9,7 +9,7 @@ export type SwitchProps = {
   onClick: () => void;
 };
 
-export function Switch(props: SwitchProps): JSX.Element {
+export function Switch(props: SwitchProps): React.ReactNode {
   const { checked, onClick, disabled = false } = props;
 
   const toggle = useRef<HTMLLabelElement | null>(null);

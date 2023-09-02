@@ -30,7 +30,7 @@ enum OperationTypeEnum {
   DeleteAllProxies = "2",
 }
 
-export function Operation(): JSX.Element {
+export function Operation(): React.ReactNode {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [isRuntimeDetailOpen, setIsRuntimeDetailOpen] = useState(false);

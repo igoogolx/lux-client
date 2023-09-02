@@ -47,7 +47,7 @@ const useStyles = makeStyles({
   },
 });
 
-export function App(): JSX.Element {
+export function App(): React.ReactNode {
   const dispatch = useDispatch();
   const [connected, setConnected] = useState(true);
 

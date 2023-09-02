@@ -14,7 +14,7 @@ type TagProps = {
   value: string;
 };
 
-function Tag(props: TagProps): JSX.Element {
+function Tag(props: TagProps): React.ReactNode {
   const { type, value } = props;
   return (
     <div className={classNames(styles.base, styles[type])}>

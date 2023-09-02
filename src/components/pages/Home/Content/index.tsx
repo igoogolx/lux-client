@@ -25,7 +25,7 @@ import { DelayTag } from "./ProxyCard/DelayTag";
 import { Table } from "../../../Core";
 import styles from "./index.module.css";
 
-export function Content(): JSX.Element {
+export function Content(): React.ReactNode {
   const proxies = useSelector(proxiesSelectors.selectAll);
   const selectedId = useSelector<RootState, string>(
     (state) => state.selected.proxy

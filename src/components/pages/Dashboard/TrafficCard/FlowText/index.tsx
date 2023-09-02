@@ -12,7 +12,7 @@ type FlowTextProps = {
   type?: FlowTextTypeEnum;
 };
 
-export function FlowText(props: FlowTextProps): JSX.Element {
+export function FlowText(props: FlowTextProps): React.ReactNode {
   const { value, type = FlowTextTypeEnum.Speed } = props;
   const { value: convertedValue, unit } = convertByte(value);
   return (

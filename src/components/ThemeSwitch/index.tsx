@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ThemeSwitch(): JSX.Element {
+export default function ThemeSwitch(): React.ReactNode {
   const { theme: currentTheme, setTheme: setCurrentTheme } = useContext(
     ThemeContext
   ) as ThemeContextType;

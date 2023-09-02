@@ -6,7 +6,7 @@ import { TRANSLATION_KEY } from "../../../i18n/locales/key";
 import { proxiesSelectors, RootState } from "../../../reducers";
 import { ConfirmModal } from "../../Core";
 
-export function ServerConfirmModal(): JSX.Element {
+export function ServerConfirmModal(): React.ReactNode {
   const { t } = useTranslation();
   const [isInvalid, setIsInvalid] = useState(false);
   const selectedProxyId = useSelector<RootState, string>(

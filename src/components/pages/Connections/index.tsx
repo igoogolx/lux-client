@@ -74,13 +74,13 @@ function LoadTag(props: { value: number }): string {
   return `${convertedValue} ${unit}`;
 }
 
-function StartTag(props: { value: number }): JSX.Element {
+function StartTag(props: { value: number }): React.ReactNode {
   const { value } = props;
   const duration = new Date().getTime() - value;
   return <>{convertDuration(duration)}</>;
 }
 
-export default function Connections(): JSX.Element {
+export default function Connections(): React.ReactNode {
   const { t } = useTranslation();
   const [conns, setConns] = useState<Conn[]>([]);
   const [total, setTotal] = useState<{
