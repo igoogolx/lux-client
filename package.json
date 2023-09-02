@@ -4,8 +4,7 @@
   "description": "A system network proxy tool",
   "main": "src/index.js",
   "scripts": {
-    "format": "prettier ./app -write",
-    "lint-fix": "yarn format && eslint --ext .ts,.tsx --fix app",
+    "lint-fix": "eslint --ext .ts,.tsx --fix src",
     "dev": "webpack serve -c build/webpack.ui.config.js --env NODE_ENV=development --mode development --hot --open",
     "build": "webpack -c build/webpack.ui.config.js --env NODE_ENV=production --mode production"
   },
