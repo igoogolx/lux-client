@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
-import { addProxy, ProxyTypeEnum, Http, updateProxy } from "lux-js-sdk";
+import { addProxy, Http, ProxyTypeEnum, updateProxy } from "lux-js-sdk";
 import { Button } from "@fluentui/react-components";
 import { MAX_PORT, MIN_PORT } from "../../../../utils/validator";
 import { TRANSLATION_KEY } from "../../../../i18n/locales/key";

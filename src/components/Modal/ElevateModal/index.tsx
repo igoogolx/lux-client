@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getExecutablePath } from "lux-js-sdk";
 import { TRANSLATION_KEY } from "../../../i18n/locales/key";
@@ -9,12 +9,11 @@ import CodeBlock from "../../Core/CodeBlock";
 
 const CORE_PATH_VAR = "LUX_CORE_PATH";
 
-export function ElevateModal(): JSX.Element {
+export function ElevateModal(): ReactNode {
   const { t } = useTranslation();
   const isAdmin = useSelector<RootState, boolean>(
     (state) => state.general.isAdmin
   );
-  const [isLoading, setIsLoading] = useState(false);
   const [corePath, setCorePath] = useState("");
 
   useEffect(() => {
@@ -35,9 +34,8 @@ export function ElevateModal(): JSX.Element {
         </div>
       }
       closeWhenClickOutside={false}
-      loading={isLoading}
     />
   ) : (
-    <></>
+    ""
   );
 }

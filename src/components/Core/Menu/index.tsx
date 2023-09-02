@@ -1,7 +1,7 @@
 import classNames from "classnames";
+import * as React from "react";
 import { RefObject, useCallback, useMemo } from "react";
 import { FixedSizeList as List } from "react-window";
-import * as React from "react";
 import { MenuItemSlots } from "@fluentui/react-components";
 import styles from "./index.module.css";
 import { Icon, IconProps } from "../Icon";

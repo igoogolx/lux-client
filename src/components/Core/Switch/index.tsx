@@ -1,6 +1,6 @@
 import * as React from "react";
-import classNames from "classnames";
 import { useRef } from "react";
+import classNames from "classnames";
 import styles from "./index.module.css";
 
 export type SwitchProps = {

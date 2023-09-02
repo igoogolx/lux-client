@@ -10,10 +10,10 @@ import {
 import { useTranslation } from "react-i18next";
 import { TableColumnDefinition } from "@fluentui/react-table";
 import {
-  createTableColumn,
-  TableCellLayout,
   Button,
+  createTableColumn,
   Input,
+  TableCellLayout,
   Tooltip,
 } from "@fluentui/react-components";
 import { DeleteRegular, SearchRegular } from "@fluentui/react-icons";
@@ -68,10 +68,10 @@ const getProcess = (name: string, os: string) => {
 };
 
 // TODO: move
-function LoadTag(props: { value: number }): JSX.Element {
+function LoadTag(props: { value: number }): string {
   const { value } = props;
   const { value: convertedValue, unit } = convertByte(value);
-  return <>{`${convertedValue} ${unit}`}</>;
+  return `${convertedValue} ${unit}`;
 }
 
 function StartTag(props: { value: number }): JSX.Element {

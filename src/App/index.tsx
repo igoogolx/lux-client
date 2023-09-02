@@ -10,7 +10,7 @@ import { tokens } from "@fluentui/react-theme";
 import classNames from "classnames";
 import { Nav } from "@/components/Nav";
 import { NotificationContainer, notifier } from "@/components/Core";
-import { loggerSlice, generalSlice, managerSlice } from "@/reducers";
+import { generalSlice, loggerSlice, managerSlice } from "@/reducers";
 import { ElevateModal } from "@/components/Modal/ElevateModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { ServerConfirmModal } from "@/components/Modal/ServerConfirmModal";

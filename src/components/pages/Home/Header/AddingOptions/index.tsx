@@ -10,13 +10,12 @@ import {
   MenuList,
   MenuPopover,
   MenuTrigger,
-  Tooltip,
 } from "@fluentui/react-components";
 import { AddFilled } from "@fluentui/react-icons";
-import { proxiesSlice } from "../../../../../reducers";
+import { proxiesSlice } from "@/reducers";
+import { decode } from "@/utils/url/shadowsocks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { EditModal } from "../../../../Modal/Proxy";
-import { decode } from "../../../../../utils/url/shadowsocks";
-import { TRANSLATION_KEY } from "../../../../../i18n/locales/key";
 import ClashConfigUrlModal from "../../../../Modal/ClashConfigUrlModal";
 
 enum OperationTypeEnum {

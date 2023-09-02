@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Switch, Subtitle2, Caption1 } from "@fluentui/react-components";
+import { Caption1, Card, Subtitle2, Switch } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { setSetting, SettingRes } from "lux-js-sdk";

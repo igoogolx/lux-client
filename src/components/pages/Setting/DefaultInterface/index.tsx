@@ -8,8 +8,8 @@ import {
   setSetting,
   SettingRes,
 } from "lux-js-sdk";
-import { RootState, settingSlice } from "../../../../reducers";
-import { TRANSLATION_KEY } from "../../../../i18n/locales/key";
+import { RootState, settingSlice } from "@/reducers";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import styles from "../index.module.css";
 import { MenuItemProps, notifier } from "../../../Core";
 import EditItemWithDialog from "../../../Core/EditItemWithDialog";
@@ -37,22 +37,24 @@ export default function DefaultInterface() {
     []
   );
 
-  useEffect(() => {
-    (async function () {
-      const { os } = await getRuntimeOS();
-      // TODO: optimize
-      getSettingInterfaces().then((items) => {
-        const filteredItems = items.filter((item) => {
-          if (os === "darwin") return item.Name.startsWith("en");
-          return true;
-        });
-        const newInterfaces = [...filteredItems].map((item) => ({
-          id: item.Name,
-          content: item.Name,
-        }));
-        setNetworkInterfaces(newInterfaces);
+  async function init() {
+    const { os } = await getRuntimeOS();
+    // TODO: optimize
+    getSettingInterfaces().then((items) => {
+      const filteredItems = items.filter((item) => {
+        if (os === "darwin") return item.Name.startsWith("en");
+        return true;
       });
-    })();
+      const newInterfaces = [...filteredItems].map((item) => ({
+        id: item.Name,
+        content: item.Name,
+      }));
+      setNetworkInterfaces(newInterfaces);
+    });
+  }
+
+  useEffect(() => {
+    init();
   }, []);
 
   return (

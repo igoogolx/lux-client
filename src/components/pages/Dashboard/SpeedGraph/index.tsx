@@ -1,6 +1,6 @@
+import * as React from "react";
 import { useEffect } from "react";
 import { ChartConfiguration } from "chart.js";
-import * as React from "react";
 import i18next from "i18next";
 import { TrafficItem } from "lux-js-sdk";
 import { convertByte } from "../../../../utils/traffic";

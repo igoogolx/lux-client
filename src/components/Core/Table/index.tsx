@@ -7,12 +7,12 @@ import {
 } from "@fluentui/react-components";
 import { TableColumnDefinition } from "@fluentui/react-table";
 import {
-  DataGridBody,
   DataGrid,
-  DataGridRow,
-  DataGridHeader,
+  DataGridBody,
   DataGridCell,
+  DataGridHeader,
   DataGridHeaderCell,
+  DataGridRow,
 } from "@fluentui/react-data-grid-react-window";
 
 import styles from "./index.module.css";

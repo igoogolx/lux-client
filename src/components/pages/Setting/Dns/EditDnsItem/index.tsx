@@ -35,9 +35,7 @@ export default function EditDnsItem(props: EditDnsItemProps) {
         title={title}
         open={openModal}
         setOpen={setOpenModal}
-        onSubmit={(value) => {
-          onSubmit(value);
-        }}
+        onSubmit={onSubmit}
         value={value}
         disabled={isStarted}
         selectorItems={items}

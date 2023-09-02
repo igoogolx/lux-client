@@ -2,12 +2,8 @@ import * as React from "react";
 import { useMemo } from "react";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-import { useTestDelay } from "../../../../../../hooks";
-import {
-  DelayInfo,
-  delaysSelectors,
-  RootState,
-} from "../../../../../../reducers";
+import { useTestDelay } from "@/hooks";
+import { DelayInfo, delaysSelectors, RootState } from "@/reducers";
 import styles from "./index.module.css";
 
 type DelayTagProps = {
@@ -22,7 +18,7 @@ enum TypeEnum {
   Error = "error",
 }
 
-export function DelayTag(props: DelayTagProps): JSX.Element {
+export function DelayTag(props: DelayTagProps): React.ReactNode {
   const { value, className, id } = props;
   const type = useMemo(() => {
     if (value === undefined) return TypeEnum.Error;
@@ -37,11 +33,11 @@ export function DelayTag(props: DelayTagProps): JSX.Element {
   );
 
   if (value === undefined && !loading) {
-    return <></>;
+    return "";
   }
 
   return loading ? (
-    <></>
+    ""
   ) : (
     <span
       className={classNames(className, styles[type])}
