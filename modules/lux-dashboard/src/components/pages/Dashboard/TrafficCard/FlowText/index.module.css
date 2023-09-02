@@ -1,8 +1,0 @@
-.wrapper {
-  & .value {
-    @apply inline-block min-w-[32px] text-2xl;
-  }
-  & .unit {
-    @apply ml-1 text-sm;
-  }
-}
