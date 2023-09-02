@@ -31,10 +31,6 @@ export function FieldSwitch<K>(props: FieldSwitchProps<K>) {
       <Switch
         checked={checked}
         onClick={() => {
-          console.log(field.value);
-          if (customizedValue) {
-            console.log(customizedValue(field.value));
-          }
           setValue(customizedResult ? customizedResult(!checked) : !checked);
         }}
         disabled={disabled}
