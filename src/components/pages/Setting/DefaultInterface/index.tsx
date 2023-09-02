@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Caption1, Card, Subtitle2 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,7 +37,7 @@ export default function DefaultInterface() {
     []
   );
 
-  async function init() {
+  const init = useCallback(async function () {
     const { os } = await getRuntimeOS();
     // TODO: optimize
     getSettingInterfaces().then((items) => {
@@ -51,11 +51,11 @@ export default function DefaultInterface() {
       }));
       setNetworkInterfaces(newInterfaces);
     });
-  }
+  }, []);
 
   useEffect(() => {
     init();
-  }, []);
+  }, [init]);
 
   return (
     <Card className={styles.card}>
