@@ -31,7 +31,7 @@ jobs:
         with:
           node-version: '16'
       - run: yarn install
-      - run: yarn build:ui
+      - run: yarn build
 
 
       - run: cp -r dist/ui ./dist-ui
