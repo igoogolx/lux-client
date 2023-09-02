@@ -1,4 +1,3 @@
-export * from "./Button";
 export * from "./Modal";
 export * from "./Dot";
 export * from "./Icon";

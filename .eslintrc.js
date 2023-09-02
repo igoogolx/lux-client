@@ -3,6 +3,7 @@ module.exports = {
   extends: ["airbnb-typescript-prettier"],
   plugins: ["import"],
   rules: {
+    "react/require-default-props":"off",
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-unresolved": "error",
