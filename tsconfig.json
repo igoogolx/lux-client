@@ -7,7 +7,7 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@/*": ["modules/src/*"],
+      "@/*": ["src/*"],
       "lux-js-sdk": ["modules/lux-js-sdk"]
     },
     "strict": true,

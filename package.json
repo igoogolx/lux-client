@@ -5,10 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "format": "prettier ./app -write",
-    "lint": "eslint --cache --ext .ts,.tsx app",
-    "lint-fix": "eslint --ext .ts,.tsx --fix app",
-    "dev:ui": "webpack serve -c build/webpack.ui.config.js --env NODE_ENV=development --mode development --hot --open",
-    "build:ui": "webpack -c build/webpack.ui.config.js --env NODE_ENV=production --mode production"
+    "lint-fix": "yarn format && eslint --ext .ts,.tsx --fix app",
+    "dev": "webpack serve -c build/webpack.ui.config.js --env NODE_ENV=development --mode development --hot --open",
+    "build": "webpack -c build/webpack.ui.config.js --env NODE_ENV=production --mode production"
   },
   "keywords": [],
   "author": "igoogolx",

@@ -18,8 +18,6 @@ module.exports = (env) => {
     entry: path.resolve(
       __dirname,
       "..",
-      "modules",
-      "lux-dashboard",
       "src",
       "index.tsx"
     ),
@@ -101,8 +99,6 @@ module.exports = (env) => {
         template: path.resolve(
           __dirname,
           "..",
-          "modules",
-          "lux-dashboard",
           "src",
           "index.html"
         ),
@@ -118,7 +114,6 @@ module.exports = (env) => {
             from: path.resolve(
               __dirname,
               "..",
-              "src",
               "public"
             ),
             to: path.resolve(__dirname, "..", "dist", "ui", "public"),
