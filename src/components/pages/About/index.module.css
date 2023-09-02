@@ -1,0 +1,13 @@
+.container {
+  @apply flex h-full flex-1 flex-col items-center justify-center py-8;
+  & .desc {
+    @apply flex flex-col pt-2;
+
+    & .item {
+      @apply flex items-center;
+    }
+  }
+  & .btn {
+    @apply mt-4 block;
+  }
+}

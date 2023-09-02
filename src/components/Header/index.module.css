@@ -1,0 +1,15 @@
+.container {
+  @apply flex items-center justify-between py-4;
+
+  & .main {
+    @apply flex;
+
+    .alert {
+      @apply ml-4;
+    }
+  }
+}
+
+.navigationBtn {
+  @apply md:hidden;
+}

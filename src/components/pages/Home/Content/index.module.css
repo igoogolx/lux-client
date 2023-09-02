@@ -1,0 +1,25 @@
+.wrapper {
+  @apply flex
+  h-full
+  flex-col
+  content-start
+  overflow-auto
+  pb-4
+  align-baseline;
+
+  .desc {
+    @apply flex flex-col;
+
+    .type {
+      @apply text-xs;
+    }
+  }
+
+  .action {
+    @apply flex flex-row justify-end;
+
+    .content {
+      @apply pr-4;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.popover {
+  position: absolute;
+  z-index: 100000;
+}
+
+.arrow {
+  position: absolute;
+  box-sizing: border-box;
+  transform: rotate(45deg);
+  background: inherit;
+  border-width: 1px;
+  border-style: solid;
+}

@@ -1,0 +1,22 @@
+.flowInfo {
+  @apply flex flex-1 justify-between pl-4 pr-4;
+
+  & .item {
+    @apply flex flex-1 flex-col justify-between;
+
+    & .title {
+      @apply mb-2 flex justify-between text-gray-400;
+    }
+
+    & .details {
+      @apply flex flex-col justify-between text-xl;
+
+      & .detail {
+        @apply flex flex-1 items-center;
+        & svg {
+          @apply relative -bottom-1 mr-1 scale-75 transform fill-current text-gray-400;
+        }
+      }
+    }
+  }
+}

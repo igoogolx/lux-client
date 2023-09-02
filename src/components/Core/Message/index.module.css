@@ -1,0 +1,42 @@
+.message {
+  @apply pointer-events-auto
+    z-50
+    mx-auto
+    mb-0
+    mt-4
+    flex
+    rounded-md
+    border
+    px-4
+    py-2
+    text-sm
+    shadow-lg;
+
+  & .popup {
+    @apply flex select-text content-center items-center;
+  }
+}
+
+.iconContainer {
+  @apply mr-1 flex items-center;
+}
+
+.error {
+  @apply text-red-600;
+}
+
+.info {
+  @apply text-green-600;
+}
+
+.success {
+  @apply text-blue-600;
+}
+
+.warning {
+  @apply text-yellow-600;
+}
+
+.close {
+  @apply mx-2 my-auto h-fit p-0;
+}

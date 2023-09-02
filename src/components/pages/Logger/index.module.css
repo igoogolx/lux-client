@@ -1,0 +1,19 @@
+.wrapper {
+  @apply flex h-full w-full flex-col items-center justify-items-center overflow-hidden py-4 text-sm;
+  & .toolbar {
+    @apply mb-2 flex w-full;
+    & .logBtn {
+      display: none;
+    }
+    & .input {
+      @apply w-96;
+    }
+  }
+  & .payload {
+    @apply overflow-hidden text-ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}

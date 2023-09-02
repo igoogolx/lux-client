@@ -1,0 +1,6 @@
+.container {
+  @apply my-4 flex flex-row justify-between;
+  .label {
+    @apply mr-8 text-sm font-medium text-black;
+  }
+}

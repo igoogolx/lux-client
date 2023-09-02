@@ -1,0 +1,7 @@
+.container {
+  @apply flex flex-row;
+
+  & .left {
+    @apply mr-2;
+  }
+}

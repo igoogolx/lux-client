@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  margin: 0;
+}
+
+#app {
+  @apply flex h-screen;
+}
+
+body {
+  @apply rounded;
+}
+
+input {
+  outline: none;
+  border: none;
+}

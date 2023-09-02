@@ -1,0 +1,25 @@
+.wrapper {
+  @apply m-auto flex h-full
+    min-h-[600px] w-full min-w-[768px] flex-col;
+
+  & .body {
+    @apply flex flex-1 shadow;
+    height: calc(100% - 2rem);
+  }
+}
+
+.nav {
+  @apply relative hidden w-40 flex-shrink-0 flex-col md:flex lg:w-60;
+}
+
+.expandedNav {
+  @apply fixed z-10 flex h-screen;
+}
+
+.themeSwitch {
+  @apply mx-2  py-8;
+}
+
+.content {
+  @apply flex flex-1 flex-col overflow-auto p-6;
+}

@@ -1,0 +1,3 @@
+.addButton {
+  @apply mr-4 cursor-pointer;
+}
