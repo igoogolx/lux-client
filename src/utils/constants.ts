@@ -1,6 +1,8 @@
-import { TRANSLATION_KEY } from "../i18n/locales/key";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 
 export const REPOSITORY_URL = "https://github.com/igoogolx/lux";
+
+export const REPOSITORY_ISSUE_URL = "https://github.com/igoogolx/lux/issues";
 
 export const LATEST_RELEASE_URL = `${REPOSITORY_URL}/releases/latest`;
 

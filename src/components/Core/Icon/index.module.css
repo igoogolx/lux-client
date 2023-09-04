@@ -24,8 +24,8 @@
 }
 
 .large {
-  @apply h-8 w-8;
+  @apply h-24 w-24;
   & .svg {
-    @apply h-8 w-8;
+    @apply h-24 w-24;
   }
 }

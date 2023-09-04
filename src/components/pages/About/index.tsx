@@ -1,26 +1,35 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { getVersion as getCoreVersion } from "lux-js-sdk";
-import { Button, Link, Text, Title1 } from "@fluentui/react-components";
-import { TRANSLATION_KEY } from "../../../i18n/locales/key";
-import { LATEST_RELEASE_URL, REPOSITORY_URL } from "../../../utils/constants";
-import { ConfirmModal, notifier } from "../../Core";
+import {
+  Button,
+  Caption1,
+  Divider,
+  Link,
+  Title2,
+} from "@fluentui/react-components";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import {
+  LATEST_RELEASE_URL,
+  REPOSITORY_ISSUE_URL,
+  REPOSITORY_URL,
+} from "@/utils/constants";
+import { getVersion } from "@/utils/version";
+import { HomeMoreRegular, BugRegular } from "@fluentui/react-icons";
+import {
+  ConfirmModal,
+  Icon,
+  IconNameEnum,
+  IconSizeEnum,
+  notifier,
+} from "../../Core";
 import checkForUpdate from "../../../utils/checkForUpdate";
-import { getVersion } from "../../../utils/version";
 import styles from "./index.module.css";
 
 export default function About(): React.ReactNode {
   const { t } = useTranslation();
   const version = getVersion();
-  const [coreVersion, setCoreVersion] = useState("");
   const [hasLatestVersion, setHasLatestVersion] = useState(false);
   const [isCheckingUpdate, setIsCheckingUpdate] = useState(false);
-
-  useEffect(() => {
-    getCoreVersion().then((data) => {
-      setCoreVersion(data.version);
-    });
-  }, []);
 
   const onCheckForUpdate = useCallback(async () => {
     try {
@@ -49,36 +58,52 @@ export default function About(): React.ReactNode {
           }}
         />
       )}
-      <Title1 as="h1">Lux</Title1>
-      <div className={styles.desc}>
-        <div>
-          <Text className={styles.item}>
-            {t(TRANSLATION_KEY.VERSION)}: {version}
-          </Text>
-          <Text className={styles.item}>
-            {t(TRANSLATION_KEY.CORE_VERSION)}: {coreVersion}
-          </Text>
-        </div>
-        <div className={styles.item}>
-          <Text>{t(TRANSLATION_KEY.REPOSITORY)}: </Text>
-          <Button
-            onClick={() => {
-              window.open(REPOSITORY_URL);
-            }}
-            appearance="transparent"
-          >
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <Link>{REPOSITORY_URL}</Link>
-          </Button>
+      <div className={styles.appHeader}>
+        <div className={styles.appDesc}>
+          <div>
+            <Icon name={IconNameEnum.Logo} size={IconSizeEnum.Large} />
+          </div>
+          <div className={styles.desc}>
+            <Title2>Lux App</Title2>
+            <Caption1>{version || "none"}</Caption1>
+          </div>
         </div>
         <div>
           <Button
             onClick={onCheckForUpdate}
             disabled={isCheckingUpdate}
-            appearance="primary"
+            appearance="secondary"
             className={styles.btn}
           >
             {t(TRANSLATION_KEY.CHECK_UPDATE)}
+          </Button>
+        </div>
+      </div>
+      <Divider className={styles.divider} />
+      <div className={styles.links}>
+        <div className={styles.item}>
+          <Button
+            onClick={() => {
+              window.open(REPOSITORY_URL);
+            }}
+            appearance="transparent"
+            icon={<HomeMoreRegular />}
+          >
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <Link>Lux App Home Page</Link>
+          </Button>
+        </div>
+
+        <div className={styles.item}>
+          <Button
+            onClick={() => {
+              window.open(REPOSITORY_ISSUE_URL);
+            }}
+            appearance="transparent"
+            icon={<BugRegular />}
+          >
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <Link>Report an issue</Link>
           </Button>
         </div>
       </div>
