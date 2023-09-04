@@ -1,13 +1,9 @@
 import { notificationEventManager } from "./NotificationContainer";
-import { NotificationActionTypeEnum } from "./reducer";
 import { MessageTypeEnum } from "../Message";
 
 const createNotifier = () => {
   const create = (title: string, type: MessageTypeEnum) => {
-    notificationEventManager.emit({
-      type: NotificationActionTypeEnum.Add,
-      payload: { title, type },
-    });
+    notificationEventManager.emit({ title, type });
   };
 
   const success = (title: string) => create(title, MessageTypeEnum.Success);
