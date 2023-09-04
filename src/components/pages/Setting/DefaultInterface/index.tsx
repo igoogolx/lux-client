@@ -37,7 +37,7 @@ export default function DefaultInterface() {
     []
   );
 
-  const init = useCallback(async function () {
+  const init = useCallback(async () => {
     const { os } = await getRuntimeOS();
     // TODO: optimize
     getSettingInterfaces().then((items) => {
