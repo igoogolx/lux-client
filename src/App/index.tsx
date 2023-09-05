@@ -13,7 +13,6 @@ import { NotificationContainer, notifier } from "@/components/Core";
 import { generalSlice, loggerSlice, managerSlice } from "@/reducers";
 import { ElevateModal } from "@/components/Modal/ElevateModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { ServerConfirmModal } from "@/components/Modal/ServerConfirmModal";
 import { Header } from "@/components/Header";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
 import ThemeSwitch from "../components/ThemeSwitch";
@@ -89,7 +88,6 @@ export function App(): React.ReactNode {
   ) : (
     <div className={styles.wrapper} id={APP_CONTAINER_ID}>
       <NotificationContainer />
-      <ServerConfirmModal />
       <ElevateModal />
       <div className={styles.body}>
         <div
