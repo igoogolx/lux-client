@@ -89,8 +89,7 @@ export default function About(): React.ReactNode {
             appearance="transparent"
             icon={<HomeMoreRegular />}
           >
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <Link>Lux App Home Page</Link>
+            <Link>{t(TRANSLATION_KEY.APP_HOME_PAGE)}</Link>
           </Button>
         </div>
 
@@ -102,8 +101,7 @@ export default function About(): React.ReactNode {
             appearance="transparent"
             icon={<BugRegular />}
           >
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <Link>Report an issue</Link>
+            <Link>{t(TRANSLATION_KEY.APP_REPORT_ISSUE)}</Link>
           </Button>
         </div>
       </div>

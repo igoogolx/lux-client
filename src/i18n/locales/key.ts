@@ -128,4 +128,6 @@ export const TRANSLATION_KEY = {
   EDIT_PROXY_SERVER_TITLE: "edit_proxy_server_title",
   EDIT_TESTING_URL: "edit_testing_url",
   EDIT_LOCAL_HTTP_SERVER_TITLE: "edit_local_http_server_title",
+  APP_HOME_PAGE: "app_home_page",
+  APP_REPORT_ISSUE: "app_report_issue",
 };
