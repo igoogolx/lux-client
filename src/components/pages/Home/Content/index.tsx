@@ -18,8 +18,8 @@ import {
   proxiesSelectors,
   proxiesSlice,
   RootState,
-} from "../../../../reducers";
-import { selectedSlice } from "../../../../reducers/selected";
+  selectedSlice,
+} from "@/reducers";
 import { Operation } from "./ProxyCard/Operation";
 import { DelayTag } from "./ProxyCard/DelayTag";
 import { Table } from "../../../Core";

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  BaseProxy,
   getRules,
   getStatus,
   start,
@@ -10,6 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import {
+  Caption1,
   Menu,
   MenuButton,
   MenuItem,
@@ -19,11 +21,16 @@ import {
   Switch,
   Tooltip,
 } from "@fluentui/react-components";
+import {
+  selectedSlice,
+  RootState,
+  rulesSelectors,
+  rulesSlice,
+  managerSlice,
+  proxiesSelectors,
+} from "@/reducers";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { MenuItemProps, notifier } from "../../../Core";
-import { selectedSlice } from "../../../../reducers/selected";
-import { RootState, rulesSelectors, rulesSlice } from "../../../../reducers";
-import { managerSlice } from "../../../../reducers/manager";
-import { TRANSLATION_KEY } from "../../../../i18n/locales/key";
 import { Operation } from "./Operation";
 import { AddingOptions } from "./AddingOptions";
 import styles from "./index.module.css";
@@ -32,6 +39,13 @@ const TIMER_INTERVAL = 1000;
 
 export function Header(): React.ReactNode {
   const { t } = useTranslation();
+  const selectedId = useSelector<RootState, string>(
+    (state) => state.selected.proxy
+  );
+  const curProxy = useSelector<RootState, BaseProxy | undefined>((state) =>
+    proxiesSelectors.selectById(state, selectedId)
+  );
+
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared
   );
@@ -121,46 +135,55 @@ export function Header(): React.ReactNode {
 
   return (
     <div className={styles.wrapper}>
-      <Operation />
-      <AddingOptions className={styles.addButton} />
-      <Menu>
-        <MenuTrigger disableButtonEnhancement>
-          <MenuButton
-            disabled={isStarted || isSettingRule}
-            className={styles.rulesDropdown}
-          >
-            {t(selectedRuleId)}
-          </MenuButton>
-        </MenuTrigger>
-        <MenuPopover>
-          <MenuList>
-            {ruleItems.map((item) => (
-              <MenuItem
-                disabled={item.disabled}
-                key={item.id}
-                icon={item.icon}
-                onClick={() => {
-                  selectRule(item.id as string);
-                }}
-              >
-                {item.content}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </MenuPopover>
-      </Menu>
-      <Tooltip
-        content={t(TRANSLATION_KEY.SWITCH_DISABLE_TIP)}
-        relationship="description"
-        visible={tooltipVisible && isSwitchDisabled}
-        onVisibleChange={(_ev, data) => setTooltipVisible(data.visible)}
-      >
-        <Switch
-          checked={isStarted}
-          onChange={onSwitch}
-          disabled={isSwitchDisabled}
-        />
-      </Tooltip>
+      <div className={styles.actions}>
+        <Operation />
+        <AddingOptions className={styles.addButton} />
+        <Menu>
+          <MenuTrigger disableButtonEnhancement>
+            <MenuButton
+              disabled={isStarted || isSettingRule}
+              className={styles.rulesDropdown}
+            >
+              {t(selectedRuleId)}
+            </MenuButton>
+          </MenuTrigger>
+          <MenuPopover>
+            <MenuList>
+              {ruleItems.map((item) => (
+                <MenuItem
+                  disabled={item.disabled}
+                  key={item.id}
+                  icon={item.icon}
+                  onClick={() => {
+                    selectRule(item.id as string);
+                  }}
+                >
+                  {item.content}
+                </MenuItem>
+              ))}
+            </MenuList>
+          </MenuPopover>
+        </Menu>
+      </div>
+      <div>
+        {curProxy && (
+          <Caption1>
+            {curProxy.name || `${curProxy.server}:${curProxy.port}`}
+          </Caption1>
+        )}
+        <Tooltip
+          content={t(TRANSLATION_KEY.SWITCH_DISABLE_TIP)}
+          relationship="description"
+          visible={tooltipVisible && isSwitchDisabled}
+          onVisibleChange={(_ev, data) => setTooltipVisible(data.visible)}
+        >
+          <Switch
+            checked={isStarted}
+            onChange={onSwitch}
+            disabled={isSwitchDisabled}
+          />
+        </Tooltip>
+      </div>
     </div>
   );
 }

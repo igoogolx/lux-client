@@ -1,15 +1,23 @@
 .wrapper {
-  @apply flex h-full w-full items-center justify-end
+    @apply flex h-full w-full items-center justify-between
     pb-4;
 
-  & .rulesDropdown {
-    @apply h-8 w-32;
-    max-width: unset;
-  }
-  & .addButton {
-    @apply mx-4;
-  }
-  & .testButton {
-    @apply mr-8;
-  }
+    & .actions {
+        @apply flex h-full items-center justify-end;
+
+        & .rulesDropdown {
+            @apply h-8 w-32;
+            max-width: unset;
+        }
+
+        & .addButton {
+            @apply mx-4;
+        }
+
+        & .testButton {
+            @apply mr-8;
+        }
+    }
+
+
 }
