@@ -140,7 +140,6 @@ export default function Logger(): React.ReactNode {
         data={data}
         columnSizingOptions={columnSizingOptions}
         resizableColumns
-        height={isLg ? 600 : 300}
       />
     </div>
   );

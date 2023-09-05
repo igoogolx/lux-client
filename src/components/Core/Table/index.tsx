@@ -4,16 +4,14 @@ import {
   TableColumnSizingOptions,
   useFluent,
   useScrollbarWidth,
-} from "@fluentui/react-components";
-import { TableColumnDefinition } from "@fluentui/react-table";
-import {
   DataGrid,
   DataGridBody,
   DataGridCell,
   DataGridHeader,
   DataGridHeaderCell,
   DataGridRow,
-} from "@fluentui/react-data-grid-react-window";
+  TableColumnDefinition,
+} from "@fluentui/react-components";
 
 import styles from "./index.module.css";
 
@@ -26,8 +24,6 @@ type TableProps<T> = {
   selectedItems?: DataGridProps["selectedItems"];
   onSelectionChange?: DataGridProps["onSelectionChange"];
   getRowId?: DataGridProps["getRowId"];
-  itemSize?: number;
-  height: number;
 };
 
 export function Table<T extends { id: string }>(props: TableProps<T>) {
@@ -40,8 +36,6 @@ export function Table<T extends { id: string }>(props: TableProps<T>) {
     selectedItems,
     onSelectionChange,
     getRowId,
-    itemSize = 50,
-    height,
   } = props;
 
   const { targetDocument } = useFluent();
@@ -66,7 +60,7 @@ export function Table<T extends { id: string }>(props: TableProps<T>) {
           )}
         </DataGridRow>
       </DataGridHeader>
-      <DataGridBody<T> itemSize={itemSize} height={height}>
+      <DataGridBody<T>>
         {({ item, rowId }, style) => (
           <DataGridRow<T> key={rowId} style={style as React.CSSProperties}>
             {({ renderCell }) => (

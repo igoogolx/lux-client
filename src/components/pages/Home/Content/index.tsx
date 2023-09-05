@@ -85,8 +85,6 @@ export function Content(): React.ReactNode {
     }
   };
 
-  const isLg = useMediaQuery("(min-width: 1024px)");
-
   return (
     <div className={styles.wrapper}>
       <Table
@@ -96,7 +94,6 @@ export function Content(): React.ReactNode {
         onSelectionChange={handleSelect}
         selectedItems={defaultSelectedItems}
         getRowId={(item) => item.id}
-        height={isLg ? 600 : 300}
       />
     </div>
   );

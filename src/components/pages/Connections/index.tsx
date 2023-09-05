@@ -261,7 +261,7 @@ export default function Connections(): React.ReactNode {
           </Tooltip>
         </div>
       </div>
-      <Table columns={columns} data={data} height={isLg ? 600 : 300} />
+      <Table columns={columns} data={data} />
       <div className={styles.footer}>
         <div>{`TCP:  ${total.tcp}`}</div>
         <div>{`UDP:  ${total.udp}`}</div>
