@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import { ChartConfiguration } from "chart.js";
 import i18next from "i18next";
 import { TrafficItem } from "lux-js-sdk";
-import { convertByte } from "../../../../utils/traffic";
-import { TRANSLATION_KEY } from "../../../../i18n/locales/key";
-import { useChartJs } from "../../../../hooks";
+import { convertByte } from "@/utils/traffic";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { useChartJs } from "@/hooks";
 
 const getConfiguration = () => {
   const configuration: ChartConfiguration = {

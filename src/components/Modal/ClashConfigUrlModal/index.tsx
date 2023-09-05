@@ -7,8 +7,8 @@ import {
 } from "lux-js-sdk";
 import { useDispatch } from "react-redux";
 import { Input } from "@fluentui/react-components";
-import { proxiesSlice } from "../../../reducers";
-import { TRANSLATION_KEY } from "../../../i18n/locales/key";
+import { proxiesSlice } from "@/reducers";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { Modal } from "../../Core";
 import styles from "./index.module.css";
 

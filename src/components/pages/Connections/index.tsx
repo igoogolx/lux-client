@@ -18,9 +18,9 @@ import {
 } from "@fluentui/react-components";
 import { DeleteRegular, SearchRegular } from "@fluentui/react-icons";
 import useMediaQuery from "beautiful-react-hooks/useMediaQuery";
-import { TRANSLATION_KEY } from "../../../i18n/locales/key";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { convertByte } from "@/utils/traffic";
 import { Table, Tag, TagTypeEnum } from "../../Core";
-import { convertByte } from "../../../utils/traffic";
 import styles from "./index.module.css";
 
 type Connection = {

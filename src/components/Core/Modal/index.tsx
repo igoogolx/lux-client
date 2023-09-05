@@ -9,8 +9,8 @@ import {
   DialogTrigger,
 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
-import { useLockBodyScroll } from "../../../hooks";
-import { TRANSLATION_KEY } from "../../../i18n/locales/key";
+import { useLockBodyScroll } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 
 type ModalProps = {
   children: React.ReactNode;

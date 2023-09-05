@@ -8,7 +8,7 @@ import {
 } from "lux-js-sdk";
 import { Dropdown, Option, Text } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "../../../../i18n/locales/key";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { EditObfsPlugin } from "./Obfs";
 import { EditV2rayPlugin } from "./V2ray";
 import { NONE_ID } from "../EditShadowsocksModal/constant";
