@@ -3,7 +3,6 @@ import { SettingRes } from "lux-js-sdk";
 
 const initialState: SettingRes = {
   defaultInterface: "",
-  trueProxyServer: "",
   localServer: {
     http: { enabled: false, port: 0 },
   },

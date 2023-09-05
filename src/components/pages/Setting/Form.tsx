@@ -1,6 +1,5 @@
 import React from "react";
 import DefaultInterface from "./DefaultInterface";
-import TrueProxyServer from "./TrueProxyServer";
 import AutoMode from "./AutoMode";
 import LocalHttpServer from "./LocalHttpServer";
 import Dns from "./Dns";
@@ -13,7 +12,6 @@ export function SettingForm() {
       <div className={styles.fields}>
         <Dns />
         <DefaultInterface />
-        <TrueProxyServer />
         <LocalHttpServer />
         <AutoMode />
         <ConfigFile />

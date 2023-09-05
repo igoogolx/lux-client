@@ -10,7 +10,6 @@ export type SettingRes = {
     local: DnsServer;
   };
   defaultInterface: string;
-  trueProxyServer: string;
   localServer: {
     http: { enabled: boolean; port: number };
   };
