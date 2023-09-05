@@ -11,6 +11,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useLockBodyScroll } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { APP_CONTAINER_ID } from "@/utils/constants";
 
 type ModalProps = {
   children: React.ReactNode;
@@ -52,7 +53,7 @@ export const Modal = React.memo((props: ModalProps) => {
       }}
       modalType={closeWhenClickOutside ? "alert" : "modal"}
     >
-      <DialogSurface>
+      <DialogSurface mountNode={document.getElementById(APP_CONTAINER_ID)}>
         <DialogBody>
           <DialogContent>{children}</DialogContent>
           <DialogActions>

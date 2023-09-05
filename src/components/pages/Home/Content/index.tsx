@@ -56,7 +56,13 @@ export function Content(): React.ReactNode {
       renderCell: (item) => {
         return (
           <TableCellLayout truncate className={styles.action}>
-            <div className={styles.content}>
+            <div
+              className={styles.content}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
               <DelayTag id={item.id} value={item.delay} />
               <Operation proxy={item} />
             </div>

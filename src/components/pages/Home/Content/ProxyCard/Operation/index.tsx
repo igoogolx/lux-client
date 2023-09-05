@@ -179,6 +179,7 @@ export function Operation(props: OperationProps): React.ReactNode {
             icon={<InfoRegular />}
             onClick={(e) => {
               e.stopPropagation();
+              e.preventDefault();
             }}
           />
         </MenuTrigger>
@@ -191,6 +192,7 @@ export function Operation(props: OperationProps): React.ReactNode {
                 icon={item.icon}
                 onClick={(e) => {
                   e.stopPropagation();
+                  e.preventDefault();
                   onSelect(item.id as string);
                 }}
               >
