@@ -30,6 +30,7 @@ import {
   proxiesSelectors,
 } from "@/reducers";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { isLocalAddr } from "@/utils/validator";
 import { MenuItemProps, notifier } from "../../../Core";
 import { Operation } from "./Operation";
 import { AddingOptions } from "./AddingOptions";
@@ -117,6 +118,12 @@ export function Header(): React.ReactNode {
 
   const onSwitch = async () => {
     try {
+      if (curProxy) {
+        if (isLocalAddr(curProxy.server)) {
+          notifier.error(t(TRANSLATION_KEY.PROXY_SERVER_MSG));
+          return;
+        }
+      }
       dispatch(managerSlice.actions.setIsLoading({ isLoading: true }));
       if (isStarted) {
         await stop();

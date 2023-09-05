@@ -43,8 +43,8 @@ export default {
   [TRANSLATION_KEY.DEFAULT_INTERFACE_TOOLTIP]:
     "The network interface used to process directed connections",
   [TRANSLATION_KEY.TRUE_PROXY_SERVER]: "True Proxy Server",
-  [TRANSLATION_KEY.TRUE_PROXY_SERVER_TOOLTIPS]:
-    "If your proxy server is localhost or 127.0.0.1, you need to set the ture address here.",
+  [TRANSLATION_KEY.PROXY_SERVER_MSG]:
+    "Localhost or 127.0.0.1 can't be used as proxy server",
   [TRANSLATION_KEY.BYPASS_IPS]: "Bypass Ips",
   [TRANSLATION_KEY.BYPASS_IPS_TOOLTIP]:
     "Ips will be connected by default interface",

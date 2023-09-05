@@ -40,7 +40,7 @@ export const TRANSLATION_KEY = {
   DEFAULT_INTERFACE: "default_interface",
   DEFAULT_INTERFACE_TOOLTIP: "default_interface_tooltip",
   TRUE_PROXY_SERVER: "true_proxy_server",
-  TRUE_PROXY_SERVER_TOOLTIPS: "true_proxy_server_tooltips",
+  PROXY_SERVER_MSG: "proxy_server_msg",
   BYPASS_IPS: "bypass_ips",
   BYPASS_IPS_TOOLTIP: "bypass_ips_tooltip",
   SAVE_SUCCESS: "save_success",
