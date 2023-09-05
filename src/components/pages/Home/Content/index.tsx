@@ -13,7 +13,6 @@ import {
   TableCellLayout,
   TableColumnDefinition,
 } from "@fluentui/react-components";
-import useMediaQuery from "beautiful-react-hooks/useMediaQuery";
 import {
   proxiesSelectors,
   proxiesSlice,
