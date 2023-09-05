@@ -81,7 +81,7 @@ export default function About(): React.ReactNode {
       </div>
       <Divider className={styles.divider} />
       <div className={styles.links}>
-        <div className={styles.item}>
+        <div>
           <Button
             onClick={() => {
               window.open(REPOSITORY_URL);
@@ -94,7 +94,7 @@ export default function About(): React.ReactNode {
           </Button>
         </div>
 
-        <div className={styles.item}>
+        <div>
           <Button
             onClick={() => {
               window.open(REPOSITORY_ISSUE_URL);
