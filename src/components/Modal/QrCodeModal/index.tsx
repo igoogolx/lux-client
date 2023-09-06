@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import QRCode from "qrcode";
 import { useTranslation } from "react-i18next";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { Modal, notifier } from "../../Core";
-import { TRANSLATION_KEY } from "../../../i18n/locales/key";
 import styles from "./index.module.css";
 
 type QrCodeModalProps = {

@@ -13,7 +13,7 @@ import {
   Option,
 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "../../../i18n/locales/key";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { MenuItemProps } from "../index";
 import styles from "./index.module.css";
 

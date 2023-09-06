@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { ObfsModeEnum } from "lux-js-sdk";
-import { MAX_PORT, MIN_PORT } from "../../../../utils/validator";
+import { MAX_PORT, MIN_PORT } from "@/utils/validator";
 
 export const ShadowsocksSchema = Yup.object().shape({
   name: Yup.string(),

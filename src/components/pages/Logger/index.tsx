@@ -12,10 +12,9 @@ import {
 import { SearchRegular } from "@fluentui/react-icons";
 import dayjs from "dayjs";
 import Highlighter from "react-highlight-words";
-import useMediaQuery from "beautiful-react-hooks/useMediaQuery";
-import { TRANSLATION_KEY } from "../../../i18n/locales/key";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { RootState } from "@/reducers";
 import { PlacementEnum, Table, Tag, TagTypeEnum, Tooltip } from "../../Core";
-import { RootState } from "../../../reducers";
 import styles from "./index.module.css";
 
 function TimeCell(props: { value: number }) {
@@ -121,8 +120,6 @@ export default function Logger(): React.ReactNode {
     };
   }, []);
 
-  const isLg = useMediaQuery("(min-width: 1024px)");
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.toolbar}>
@@ -140,7 +137,6 @@ export default function Logger(): React.ReactNode {
         data={data}
         columnSizingOptions={columnSizingOptions}
         resizableColumns
-        height={isLg ? 600 : 300}
       />
     </div>
   );

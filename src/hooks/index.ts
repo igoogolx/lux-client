@@ -3,8 +3,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { Chart, ChartConfiguration } from "chart.js";
 import { useDispatch } from "react-redux";
 import { getProxyDelay } from "lux-js-sdk";
-import { delaysSlice } from "../reducers/delay";
-import { proxiesSlice } from "../reducers";
+import { delaysSlice, proxiesSlice } from "@/reducers";
 
 export const useChartJs = (
   initialConfiguration: ChartConfiguration

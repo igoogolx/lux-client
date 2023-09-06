@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Caption1, Subtitle2 } from "@fluentui/react-components";
 import { useSelector } from "react-redux";
+import { RootState } from "@/reducers";
 import styles from "../../index.module.css";
-import { RootState } from "../../../../../reducers";
 import { MenuItemProps } from "../../../../Core";
 import EditItemWithSelectDialog, {
   DnsTypeEnum,

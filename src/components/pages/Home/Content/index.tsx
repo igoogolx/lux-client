@@ -13,7 +13,6 @@ import {
   TableCellLayout,
   TableColumnDefinition,
 } from "@fluentui/react-components";
-import useMediaQuery from "beautiful-react-hooks/useMediaQuery";
 import {
   proxiesSelectors,
   proxiesSlice,
@@ -57,7 +56,13 @@ export function Content(): React.ReactNode {
       renderCell: (item) => {
         return (
           <TableCellLayout truncate className={styles.action}>
-            <div className={styles.content}>
+            <div
+              className={styles.content}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
               <DelayTag id={item.id} value={item.delay} />
               <Operation proxy={item} />
             </div>
@@ -85,8 +90,6 @@ export function Content(): React.ReactNode {
     }
   };
 
-  const isLg = useMediaQuery("(min-width: 1024px)");
-
   return (
     <div className={styles.wrapper}>
       <Table
@@ -96,7 +99,6 @@ export function Content(): React.ReactNode {
         onSelectionChange={handleSelect}
         selectedItems={defaultSelectedItems}
         getRowId={(item) => item.id}
-        height={isLg ? 600 : 300}
       />
     </div>
   );

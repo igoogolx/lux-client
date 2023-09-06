@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import React, { ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getExecutablePath } from "lux-js-sdk";
-import { TRANSLATION_KEY } from "../../../i18n/locales/key";
-import { RootState } from "../../../reducers";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { RootState } from "@/reducers";
 import { ConfirmModal } from "../../Core";
 import CodeBlock from "../../Core/CodeBlock";
 

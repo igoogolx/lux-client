@@ -10,8 +10,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { setSetting, SettingRes } from "lux-js-sdk";
-import { RootState, settingSlice } from "../../../../reducers";
-import { TRANSLATION_KEY } from "../../../../i18n/locales/key";
+import { RootState, settingSlice } from "@/reducers";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import styles from "../index.module.css";
 import { notifier } from "../../../Core";
 import EditItemWithDialog from "../../../Core/EditItemWithDialog";

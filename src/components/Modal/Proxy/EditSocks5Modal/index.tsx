@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 import { addProxy, ProxyTypeEnum, Socks5, updateProxy } from "lux-js-sdk";
 import { Button } from "@fluentui/react-components";
-import { MAX_PORT, MIN_PORT } from "../../../../utils/validator";
-import { TRANSLATION_KEY } from "../../../../i18n/locales/key";
-import { proxiesSlice, RootState } from "../../../../reducers";
+import { MAX_PORT, MIN_PORT } from "@/utils/validator";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { proxiesSlice, RootState } from "@/reducers";
 import { Field, Form } from "../../../Core";
 import styles from "./index.module.css";
 

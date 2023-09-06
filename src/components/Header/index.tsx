@@ -6,9 +6,9 @@ import { useTranslation } from "react-i18next";
 import { Alert } from "@fluentui/react-components/unstable";
 import { useDispatch, useSelector } from "react-redux";
 import { getSetting, SettingRes } from "lux-js-sdk";
-import { TRANSLATION_KEY } from "../../i18n/locales/key";
-import { RootState, settingSlice } from "../../reducers";
-import { ROUTER_NAME, ROUTER_PATH } from "../../utils/constants";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { RootState, settingSlice } from "@/reducers";
+import { ROUTER_NAME, ROUTER_PATH } from "@/utils/constants";
 import styles from "./index.module.css";
 
 type HeaderProps = {

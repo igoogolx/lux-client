@@ -16,7 +16,7 @@ import {
   PointElement,
   Title,
 } from "chart.js";
-import { RootState, trafficsSlice } from "../../../reducers";
+import { RootState, trafficsSlice } from "@/reducers";
 import { TrafficCard } from "./TrafficCard";
 import styles from "./index.module.css";
 

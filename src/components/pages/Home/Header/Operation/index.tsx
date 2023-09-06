@@ -11,15 +11,15 @@ import {
   MenuTrigger,
 } from "@fluentui/react-components";
 import { MoreHorizontalFilled } from "@fluentui/react-icons";
-import { MenuItemProps } from "../../../../Core";
 import {
   proxiesSelectors,
   proxiesSlice,
   RootState,
   selectedSlice,
-} from "../../../../../reducers";
-import { TRANSLATION_KEY } from "../../../../../i18n/locales/key";
-import { useTestDelay } from "../../../../../hooks";
+} from "@/reducers";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { useTestDelay } from "@/hooks";
+import { MenuItemProps } from "../../../../Core";
 import { DeleteAllProxiesConfirmModal } from "../../../../Modal/DeleteAllProxiesConfirmModal";
 import { RuntimeDetailModal } from "../../../../Modal/RuntimeDetailModal";
 import splitArrayIntoChunks from "../../../../../utils/splitArrayIntoChunks";

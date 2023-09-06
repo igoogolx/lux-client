@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "../../../i18n/locales/key";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { getHubAddress, HubAddress } from "@/utils/hubAddress";
 import { Field, Form, Modal } from "../../Core";
-import { getHubAddress, HubAddress } from "../../../utils/hubAddress";
 import styles from "./index.module.css";
 
 export default function CheckHubAddressModal(): React.ReactNode {

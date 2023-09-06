@@ -18,7 +18,7 @@ import {
   Text,
 } from "@fluentui/react-components";
 import { tokens } from "@fluentui/react-theme";
-import { ROUTER_NAME, ROUTER_PATH } from "../../utils/constants";
+import { ROUTER_NAME, ROUTER_PATH } from "@/utils/constants";
 import styles from "./index.module.css";
 
 const useStyles = makeStyles({

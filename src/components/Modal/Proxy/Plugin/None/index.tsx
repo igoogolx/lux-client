@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@fluentui/react-components";
-import { TRANSLATION_KEY } from "../../../../../i18n/locales/key";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import styles from "./index.module.css";
 
 type NoneProps = {

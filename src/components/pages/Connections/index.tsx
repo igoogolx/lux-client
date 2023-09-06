@@ -17,10 +17,9 @@ import {
   Tooltip,
 } from "@fluentui/react-components";
 import { DeleteRegular, SearchRegular } from "@fluentui/react-icons";
-import useMediaQuery from "beautiful-react-hooks/useMediaQuery";
-import { TRANSLATION_KEY } from "../../../i18n/locales/key";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { convertByte } from "@/utils/traffic";
 import { Table, Tag, TagTypeEnum } from "../../Core";
-import { convertByte } from "../../../utils/traffic";
 import styles from "./index.module.css";
 
 type Connection = {
@@ -207,8 +206,6 @@ export default function Connections(): React.ReactNode {
     ];
   }, [t]);
 
-  const isLg = useMediaQuery("(min-width: 1024px)");
-
   const data = useMemo(() => {
     return conns
       .map((conn) => ({
@@ -261,7 +258,7 @@ export default function Connections(): React.ReactNode {
           </Tooltip>
         </div>
       </div>
-      <Table columns={columns} data={data} height={isLg ? 600 : 300} />
+      <Table columns={columns} data={data} />
       <div className={styles.footer}>
         <div>{`TCP:  ${total.tcp}`}</div>
         <div>{`UDP:  ${total.udp}`}</div>

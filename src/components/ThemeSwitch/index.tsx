@@ -9,7 +9,7 @@ import {
   ThemeContext,
   ThemeContextType,
   ThemeEnum,
-} from "../../utils/theme";
+} from "@/utils/theme";
 import styles from "./index.module.css";
 
 const useStyles = makeStyles({

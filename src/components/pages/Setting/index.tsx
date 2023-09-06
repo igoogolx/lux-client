@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getSetting } from "lux-js-sdk";
 import { useDispatch } from "react-redux";
-import { settingSlice } from "../../../reducers/setting";
+import { settingSlice } from "@/reducers";
 import { SettingForm } from "./Form";
 import styles from "./index.module.css";
 import Splash from "../../Splash";

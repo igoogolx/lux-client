@@ -19,15 +19,15 @@ import {
   QrCodeFilled,
   SendRegular,
 } from "@fluentui/react-icons";
-import { MenuItemProps, notifier } from "../../../../../Core";
-import { proxiesSlice, RootState } from "../../../../../../reducers";
-import { useTestDelay } from "../../../../../../hooks";
-import { selectedSlice } from "../../../../../../reducers/selected";
-import { EditModal } from "../../../../../Modal/Proxy";
-import { encode } from "../../../../../../utils/url/shadowsocks";
-import { TRANSLATION_KEY } from "../../../../../../i18n/locales/key";
-import { QrCodeModal } from "../../../../../Modal/QrCodeModal";
-import { useTestUdp } from "../../../../../../utils/testUdp";
+import { MenuItemProps, notifier } from "@/components/Core";
+import { proxiesSlice, RootState, selectedSlice } from "@/reducers";
+import { useTestDelay } from "@/hooks";
+
+import { EditModal } from "@/components/Modal/Proxy";
+import { encode } from "@/utils/url/shadowsocks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { QrCodeModal } from "@/components/Modal/QrCodeModal";
+import { useTestUdp } from "@/utils/testUdp";
 
 type OperationProps = {
   proxy: BaseProxy;
@@ -179,6 +179,7 @@ export function Operation(props: OperationProps): React.ReactNode {
             icon={<InfoRegular />}
             onClick={(e) => {
               e.stopPropagation();
+              e.preventDefault();
             }}
           />
         </MenuTrigger>
@@ -191,6 +192,7 @@ export function Operation(props: OperationProps): React.ReactNode {
                 icon={item.icon}
                 onClick={(e) => {
                   e.stopPropagation();
+                  e.preventDefault();
                   onSelect(item.id as string);
                 }}
               >
