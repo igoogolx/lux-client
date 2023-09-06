@@ -80,7 +80,7 @@ export function Header(): React.ReactNode {
     });
 
     timer.current = setInterval(async () => {
-      if (isSwitchLoading) {
+      if (!isSwitchLoading) {
         const status = await getStatus();
         dispatch(
           managerSlice.actions.setIsStarted({ isStarted: status.isStarted })
