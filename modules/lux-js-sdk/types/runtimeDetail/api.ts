@@ -4,7 +4,6 @@ export type RuntimeDetail = {
   localDns: string[];
   remoteDns: string[];
   boostDns: string[];
-  proxyServer: string;
 };
 
 export type GetRuntimeDetail = () => Promise<RuntimeDetail>;

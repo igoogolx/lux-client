@@ -95,7 +95,7 @@ export function Content(): React.ReactNode {
       <Table
         columns={columns}
         data={proxies}
-        selectionMode="single"
+        selectionMode={isAutoMode ? undefined : "single"}
         onSelectionChange={handleSelect}
         selectedItems={defaultSelectedItems}
         getRowId={(item) => item.id}
