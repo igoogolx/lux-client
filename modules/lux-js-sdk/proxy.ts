@@ -5,6 +5,7 @@ import {
   DeleteAllProxies,
   DeleteProxy,
   GetClashYamlUrl,
+  GetCurProxy,
   GetProxies,
   GetProxyDelay,
   TestProxyUdp,
@@ -15,6 +16,12 @@ import { urtConfig } from "./url";
 
 export const getProxies: GetProxies = async () => {
   const url = `${urtConfig.proxies}`;
+  const res = await axios.get(url);
+  return res.data;
+};
+
+export const getCurProxy: GetCurProxy = async () => {
+  const url = `${urtConfig.proxies}/cur-proxy`;
   const res = await axios.get(url);
   return res.data;
 };

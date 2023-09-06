@@ -2,6 +2,7 @@ import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   BaseProxy,
+  getCurProxy,
   getRules,
   getStatus,
   start,
@@ -118,6 +119,9 @@ export function Header(): React.ReactNode {
 
   const onSwitch = async () => {
     try {
+      getCurProxy().then((res) => {
+        console.log(res);
+      });
       if (curProxy) {
         if (isLocalAddr(curProxy.server)) {
           notifier.error(t(TRANSLATION_KEY.PROXY_SERVER_MSG));

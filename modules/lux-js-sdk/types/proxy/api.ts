@@ -11,6 +11,8 @@ export type GetProxiesRes = {
 };
 export type GetProxies = () => Promise<GetProxiesRes>;
 
+export type GetCurProxy = () => Promise<{ proxy?: BaseProxy }>;
+
 type GetUpdateProxyReq = {
   proxy: Proxy;
   id: string;
