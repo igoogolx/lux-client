@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  BaseProxy,
   getCurProxy,
+  GetCurProxyRes,
   getRules,
   getStatus,
   start,
@@ -28,7 +28,6 @@ import {
   rulesSelectors,
   rulesSlice,
   managerSlice,
-  proxiesSelectors,
 } from "@/reducers";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { isLocalAddr } from "@/utils/validator";
@@ -41,12 +40,10 @@ const TIMER_INTERVAL = 1000;
 
 export function Header(): React.ReactNode {
   const { t } = useTranslation();
-  const selectedId = useSelector<RootState, string>(
-    (state) => state.selected.proxy
-  );
-  const curProxy = useSelector<RootState, BaseProxy | undefined>((state) =>
-    proxiesSelectors.selectById(state, selectedId)
-  );
+  const [curProxy, setCurProxy] = useState<GetCurProxyRes>({
+    name: "",
+    addr: "",
+  });
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared
@@ -89,6 +86,8 @@ export function Header(): React.ReactNode {
           managerSlice.actions.setIsStarted({ isStarted: status.isStarted })
         );
       }
+      const latestProxy = await getCurProxy();
+      setCurProxy(latestProxy);
     }, TIMER_INTERVAL);
     return () => {
       if (timer.current) {
@@ -119,11 +118,8 @@ export function Header(): React.ReactNode {
 
   const onSwitch = async () => {
     try {
-      getCurProxy().then((res) => {
-        console.log(res);
-      });
       if (curProxy) {
-        if (isLocalAddr(curProxy.server)) {
+        if (isLocalAddr(curProxy.addr)) {
           notifier.error(t(TRANSLATION_KEY.PROXY_SERVER_MSG));
           return;
         }
@@ -177,11 +173,7 @@ export function Header(): React.ReactNode {
         </Menu>
       </div>
       <div>
-        {curProxy && (
-          <Caption1>
-            {curProxy.name || `${curProxy.server}:${curProxy.port}`}
-          </Caption1>
-        )}
+        {curProxy && <Caption1>{curProxy.name || curProxy.addr}</Caption1>}
         <Tooltip
           content={t(TRANSLATION_KEY.SWITCH_DISABLE_TIP)}
           relationship="description"

@@ -11,7 +11,12 @@ export type GetProxiesRes = {
 };
 export type GetProxies = () => Promise<GetProxiesRes>;
 
-export type GetCurProxy = () => Promise<{ proxy?: BaseProxy }>;
+export type GetCurProxyRes = {
+  name: string;
+  addr: string;
+};
+
+export type GetCurProxy = () => Promise<GetCurProxyRes>;
 
 type GetUpdateProxyReq = {
   proxy: Proxy;
