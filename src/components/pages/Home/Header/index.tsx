@@ -173,7 +173,9 @@ export function Header(): React.ReactNode {
         </Menu>
       </div>
       <div>
-        {curProxy && <Caption1>{curProxy.name || curProxy.addr}</Caption1>}
+        {isStarted && curProxy && (
+          <Caption1>{curProxy.name || curProxy.addr}</Caption1>
+        )}
         <Tooltip
           content={t(TRANSLATION_KEY.SWITCH_DISABLE_TIP)}
           relationship="description"
