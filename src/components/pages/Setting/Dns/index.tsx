@@ -12,7 +12,12 @@ import { DnsTypeEnum } from "../../../Core/EditItemWithSelectDialog";
 
 const BOOST_DNS = ["114.114.114.114:53", "119.29.29.29:53"];
 
-const REMOTE_DNS = ["8.8.8.8:53", "1.1.1.1:53", "https://dns.google/dns-query"];
+const REMOTE_DNS = [
+  "8.8.8.8:53",
+  "1.1.1.1:53",
+  "https://dns.google/dns-query",
+  "https://cloudflare-dns.com/dns-query",
+];
 
 const LOCAL_DNS = [
   "114.114.114.114:53",
