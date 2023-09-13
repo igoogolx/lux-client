@@ -10,19 +10,24 @@ import { notifier } from "../../../Core";
 import EditDnsItem from "./EditDnsItem";
 import { DnsTypeEnum } from "../../../Core/EditItemWithSelectDialog";
 
-const BOOST_DNS = ["114.114.114.114:53", "119.29.29.29:53"];
+const BOOST_DNS = [
+  "tcp://114.114.114.114:53",
+  "tcp://119.29.29.29:53",
+  "dhcp://auto",
+];
 
 const REMOTE_DNS = [
-  "8.8.8.8:53",
-  "1.1.1.1:53",
+  "tcp://8.8.8.8:53",
+  "tcp://1.1.1.1:53",
   "https://dns.google/dns-query",
   "https://cloudflare-dns.com/dns-query",
 ];
 
 const LOCAL_DNS = [
-  "114.114.114.114:53",
-  "119.29.29.29:53",
+  "tcp://114.114.114.114:53",
+  "tcp://119.29.29.29:53",
   "https://doh.pub/dns-query",
+  "dhcp://auto",
 ];
 
 export default function Dns() {
