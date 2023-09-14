@@ -49,6 +49,7 @@ export default {
   [TRANSLATION_KEY.BYPASS_IPS_TOOLTIP]:
     "Ips will be connected by default interface",
   [TRANSLATION_KEY.SAVE_SUCCESS]: "Save Successfully",
+  [TRANSLATION_KEY.UPDATE_SUCCESS]: "Update Successfully",
   [TRANSLATION_KEY.REPOSITORY]: "Repository",
   [TRANSLATION_KEY.VERSION]: "Version",
   [TRANSLATION_KEY.DOWNLOAD]: "Download",

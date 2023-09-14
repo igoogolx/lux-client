@@ -44,6 +44,7 @@ export const TRANSLATION_KEY = {
   BYPASS_IPS: "bypass_ips",
   BYPASS_IPS_TOOLTIP: "bypass_ips_tooltip",
   SAVE_SUCCESS: "save_success",
+  UPDATE_SUCCESS: "update_success",
   VERSION: "version",
   REPOSITORY: "repository",
   DOWNLOAD: "download",

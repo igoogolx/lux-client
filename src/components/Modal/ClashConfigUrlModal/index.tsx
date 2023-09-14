@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { Input } from "@fluentui/react-components";
 import { proxiesSlice } from "@/reducers";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Modal } from "../../Core";
+import { Modal, notifier } from "../../Core";
 import styles from "./index.module.css";
 
 type ClashConfigUrlModalProps = {
@@ -29,6 +29,7 @@ function ClashConfigUrlModal(props: ClashConfigUrlModalProps) {
       const res = await addProxiesFromClashUrlConfig({ url: destination });
       dispatch(proxiesSlice.actions.addMany(res));
       close();
+      notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
     } finally {
       setLoading(false);
     }
@@ -39,7 +40,7 @@ function ClashConfigUrlModal(props: ClashConfigUrlModalProps) {
     });
   }, []);
   return (
-    <Modal close={close} onOk={handleConfirm} disabledOk={loading}>
+    <Modal close={close} onOk={handleConfirm} loadingOk={loading}>
       <div className={styles.search}>
         <Input
           value={destination}

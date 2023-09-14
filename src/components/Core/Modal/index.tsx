@@ -7,11 +7,13 @@ import {
   DialogContent,
   DialogSurface,
   DialogTrigger,
+  Spinner,
 } from "@fluentui/react-components";
 import { useTranslation } from "react-i18next";
 import { useLockBodyScroll } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { APP_CONTAINER_ID } from "@/utils/constants";
+import styles from "./index.module.css";
 
 type ModalProps = {
   children: React.ReactNode;
@@ -68,6 +70,10 @@ export const Modal = React.memo((props: ModalProps) => {
                 onClick={onOk}
                 disabled={disabledOk || loadingOk}
               >
+                {loadingOk && (
+                  <Spinner size="extra-tiny" className={styles.spinner} />
+                )}
+
                 {okText || t(TRANSLATION_KEY.OK)}
               </Button>
             )}
