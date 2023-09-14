@@ -9,7 +9,6 @@ type ConfirmModalPros = {
   confirmText?: string;
   onCancel?: () => void;
   onConfirm?: () => void;
-  closeWhenClickOutside?: boolean;
   hideCancelText?: boolean;
   hideConfirmText?: boolean;
   loading?: boolean;
@@ -23,7 +22,6 @@ export function ConfirmModal(props: ConfirmModalPros) {
     onConfirm,
     cancelText,
     confirmText,
-    closeWhenClickOutside,
     loading = false,
     hideCancelText = false,
     hideConfirmText = false,
@@ -32,7 +30,6 @@ export function ConfirmModal(props: ConfirmModalPros) {
   return (
     <Modal
       close={onCancel}
-      closeWhenClickOutside={closeWhenClickOutside}
       hideCloseButton={hideCancelText}
       hideOkButton={hideConfirmText}
       loadingOk={loading}

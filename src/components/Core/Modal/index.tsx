@@ -16,7 +16,6 @@ import { APP_CONTAINER_ID } from "@/utils/constants";
 type ModalProps = {
   children: React.ReactNode;
   close?: () => void;
-  closeWhenClickOutside?: boolean;
   onOk?: () => void;
   disabledOk?: boolean;
   loadingOk?: boolean;
@@ -30,7 +29,6 @@ export const Modal = React.memo((props: ModalProps) => {
   const {
     close,
     children,
-    closeWhenClickOutside = false,
     onOk,
     disabledOk = false,
     loadingOk = false,
@@ -51,7 +49,7 @@ export const Modal = React.memo((props: ModalProps) => {
           close?.();
         }
       }}
-      modalType={closeWhenClickOutside ? "alert" : "modal"}
+      modalType="alert"
     >
       <DialogSurface mountNode={document.getElementById(APP_CONTAINER_ID)}>
         <DialogBody>

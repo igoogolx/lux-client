@@ -33,7 +33,6 @@ export function ElevateModal(): ReactNode {
           />
         </div>
       }
-      closeWhenClickOutside={false}
     />
   ) : (
     ""
