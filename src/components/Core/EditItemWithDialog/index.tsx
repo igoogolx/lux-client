@@ -52,9 +52,10 @@ export default function EditItemWithDialog(props: EditItemWithDialogProps) {
 
   return (
     <Dialog
-      modalType="modal"
+      modalType="alert"
       open={open}
       onOpenChange={(e, data) => {
+        setEditedValue(value);
         setOpen(data.open);
       }}
     >

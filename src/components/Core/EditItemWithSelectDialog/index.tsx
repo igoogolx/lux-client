@@ -62,9 +62,11 @@ export default function EditItemWithSelectDialog(
 
   return (
     <Dialog
-      modalType="modal"
+      modalType="alert"
       open={open}
       onOpenChange={(e, data) => {
+        setEditedValue(value);
+        setCurType(type);
         setOpen(data.open);
       }}
     >
