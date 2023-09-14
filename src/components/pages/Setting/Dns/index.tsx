@@ -60,10 +60,6 @@ export default function Dns() {
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
   };
 
-  const hasDoh =
-    setting.dns.remote.value.startsWith("https") ||
-    setting.dns.local.value.startsWith("https");
-
   return (
     <Card className={styles.card}>
       <EditDnsItem
@@ -99,24 +95,22 @@ export default function Dns() {
         title={t(TRANSLATION_KEY.LOCAL_DNS_LABEL)}
         desc={t(TRANSLATION_KEY.LOCAL_DNS_DESC)}
       />
-      {hasDoh && (
-        <EditDnsItem
-          type={setting.dns.boost.type as DnsTypeEnum}
-          items={boostDnsOptions.current}
-          value={setting.dns.boost.value}
-          onSubmit={(data) => {
-            onSubmit({
-              ...setting.dns,
-              boost: {
-                ...setting.dns.boost,
-                ...data,
-              },
-            });
-          }}
-          title={t(TRANSLATION_KEY.BOOST_DNS_LABEL)}
-          desc={t(TRANSLATION_KEY.BOOST_DNS_DESC)}
-        />
-      )}
+      <EditDnsItem
+        type={setting.dns.boost.type as DnsTypeEnum}
+        items={boostDnsOptions.current}
+        value={setting.dns.boost.value}
+        onSubmit={(data) => {
+          onSubmit({
+            ...setting.dns,
+            boost: {
+              ...setting.dns.boost,
+              ...data,
+            },
+          });
+        }}
+        title={t(TRANSLATION_KEY.BOOST_DNS_LABEL)}
+        desc={t(TRANSLATION_KEY.BOOST_DNS_DESC)}
+      />
     </Card>
   );
 }
