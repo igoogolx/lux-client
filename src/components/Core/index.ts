@@ -3,7 +3,6 @@ export * from "./Dot";
 export * from "./Icon";
 export * from "./Menu";
 export * from "./Popover";
-export * from "./Switch";
 export * from "./Tooltip";
 export * from "./Notification";
 export * from "./ConfirmModal";
