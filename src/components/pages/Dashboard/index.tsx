@@ -18,7 +18,6 @@ import {
 } from "chart.js";
 import { RootState, trafficsSlice } from "@/reducers";
 import { TrafficCard } from "./TrafficCard";
-import styles from "./index.module.css";
 
 type Speed = { proxy: TrafficItem[]; direct: TrafficItem[] };
 
@@ -69,11 +68,5 @@ export default function Dashboard(): React.ReactNode {
     };
   }, [dispatch]);
 
-  return speed && total ? (
-    <div className={styles.wrapper}>
-      <TrafficCard speed={speed} total={total} />
-    </div>
-  ) : (
-    ""
-  );
+  return speed && total ? <TrafficCard speed={speed} total={total} /> : "";
 }
