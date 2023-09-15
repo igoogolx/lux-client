@@ -2,6 +2,7 @@ import * as React from "react";
 import { TrafficItem } from "lux-js-sdk";
 import FlowInfo from "./FlowInfo";
 import styles from "./index.module.css";
+import { SpeedGraph } from "../SpeedGraph";
 
 export enum TrafficCardTypeEnum {
   Proxy,
@@ -42,6 +43,9 @@ export function TrafficCard(props: TrafficCardProps): React.ReactNode {
             <FlowInfo current={currentDirect} total={total.direct} />
           </div>
         </div>
+      </div>
+      <div className={styles.graph}>
+        <SpeedGraph data={speed} />
       </div>
     </div>
   );

@@ -32,4 +32,8 @@
       @apply flex w-full justify-between;
     }
   }
+
+  & .graph {
+    @apply h-1/2 w-full;
+  }
 }
