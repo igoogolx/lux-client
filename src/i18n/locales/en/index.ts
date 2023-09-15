@@ -144,7 +144,7 @@ export default {
   [TRANSLATION_KEY.EDIT_TESTING_URL]: "Edit testing url",
   [TRANSLATION_KEY.EDIT_LOCAL_HTTP_SERVER_TITLE]: "Edit the true proxy server",
   [TRANSLATION_KEY.SEARCH_CONNECTION_TIP]:
-    "Type a destination, process or domain to search",
+    "Type a destination, domain to search",
   [TRANSLATION_KEY.APP_HOME_PAGE]: "Lux App Home Page",
   [TRANSLATION_KEY.APP_REPORT_ISSUE]: "Report an issue",
 };

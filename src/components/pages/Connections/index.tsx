@@ -4,7 +4,6 @@ import {
   Conn,
   ConnNetworkMetaEnum,
   ConnRuleEnum,
-  getRuntimeOS,
   subscribeConnections,
 } from "lux-js-sdk";
 import { useTranslation } from "react-i18next";
@@ -23,7 +22,6 @@ import { Table, Tag, TagTypeEnum } from "../../Core";
 import styles from "./index.module.css";
 
 type Connection = {
-  process: string;
   destination: string;
   domain: string;
   download: number;
@@ -55,17 +53,6 @@ function convertDuration(duration: number) {
   return `${hours}:${minutes}:${seconds}`;
 }
 
-const getProcess = (name: string, os: string) => {
-  let separator = "\\";
-  if (os === "win32") {
-    separator = "\\";
-  } else if (os === "darwin") {
-    separator = "/";
-  }
-  const paths = name.split(separator);
-  return paths[paths.length - 1];
-};
-
 // TODO: move
 function LoadTag(props: { value: number }): string {
   const { value } = props;
@@ -88,13 +75,6 @@ export default function Connections(): React.ReactNode {
     history: number[];
   }>({ tcp: 0, udp: 0, history: [] });
   const [searchedValue, setSearchedValue] = useState("");
-  const [os, setOS] = useState("win32");
-
-  useEffect(() => {
-    getRuntimeOS().then((data) => {
-      setOS(data.os);
-    });
-  }, []);
 
   useEffect(() => {
     const subscriber = subscribeConnections({
@@ -126,15 +106,6 @@ export default function Connections(): React.ReactNode {
         },
         renderCell: (item) => {
           return <TableCellLayout truncate>{item.destination}</TableCellLayout>;
-        },
-      }),
-      createTableColumn<Connection>({
-        columnId: "process",
-        renderHeaderCell: () => {
-          return "Process";
-        },
-        renderCell: (item) => {
-          return <TableCellLayout truncate>{item.process}</TableCellLayout>;
         },
       }),
       createTableColumn<Connection>({
@@ -209,7 +180,6 @@ export default function Connections(): React.ReactNode {
   const data = useMemo(() => {
     return conns
       .map((conn) => ({
-        process: getProcess(conn.process, os),
         destination: `${conn.metadata.destinationIP}:${conn.metadata.destinationPort}`,
         domain: conn.domain,
         download: conn.download,
@@ -221,7 +191,7 @@ export default function Connections(): React.ReactNode {
       }))
       .filter((conn) => {
         if (searchedValue) {
-          return [conn.domain, conn.process, conn.destination].some((value) => {
+          return [conn.domain, conn.destination].some((value) => {
             return value
               .toLocaleLowerCase()
               .includes(searchedValue.toLocaleLowerCase());
@@ -229,7 +199,7 @@ export default function Connections(): React.ReactNode {
         }
         return true;
       });
-  }, [conns, os, searchedValue]);
+  }, [conns, searchedValue]);
 
   return (
     <div className={styles.wrapper}>

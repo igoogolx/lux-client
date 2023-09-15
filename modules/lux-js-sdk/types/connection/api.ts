@@ -27,7 +27,6 @@ export interface Conn {
   start: number;
   rule: ConnRuleEnum;
   domain: string;
-  process: string;
 }
 
 export interface ConnectionsParams {
