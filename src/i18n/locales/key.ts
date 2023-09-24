@@ -131,4 +131,9 @@ export const TRANSLATION_KEY = {
   EDIT_LOCAL_HTTP_SERVER_TITLE: "edit_local_http_server_title",
   APP_HOME_PAGE: "app_home_page",
   APP_REPORT_ISSUE: "app_report_issue",
+  HIJACK_DNS_SWITCH_LABEL: "hijack_dns_switch_label",
+  HIJACK_DNS_SWITCH_TOOLTIP: "hijack_dns_switch_tooltip",
+  HIJACK_DNS_SERVICE_LABEL: "hijack_dns_service_label",
+  HIJACK_DNS_SERVICE_DESC: "hijack_dns_service_desc",
+  EDIT_HIJACK_DNS_SERVICE_TITLE: "edit_hijack_dns_service_title",
 };

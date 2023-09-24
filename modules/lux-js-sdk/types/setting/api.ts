@@ -18,6 +18,10 @@ export type SettingRes = {
     type: "url-test" | "fallback";
     url: string;
   };
+  hijackDns: {
+    enabled: boolean;
+    networkService: string;
+  };
 };
 
 export type GetSetting = () => Promise<SettingRes>;

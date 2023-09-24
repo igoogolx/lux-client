@@ -22,8 +22,12 @@ const initialState: SettingRes = {
   },
   autoMode: {
     enabled: false,
-    url: "https://google.com",
+    url: "",
     type: "url-test",
+  },
+  hijackDns: {
+    enabled: true,
+    networkService: "",
   },
 };
 

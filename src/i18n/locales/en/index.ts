@@ -147,4 +147,10 @@ export default {
     "Type a destination, domain to search",
   [TRANSLATION_KEY.APP_HOME_PAGE]: "Lux App Home Page",
   [TRANSLATION_KEY.APP_REPORT_ISSUE]: "Report an issue",
+  [TRANSLATION_KEY.HIJACK_DNS_SWITCH_LABEL]: "Hijack Dns",
+  [TRANSLATION_KEY.HIJACK_DNS_SWITCH_TOOLTIP]:
+    "Modify the system dns to hijack or you must do it manually",
+  [TRANSLATION_KEY.HIJACK_DNS_SERVICE_LABEL]: "Network Service",
+  [TRANSLATION_KEY.HIJACK_DNS_SERVICE_DESC]: "Current using network",
+  [TRANSLATION_KEY.EDIT_HIJACK_DNS_SERVICE_TITLE]: "Edit Network Service",
 };
