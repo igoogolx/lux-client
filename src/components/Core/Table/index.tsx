@@ -24,6 +24,7 @@ type TableProps<T> = {
   selectedItems?: DataGridProps["selectedItems"];
   onSelectionChange?: DataGridProps["onSelectionChange"];
   getRowId?: DataGridProps["getRowId"];
+  defaultSortState?: DataGridProps["defaultSortState"];
 };
 
 export function Table<T extends { id: string }>(props: TableProps<T>) {
@@ -36,6 +37,7 @@ export function Table<T extends { id: string }>(props: TableProps<T>) {
     selectedItems,
     onSelectionChange,
     getRowId,
+    defaultSortState,
   } = props;
 
   const { targetDocument } = useFluent();
@@ -52,6 +54,8 @@ export function Table<T extends { id: string }>(props: TableProps<T>) {
       selectionMode={selectionMode}
       onSelectionChange={onSelectionChange}
       getRowId={getRowId}
+      defaultSortState={defaultSortState}
+      sortable
     >
       <DataGridHeader style={{ paddingRight: scrollbarWidth }}>
         <DataGridRow>

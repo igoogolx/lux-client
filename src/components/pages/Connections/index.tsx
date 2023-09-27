@@ -11,6 +11,7 @@ import { TableColumnDefinition } from "@fluentui/react-table";
 import {
   Button,
   createTableColumn,
+  DataGridProps,
   Input,
   TableCellLayout,
   Tooltip,
@@ -150,6 +151,9 @@ export default function Connections(): React.ReactNode {
       }),
       createTableColumn<Connection>({
         columnId: "start",
+        compare: (a, b) => {
+          return a.start - b.start;
+        },
         renderHeaderCell: () => {
           return t(TRANSLATION_KEY.TIME);
         },
@@ -201,6 +205,11 @@ export default function Connections(): React.ReactNode {
       });
   }, [conns, searchedValue]);
 
+  const defaultSortState = useMemo<DataGridProps["defaultSortState"]>(
+    () => ({ sortColumn: "start", sortDirection: "ascending" }),
+    []
+  );
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.toolbar}>
@@ -228,7 +237,11 @@ export default function Connections(): React.ReactNode {
           </Tooltip>
         </div>
       </div>
-      <Table columns={columns} data={data} />
+      <Table
+        columns={columns}
+        data={data}
+        defaultSortState={defaultSortState}
+      />
       <div className={styles.footer}>
         <div>{`TCP:  ${total.tcp}`}</div>
         <div>{`UDP:  ${total.udp}`}</div>
