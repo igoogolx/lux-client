@@ -136,4 +136,5 @@ export const TRANSLATION_KEY = {
   HIJACK_DNS_SERVICE_LABEL: "hijack_dns_service_label",
   HIJACK_DNS_SERVICE_DESC: "hijack_dns_service_desc",
   EDIT_HIJACK_DNS_SERVICE_TITLE: "edit_hijack_dns_service_title",
+  COPY: "copy",
 };
