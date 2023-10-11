@@ -14,14 +14,5 @@ export const rulesSlice = createSlice({
     received(state, action: PayloadAction<{ rules: Rule[] }>) {
       rulesAdapter.setAll(state, action.payload.rules);
     },
-    deleteOne(state, action: PayloadAction<{ id: string }>) {
-      rulesAdapter.removeOne(state, action.payload.id);
-    },
-    updateOne(state, action: PayloadAction<{ rule: Rule }>) {
-      rulesAdapter.updateOne(state, {
-        id: action.payload.rule.id,
-        changes: action.payload.rule,
-      });
-    },
   },
 });
