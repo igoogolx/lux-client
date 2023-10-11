@@ -153,4 +153,5 @@ export default {
   [TRANSLATION_KEY.HIJACK_DNS_SERVICE_LABEL]: "Network Service",
   [TRANSLATION_KEY.HIJACK_DNS_SERVICE_DESC]: "Current using network",
   [TRANSLATION_KEY.EDIT_HIJACK_DNS_SERVICE_TITLE]: "Edit Network Service",
+  [TRANSLATION_KEY.COPY]: "Copy",
 };

@@ -18,7 +18,6 @@ export function DeleteAllProxiesConfirmModal(
     <ConfirmModal
       title={t(TRANSLATION_KEY.WARNING)}
       content={t(TRANSLATION_KEY.DELETE_ALL_PROXIES_TIPS)}
-      hideCancelText
       onConfirm={onConfirm}
       onCancel={onClose}
     />

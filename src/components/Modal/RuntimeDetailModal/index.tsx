@@ -4,7 +4,7 @@ import { getRuntimeDetail, RuntimeDetail } from "lux-js-sdk";
 import { Subtitle2 } from "@fluentui/react-components";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { getHubAddress, stringAddress } from "@/utils/hubAddress";
-import { Modal } from "../../Core";
+import { Modal, notifier } from "../../Core";
 import styles from "./index.module.css";
 
 type RuntimeDetailModalProps = {
@@ -39,7 +39,16 @@ export function RuntimeDetailModal(
   }, []);
 
   return runtimeDetail ? (
-    <Modal close={close}>
+    <Modal
+      close={close}
+      onOk={async () => {
+        await navigator.clipboard.writeText(
+          JSON.stringify(runtimeDetail, undefined, 2)
+        );
+        notifier.success(t(TRANSLATION_KEY.COPIED));
+      }}
+      okText={t(TRANSLATION_KEY.COPY)}
+    >
       {(Object.keys(runtimeDetail) as (keyof typeof runtimeDetail)[]).map(
         (key) => {
           const content = Array.isArray(runtimeDetail[key])
