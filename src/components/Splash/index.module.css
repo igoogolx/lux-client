@@ -7,4 +7,10 @@
       @apply h-10 w-10;
     }
   }
+
+  & .overlay {
+    @apply absolute top-0 left-0 w-full h-full pointer-events-none;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
 }

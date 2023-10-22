@@ -10,4 +10,5 @@ export interface BaseProxy {
   port: number;
   type: ProxyTypeEnum;
   delay?: number;
+  clashYamlUrl?: string;
 }

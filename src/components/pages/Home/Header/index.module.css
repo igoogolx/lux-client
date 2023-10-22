@@ -10,6 +10,10 @@
             max-width: unset;
         }
 
+        & .updateClashProxiesButton {
+            @apply ml-4;
+        }
+
         & .addButton {
             @apply mx-4;
         }

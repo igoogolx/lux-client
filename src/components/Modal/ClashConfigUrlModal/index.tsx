@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { Input } from "@fluentui/react-components";
 import { proxiesSlice } from "@/reducers";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import * as url from "url";
 import { Modal, notifier } from "../../Core";
 import styles from "./index.module.css";
 
@@ -26,8 +27,10 @@ function ClashConfigUrlModal(props: ClashConfigUrlModalProps) {
     try {
       setLoading(true);
       await updateClashYamlUrl({ url: destination });
-      const res = await addProxiesFromClashUrlConfig({ url: destination });
-      dispatch(proxiesSlice.actions.received(res));
+      if (destination) {
+        const res = await addProxiesFromClashUrlConfig({ url: destination });
+        dispatch(proxiesSlice.actions.received(res));
+      }
       close();
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
     } finally {

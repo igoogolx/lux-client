@@ -1,6 +1,7 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
+  BaseProxy,
   getProxies,
   Proxy,
   SettingRes,
@@ -8,6 +9,7 @@ import {
 } from "lux-js-sdk";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  Card,
   createTableColumn,
   DataGridProps,
   TableCellLayout,
@@ -19,6 +21,9 @@ import {
   RootState,
   selectedSlice,
 } from "@/reducers";
+import ClashCard, {
+  LOCAL_SERVERS,
+} from "@/components/pages/Home/Content/ClashCard";
 import { Operation } from "./ProxyCard/Operation";
 import { DelayTag } from "./ProxyCard/DelayTag";
 import { Table } from "../../../Core";
@@ -26,6 +31,19 @@ import styles from "./index.module.css";
 
 export function Content(): React.ReactNode {
   const proxies = useSelector(proxiesSelectors.selectAll);
+
+  const proxyMap = useMemo(() => {
+    const res: { [key: string]: BaseProxy[] } = {};
+    proxies.forEach((proxy) => {
+      if (proxy.clashYamlUrl) {
+        res[proxy.clashYamlUrl] = [...(res[proxy.clashYamlUrl] || []), proxy];
+      } else {
+        res[LOCAL_SERVERS] = [...(res[LOCAL_SERVERS] || []), proxy];
+      }
+    });
+    return res;
+  }, [proxies]);
+
   const selectedId = useSelector<RootState, string>(
     (state) => state.selected.proxy
   );
@@ -92,14 +110,18 @@ export function Content(): React.ReactNode {
 
   return (
     <div className={styles.wrapper}>
-      <Table
-        columns={columns}
-        data={proxies}
-        selectionMode={isAutoMode ? undefined : "single"}
-        onSelectionChange={handleSelect}
-        selectedItems={defaultSelectedItems}
-        getRowId={(item) => item.id}
-      />
+      {Object.keys(proxyMap).map((key) => {
+        return (
+          <ClashCard
+            columns={columns}
+            data={proxyMap[key]}
+            selectionMode={isAutoMode ? undefined : "single"}
+            onSelectionChange={handleSelect}
+            selectedItems={defaultSelectedItems}
+            url={key}
+          />
+        );
+      })}
     </div>
   );
 }

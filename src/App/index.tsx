@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getIsAdmin, getStatus, ping, subscribeLog } from "lux-js-sdk";
 import axios from "axios";
 import i18next from "i18next";
@@ -10,11 +10,12 @@ import { tokens } from "@fluentui/react-theme";
 import classNames from "classnames";
 import { Nav } from "@/components/Nav";
 import { NotificationContainer, notifier } from "@/components/Core";
-import { generalSlice, loggerSlice, managerSlice } from "@/reducers";
+import { generalSlice, loggerSlice, managerSlice, RootState } from "@/reducers";
 import { ElevateModal } from "@/components/Modal/ElevateModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { Header } from "@/components/Header";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
+import Splash from "@/components/Splash";
 import ThemeSwitch from "../components/ThemeSwitch";
 import CheckHubAddressModal from "../components/Modal/EditHubAddressModal";
 import styles from "./index.module.css";
@@ -50,6 +51,9 @@ export function App(): React.ReactNode {
   const dispatch = useDispatch();
   const [connected, setConnected] = useState(true);
 
+  const loading = useSelector<RootState, boolean>(
+    (state) => state.general.loading
+  );
   const timer = useRef<null | ReturnType<typeof setInterval>>(null);
 
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -89,6 +93,7 @@ export function App(): React.ReactNode {
     <div className={styles.wrapper} id={APP_CONTAINER_ID}>
       <NotificationContainer />
       <ElevateModal />
+      {loading && <Splash />}
       <div className={styles.body}>
         <div
           className={classNames(
