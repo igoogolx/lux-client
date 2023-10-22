@@ -27,7 +27,7 @@ function ClashConfigUrlModal(props: ClashConfigUrlModalProps) {
       setLoading(true);
       await updateClashYamlUrl({ url: destination });
       const res = await addProxiesFromClashUrlConfig({ url: destination });
-      dispatch(proxiesSlice.actions.addMany(res));
+      dispatch(proxiesSlice.actions.received(res));
       close();
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
     } finally {
