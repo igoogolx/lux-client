@@ -13,9 +13,9 @@ import {
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { ArrowSyncRegular } from "@fluentui/react-icons";
 import { useTranslation } from "react-i18next";
-import { generalSlice, proxiesSlice } from "@/reducers";
+import { generalSlice, proxiesSlice, RootState } from "@/reducers";
 import { addProxiesFromClashUrlConfig } from "lux-js-sdk";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export type ProxyCardProps<T> = {
   url: string;
@@ -40,6 +40,10 @@ export default function ProxyCard<T extends { id: string }>(
     onSelectionChange,
   } = props;
   const { t } = useTranslation();
+
+  const isStarted = useSelector<RootState, boolean>(
+    (state) => state.manager.isStared
+  );
 
   const dispatch = useDispatch();
   const handleUpdateClashProxies = async () => {
@@ -76,6 +80,7 @@ export default function ProxyCard<T extends { id: string }>(
                 onClick={handleUpdateClashProxies}
                 icon={<ArrowSyncRegular />}
                 className={styles.updateClashProxiesButton}
+                disabled={isStarted}
               />
             </Tooltip>
           )
