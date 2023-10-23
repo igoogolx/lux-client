@@ -44,11 +44,11 @@ export type UpdateClashYamlUrl = (
 
 export type GetClashYamlUrl = () => Promise<{ url: string }>;
 
-type DeleteProxyReq = {
-  id: string;
+type DeleteProxiesReq = {
+  ids: string[];
 };
 
-export type DeleteProxy = (req: DeleteProxyReq) => Promise<void>;
+export type DeleteProxies = (req: DeleteProxiesReq) => Promise<void>;
 
 export type DeleteAllProxies = () => Promise<void>;
 

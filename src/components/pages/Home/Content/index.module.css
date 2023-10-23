@@ -7,9 +7,6 @@
   pb-4
   align-baseline;
 
-  & .card {
-    @apply mx-2 my-2 flex-shrink-0;
-  }
 
   .desc {
     @apply flex flex-col;

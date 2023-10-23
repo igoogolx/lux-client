@@ -1,6 +1,11 @@
 import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BaseProxy, deleteProxy, ProxyTypeEnum, Shadowsocks } from "lux-js-sdk";
+import {
+  BaseProxy,
+  deleteProxies,
+  ProxyTypeEnum,
+  Shadowsocks,
+} from "lux-js-sdk";
 import { useTranslation } from "react-i18next";
 import {
   Button,
@@ -122,7 +127,7 @@ export function Operation(props: OperationProps): React.ReactNode {
         setIsEditingDialogOpen(true);
         return;
       case OperationTypeEnum.Delete: {
-        await deleteProxy({ id: proxy.id });
+        await deleteProxies({ ids: [proxy.id] });
         dispatch(proxiesSlice.actions.deleteOne({ id: proxyId }));
         if (isSelected) {
           dispatch(selectedSlice.actions.setProxy({ id: "" }));

@@ -1,0 +1,16 @@
+.action {
+    @apply flex;
+
+    & .btn {
+        @apply ml-2;
+    }
+}
+
+.card {
+    @apply mx-2 my-2 flex-shrink-0;
+
+    & .header{
+        @apply flex items-center justify-between;
+
+    }
+}

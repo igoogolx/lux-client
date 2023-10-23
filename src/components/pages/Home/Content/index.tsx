@@ -20,9 +20,7 @@ import {
   RootState,
   selectedSlice,
 } from "@/reducers";
-import ProxyCard, {
-  LOCAL_SERVERS,
-} from "src/components/pages/Home/Content/ProxyCard";
+import ProxyCard, { LOCAL_SERVERS } from "./ProxyCard";
 import { Operation } from "./ProxyCard/Operation";
 import { DelayTag } from "./ProxyCard/DelayTag";
 import styles from "./index.module.css";
@@ -111,6 +109,7 @@ export function Content(): React.ReactNode {
       {Object.keys(proxyMap).map((key) => {
         return (
           <ProxyCard
+            key={key}
             columns={columns}
             data={proxyMap[key]}
             selectionMode={isAutoMode ? undefined : "single"}

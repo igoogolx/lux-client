@@ -1,21 +1,28 @@
 import React from "react";
-import styles from "@/components/pages/Home/Content/index.module.css";
 import { notifier, Table } from "@/components/Core";
 import {
+  Badge,
   Button,
   Card,
   CardHeader,
   DataGridProps,
-  Subtitle1,
+  makeStyles,
+  mergeClasses,
   TableColumnDefinition,
   Tooltip,
 } from "@fluentui/react-components";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { ArrowSyncRegular } from "@fluentui/react-icons";
+import {
+  ArrowSyncRegular,
+  ClipboardRegular,
+  DeleteRegular,
+} from "@fluentui/react-icons";
 import { useTranslation } from "react-i18next";
 import { generalSlice, proxiesSlice, RootState } from "@/reducers";
-import { addProxiesFromClashUrlConfig } from "lux-js-sdk";
+import { addProxiesFromClashUrlConfig, deleteProxies } from "lux-js-sdk";
 import { useDispatch, useSelector } from "react-redux";
+import { tokens } from "@fluentui/react-theme";
+import styles from "./index.module.css";
 
 export type ProxyCardProps<T> = {
   url: string;
@@ -27,6 +34,16 @@ export type ProxyCardProps<T> = {
 };
 
 export const LOCAL_SERVERS = "local_servers";
+
+const useStyles = makeStyles({
+  danger: {
+    color: tokens.colorStatusDangerForeground1,
+    borderTopColor: tokens.colorStatusDangerBorder1,
+    borderLeftColor: tokens.colorStatusDangerBorder1,
+    borderRightColor: tokens.colorStatusDangerBorder1,
+    borderBottomColor: tokens.colorStatusDangerBorder1,
+  },
+});
 
 export default function ProxyCard<T extends { id: string }>(
   props: ProxyCardProps<T>
@@ -57,33 +74,76 @@ export default function ProxyCard<T extends { id: string }>(
     }
   };
 
+  const handleDeleteProxies = async () => {
+    try {
+      dispatch(generalSlice.actions.setLoading({ loading: true }));
+      const ids = data.map((item) => item.id);
+      await deleteProxies({ ids: data.map((item) => item.id) });
+      dispatch(proxiesSlice.actions.deleteMany({ ids }));
+      notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
+    } finally {
+      dispatch(generalSlice.actions.setLoading({ loading: false }));
+    }
+  };
+
+  const handleCopyUrl = async () => {
+    await navigator.clipboard.writeText(url);
+    notifier.success(t(TRANSLATION_KEY.COPIED));
+  };
+
+  const inlineStyles = useStyles();
+
   return (
     <Card className={styles.card}>
       <CardHeader
-        className={styles.header}
         header={
-          <Subtitle1>
+          <Badge appearance="outline">
             {url === LOCAL_SERVERS
               ? t(TRANSLATION_KEY.LOCAL_SERVERS)
               : new URL(url).hostname.toLocaleUpperCase()}
-          </Subtitle1>
+          </Badge>
         }
+        className={styles.header}
         action={
-          url === LOCAL_SERVERS ? (
-            ""
-          ) : (
+          <div className={styles.action}>
             <Tooltip
-              content={t(TRANSLATION_KEY.UPDATE_CLASH_PROXIES)}
+              content={t(TRANSLATION_KEY.COMMON_DELETE)}
               relationship="description"
             >
               <Button
-                onClick={handleUpdateClashProxies}
-                icon={<ArrowSyncRegular />}
-                className={styles.updateClashProxiesButton}
+                onClick={handleDeleteProxies}
+                icon={<DeleteRegular />}
+                className={mergeClasses(styles.btn, inlineStyles.danger)}
                 disabled={isStarted}
               />
             </Tooltip>
-          )
+            {url !== LOCAL_SERVERS && (
+              <Tooltip
+                content={t(TRANSLATION_KEY.COMMON_COPY_URL)}
+                relationship="description"
+              >
+                <Button
+                  onClick={handleCopyUrl}
+                  icon={<ClipboardRegular />}
+                  className={styles.btn}
+                  disabled={isStarted}
+                />
+              </Tooltip>
+            )}
+            {url !== LOCAL_SERVERS && (
+              <Tooltip
+                content={t(TRANSLATION_KEY.UPDATE_CLASH_PROXIES)}
+                relationship="description"
+              >
+                <Button
+                  onClick={handleUpdateClashProxies}
+                  icon={<ArrowSyncRegular />}
+                  className={styles.btn}
+                  disabled={isStarted}
+                />
+              </Tooltip>
+            )}
+          </div>
         }
       />
       <Table

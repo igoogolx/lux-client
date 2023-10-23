@@ -3,7 +3,7 @@ import {
   AddProxiesFromClashConfigUrl,
   AddProxy,
   DeleteAllProxies,
-  DeleteProxy,
+  DeleteProxies,
   GetClashYamlUrl,
   GetCurProxy,
   GetProxies,
@@ -58,14 +58,14 @@ export const getClashYamlUrl: GetClashYamlUrl = async () => {
   return res.data;
 };
 
-export const deleteProxy: DeleteProxy = async (req) => {
-  const { id } = req;
-  const url = `${urtConfig.proxies}/${id}`;
-  await axios.delete(url);
+export const deleteProxies: DeleteProxies = async (req) => {
+  const { ids } = req;
+  const url = `${urtConfig.proxies}`;
+  await axios.delete(url, { data: { ids } });
 };
 
 export const deleteAllProxies: DeleteAllProxies = async () => {
-  const url = `${urtConfig.proxies}`;
+  const url = `${urtConfig.proxies}/all`;
   await axios.delete(url);
 };
 
