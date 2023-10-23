@@ -11,6 +11,8 @@ import { openConfigFileDir, resetConfigFile } from "lux-js-sdk";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { ResetConfigModal } from "@/components/Modal/ResetConfigModal";
 import { useDangerStyles } from "@/hooks";
+import { useSelector } from "react-redux";
+import { RootState } from "@/reducers";
 import styles from "../index.module.css";
 
 export default function ConfigFile() {
@@ -23,6 +25,9 @@ export default function ConfigFile() {
   };
 
   const inlineStyles = useDangerStyles();
+  const isStarted = useSelector<RootState, boolean>(
+    (state) => state.manager.isStared
+  );
 
   return (
     <Card className={styles.card}>
@@ -45,7 +50,11 @@ export default function ConfigFile() {
             onClick={() => {
               setIsOpenConfigModal(true);
             }}
-            className={mergeClasses(styles.actionBtn, inlineStyles.danger)}
+            className={mergeClasses(
+              styles.actionBtn,
+              isStarted ? "" : inlineStyles.danger
+            )}
+            disabled={isStarted}
           >
             {t(TRANSLATION_KEY.FORM_RESET)}
           </Button>

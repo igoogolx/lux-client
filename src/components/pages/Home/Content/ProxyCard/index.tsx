@@ -104,7 +104,10 @@ export default function ProxyCard<T extends { id: string }>(
               <Button
                 onClick={handleDeleteProxies}
                 icon={<DeleteRegular />}
-                className={mergeClasses(styles.btn, inlineStyles.danger)}
+                className={mergeClasses(
+                  styles.btn,
+                  isStarted ? "" : inlineStyles.danger
+                )}
                 disabled={isStarted}
               />
             </Tooltip>

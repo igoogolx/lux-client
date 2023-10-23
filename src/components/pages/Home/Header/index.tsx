@@ -1,8 +1,6 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  addProxiesFromClashUrlConfig,
-  getClashYamlUrl,
   getCurProxy,
   GetCurProxyRes,
   getRules,
@@ -14,7 +12,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import {
-  Button,
   Caption1,
   Menu,
   MenuButton,
@@ -31,12 +28,9 @@ import {
   rulesSelectors,
   rulesSlice,
   managerSlice,
-  proxiesSlice,
-  generalSlice,
 } from "@/reducers";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { isLocalAddr } from "@/utils/validator";
-import { ArrowSyncRegular } from "@fluentui/react-icons";
 import { MenuItemProps, notifier } from "../../../Core";
 import { Operation } from "./Operation";
 import { AddingOptions } from "./AddingOptions";
@@ -50,8 +44,6 @@ export function Header(): React.ReactNode {
     name: "",
     addr: "",
   });
-
-  const [clashYamlUrl, setClashYamlUrl] = useState("");
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared
@@ -86,8 +78,6 @@ export function Header(): React.ReactNode {
       dispatch(rulesSlice.actions.received(res));
       dispatch(selectedSlice.actions.setRule({ id: res.selectedId }));
     });
-
-    getClashYamlUrl().then((res) => setClashYamlUrl(res.url));
 
     timer.current = setInterval(async () => {
       if (!isSwitchLoading) {
