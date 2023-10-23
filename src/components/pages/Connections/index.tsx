@@ -241,6 +241,7 @@ export default function Connections(): React.ReactNode {
         columns={columns}
         data={data}
         defaultSortState={defaultSortState}
+        sortable
       />
       <div className={styles.footer}>
         <div>{`TCP:  ${total.tcp}`}</div>
