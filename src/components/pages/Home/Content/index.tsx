@@ -22,7 +22,7 @@ import {
 } from "@/reducers";
 import ClashCard, {
   LOCAL_SERVERS,
-} from "@/components/pages/Home/Content/ClashCard";
+} from "src/components/pages/Home/Content/ProxyCard";
 import { Operation } from "./Operation";
 import { DelayTag } from "./DelayTag";
 import styles from "./index.module.css";
