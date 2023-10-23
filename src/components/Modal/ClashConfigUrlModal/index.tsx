@@ -48,7 +48,7 @@ function ClashConfigUrlModal(props: ClashConfigUrlModalProps) {
         <Input
           value={destination}
           onChange={(e) => {
-            setDestination(e.target.value);
+            setDestination(e.target.value.trim());
           }}
           className={styles.input}
           placeholder={t(TRANSLATION_KEY.CLASH_URL)}
