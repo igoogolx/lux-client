@@ -22,6 +22,7 @@ import { generalSlice, proxiesSlice, RootState } from "@/reducers";
 import { addProxiesFromClashUrlConfig, deleteProxies } from "lux-js-sdk";
 import { useDispatch, useSelector } from "react-redux";
 import { tokens } from "@fluentui/react-theme";
+import { useDangerStyles } from "@/hooks";
 import styles from "./index.module.css";
 
 export type ProxyCardProps<T> = {
@@ -34,16 +35,6 @@ export type ProxyCardProps<T> = {
 };
 
 export const LOCAL_SERVERS = "local_servers";
-
-const useStyles = makeStyles({
-  danger: {
-    color: tokens.colorStatusDangerForeground1,
-    borderTopColor: tokens.colorStatusDangerBorder1,
-    borderLeftColor: tokens.colorStatusDangerBorder1,
-    borderRightColor: tokens.colorStatusDangerBorder1,
-    borderBottomColor: tokens.colorStatusDangerBorder1,
-  },
-});
 
 export default function ProxyCard<T extends { id: string }>(
   props: ProxyCardProps<T>
@@ -91,7 +82,7 @@ export default function ProxyCard<T extends { id: string }>(
     notifier.success(t(TRANSLATION_KEY.COPIED));
   };
 
-  const inlineStyles = useStyles();
+  const inlineStyles = useDangerStyles();
 
   return (
     <Card className={styles.card}>

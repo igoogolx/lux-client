@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./index.module.css";
 import { Modal } from "../Modal";
 
-type ConfirmModalPros = {
+export type ConfirmModalPros = {
   title: string;
   content: React.ReactNode;
   cancelText?: string;

@@ -36,4 +36,6 @@ export type GetConfigFileDir = () => Promise<string>;
 
 export type OpenConfigFileDir = () => Promise<void>;
 
+export type ResetConfig = () => Promise<void>;
+
 export type GetExecutablePath = () => Promise<string>;

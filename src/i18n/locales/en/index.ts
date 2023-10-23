@@ -154,4 +154,7 @@ export default {
   [TRANSLATION_KEY.COPY]: "Copy",
   [TRANSLATION_KEY.UPDATE_CLASH_PROXIES]: "Update",
   [TRANSLATION_KEY.LOCAL_SERVERS]: "Local Servers",
+  [TRANSLATION_KEY.RESET_CONFIG]: "Reset Config",
+  [TRANSLATION_KEY.RESET_CONFIG_TIPS]:
+    "Note that it will reset your all config includes proxies, rules and setting. Are you sure to continue?",
 };

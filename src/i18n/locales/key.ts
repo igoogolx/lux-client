@@ -138,4 +138,6 @@ export const TRANSLATION_KEY = {
   COPY: "copy",
   UPDATE_CLASH_PROXIES: "update_clash_proxies",
   LOCAL_SERVERS: "local_servers",
+  RESET_CONFIG: "reset_config",
+  RESET_CONFIG_TIPS: "reset_config_tips",
 };

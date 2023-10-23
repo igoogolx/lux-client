@@ -4,6 +4,8 @@ import { Chart, ChartConfiguration } from "chart.js";
 import { useDispatch } from "react-redux";
 import { getProxyDelay } from "lux-js-sdk";
 import { delaysSlice, proxiesSlice } from "@/reducers";
+import { makeStyles } from "@fluentui/react-components";
+import { tokens } from "@fluentui/react-theme";
 
 export const useChartJs = (
   initialConfiguration: ChartConfiguration
@@ -69,3 +71,13 @@ export const useLockBodyScroll = () => {
     };
   }, []);
 }; // Empty array ensures effect is only run on mount and unmount
+
+export const useDangerStyles = makeStyles({
+  danger: {
+    color: tokens.colorStatusDangerForeground1,
+    borderTopColor: tokens.colorStatusDangerBorder1,
+    borderLeftColor: tokens.colorStatusDangerBorder1,
+    borderRightColor: tokens.colorStatusDangerBorder1,
+    borderBottomColor: tokens.colorStatusDangerBorder1,
+  },
+});
