@@ -6,7 +6,6 @@ import {
   Card,
   CardHeader,
   DataGridProps,
-  makeStyles,
   mergeClasses,
   TableColumnDefinition,
   Tooltip,
@@ -21,7 +20,6 @@ import { useTranslation } from "react-i18next";
 import { generalSlice, proxiesSlice, RootState } from "@/reducers";
 import { addProxiesFromClashUrlConfig, deleteProxies } from "lux-js-sdk";
 import { useDispatch, useSelector } from "react-redux";
-import { tokens } from "@fluentui/react-theme";
 import { useDangerStyles } from "@/hooks";
 import styles from "./index.module.css";
 
@@ -88,10 +86,10 @@ export default function ProxyCard<T extends { id: string }>(
     <Card className={styles.card}>
       <CardHeader
         header={
-          <Badge appearance="outline">
+          <Badge appearance="outline" size="large">
             {url === LOCAL_SERVERS
               ? t(TRANSLATION_KEY.LOCAL_SERVERS)
-              : new URL(url).hostname.toLocaleUpperCase()}
+              : new URL(url).hostname}
           </Badge>
         }
         className={styles.header}
