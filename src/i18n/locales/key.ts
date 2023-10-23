@@ -63,8 +63,6 @@ export const TRANSLATION_KEY = {
   COPY_LOG_DIR_PATH: "copy_log_dir_path",
   ELEVATE_CORE: "elevate_core",
   ELEVATE_TIP: "elevate_tip",
-  CHECK_SERVER_NAME: "check_server_name",
-  CHECK_SERVER_NAME_TIP: "check_server_name_tip",
   DELETE_ALL_PROXIES_TIPS: "delete_all_proxies_tips",
   EXIT: "exit",
   UNKNOWN_ERROR: "unknown_error",

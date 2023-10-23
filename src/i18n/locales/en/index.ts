@@ -69,11 +69,8 @@ export default {
   [TRANSLATION_KEY.ELEVATE_CORE]: "Elevate core",
   [TRANSLATION_KEY.ELEVATE_TIP]:
     "The core is not run as admin. Open terminal and copy following commands. Once it's finished, restart the app.",
-  [TRANSLATION_KEY.CHECK_SERVER_NAME]: "Check server name",
   [TRANSLATION_KEY.DELETE_ALL_PROXIES_TIPS]:
     "Are you sure to delete all proxies?",
-  [TRANSLATION_KEY.CHECK_SERVER_NAME_TIP]:
-    "The server name is localhost or 127.0.0.1. Please set the true proxy server correctly in setting.",
   [TRANSLATION_KEY.EXIT]: "Exit",
   [TRANSLATION_KEY.UNKNOWN_ERROR]: "Unknown Error",
   [TRANSLATION_KEY.SHADOWSOCKS]: "Shadowsocks",
@@ -146,8 +143,8 @@ export default {
   [TRANSLATION_KEY.SEARCH_CONNECTION_TIP]:
     "Type a destination, domain to search",
   [TRANSLATION_KEY.APP_HOME_PAGE]: "Lux App Home Page",
-  [TRANSLATION_KEY.APP_DOCS]: "Lux docs Page",
-  [TRANSLATION_KEY.APP_REPORT_ISSUE]: "Report an issue",
+  [TRANSLATION_KEY.APP_DOCS]: "Lux Docs Page",
+  [TRANSLATION_KEY.APP_REPORT_ISSUE]: "Report An Issue",
   [TRANSLATION_KEY.HIJACK_DNS_SWITCH_LABEL]: "Hijack Dns",
   [TRANSLATION_KEY.HIJACK_DNS_SWITCH_TOOLTIP]:
     "Modify the system dns to hijack or you must do it manually",
