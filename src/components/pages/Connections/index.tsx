@@ -133,7 +133,7 @@ export default function Connections(): React.ReactNode {
             tag = (
               <Tag
                 type={TagTypeEnum.Warning}
-                value={t(TRANSLATION_KEY.DIRECT)}
+                value={t(TRANSLATION_KEY.BYPASS)}
               />
             );
           }

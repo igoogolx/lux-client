@@ -9,12 +9,17 @@ import {
 } from "@fluentui/react-components";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
+  DOCS_URL,
   LATEST_RELEASE_URL,
   REPOSITORY_ISSUE_URL,
   REPOSITORY_URL,
 } from "@/utils/constants";
 import { getVersion } from "@/utils/version";
-import { HomeMoreRegular, BugRegular } from "@fluentui/react-icons";
+import {
+  HomeMoreRegular,
+  BugRegular,
+  DocumentBulletListRegular,
+} from "@fluentui/react-icons";
 import {
   ConfirmModal,
   Icon,
@@ -102,6 +107,18 @@ export default function About(): React.ReactNode {
             icon={<BugRegular />}
           >
             <Link>{t(TRANSLATION_KEY.APP_REPORT_ISSUE)}</Link>
+          </Button>
+        </div>
+
+        <div>
+          <Button
+            onClick={() => {
+              window.open(DOCS_URL);
+            }}
+            appearance="transparent"
+            icon={<DocumentBulletListRegular />}
+          >
+            <Link>{t(TRANSLATION_KEY.APP_DOCS)}</Link>
           </Button>
         </div>
       </div>

@@ -41,7 +41,7 @@ export default {
     "No proxy server is selected or loading",
   [TRANSLATION_KEY.DEFAULT_INTERFACE]: "Default Interface",
   [TRANSLATION_KEY.DEFAULT_INTERFACE_TOOLTIP]:
-    "The network interface used to process directed connections",
+    "The network interface used to process bypassed connections",
   [TRANSLATION_KEY.TRUE_PROXY_SERVER]: "True Proxy Server",
   [TRANSLATION_KEY.PROXY_SERVER_MSG]:
     "Localhost or 127.0.0.1 can't be used as proxy server",
@@ -87,7 +87,7 @@ export default {
   [TRANSLATION_KEY.DISCONNECTED_WARN_TIP]:
     "The core is disconnected. Trying to reconnect...",
   [TRANSLATION_KEY.PROXY]: "Proxy",
-  [TRANSLATION_KEY.DIRECT]: "Direct",
+  [TRANSLATION_KEY.BYPASS]: "Bypass",
   [TRANSLATION_KEY.COPIED]: "Copied!",
   [TRANSLATION_KEY.DELETED]: "Deleted!",
   [TRANSLATION_KEY.HTTP_SERVER_PORT_LABEL]: "Local Http Server Port",
@@ -146,6 +146,7 @@ export default {
   [TRANSLATION_KEY.SEARCH_CONNECTION_TIP]:
     "Type a destination, domain to search",
   [TRANSLATION_KEY.APP_HOME_PAGE]: "Lux App Home Page",
+  [TRANSLATION_KEY.APP_DOCS]: "Lux docs Page",
   [TRANSLATION_KEY.APP_REPORT_ISSUE]: "Report an issue",
   [TRANSLATION_KEY.HIJACK_DNS_SWITCH_LABEL]: "Hijack Dns",
   [TRANSLATION_KEY.HIJACK_DNS_SWITCH_TOOLTIP]:

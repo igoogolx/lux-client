@@ -10,7 +10,7 @@ function RuleCell({ value }: { value: number }) {
   if (value === ConnRuleEnum.Proxy) {
     return <Tag type={TagTypeEnum.Info} value={t(TRANSLATION_KEY.PROXY)} />;
   }
-  return <Tag type={TagTypeEnum.Warning} value={t(TRANSLATION_KEY.DIRECT)} />;
+  return <Tag type={TagTypeEnum.Warning} value={t(TRANSLATION_KEY.BYPASS)} />;
 }
 
 export default RuleCell;
