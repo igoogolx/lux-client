@@ -54,6 +54,9 @@ export function Content(): React.ReactNode {
   const columns: TableColumnDefinition<Proxy>[] = [
     createTableColumn<Proxy>({
       columnId: "name",
+      renderHeaderCell: () => {
+        return "";
+      },
       renderCell: (item) => {
         return (
           <TableCellLayout truncate>
@@ -67,6 +70,9 @@ export function Content(): React.ReactNode {
     }),
     createTableColumn<Proxy>({
       columnId: "action",
+      renderHeaderCell: () => {
+        return "";
+      },
       renderCell: (item) => {
         return (
           <TableCellLayout truncate className={styles.action}>

@@ -28,9 +28,9 @@ export function DelayTag(props: DelayTagProps): React.ReactNode {
   }, [value]);
   const testDelay = useTestDelay();
 
-  const { loading } = useSelector<RootState, DelayInfo>(
-    (state) => delaysSelectors.selectById(state, id) || { id, loading: false }
-  );
+  const { loading } = useSelector<RootState, DelayInfo | undefined>((state) =>
+    delaysSelectors.selectById(state, id)
+  ) || { loading: true };
 
   if (value === undefined && !loading) {
     return "";
