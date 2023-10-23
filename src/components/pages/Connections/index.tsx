@@ -231,9 +231,7 @@ export default function Connections(): React.ReactNode {
               onClick={closeAllConnections}
               className={styles.closeAll}
               icon={<DeleteRegular />}
-            >
-              Close All
-            </Button>
+            />
           </Tooltip>
         </div>
       </div>
