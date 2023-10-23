@@ -9,7 +9,6 @@ import {
 } from "lux-js-sdk";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Card,
   createTableColumn,
   DataGridProps,
   TableCellLayout,
@@ -26,7 +25,6 @@ import ClashCard, {
 } from "@/components/pages/Home/Content/ClashCard";
 import { Operation } from "./ProxyCard/Operation";
 import { DelayTag } from "./ProxyCard/DelayTag";
-import { Table } from "../../../Core";
 import styles from "./index.module.css";
 
 export function Content(): React.ReactNode {
