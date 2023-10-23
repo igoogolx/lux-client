@@ -20,7 +20,7 @@ import {
   RootState,
   selectedSlice,
 } from "@/reducers";
-import ClashCard, {
+import ProxyCard, {
   LOCAL_SERVERS,
 } from "src/components/pages/Home/Content/ProxyCard";
 import { Operation } from "./ProxyCard/Operation";
@@ -110,7 +110,7 @@ export function Content(): React.ReactNode {
     <div className={styles.wrapper}>
       {Object.keys(proxyMap).map((key) => {
         return (
-          <ClashCard
+          <ProxyCard
             columns={columns}
             data={proxyMap[key]}
             selectionMode={isAutoMode ? undefined : "single"}

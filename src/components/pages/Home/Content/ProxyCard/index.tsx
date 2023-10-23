@@ -7,7 +7,6 @@ import {
   CardHeader,
   DataGridProps,
   Subtitle1,
-  Subtitle2,
   TableColumnDefinition,
   Tooltip,
 } from "@fluentui/react-components";
@@ -18,7 +17,7 @@ import { generalSlice, proxiesSlice } from "@/reducers";
 import { addProxiesFromClashUrlConfig } from "lux-js-sdk";
 import { useDispatch } from "react-redux";
 
-export type ClashCardProps<T> = {
+export type ProxyCardProps<T> = {
   url: string;
   data: T[];
   columns: TableColumnDefinition<T>[];
@@ -29,8 +28,8 @@ export type ClashCardProps<T> = {
 
 export const LOCAL_SERVERS = "local_servers";
 
-export default function ClashCard<T extends { id: string }>(
-  props: ClashCardProps<T>
+export default function ProxyCard<T extends { id: string }>(
+  props: ProxyCardProps<T>
 ): React.ReactNode {
   const {
     url,
