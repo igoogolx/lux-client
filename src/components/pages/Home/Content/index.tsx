@@ -23,8 +23,8 @@ import {
 import ClashCard, {
   LOCAL_SERVERS,
 } from "@/components/pages/Home/Content/ClashCard";
-import { Operation } from "./ProxyCard/Operation";
-import { DelayTag } from "./ProxyCard/DelayTag";
+import { Operation } from "./Operation";
+import { DelayTag } from "./DelayTag";
 import styles from "./index.module.css";
 
 export function Content(): React.ReactNode {
