@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SettingRes } from "lux-js-sdk";
 
 const initialState: SettingRes = {
+  language: "en-US",
   defaultInterface: "",
   localServer: {
     http: { enabled: false, port: 0 },

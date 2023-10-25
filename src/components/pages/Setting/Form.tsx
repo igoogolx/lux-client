@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import HijackDns from "@/components/pages/Setting/HijackDns";
 import { getRuntimeOS } from "lux-js-sdk";
+import Language from "@/components/pages/Setting/Language";
 import DefaultInterface from "./DefaultInterface";
 import AutoMode from "./AutoMode";
 import LocalHttpServer from "./LocalHttpServer";
@@ -17,6 +18,7 @@ export function SettingForm() {
   return (
     <div>
       <div>
+        <Language />
         <Dns />
         {os === "darwin" && <HijackDns />}
         <DefaultInterface />

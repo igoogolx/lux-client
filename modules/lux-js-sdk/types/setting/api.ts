@@ -4,6 +4,7 @@ type DnsServer = {
 };
 
 export type SettingRes = {
+  language: string;
   dns: {
     boost: DnsServer;
     remote: DnsServer;

@@ -140,4 +140,7 @@ export const TRANSLATION_KEY = {
   LOCAL_SERVERS: "local_servers",
   RESET_CONFIG: "reset_config",
   RESET_CONFIG_TIPS: "reset_config_tips",
+  LANGUAGE: "language",
+  EN_US: "en_us",
+  ZH_CN: "zh_cn",
 };

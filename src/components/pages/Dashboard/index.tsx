@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   subscribeNowTraffic,
   subscribeTotalTraffic,
@@ -32,17 +32,21 @@ Chart.register(
 );
 
 export default function Dashboard(): React.ReactNode {
-  const speed = useSelector<RootState, Speed>((state) => {
+  const traffics = useSelector<RootState, Traffic[]>((state) => {
+    return state.traffics.now;
+  });
+
+  const speed = useMemo<Speed>(() => {
     const result: Speed = {
       proxy: [],
       direct: [],
     };
-    state.traffics.now.forEach((traffic) => {
+    traffics.forEach((traffic) => {
       result.proxy.push(traffic.proxy);
       result.direct.push(traffic.direct);
     });
     return result;
-  });
+  }, [traffics]);
   const total = useSelector<RootState, Traffic | null>(
     (state) => state.traffics.total
   );
