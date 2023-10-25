@@ -1,4 +1,4 @@
-import { TRANSLATION_KEY } from "../key";
+import { TRANSLATION_KEY } from "./key";
 
 export default {
   [TRANSLATION_KEY.MODE_SELECT_TIP]:
