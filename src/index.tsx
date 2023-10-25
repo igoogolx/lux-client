@@ -1,4 +1,4 @@
-import "./i18n";
+import { initI18n } from "@/i18n";
 import * as React from "react";
 import { useMemo, useState } from "react";
 import "./index.css";
@@ -38,6 +38,8 @@ function Root() {
   );
 }
 
-const container = document.getElementById("app");
-const root = createRoot(container as HTMLElement); // createRoot(container!) if you use TypeScript
-root.render(<Root />);
+initI18n().then(() => {
+  const container = document.getElementById("app");
+  const root = createRoot(container as HTMLElement); // createRoot(container!) if you use TypeScript
+  root.render(<Root />);
+});
