@@ -103,7 +103,7 @@ export default function Connections(): React.ReactNode {
       createTableColumn<Connection>({
         columnId: "destination",
         renderHeaderCell: () => {
-          return "Destination";
+          return t(TRANSLATION_KEY.DESTINATION);
         },
         renderCell: (item) => {
           return <TableCellLayout truncate>{item.destination}</TableCellLayout>;
@@ -112,7 +112,7 @@ export default function Connections(): React.ReactNode {
       createTableColumn<Connection>({
         columnId: "domain",
         renderHeaderCell: () => {
-          return "Domain";
+          return t(TRANSLATION_KEY.DOMAIN);
         },
         renderCell: (item) => {
           return <TableCellLayout truncate>{item.domain}</TableCellLayout>;

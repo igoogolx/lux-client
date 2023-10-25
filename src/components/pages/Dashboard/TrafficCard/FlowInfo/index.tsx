@@ -1,5 +1,7 @@
 import React from "react";
 import { TrafficItem } from "lux-js-sdk";
+import { useTranslation } from "react-i18next";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { Icon, IconNameEnum } from "../../../../Core";
 import { FlowText, FlowTextTypeEnum } from "../FlowText";
 import styles from "./index.module.css";
@@ -11,10 +13,11 @@ type FlowInfoProps = {
 
 export default function FlowInfo(props: FlowInfoProps) {
   const { current, total } = props;
+  const { t } = useTranslation();
   return (
     <div className={styles.flowInfo}>
       <div className={styles.item}>
-        <div className={styles.title}>Speed</div>
+        <div className={styles.title}>{t(TRANSLATION_KEY.SPEED)}</div>
         <div className={styles.details}>
           <div className={styles.detail}>
             <Icon name={IconNameEnum.ArrowUp} />
@@ -27,7 +30,7 @@ export default function FlowInfo(props: FlowInfoProps) {
         </div>
       </div>
       <div className={styles.item}>
-        <div className={styles.title}>Total</div>
+        <div className={styles.title}>{t(TRANSLATION_KEY.TOTAL)}</div>
         <div className={styles.details}>
           <div className={styles.detail}>
             <Icon name={IconNameEnum.ArrowUp} />

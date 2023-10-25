@@ -1,5 +1,7 @@
 import * as React from "react";
 import { TrafficItem } from "lux-js-sdk";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { useTranslation } from "react-i18next";
 import FlowInfo from "./FlowInfo";
 import styles from "./index.module.css";
 import { SpeedGraph } from "../SpeedGraph";
@@ -22,13 +24,14 @@ export function TrafficCard(props: TrafficCardProps): React.ReactNode {
   const { speed, total } = props;
   const currentProxy = getCurrent(speed.proxy);
   const currentDirect = getCurrent(speed.direct);
+  const { t } = useTranslation();
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.data}>
         <div className={styles.info}>
           <div className={styles.header}>
-            <div className={styles.avatar}>Proxy</div>
+            <div className={styles.avatar}>{t(TRANSLATION_KEY.PROXY)}</div>
           </div>
           <div className={styles.content}>
             <FlowInfo current={currentProxy} total={total.proxy} />
@@ -37,7 +40,7 @@ export function TrafficCard(props: TrafficCardProps): React.ReactNode {
         <div className={styles.line} />
         <div className={styles.info}>
           <div className={styles.header}>
-            <div className={styles.avatar}>Direct</div>
+            <div className={styles.avatar}>{t(TRANSLATION_KEY.BYPASS)}</div>
           </div>
           <div className={styles.content}>
             <FlowInfo current={currentDirect} total={total.direct} />
