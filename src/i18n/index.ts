@@ -1,8 +1,8 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { getSetting } from "lux-js-sdk";
-import enUS from "./locales/en-US/en_us";
-import zhCN from "./locales/zh-CN/zh_cn";
+import enUS from "./locales/en_us";
+import zhCN from "./locales/zh_cn";
 
 function initLanguage(language?: string) {
   return i18n.use(initReactI18next).init({
