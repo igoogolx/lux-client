@@ -20,10 +20,9 @@ function initLanguage(language?: string) {
   });
 }
 
-export function initI18n() {
-  return getSetting()
-    .then((setting) => {
-      return initLanguage(setting.language);
-    })
-    .catch(initLanguage);
+export async function initI18n() {
+  await initLanguage();
+  getSetting().then((setting) => {
+    i18n.changeLanguage(setting.language);
+  });
 }
