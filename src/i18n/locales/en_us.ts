@@ -145,7 +145,8 @@ export default {
   [TRANSLATION_KEY.EDIT_INTERFACE_TITLE]: "Edit the default interface name",
   [TRANSLATION_KEY.EDIT_PROXY_SERVER_TITLE]: "Edit the true proxy server",
   [TRANSLATION_KEY.EDIT_TESTING_URL]: "Edit testing url",
-  [TRANSLATION_KEY.EDIT_LOCAL_HTTP_SERVER_TITLE]: "Edit the true proxy server",
+  [TRANSLATION_KEY.EDIT_LOCAL_HTTP_SERVER_TITLE]:
+    "Edit the local http server port",
   [TRANSLATION_KEY.SEARCH_CONNECTION_TIP]:
     "Type a destination, domain to search",
   [TRANSLATION_KEY.APP_HOME_PAGE]: "Lux App Home Page",
