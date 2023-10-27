@@ -1,6 +1,8 @@
 import { TRANSLATION_KEY } from "./key";
 
 export default {
+  [TRANSLATION_KEY.EN_US]: "English",
+  [TRANSLATION_KEY.ZH_CN]: "中文",
   [TRANSLATION_KEY.MODE_SELECT_TIP]:
     "It's in auto mode. Proxy can't be selected manually",
   [TRANSLATION_KEY.NAV_HOME]: "Home",
@@ -11,8 +13,6 @@ export default {
   [TRANSLATION_KEY.NAV_CONNECTION]: "Connection",
   [TRANSLATION_KEY.LOG]: "Log",
   [TRANSLATION_KEY.LANGUAGE]: "Language",
-  [TRANSLATION_KEY.EN_US]: "English",
-  [TRANSLATION_KEY.ZH_CN]: "Chinese",
   [TRANSLATION_KEY.NAV_SETTING]: "Setting",
   [TRANSLATION_KEY.NAV_ABOUT]: "About",
   [TRANSLATION_KEY.COMMON_DELETE]: "Delete",
@@ -30,7 +30,6 @@ export default {
   [TRANSLATION_KEY.FORM_PORT]: "Port",
   [TRANSLATION_KEY.FORM_ENCRYPTION]: "Encryption",
   [TRANSLATION_KEY.FORM_PLUGIN]: "Plugin",
-  [TRANSLATION_KEY.FORM_PLUGIN_OPTS]: "Plugin_opts",
   [TRANSLATION_KEY.FORM_OPTIONAL]: "Optional",
   [TRANSLATION_KEY.FORM_CANCEL]: "Cancel",
   [TRANSLATION_KEY.FORM_SAVE]: "Save",
@@ -48,16 +47,10 @@ export default {
   [TRANSLATION_KEY.DEFAULT_INTERFACE]: "Default Interface",
   [TRANSLATION_KEY.DEFAULT_INTERFACE_TOOLTIP]:
     "The network interface used to process bypassed connections",
-  [TRANSLATION_KEY.TRUE_PROXY_SERVER]: "True Proxy Server",
   [TRANSLATION_KEY.PROXY_SERVER_MSG]:
     "Localhost or 127.0.0.1 can't be used as proxy server",
-  [TRANSLATION_KEY.BYPASS_IPS]: "Bypass Ips",
-  [TRANSLATION_KEY.BYPASS_IPS_TOOLTIP]:
-    "Ips will be connected by default interface",
   [TRANSLATION_KEY.SAVE_SUCCESS]: "Save Successfully",
   [TRANSLATION_KEY.UPDATE_SUCCESS]: "Update Successfully",
-  [TRANSLATION_KEY.REPOSITORY]: "Repository",
-  [TRANSLATION_KEY.VERSION]: "Version",
   [TRANSLATION_KEY.DOWNLOAD]: "Download",
   [TRANSLATION_KEY.DATA]: "data",
   [TRANSLATION_KEY.UPLOAD]: "Upload",
@@ -71,13 +64,11 @@ export default {
   [TRANSLATION_KEY.CLOSE]: "Close",
   [TRANSLATION_KEY.TYPE]: "Type",
   [TRANSLATION_KEY.CONTENT]: "Content",
-  [TRANSLATION_KEY.COPY_LOG_DIR_PATH]: "Copy log dir path",
   [TRANSLATION_KEY.ELEVATE_CORE]: "Elevate core",
   [TRANSLATION_KEY.ELEVATE_TIP]:
     "The core is not run as admin. Open terminal and copy following commands. Once it's finished, restart the app.",
   [TRANSLATION_KEY.DELETE_ALL_PROXIES_TIPS]:
     "Are you sure to delete all proxies?",
-  [TRANSLATION_KEY.EXIT]: "Exit",
   [TRANSLATION_KEY.UNKNOWN_ERROR]: "Unknown Error",
   [TRANSLATION_KEY.SHADOWSOCKS]: "Shadowsocks",
   [TRANSLATION_KEY.SOCKS5]: "Socks5",
@@ -85,7 +76,6 @@ export default {
   [TRANSLATION_KEY.CLASH_IMPORT]: "Import Clash Config From Clipboard",
   [TRANSLATION_KEY.CLASH_URL_IMPORT]: "Import Clash Config From Url",
   [TRANSLATION_KEY.WARNING]: "Warning",
-  [TRANSLATION_KEY.RELOAD]: "Reload",
   [TRANSLATION_KEY.CLASH_URL]: "Clash YAML URL",
   [TRANSLATION_KEY.DISCONNECTED_WARN_TIP]:
     "The core is disconnected. Trying to reconnect...",
@@ -140,10 +130,8 @@ export default {
   [TRANSLATION_KEY.BYPASS_CN_RULE]: "Bypass CN",
   [TRANSLATION_KEY.PROXY_ALL_RULE]: "Proxy All",
   [TRANSLATION_KEY.CHECK_HUB_ADDRESS]: "Check hub address",
-  [TRANSLATION_KEY.CORE_VERSION]: "Core Version",
   [TRANSLATION_KEY.HTTP]: "Http",
   [TRANSLATION_KEY.EDIT_INTERFACE_TITLE]: "Edit the default interface name",
-  [TRANSLATION_KEY.EDIT_PROXY_SERVER_TITLE]: "Edit the true proxy server",
   [TRANSLATION_KEY.EDIT_TESTING_URL]: "Edit testing url",
   [TRANSLATION_KEY.EDIT_LOCAL_HTTP_SERVER_TITLE]:
     "Edit the local http server port",
