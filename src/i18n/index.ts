@@ -9,7 +9,7 @@ enum I18nLang {
   ZH_CN = "zh-CN",
 }
 
-function getLang(value?: string) {
+export function getLang(value?: string) {
   if (value === I18nLang.EN_US || value === I18nLang.ZH_CN) {
     return value;
   }

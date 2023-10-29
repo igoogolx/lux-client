@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, settingSlice } from "@/reducers";
 import { setSetting, SettingRes } from "lux-js-sdk";
 import { notifier } from "@/components/Core";
+import { getLang } from "@/i18n";
 import styles from "../index.module.css";
 
 enum LANGUAGE_ENUM {
@@ -46,7 +47,7 @@ export default function Language() {
         <div>
           <Dropdown
             value={TRANSLATION_MAP[setting.language as LANGUAGE_ENUM]}
-            selectedOptions={[setting.language]}
+            selectedOptions={[getLang(setting.language)]}
             onOptionSelect={(e, data) => {
               onChange(data.optionValue as string);
               i18n.changeLanguage(data.optionValue);
