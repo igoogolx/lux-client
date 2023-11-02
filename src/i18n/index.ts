@@ -2,15 +2,13 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { getSetting } from "lux-js-sdk";
 import enUS from "./locales/en_us";
-import zhCN from "./locales/zh_cn";
 
 enum I18nLang {
   EN_US = "en-US",
-  ZH_CN = "zh-CN",
 }
 
 export function getLang(value?: string) {
-  if (value === I18nLang.EN_US || value === I18nLang.ZH_CN) {
+  if (value === I18nLang.EN_US) {
     return value;
   }
   return I18nLang.EN_US;
@@ -24,9 +22,6 @@ function initLanguage(language?: string) {
     resources: {
       [I18nLang.EN_US]: {
         translation: enUS,
-      },
-      [I18nLang.ZH_CN]: {
-        translation: zhCN,
       },
     },
   });

@@ -18,7 +18,6 @@ export function SettingForm() {
   return (
     <div>
       <div>
-        <Language />
         <Dns />
         {os === "darwin" && <HijackDns />}
         <DefaultInterface />
