@@ -12,7 +12,7 @@
   "author": "igoogolx",
   "license": "MIT",
   "dependencies": {
-    "@fluentui/react-components": "^9.32.3",
+    "@fluentui/react-components": "^9.37.4",
     "@fortawesome/fontawesome-free": "^6.1.2",
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^1.2.0",
