@@ -7,7 +7,7 @@ export type HubAddress = {
   port: number;
 };
 
-const DEFAULT_ADDRESS = "127.0.0.1:9000";
+const DEFAULT_ADDRESS = "127.0.0.1:8000";
 
 function parseAddress(address: string): HubAddress {
   const [server, port] = address.split(":");
