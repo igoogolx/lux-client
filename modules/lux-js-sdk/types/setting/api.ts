@@ -4,6 +4,7 @@ type DnsServer = {
 };
 
 export type SettingRes = {
+  mode: string;
   language: string;
   dns: {
     boost: DnsServer;
@@ -12,7 +13,8 @@ export type SettingRes = {
   };
   defaultInterface: string;
   localServer: {
-    http: { enabled: boolean; port: number };
+    allowLan: boolean;
+    port: number;
   };
   autoMode: {
     enabled: boolean;

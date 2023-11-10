@@ -22,16 +22,12 @@ export default function LocalHttpServer() {
     (state) => state.manager.isStared || state.manager.isLoading
   );
 
-  const onSubmit = async (
-    httpConfig: Partial<SettingRes["localServer"]["http"]>
-  ) => {
+  const onSubmit = async (httpConfig: Partial<SettingRes["localServer"]>) => {
     const newSetting = {
       ...setting,
       localServer: {
-        http: {
-          ...setting.localServer.http,
-          ...httpConfig,
-        },
+        ...setting.localServer,
+        ...httpConfig,
       },
     };
     await setSetting(newSetting);
@@ -48,32 +44,30 @@ export default function LocalHttpServer() {
           <Caption1>{t(TRANSLATION_KEY.HTTP_SERVER_SWITCH_TOOLTIP)}</Caption1>
         </div>
         <Switch
-          checked={setting.localServer.http.enabled}
+          checked={setting.localServer.allowLan}
           onChange={(e, data) => {
-            onSubmit({ enabled: data.checked });
+            onSubmit({ allowLan: data.checked });
           }}
           disabled={isStarted}
         />
       </div>
-      {setting.localServer.http.enabled && (
-        <div className={styles.cardItem}>
-          <div className={styles.desc}>
-            <Subtitle2>{t(TRANSLATION_KEY.HTTP_SERVER_PORT_LABEL)}</Subtitle2>
-            <Caption1>{t(TRANSLATION_KEY.HTTP_SERVER_PORT_DESC)}</Caption1>
-          </div>
-          <EditItemWithDialog
-            title={t(TRANSLATION_KEY.EDIT_LOCAL_HTTP_SERVER_TITLE)}
-            inputType="number"
-            open={openModal}
-            setOpen={setOpenModal}
-            onSubmit={(value) => {
-              onSubmit({ port: +value });
-            }}
-            value={setting.localServer.http.port.toString()}
-            disabled={isStarted}
-          />
+      <div className={styles.cardItem}>
+        <div className={styles.desc}>
+          <Subtitle2>{t(TRANSLATION_KEY.HTTP_SERVER_PORT_LABEL)}</Subtitle2>
+          <Caption1>{t(TRANSLATION_KEY.HTTP_SERVER_PORT_DESC)}</Caption1>
         </div>
-      )}
+        <EditItemWithDialog
+          title={t(TRANSLATION_KEY.EDIT_LOCAL_HTTP_SERVER_TITLE)}
+          inputType="number"
+          open={openModal}
+          setOpen={setOpenModal}
+          onSubmit={(value) => {
+            onSubmit({ port: +value });
+          }}
+          value={setting.localServer.port.toString()}
+          disabled={isStarted}
+        />
+      </div>
     </Card>
   );
 }
