@@ -44,21 +44,13 @@ export const Modal = React.memo((props: ModalProps) => {
 
   useLockBodyScroll();
   return (
-    <Dialog
-      open
-      onOpenChange={(e, data) => {
-        if (!data.open) {
-          close?.();
-        }
-      }}
-      modalType="alert"
-    >
+    <Dialog open modalType="alert">
       <DialogSurface>
         <DialogBody>
           <DialogContent>{children}</DialogContent>
           <DialogActions>
             {!hideCloseButton && close && (
-              <Button appearance="secondary">
+              <Button appearance="secondary" onClick={close}>
                 {closeText || t(TRANSLATION_KEY.CLOSE)}
               </Button>
             )}
