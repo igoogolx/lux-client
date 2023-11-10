@@ -152,4 +152,6 @@ export default {
   [TRANSLATION_KEY.RESET_CONFIG]: "Reset Config",
   [TRANSLATION_KEY.RESET_CONFIG_TIPS]:
     "Note that it will reset your all config includes proxies, rules and setting. Are you sure to continue?",
+  [TRANSLATION_KEY.MODE_TOOLTIP]: "Select proxy mode",
+  [TRANSLATION_KEY.EDIT_MODE_TOOLTIP]: "Edit mode",
 };

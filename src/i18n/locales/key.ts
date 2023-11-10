@@ -135,4 +135,6 @@ export const TRANSLATION_KEY = {
   TOTAL: "common.total",
   SPEED: "common.speed",
   DOMAIN: "common.domain",
+  MODE_TOOLTIP: "common.mode_tooltip",
+  EDIT_MODE_TOOLTIP: "common.edit_mode_tooltip",
 };

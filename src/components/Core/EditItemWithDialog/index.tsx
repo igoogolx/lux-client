@@ -25,6 +25,7 @@ type EditItemWithDialogProps = {
   inputType?: "number";
   value: string;
   disabled?: boolean;
+  canReset?: boolean;
   selectorItems?: MenuItemProps[];
   type?: "input" | "selector";
 };
@@ -38,6 +39,7 @@ export default function EditItemWithDialog(props: EditItemWithDialogProps) {
     onSubmit,
     inputType,
     disabled = false,
+    canReset = true,
     selectorItems,
     type = "input",
   } = props;
@@ -98,14 +100,16 @@ export default function EditItemWithDialog(props: EditItemWithDialogProps) {
                       </Option>
                     ))}
                   </Dropdown>
-                  <Button
-                    onClick={() => {
-                      setEditedValue("");
-                    }}
-                    className={styles.btn}
-                  >
-                    {t(TRANSLATION_KEY.FORM_RESET)}
-                  </Button>
+                  {canReset && (
+                    <Button
+                      onClick={() => {
+                        setEditedValue("");
+                      }}
+                      className={styles.btn}
+                    >
+                      {t(TRANSLATION_KEY.FORM_RESET)}
+                    </Button>
+                  )}
                 </div>
               )
             )}
