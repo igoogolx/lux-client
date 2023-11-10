@@ -85,9 +85,9 @@ export default {
   [TRANSLATION_KEY.DELETED]: "Deleted!",
   [TRANSLATION_KEY.HTTP_SERVER_PORT_LABEL]: "Local Http Server Port",
   [TRANSLATION_KEY.HTTP_SERVER_PORT_DESC]: "Connect by ip:port",
-  [TRANSLATION_KEY.HTTP_SERVER_SWITCH_LABEL]: "Enable Local Http Server",
+  [TRANSLATION_KEY.HTTP_SERVER_SWITCH_LABEL]: "Allow Lan",
   [TRANSLATION_KEY.HTTP_SERVER_SWITCH_TOOLTIP]:
-    "Allow other devices to connect",
+    "Allow other devices to connect in Lan",
   [TRANSLATION_KEY.MODE_SWITCH_LABEL]: "Auto Mode",
   [TRANSLATION_KEY.CONFIG_FILE]: "Config File",
   [TRANSLATION_KEY.CONFIG_FILE_TIP]: "You can edit the config file manually",
