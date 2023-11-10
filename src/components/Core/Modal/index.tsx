@@ -53,16 +53,14 @@ export const Modal = React.memo((props: ModalProps) => {
       }}
       modalType="alert"
     >
-      <DialogSurface mountNode={document.getElementById(APP_CONTAINER_ID)}>
+      <DialogSurface>
         <DialogBody>
           <DialogContent>{children}</DialogContent>
           <DialogActions>
             {!hideCloseButton && close && (
-              <DialogTrigger disableButtonEnhancement>
-                <Button appearance="secondary">
-                  {closeText || t(TRANSLATION_KEY.CLOSE)}
-                </Button>
-              </DialogTrigger>
+              <Button appearance="secondary">
+                {closeText || t(TRANSLATION_KEY.CLOSE)}
+              </Button>
             )}
             {!hideOkButton && onOk && (
               <Button
