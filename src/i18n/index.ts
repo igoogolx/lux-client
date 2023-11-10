@@ -30,6 +30,6 @@ function initLanguage(language?: string) {
 export async function initI18n() {
   await initLanguage();
   getSetting().then((setting) => {
-    i18n.changeLanguage(setting.language);
+    i18n.changeLanguage(getLang(setting.language));
   });
 }
