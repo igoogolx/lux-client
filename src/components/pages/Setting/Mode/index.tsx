@@ -44,7 +44,7 @@ export default function Mode() {
       <div className={styles.cardItem}>
         <div className={styles.desc}>
           <Subtitle2>{t(TRANSLATION_KEY.MODE)}</Subtitle2>
-          <Caption1>{t(TRANSLATION_KEY.MODE_TOOLTIP)}</Caption1>
+          <Caption1>{t(TRANSLATION_KEY.PROXY_MODE_TOOLTIP)}</Caption1>
         </div>
         <EditItemWithDialog
           title={t(TRANSLATION_KEY.EDIT_MODE_TOOLTIP)}

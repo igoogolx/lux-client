@@ -154,4 +154,6 @@ export default {
     "Note that it will reset your all config includes proxies, rules and setting. Are you sure to continue?",
   [TRANSLATION_KEY.MODE_TOOLTIP]: "Select proxy mode",
   [TRANSLATION_KEY.EDIT_MODE_TOOLTIP]: "Edit mode",
+  [TRANSLATION_KEY.PROXY_MODE_TOOLTIP]:
+    "System proxy usually only supports TCP and is not accepted by all applications, but tun can handle all traffic.",
 };

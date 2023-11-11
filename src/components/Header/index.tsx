@@ -43,11 +43,16 @@ export function Header(props: HeaderProps) {
 
         {(location.pathname as ROUTER_PATH) === ROUTER_PATH.Home && (
           <>
-            <InteractionTag appearance="brand" className={styles.actionTag}>
-              <InteractionTagPrimary>{`${
-                setting.mode === "tun" ? "Tun" : "System"
-              } Proxy`}</InteractionTagPrimary>
-            </InteractionTag>
+            <Tooltip
+              content={t(TRANSLATION_KEY.PROXY_MODE_TOOLTIP)}
+              relationship="label"
+            >
+              <InteractionTag appearance="brand" className={styles.actionTag}>
+                <InteractionTagPrimary>{`${
+                  setting.mode === "tun" ? "Tun" : "System"
+                } Proxy`}</InteractionTagPrimary>
+              </InteractionTag>
+            </Tooltip>
             {setting.autoMode.enabled && (
               <Tooltip
                 content={t(TRANSLATION_KEY.MODE_SELECT_TIP)}
