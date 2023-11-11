@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import HijackDns from "@/components/pages/Setting/HijackDns";
-import { getRuntimeOS } from "lux-js-sdk";
+import { getRuntimeOS, SettingRes } from "lux-js-sdk";
 import Mode from "@/components/pages/Setting/Mode";
+import { useSelector } from "react-redux";
+import { RootState } from "@/reducers";
+import { set } from "yaml/dist/schema/yaml-1.1/set";
 import DefaultInterface from "./DefaultInterface";
 import AutoMode from "./AutoMode";
 import LocalHttpServer from "./LocalHttpServer";
@@ -15,13 +18,18 @@ export function SettingForm() {
       setOs(res.os);
     });
   }, []);
+
+  const setting = useSelector<RootState, SettingRes>((state) => state.setting);
+
+  const isTun = setting.mode === "tun";
+
   return (
     <div>
       <div>
         <Mode />
-        <Dns />
+        {isTun && <Dns />}
         {os === "darwin" && <HijackDns />}
-        <DefaultInterface />
+        {isTun && <DefaultInterface />}
         <LocalHttpServer />
         <AutoMode />
         <ConfigFile />
