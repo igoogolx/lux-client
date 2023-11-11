@@ -103,12 +103,6 @@ export function Operation(): React.ReactNode {
         content: t(TRANSLATION_KEY.COMMON_RUNTIME_DETAIL),
         disabled: !isStarted,
       },
-      {
-        id: OperationTypeEnum.DeleteAllProxies,
-        content: t(TRANSLATION_KEY.DELETE_ALL_PROXIES),
-        disabled: isStarted,
-        isDanger: true,
-      },
     ];
   }, [isStarted, t, isTestingDealy]);
   const onSelect = (id: string) => {
