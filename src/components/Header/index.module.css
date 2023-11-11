@@ -2,12 +2,17 @@
   @apply flex items-center justify-between py-4;
 
   & .main {
-    @apply flex;
+    @apply flex items-center;
 
     .alert {
       @apply ml-4;
     }
   }
+
+  & .actionTag {
+    @apply ml-4;
+  }
+
 }
 
 .navigationBtn {

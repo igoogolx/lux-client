@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import {
   Caption1,
+  InteractionTag,
+  InteractionTagPrimary,
   Menu,
   MenuButton,
   MenuItem,
@@ -144,7 +146,6 @@ export function Header(): React.ReactNode {
     <div className={styles.wrapper}>
       <div className={styles.actions}>
         <Operation />
-
         <AddingOptions className={styles.addButton} />
         <Menu>
           <MenuTrigger disableButtonEnhancement>

@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
 import {
   Button,
+  InteractionTag,
+  InteractionTagPrimary,
   MessageBar,
   MessageBarBody,
   Title2,
+  Tooltip,
 } from "@fluentui/react-components";
 import { NavigationFilled } from "@fluentui/react-icons";
 import { useLocation } from "react-router-dom";
@@ -39,14 +42,28 @@ export function Header(props: HeaderProps) {
     <div className={styles.container}>
       <div className={styles.main}>
         <Title2>{t(ROUTER_NAME[location.pathname as ROUTER_PATH])}</Title2>
-        {(location.pathname as ROUTER_PATH) === ROUTER_PATH.Home &&
-          setting.autoMode.enabled && (
-            <MessageBar intent="warning">
-              <MessageBarBody>
-                {t(TRANSLATION_KEY.MODE_SELECT_TIP)}
-              </MessageBarBody>
-            </MessageBar>
-          )}
+
+        {(location.pathname as ROUTER_PATH) === ROUTER_PATH.Home && (
+          <>
+            <InteractionTag appearance="brand" className={styles.actionTag}>
+              <InteractionTagPrimary>{`${
+                setting.mode === "tun" ? "Tun" : "System"
+              } Proxy`}</InteractionTagPrimary>
+            </InteractionTag>
+            {setting.autoMode.enabled && (
+              <Tooltip
+                content={t(TRANSLATION_KEY.MODE_SELECT_TIP)}
+                relationship="label"
+              >
+                <InteractionTag appearance="brand" className={styles.actionTag}>
+                  <InteractionTagPrimary>
+                    {t(TRANSLATION_KEY.MODE_SWITCH_LABEL)}
+                  </InteractionTagPrimary>
+                </InteractionTag>
+              </Tooltip>
+            )}
+          </>
+        )}
       </div>
 
       <div className={styles.navigationBtn}>
