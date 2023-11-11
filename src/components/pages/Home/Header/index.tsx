@@ -13,8 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import {
   Caption1,
-  InteractionTag,
-  InteractionTagPrimary,
   Menu,
   MenuButton,
   MenuItem,

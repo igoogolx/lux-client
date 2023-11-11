@@ -3,8 +3,6 @@ import {
   Button,
   InteractionTag,
   InteractionTagPrimary,
-  MessageBar,
-  MessageBarBody,
   Title2,
   Tooltip,
 } from "@fluentui/react-components";
