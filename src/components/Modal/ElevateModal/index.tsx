@@ -29,7 +29,7 @@ export function ElevateModal(): ReactNode {
         <div>
           <div>{t(TRANSLATION_KEY.ELEVATE_TIP)}</div>
           <CodeBlock
-            text={`export ${CORE_PATH_VAR}=${corePath}\nsudo chown root $${CORE_PATH_VAR}\nsudo chmod 770 $${CORE_PATH_VAR}\nsudo chmod +sx $${CORE_PATH_VAR}`}
+            text={`export ${CORE_PATH_VAR}=${corePath}\nsudo chown root:wheel $${CORE_PATH_VAR}\nsudo chmod 770 $${CORE_PATH_VAR}\nsudo chmod +sx $${CORE_PATH_VAR}`}
           />
         </div>
       }
