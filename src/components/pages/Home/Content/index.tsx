@@ -61,7 +61,9 @@ export function Content(): React.ReactNode {
         return (
           <TableCellLayout truncate>
             <div className={styles.desc}>
-              <span>{item.name || `${item.server}:${item.port}`}</span>
+              <span className={styles.name}>
+                {item.name || `${item.server}:${item.port}`}
+              </span>
               <span className={styles.type}>{item.type}</span>
             </div>
           </TableCellLayout>
@@ -77,7 +79,6 @@ export function Content(): React.ReactNode {
         return (
           <TableCellLayout truncate className={styles.action}>
             <div
-              className={styles.content}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();

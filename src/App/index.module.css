@@ -1,6 +1,6 @@
 .wrapper {
   @apply m-auto flex h-full
-    min-h-[600px] w-full min-w-[768px] flex-col;
+    min-h-[600px] w-full flex-col;
 
   & .body {
     @apply flex flex-1 shadow;

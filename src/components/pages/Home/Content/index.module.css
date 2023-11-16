@@ -9,7 +9,11 @@
 
 
   .desc {
-    @apply flex flex-col;
+    @apply flex flex-col overflow-ellipsis;
+
+    .name {
+      @apply overflow-ellipsis overflow-hidden;
+    }
 
     .type {
       @apply text-xs;
