@@ -9,7 +9,7 @@ import { createWebsocket } from "./websocket";
 
 export const subscribeConnections: SubscribeConnections = (config) => {
   const { onError, onClose, onMessage } = config;
-  const url = `${urtConfig.wsConnection}`;
+  const url = `${urtConfig.wsConnection}?interval=2000`;
   return createWebsocket(url, {
     onError,
     onMessage: (data) => {
