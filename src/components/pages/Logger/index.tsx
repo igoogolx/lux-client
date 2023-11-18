@@ -107,15 +107,12 @@ export default function Logger(): React.ReactNode {
     return {
       time: {
         defaultWidth: 80,
-        minWidth: 80,
       },
       type: {
         defaultWidth: 80,
-        minWidth: 80,
       },
       content: {
         defaultWidth: 720,
-        minWidth: 720,
       },
     };
   }, []);
