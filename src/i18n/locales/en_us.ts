@@ -52,7 +52,7 @@ export default {
   [TRANSLATION_KEY.SAVE_SUCCESS]: "Save Successfully",
   [TRANSLATION_KEY.UPDATE_SUCCESS]: "Update Successfully",
   [TRANSLATION_KEY.DOWNLOAD]: "Download",
-  [TRANSLATION_KEY.DATA]: "data",
+  [TRANSLATION_KEY.DATA]: "Data",
   [TRANSLATION_KEY.UPLOAD]: "Upload",
   [TRANSLATION_KEY.DESTINATION]: "Destination",
   [TRANSLATION_KEY.PROCESS]: "Process",
