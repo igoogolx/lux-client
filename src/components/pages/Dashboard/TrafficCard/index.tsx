@@ -2,6 +2,7 @@ import * as React from "react";
 import { TrafficItem } from "lux-js-sdk";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { useTranslation } from "react-i18next";
+import { Card } from "@fluentui/react-components";
 import FlowInfo from "./FlowInfo";
 import styles from "./index.module.css";
 import { SpeedGraph } from "../SpeedGraph";
@@ -29,26 +30,25 @@ export function TrafficCard(props: TrafficCardProps): React.ReactNode {
   return (
     <div className={styles.wrapper}>
       <div className={styles.data}>
-        <div className={styles.info}>
+        <Card className={styles.info}>
           <div className={styles.header}>
             <div className={styles.avatar}>{t(TRANSLATION_KEY.PROXY)}</div>
           </div>
           <div className={styles.content}>
             <FlowInfo current={currentProxy} total={total.proxy} />
           </div>
-        </div>
-        <div className={styles.line} />
-        <div className={styles.info}>
+        </Card>
+        <Card className={styles.info}>
           <div className={styles.header}>
             <div className={styles.avatar}>{t(TRANSLATION_KEY.BYPASS)}</div>
           </div>
           <div className={styles.content}>
             <FlowInfo current={currentDirect} total={total.direct} />
           </div>
-        </div>
-      </div>
-      <div className={styles.graph}>
-        <SpeedGraph data={speed} />
+        </Card>
+        <Card className={styles.graph}>
+          <SpeedGraph data={speed} />
+        </Card>
       </div>
     </div>
   );

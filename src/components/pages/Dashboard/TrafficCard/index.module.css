@@ -2,22 +2,23 @@
   @apply flex
     w-full
     flex-1
-    flex-col
-    p-4;
+    flex-col;
 
   &:not(:last-child) {
     @apply mb-4;
   }
 
   & .data {
-    @apply mb-4 flex justify-between;
+    @apply mb-2 flex flex-wrap flex-1 flex-col sm:flex-row;
 
-    & .line {
-      @apply mx-4 border-0 border-r border-solid border-gray-300;
-    }
 
     & .info {
-      @apply flex-1;
+
+      &:first-child {
+        @apply mr-0 sm:mr-2;
+      }
+
+      @apply flex-1 mb-2;
 
       & .header {
         @apply mb-2 flex items-center text-lg;
@@ -34,6 +35,6 @@
   }
 
   & .graph {
-    @apply h-1/2 w-full;
+    @apply w-full h-1/2;
   }
 }
