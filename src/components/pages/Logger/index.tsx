@@ -7,14 +7,14 @@ import {
   createTableColumn,
   Input,
   TableCellLayout,
-  type TableColumnSizingOptions
+  type TableColumnSizingOptions, Tooltip
 } from '@fluentui/react-components'
 import { SearchRegular } from '@fluentui/react-icons'
 import dayjs from 'dayjs'
 import Highlighter from 'react-highlight-words'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { type RootState } from '@/reducers'
-import { PlacementEnum, Table, Tag, type TagTypeEnum, Tooltip } from '../../Core'
+import { Table, Tag, type TagTypeEnum } from '../../Core'
 import styles from './index.module.css'
 
 function TimeCell (props: { value: number }) {
@@ -31,7 +31,7 @@ function TypeCell (props: { value: string }) {
 function PayloadCell (props: { value: string, searchedWords: string[] }) {
   const { value, searchedWords } = props
   return (
-    <Tooltip content={value} placement={PlacementEnum.TopStart}>
+    <Tooltip content={value} relationship={'description'}>
       <div className={styles.payload}>
         <Highlighter
           searchWords={searchedWords}
