@@ -1,13 +1,13 @@
-import React, { ReactNode } from "react";
-import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { ConfirmModal, ConfirmModalPros } from "../../Core";
+import React, { type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { ConfirmModal, type ConfirmModalPros } from '../../Core'
 
-type ResetConfigModalProps = Pick<ConfirmModalPros, "onConfirm" | "onCancel">;
+type ResetConfigModalProps = Pick<ConfirmModalPros, 'onConfirm' | 'onCancel'>
 
-export function ResetConfigModal(props: ResetConfigModalProps): ReactNode {
-  const { onCancel, onConfirm } = props;
-  const { t } = useTranslation();
+export function ResetConfigModal (props: ResetConfigModalProps): ReactNode {
+  const { onCancel, onConfirm } = props
+  const { t } = useTranslation()
 
   return (
     <ConfirmModal
@@ -20,5 +20,5 @@ export function ResetConfigModal(props: ResetConfigModalProps): ReactNode {
         </div>
       }
     />
-  );
+  )
 }

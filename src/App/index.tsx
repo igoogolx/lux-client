@@ -1,95 +1,97 @@
-import * as React from "react";
-import { useEffect, useRef, useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getIsAdmin, getStatus, ping, subscribeLog } from "lux-js-sdk";
-import axios from "axios";
-import i18next from "i18next";
-import { makeStyles } from "@fluentui/react-components";
-import { tokens } from "@fluentui/react-theme";
-import classNames from "classnames";
-import { Nav } from "@/components/Nav";
-import { NotificationContainer, notifier } from "@/components/Core";
-import { generalSlice, loggerSlice, managerSlice, RootState } from "@/reducers";
-import { ElevateModal } from "@/components/Modal/ElevateModal";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Header } from "@/components/Header";
-import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
-import Splash from "@/components/Splash";
-import ThemeSwitch from "../components/ThemeSwitch";
-import CheckHubAddressModal from "../components/Modal/EditHubAddressModal";
-import styles from "./index.module.css";
-import About from "../components/pages/About";
-import Setting from "../components/pages/Setting";
-import Logger from "../components/pages/Logger";
-import Connections from "../components/pages/Connections";
-import Dashboard from "../components/pages/Dashboard";
-import Home from "../components/pages/Home";
+import * as React from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getIsAdmin, getStatus, ping, subscribeLog } from 'lux-js-sdk'
+import axios from 'axios'
+import i18next from 'i18next'
+import { makeStyles } from '@fluentui/react-components'
+import { tokens } from '@fluentui/react-theme'
+import classNames from 'classnames'
+import { Nav } from '@/components/Nav'
+import { NotificationContainer, notifier } from '@/components/Core'
+import { generalSlice, loggerSlice, managerSlice, type RootState } from '@/reducers'
+import { ElevateModal } from '@/components/Modal/ElevateModal'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { Header } from '@/components/Header'
+import { APP_CONTAINER_ID, ROUTER_PATH } from '@/utils/constants'
+import Splash from '@/components/Splash'
+import ThemeSwitch from '../components/ThemeSwitch'
+import CheckHubAddressModal from '../components/Modal/EditHubAddressModal'
+import styles from './index.module.css'
+import About from '../components/pages/About'
+import Setting from '../components/pages/Setting'
+import Logger from '../components/pages/Logger'
+import Connections from '../components/pages/Connections'
+import Dashboard from '../components/pages/Dashboard'
+import Home from '../components/pages/Home'
 
 axios.interceptors.response.use(
   (res) => res,
-  (error) => {
+  async (error) => {
     notifier.error(
       error.response?.data?.message || i18next.t(TRANSLATION_KEY.UNKNOWN_ERROR)
-    );
-    return Promise.reject(error);
+    )
+    return await Promise.reject(error)
   }
-);
+)
 
-const PING_TIMEOUT = 1000;
+const PING_TIMEOUT = 1000
 
 const useStyles = makeStyles({
   nav: {
-    backgroundColor: tokens.colorNeutralBackground1,
+    backgroundColor: tokens.colorNeutralBackground1
   },
   expandedNav: {
-    backgroundColor: tokens.colorNeutralBackground2,
-  },
-});
+    backgroundColor: tokens.colorNeutralBackground2
+  }
+})
 
-export function App(): React.ReactNode {
-  const dispatch = useDispatch();
-  const [connected, setConnected] = useState(true);
+export function App (): React.ReactNode {
+  const dispatch = useDispatch()
+  const [connected, setConnected] = useState(true)
 
   const loading = useSelector<RootState, boolean>(
     (state) => state.general.loading
-  );
-  const timer = useRef<null | ReturnType<typeof setInterval>>(null);
+  )
+  const timer = useRef<null | ReturnType<typeof setInterval>>(null)
 
-  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false)
 
-  const inlineStyles = useStyles();
+  const inlineStyles = useStyles()
 
   getStatus().then((status) => {
     dispatch(
       managerSlice.actions.setIsStarted({ isStarted: status.isStarted })
-    );
-  });
+    )
+  })
 
   useEffect(() => {
     timer.current = setInterval(async () => {
       try {
-        await ping();
-        setConnected(true);
+        await ping()
+        setConnected(true)
       } catch (e) {
-        setConnected(false);
+        setConnected(false)
       }
-    }, PING_TIMEOUT);
+    }, PING_TIMEOUT)
     const logSubscriber = subscribeLog({
       onMessage: (m) => {
-        dispatch(loggerSlice.actions.pushLog(m));
-      },
-    });
+        dispatch(loggerSlice.actions.pushLog(m))
+      }
+    })
     getIsAdmin().then((res) => {
-      dispatch(generalSlice.actions.setIsAdmin({ isAdmin: res.isAdmin }));
-    });
+      dispatch(generalSlice.actions.setIsAdmin({ isAdmin: res.isAdmin }))
+    })
     return () => {
-      logSubscriber.close();
-    };
-  }, [dispatch]);
-  return !connected ? (
+      logSubscriber.close()
+    }
+  }, [dispatch])
+  return !connected
+    ? (
     <CheckHubAddressModal />
-  ) : (
+      )
+    : (
     <div className={styles.wrapper} id={APP_CONTAINER_ID}>
       <NotificationContainer />
       <ElevateModal />
@@ -105,7 +107,7 @@ export function App(): React.ReactNode {
           <Nav
             onClick={() => {
               if (isNavOpen) {
-                setIsNavOpen(false);
+                setIsNavOpen(false)
               }
             }}
           />
@@ -126,5 +128,5 @@ export function App(): React.ReactNode {
         </div>
       </div>
     </div>
-  );
+      )
 }

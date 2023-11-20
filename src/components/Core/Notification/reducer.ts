@@ -1,8 +1,8 @@
-import { MessageType } from "../Message";
+import { type MessageType } from '../Message'
 
-type AddAction = {
-  title: string;
-  type: MessageType;
-};
+interface AddAction {
+  title: string
+  type: MessageType
+}
 
-export type NotificationAction = AddAction;
+export type NotificationAction = AddAction

@@ -1,29 +1,29 @@
-import React, { useState } from "react";
-import { Caption1, Subtitle2 } from "@fluentui/react-components";
-import { useSelector } from "react-redux";
-import { RootState } from "@/reducers";
-import styles from "../../index.module.css";
-import { MenuItemProps } from "../../../../Core";
+import React, { useState } from 'react'
+import { Caption1, Subtitle2 } from '@fluentui/react-components'
+import { useSelector } from 'react-redux'
+import { type RootState } from '@/reducers'
+import styles from '../../index.module.css'
+import { type MenuItemProps } from '../../../../Core'
 import EditItemWithSelectDialog, {
-  DnsTypeEnum,
-} from "../../../../Core/EditItemWithSelectDialog";
+  type DnsTypeEnum
+} from '../../../../Core/EditItemWithSelectDialog'
 
-type EditDnsItemProps = {
-  items: MenuItemProps[];
-  value: string;
-  type: DnsTypeEnum;
-  onSubmit: (data: { value: string; type: DnsTypeEnum }) => void;
-  title: string;
-  desc: string;
-};
+interface EditDnsItemProps {
+  items: MenuItemProps[]
+  value: string
+  type: DnsTypeEnum
+  onSubmit: (data: { value: string, type: DnsTypeEnum }) => void
+  title: string
+  desc: string
+}
 
-export default function EditDnsItem(props: EditDnsItemProps) {
-  const { items, value, onSubmit, title, desc, type } = props;
-  const [openModal, setOpenModal] = useState(false);
+export default function EditDnsItem (props: EditDnsItemProps) {
+  const { items, value, onSubmit, title, desc, type } = props
+  const [openModal, setOpenModal] = useState(false)
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared || state.manager.isLoading
-  );
+  )
 
   return (
     <div className={styles.cardItem}>
@@ -42,5 +42,5 @@ export default function EditDnsItem(props: EditDnsItemProps) {
         type={type}
       />
     </div>
-  );
+  )
 }

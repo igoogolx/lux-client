@@ -1,19 +1,19 @@
-import React from "react";
-import { TrafficItem } from "lux-js-sdk";
-import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Icon, IconNameEnum } from "../../../../Core";
-import { FlowText, FlowTextTypeEnum } from "../FlowText";
-import styles from "./index.module.css";
+import React from 'react'
+import { type TrafficItem } from 'lux-js-sdk'
+import { useTranslation } from 'react-i18next'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { Icon, IconNameEnum } from '../../../../Core'
+import { FlowText, FlowTextTypeEnum } from '../FlowText'
+import styles from './index.module.css'
 
-type FlowInfoProps = {
-  current: TrafficItem;
-  total: TrafficItem;
-};
+interface FlowInfoProps {
+  current: TrafficItem
+  total: TrafficItem
+}
 
-export default function FlowInfo(props: FlowInfoProps) {
-  const { current, total } = props;
-  const { t } = useTranslation();
+export default function FlowInfo (props: FlowInfoProps) {
+  const { current, total } = props
+  const { t } = useTranslation()
   return (
     <div className={styles.flowInfo}>
       <div className={styles.item}>
@@ -43,5 +43,5 @@ export default function FlowInfo(props: FlowInfoProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,17 +1,17 @@
-import * as React from "react";
+import * as React from 'react'
 import {
   useCallback,
   useEffect,
   useLayoutEffect,
   useRef,
-  useState,
-} from "react";
-import { createPortal } from "react-dom";
-import classNames from "classnames";
-import debounce from "../../../utils/debouce";
-import styles from "./index.module.css";
-import { computeStyle, preventOverflow, useMemoObj } from "./utils";
-import { PlacementEnum, PopoverProps, TriggerEnum } from "./type";
+  useState
+} from 'react'
+import { createPortal } from 'react-dom'
+import classNames from 'classnames'
+import debounce from '../../../utils/debouce'
+import styles from './index.module.css'
+import { computeStyle, preventOverflow, useMemoObj } from './utils'
+import { PlacementEnum, type PopoverProps, TriggerEnum } from './type'
 
 export const Popover = React.memo((props: PopoverProps) => {
   const {
@@ -25,9 +25,9 @@ export const Popover = React.memo((props: PopoverProps) => {
     trigger = TriggerEnum.Hover,
     popoverStyle = {},
     arrowStyle = {},
-    popoverClassName = "",
-    arrowClassName = "",
-    className = "",
+    popoverClassName = '',
+    arrowClassName = '',
+    className = '',
     skiddingOption,
     distanceOption,
     withState = true,
@@ -35,29 +35,29 @@ export const Popover = React.memo((props: PopoverProps) => {
     setIsOpen: customizedSetIsOpen,
     timeout = 0,
     disabled = false,
-    getContainerElement,
-  } = props;
+    getContainerElement
+  } = props
 
-  const [isOpen, setIsOpen] = useState(defaultOpen);
+  const [isOpen, setIsOpen] = useState(defaultOpen)
   const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(
     null
-  );
-  const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
+  )
+  const [popperElement, setPopperElement] = useState<HTMLElement | null>(null)
   const [computedStyle, setComputedStyle] = useState<{
-    popper: React.CSSProperties;
-    arrow: React.CSSProperties;
+    popper: React.CSSProperties
+    arrow: React.CSSProperties
   }>({
     popper: { left: 0, top: 0 },
-    arrow: {},
-  });
-  const computedIsOpen = withState ? isOpen : customizedIsOpen;
-  const computedSetIsOpen = withState ? setIsOpen : customizedSetIsOpen;
-  const memoSkiddingOption = useMemoObj(skiddingOption);
-  const memoDistanceOption = useMemoObj(distanceOption);
+    arrow: {}
+  })
+  const computedIsOpen = withState ? isOpen : customizedIsOpen
+  const computedSetIsOpen = withState ? setIsOpen : customizedSetIsOpen
+  const memoSkiddingOption = useMemoObj(skiddingOption)
+  const memoDistanceOption = useMemoObj(distanceOption)
 
   const containerElement = getContainerElement
     ? getContainerElement()
-    : document.body;
+    : document.body
 
   const changeStyle = useCallback(() => {
     if (
@@ -66,11 +66,11 @@ export const Popover = React.memo((props: PopoverProps) => {
       !popperElement ||
       !containerElement
     ) {
-      return;
+      return
     }
-    const referenceRect = referenceElement.getBoundingClientRect();
-    const popperRect = popperElement.getBoundingClientRect();
-    const containerRect = containerElement.getBoundingClientRect();
+    const referenceRect = referenceElement.getBoundingClientRect()
+    const popperRect = popperElement.getBoundingClientRect()
+    const containerRect = containerElement.getBoundingClientRect()
     const computedPlacement = preventOverflow(
       popperRect,
       referenceRect,
@@ -79,11 +79,11 @@ export const Popover = React.memo((props: PopoverProps) => {
       {
         withArrow,
         distance:
-          (memoDistanceOption && memoDistanceOption[placement]) || distance,
+          (memoDistanceOption?.[placement]) || distance,
         skidding:
-          (memoSkiddingOption && memoSkiddingOption[placement]) || skidding,
+          (memoSkiddingOption?.[placement]) || skidding
       }
-    ) as PlacementEnum;
+    ) as PlacementEnum
     setComputedStyle(
       computeStyle(
         containerRect,
@@ -92,17 +92,17 @@ export const Popover = React.memo((props: PopoverProps) => {
         computedPlacement,
         {
           distance:
-            (memoDistanceOption && memoDistanceOption[computedPlacement]) ||
+            (memoDistanceOption?.[computedPlacement]) ||
             distance,
           skidding:
-            (memoSkiddingOption && memoSkiddingOption[computedPlacement]) ||
+            (memoSkiddingOption?.[computedPlacement]) ||
             skidding,
           withArrow,
           arrowBorderColor: arrowStyle.borderColor,
-          arrowWidth: arrowStyle.width as number,
+          arrowWidth: arrowStyle.width as number
         }
       )
-    );
+    )
   }, [
     computedIsOpen,
     referenceElement,
@@ -115,32 +115,32 @@ export const Popover = React.memo((props: PopoverProps) => {
     memoSkiddingOption,
     skidding,
     arrowStyle.borderColor,
-    arrowStyle.width,
-  ]);
+    arrowStyle.width
+  ])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const resizeListener = useCallback(debounce(changeStyle, 200), [changeStyle]);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resizeListener = useCallback(debounce(changeStyle, 200), [changeStyle])
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const open = useCallback(() => {
     if (timeout) {
       timer.current = setTimeout(() => {
-        computedSetIsOpen?.(true);
-      }, timeout);
+        computedSetIsOpen?.(true)
+      }, timeout)
     } else {
-      computedSetIsOpen?.(true);
+      computedSetIsOpen?.(true)
     }
-  }, [computedSetIsOpen, timeout]);
+  }, [computedSetIsOpen, timeout])
   const close = useCallback(() => {
     if (timeout && timer.current) {
-      clearTimeout(timer.current);
+      clearTimeout(timer.current)
     }
-    computedSetIsOpen?.(false);
-  }, [computedSetIsOpen, timeout]);
+    computedSetIsOpen?.(false)
+  }, [computedSetIsOpen, timeout])
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
-      if (!computedIsOpen) return;
+      if (!computedIsOpen) return
       if (
         !event.target ||
         !popperElement ||
@@ -148,47 +148,47 @@ export const Popover = React.memo((props: PopoverProps) => {
         popperElement.contains(event.target as Node) ||
         referenceElement.contains(event.target as Node)
       ) {
-        return;
+        return
       }
-      close();
+      close()
     },
     [close, computedIsOpen, popperElement, referenceElement]
-  );
+  )
 
   useEffect(() => {
-    if (trigger === "click") {
-      document.addEventListener("click", handleClickOutside);
+    if (trigger === 'click') {
+      document.addEventListener('click', handleClickOutside)
     }
     return () => {
-      if (trigger === "click") {
-        document.removeEventListener("click", handleClickOutside);
+      if (trigger === 'click') {
+        document.removeEventListener('click', handleClickOutside)
       }
-    };
-  }, [handleClickOutside, trigger]);
+    }
+  }, [handleClickOutside, trigger])
 
   useEffect(() => {
-    window.addEventListener("resize", resizeListener);
+    window.addEventListener('resize', resizeListener)
     return () => {
-      window.removeEventListener("resize", resizeListener);
-    };
-  }, [resizeListener]);
+      window.removeEventListener('resize', resizeListener)
+    }
+  }, [resizeListener])
 
   useLayoutEffect(() => {
-    changeStyle();
-  }, [changeStyle]);
+    changeStyle()
+  }, [changeStyle])
 
-  let popperElementStyle = popoverStyle;
-  let arrowElementStyle = arrowStyle;
+  let popperElementStyle = popoverStyle
+  let arrowElementStyle = arrowStyle
   if (computedStyle.popper) {
-    popperElementStyle = { ...computedStyle.popper, ...popperElementStyle };
+    popperElementStyle = { ...computedStyle.popper, ...popperElementStyle }
   }
   if (computedStyle.arrow) {
-    arrowElementStyle = { ...computedStyle.arrow, ...arrowElementStyle };
+    arrowElementStyle = { ...computedStyle.arrow, ...arrowElementStyle }
     if (computedStyle.arrow.borderColor) {
       arrowElementStyle = {
         ...arrowElementStyle,
-        borderColor: computedStyle.arrow.borderColor,
-      };
+        borderColor: computedStyle.arrow.borderColor
+      }
     }
   }
 
@@ -205,45 +205,45 @@ export const Popover = React.memo((props: PopoverProps) => {
         />
       )}
       {
-        (typeof content === "function" && withState
+        (typeof content === 'function' && withState
           ? content({ open, close, isOpen })
           : content) as React.ReactNode
       }
     </div>
-  );
+  )
 
   const getEvents = () => {
     if (trigger === TriggerEnum.Click) {
       return {
         onClick: () => {
-          if (computedIsOpen) close();
-          else open();
-        },
-      };
+          if (computedIsOpen) close()
+          else open()
+        }
+      }
     }
     if (trigger === TriggerEnum.Hover) {
       return {
         onMouseEnter: open,
-        onMouseLeave: close,
-      };
+        onMouseLeave: close
+      }
     }
-    return {};
-  };
+    return {}
+  }
 
   return (
     <>
       <div ref={setReferenceElement} {...getEvents()} className={className}>
         {
-          (typeof children === "function" && withState
+          (typeof children === 'function' && withState
             ? children({ open, close, isOpen })
             : children) as React.ReactNode
         }
       </div>
       {!disabled && computedIsOpen && createPortal(popover, containerElement)}
     </>
-  );
-});
+  )
+})
 
-export * from "./type";
+export * from './type'
 
-export default Popover;
+export default Popover

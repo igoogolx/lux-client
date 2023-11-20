@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Button,
   Dialog,
@@ -7,25 +7,25 @@ import {
   DialogContent,
   DialogSurface,
   DialogTrigger,
-  Spinner,
-} from "@fluentui/react-components";
-import { useTranslation } from "react-i18next";
-import { useLockBodyScroll } from "@/hooks";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { APP_CONTAINER_ID } from "@/utils/constants";
-import styles from "./index.module.css";
+  Spinner
+} from '@fluentui/react-components'
+import { useTranslation } from 'react-i18next'
+import { useLockBodyScroll } from '@/hooks'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { APP_CONTAINER_ID } from '@/utils/constants'
+import styles from './index.module.css'
 
-type ModalProps = {
-  children: React.ReactNode;
-  close?: () => void;
-  onOk?: () => void;
-  disabledOk?: boolean;
-  loadingOk?: boolean;
-  hideCloseButton?: boolean;
-  hideOkButton?: boolean;
-  closeText?: string;
-  okText?: string;
-};
+interface ModalProps {
+  children: React.ReactNode
+  close?: () => void
+  onOk?: () => void
+  disabledOk?: boolean
+  loadingOk?: boolean
+  hideCloseButton?: boolean
+  hideOkButton?: boolean
+  closeText?: string
+  okText?: string
+}
 
 export const Modal = React.memo((props: ModalProps) => {
   const {
@@ -37,12 +37,12 @@ export const Modal = React.memo((props: ModalProps) => {
     hideOkButton = false,
     hideCloseButton = false,
     closeText,
-    okText,
-  } = props;
+    okText
+  } = props
 
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  useLockBodyScroll();
+  useLockBodyScroll()
   return (
     <Dialog open modalType="alert">
       <DialogSurface>
@@ -71,5 +71,5 @@ export const Modal = React.memo((props: ModalProps) => {
         </DialogBody>
       </DialogSurface>
     </Dialog>
-  );
-});
+  )
+})

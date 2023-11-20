@@ -1,21 +1,21 @@
-import { createContext } from "react";
+import { createContext } from 'react'
 
 export enum ThemeEnum {
-  Dark = "dark",
-  Light = "light",
+  Dark = 'dark',
+  Light = 'light',
 }
 
-export type ThemeContextType = {
-  theme: ThemeEnum;
-  setTheme: (theme: ThemeEnum) => void;
-};
+export interface ThemeContextType {
+  theme: ThemeEnum
+  setTheme: (theme: ThemeEnum) => void
+}
 
-export const ThemeContext = createContext<ThemeContextType | null>(null);
+export const ThemeContext = createContext<ThemeContextType | null>(null)
 
 export const getTheme = (): ThemeEnum => {
-  return <ThemeEnum | null>localStorage.getItem("theme") || ThemeEnum.Light;
-};
+  return ((localStorage.getItem('theme') as ThemeEnum | null) != null) || ThemeEnum.Light
+}
 
 export const setTheme = (theme: ThemeEnum) => {
-  localStorage.setItem("theme", theme);
-};
+  localStorage.setItem('theme', theme)
+}

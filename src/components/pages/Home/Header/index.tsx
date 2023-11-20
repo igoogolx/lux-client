@@ -1,16 +1,16 @@
-import * as React from "react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import * as React from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   getCurProxy,
-  GetCurProxyRes,
+  type GetCurProxyRes,
   getRules,
   getStatus,
   start,
   stop,
-  updateSelectedRuleId,
-} from "lux-js-sdk";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+  updateSelectedRuleId
+} from 'lux-js-sdk'
+import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import {
   Caption1,
   Menu,
@@ -20,125 +20,125 @@ import {
   MenuPopover,
   MenuTrigger,
   Switch,
-  Tooltip,
-} from "@fluentui/react-components";
+  Tooltip
+} from '@fluentui/react-components'
 import {
   selectedSlice,
-  RootState,
+  type RootState,
   rulesSelectors,
   rulesSlice,
-  managerSlice,
-} from "@/reducers";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { isLocalAddr } from "@/utils/validator";
-import { MenuItemProps, notifier } from "../../../Core";
-import { Operation } from "./Operation";
-import { AddingOptions } from "./AddingOptions";
-import styles from "./index.module.css";
+  managerSlice
+} from '@/reducers'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { isLocalAddr } from '@/utils/validator'
+import { type MenuItemProps, notifier } from '../../../Core'
+import { Operation } from './Operation'
+import { AddingOptions } from './AddingOptions'
+import styles from './index.module.css'
 
-const TIMER_INTERVAL = 1000;
+const TIMER_INTERVAL = 1000
 
-export function Header(): React.ReactNode {
-  const { t } = useTranslation();
+export function Header (): React.ReactNode {
+  const { t } = useTranslation()
   const [curProxy, setCurProxy] = useState<GetCurProxyRes>({
-    name: "",
-    addr: "",
-  });
+    name: '',
+    addr: ''
+  })
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared
-  );
+  )
   const isSwitchLoading = useSelector<RootState, boolean>(
     (state) => state.manager.isLoading
-  );
-  const [isSettingRule, setIsSettingRule] = useState(false);
+  )
+  const [isSettingRule, setIsSettingRule] = useState(false)
   const isProxyValid = useSelector<RootState, boolean>((state) => {
     if (state.setting.autoMode.enabled) {
-      return true;
+      return true
     }
     if (state.selected.proxy) {
       if (state.proxies.ids.includes(state.selected.proxy)) {
-        return true;
+        return true
       }
     }
-    return false;
-  });
-  const dispatch = useDispatch();
-  const rules = useSelector(rulesSelectors.selectAll);
+    return false
+  })
+  const dispatch = useDispatch()
+  const rules = useSelector(rulesSelectors.selectAll)
   const selectedRuleId = useSelector<RootState, string>(
     (state) => state.selected.rule
-  );
+  )
 
-  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false)
 
-  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timer = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
     getRules().then((res) => {
-      dispatch(rulesSlice.actions.received(res));
-      dispatch(selectedSlice.actions.setRule({ id: res.selectedId }));
-    });
+      dispatch(rulesSlice.actions.received(res))
+      dispatch(selectedSlice.actions.setRule({ id: res.selectedId }))
+    })
 
     timer.current = setInterval(async () => {
       if (!isSwitchLoading) {
-        const status = await getStatus();
+        const status = await getStatus()
         dispatch(
           managerSlice.actions.setIsStarted({ isStarted: status.isStarted })
-        );
+        )
       }
-      const latestProxy = await getCurProxy();
-      setCurProxy(latestProxy);
-    }, TIMER_INTERVAL);
+      const latestProxy = await getCurProxy()
+      setCurProxy(latestProxy)
+    }, TIMER_INTERVAL)
     return () => {
       if (timer.current) {
-        clearInterval(timer.current);
+        clearInterval(timer.current)
       }
-    };
-  }, [dispatch, isSwitchLoading]);
+    }
+  }, [dispatch, isSwitchLoading])
 
   const selectRule = useCallback(
     async (id: string) => {
       try {
-        setIsSettingRule(true);
-        await updateSelectedRuleId({ id });
-        dispatch(selectedSlice.actions.setRule({ id }));
+        setIsSettingRule(true)
+        await updateSelectedRuleId({ id })
+        dispatch(selectedSlice.actions.setRule({ id }))
       } finally {
-        setIsSettingRule(false);
+        setIsSettingRule(false)
       }
     },
     [dispatch]
-  );
+  )
 
   const ruleItems = useMemo<MenuItemProps[]>(() => {
     return rules.map((rule) => ({
       id: rule.id,
-      content: t(rule.id),
-    }));
-  }, [rules, t]);
+      content: t(rule.id)
+    }))
+  }, [rules, t])
 
   const onSwitch = async () => {
     try {
       if (curProxy) {
         if (isLocalAddr(curProxy.addr)) {
-          notifier.error(t(TRANSLATION_KEY.PROXY_SERVER_MSG));
-          return;
+          notifier.error(t(TRANSLATION_KEY.PROXY_SERVER_MSG))
+          return
         }
       }
-      dispatch(managerSlice.actions.setIsLoading({ isLoading: true }));
+      dispatch(managerSlice.actions.setIsLoading({ isLoading: true }))
       if (isStarted) {
-        await stop();
+        await stop()
       } else {
-        await start();
+        await start()
       }
-      dispatch(managerSlice.actions.setIsStarted({ isStarted: !isStarted }));
+      dispatch(managerSlice.actions.setIsStarted({ isStarted: !isStarted }))
     } catch (e) {
-      notifier.error((e as { message?: string }).message || "unknown error");
+      notifier.error((e as { message?: string }).message || 'unknown error')
     } finally {
-      dispatch(managerSlice.actions.setIsLoading({ isLoading: false }));
+      dispatch(managerSlice.actions.setIsLoading({ isLoading: false }))
     }
-  };
+  }
 
-  const isSwitchDisabled = isSwitchLoading || !isProxyValid || isSettingRule;
+  const isSwitchDisabled = isSwitchLoading || !isProxyValid || isSettingRule
 
   return (
     <div className={styles.wrapper}>
@@ -162,7 +162,7 @@ export function Header(): React.ReactNode {
                   key={item.id}
                   icon={item.icon}
                   onClick={() => {
-                    selectRule(item.id as string);
+                    selectRule(item.id as string)
                   }}
                 >
                   {item.content}
@@ -180,7 +180,7 @@ export function Header(): React.ReactNode {
           content={t(TRANSLATION_KEY.SWITCH_DISABLE_TIP)}
           relationship="description"
           visible={tooltipVisible && isSwitchDisabled}
-          onVisibleChange={(_ev, data) => setTooltipVisible(data.visible)}
+          onVisibleChange={(_ev, data) => { setTooltipVisible(data.visible) }}
         >
           <Switch
             checked={isStarted}
@@ -190,5 +190,5 @@ export function Header(): React.ReactNode {
         </Tooltip>
       </div>
     </div>
-  );
+  )
 }

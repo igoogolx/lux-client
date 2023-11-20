@@ -1,24 +1,24 @@
-import React from "react";
-import classNames from "classnames";
-import { PlacementEnum, Popover } from "../Popover";
-import styles from "./index.module.css";
+import React from 'react'
+import classNames from 'classnames'
+import { type PlacementEnum, Popover } from '../Popover'
+import styles from './index.module.css'
 
 export enum TooltipThemeEnum {
-  Dark = "dark",
-  Light = "light",
+  Dark = 'dark',
+  Light = 'light',
 }
 
-type TooltipProps = {
-  children: React.ReactNode;
-  content: React.ReactNode;
-  theme?: TooltipThemeEnum;
-  disabled?: boolean;
-  timeout?: number;
-  placement?: PlacementEnum;
-  className?: string;
-};
+interface TooltipProps {
+  children: React.ReactNode
+  content: React.ReactNode
+  theme?: TooltipThemeEnum
+  disabled?: boolean
+  timeout?: number
+  placement?: PlacementEnum
+  className?: string
+}
 
-export function Tooltip(props: TooltipProps): React.ReactNode {
+export function Tooltip (props: TooltipProps): React.ReactNode {
   const {
     children,
     content,
@@ -26,8 +26,8 @@ export function Tooltip(props: TooltipProps): React.ReactNode {
     disabled = false,
     timeout = 500,
     placement,
-    className,
-  } = props;
+    className
+  } = props
   return (
     <Popover
       content={content}
@@ -39,5 +39,5 @@ export function Tooltip(props: TooltipProps): React.ReactNode {
     >
       {children}
     </Popover>
-  );
+  )
 }

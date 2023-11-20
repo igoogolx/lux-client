@@ -1,12 +1,12 @@
 const debounce = (func: () => void, wait: number) => {
-  let timer: ReturnType<typeof setTimeout> | null = null;
+  let timer: ReturnType<typeof setTimeout> | null = null
   return () => {
-    const later = func;
+    const later = func
     if (timer) {
-      clearTimeout(timer);
+      clearTimeout(timer)
     }
-    timer = setTimeout(later, wait);
-  };
-};
+    timer = setTimeout(later, wait)
+  }
+}
 
-export default debounce;
+export default debounce

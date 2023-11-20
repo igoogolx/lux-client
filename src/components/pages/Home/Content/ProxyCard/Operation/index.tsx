@@ -1,20 +1,20 @@
-import React, { useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useMemo, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
-  BaseProxy,
+  type BaseProxy,
   deleteProxies,
   ProxyTypeEnum,
-  Shadowsocks,
-} from "lux-js-sdk";
-import { useTranslation } from "react-i18next";
+  type Shadowsocks
+} from 'lux-js-sdk'
+import { useTranslation } from 'react-i18next'
 import {
   Button,
   Menu,
   MenuItem,
   MenuList,
   MenuPopover,
-  MenuTrigger,
-} from "@fluentui/react-components";
+  MenuTrigger
+} from '@fluentui/react-components'
 import {
   ClipboardRegular,
   DeleteRegular,
@@ -22,61 +22,61 @@ import {
   EditRegular,
   InfoRegular,
   QrCodeFilled,
-  SendRegular,
-} from "@fluentui/react-icons";
-import { MenuItemProps, notifier } from "@/components/Core";
-import { proxiesSlice, RootState, selectedSlice } from "@/reducers";
-import { useTestDelay } from "@/hooks";
+  SendRegular
+} from '@fluentui/react-icons'
+import { type MenuItemProps, notifier } from '@/components/Core'
+import { proxiesSlice, type RootState, selectedSlice } from '@/reducers'
+import { useTestDelay } from '@/hooks'
 
-import { EditModal } from "@/components/Modal/Proxy";
-import { encode } from "@/utils/url/shadowsocks";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { QrCodeModal } from "@/components/Modal/QrCodeModal";
-import { useTestUdp } from "@/utils/testUdp";
+import { EditModal } from '@/components/Modal/Proxy'
+import { encode } from '@/utils/url/shadowsocks'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { QrCodeModal } from '@/components/Modal/QrCodeModal'
+import { useTestUdp } from '@/utils/testUdp'
 
-type OperationProps = {
-  proxy: BaseProxy;
-};
-
-enum OperationTypeEnum {
-  Edit = "edit",
-  Delete = "delete",
-  CopyUrl = "copyUrl",
-  Test = "test",
-  QrCode = "qrCode",
-  TestUdp = "testUdp",
+interface OperationProps {
+  proxy: BaseProxy
 }
 
-export function Operation(props: OperationProps): React.ReactNode {
-  const { t } = useTranslation();
-  const { proxy } = props;
-  const { id: proxyId } = proxy;
+enum OperationTypeEnum {
+  Edit = 'edit',
+  Delete = 'delete',
+  CopyUrl = 'copyUrl',
+  Test = 'test',
+  QrCode = 'qrCode',
+  TestUdp = 'testUdp',
+}
 
-  const [isEditingDialogOpen, setIsEditingDialogOpen] = useState(false);
-  const [isQrcodeModalOpen, setIsQrcodeModalOpen] = useState(false);
-  const dispatch = useDispatch();
-  const testDelay = useTestDelay();
-  const testUdp = useTestUdp();
+export function Operation (props: OperationProps): React.ReactNode {
+  const { t } = useTranslation()
+  const { proxy } = props
+  const { id: proxyId } = proxy
+
+  const [isEditingDialogOpen, setIsEditingDialogOpen] = useState(false)
+  const [isQrcodeModalOpen, setIsQrcodeModalOpen] = useState(false)
+  const dispatch = useDispatch()
+  const testDelay = useTestDelay()
+  const testUdp = useTestUdp()
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared
-  );
+  )
   const isSwitchLoading = useSelector<RootState, boolean>(
     (state) => state.manager.isLoading
-  );
+  )
   const isSelected = useSelector<RootState, boolean>(
     (state) => state.selected.proxy === proxyId
-  );
+  )
   const menuItems: MenuItemProps[] = useMemo(() => {
     let items: MenuItemProps[] = [
       {
         id: OperationTypeEnum.Test,
         content: t(TRANSLATION_KEY.CONNECTIVITY_TEST),
-        icon: <DeviceEqRegular />,
+        icon: <DeviceEqRegular />
       },
       {
         id: OperationTypeEnum.TestUdp,
         content: t(TRANSLATION_KEY.COMMON_TEST_UDP),
-        icon: <SendRegular />,
+        icon: <SendRegular />
       },
       {
         id: OperationTypeEnum.Delete,
@@ -84,80 +84,80 @@ export function Operation(props: OperationProps): React.ReactNode {
         icon: <DeleteRegular />,
         disabled: (isStarted || isSwitchLoading) && isSelected,
         isDanger: true,
-        isDivider: true,
-      },
-    ];
+        isDivider: true
+      }
+    ]
     if (
       ![
         ProxyTypeEnum.Shadowsocks,
         ProxyTypeEnum.Http,
-        ProxyTypeEnum.Socks5,
+        ProxyTypeEnum.Socks5
       ].includes(proxy.type)
     ) {
-      return items;
+      return items
     }
     items = [
       {
         id: OperationTypeEnum.Edit,
         content: t(TRANSLATION_KEY.COMMON_EDIT),
-        icon: <EditRegular />,
+        icon: <EditRegular />
       },
-      ...items,
-    ];
+      ...items
+    ]
     if (proxy.type === ProxyTypeEnum.Shadowsocks) {
       items = [
         {
           id: OperationTypeEnum.CopyUrl,
           content: t(TRANSLATION_KEY.COMMON_COPY_URL),
-          icon: <ClipboardRegular />,
+          icon: <ClipboardRegular />
         },
         {
           id: OperationTypeEnum.QrCode,
           content: t(TRANSLATION_KEY.COMMON_QR_CODE),
-          icon: <QrCodeFilled />,
+          icon: <QrCodeFilled />
         },
-        ...items,
-      ];
+        ...items
+      ]
     }
-    return items;
-  }, [isSelected, isStarted, isSwitchLoading, proxy.type, t]);
+    return items
+  }, [isSelected, isStarted, isSwitchLoading, proxy.type, t])
   const onSelect = async (id: string) => {
     switch (id) {
       case OperationTypeEnum.Edit:
-        setIsEditingDialogOpen(true);
-        return;
+        setIsEditingDialogOpen(true)
+        return
       case OperationTypeEnum.Delete: {
-        await deleteProxies({ ids: [proxy.id] });
-        dispatch(proxiesSlice.actions.deleteOne({ id: proxyId }));
+        await deleteProxies({ ids: [proxy.id] })
+        dispatch(proxiesSlice.actions.deleteOne({ id: proxyId }))
         if (isSelected) {
-          dispatch(selectedSlice.actions.setProxy({ id: "" }));
+          dispatch(selectedSlice.actions.setProxy({ id: '' }))
         }
-        notifier.success(t(TRANSLATION_KEY.DELETED));
-        return;
+        notifier.success(t(TRANSLATION_KEY.DELETED))
+        return
       }
       case OperationTypeEnum.Test: {
-        await testDelay(proxyId);
-        return;
+        await testDelay(proxyId)
+        return
       }
       case OperationTypeEnum.TestUdp: {
-        await testUdp(proxyId);
-        return;
+        await testUdp(proxyId)
+        return
       }
       case OperationTypeEnum.CopyUrl: {
-        const url = encode(proxy as Shadowsocks);
-        await navigator.clipboard.writeText(url);
-        notifier.success(t(TRANSLATION_KEY.COPIED));
-        return;
+        const url = encode(proxy as Shadowsocks)
+        await navigator.clipboard.writeText(url)
+        notifier.success(t(TRANSLATION_KEY.COPIED))
+        return
       }
       case OperationTypeEnum.QrCode: {
-        setIsQrcodeModalOpen(true);
-        return;
+        setIsQrcodeModalOpen(true)
+        return
       }
       default: {
-        throw new Error(`invalid ${id}`);
+        throw new Error(`invalid ${id}`)
       }
     }
-  };
+  }
 
   return (
     <>
@@ -165,13 +165,13 @@ export function Operation(props: OperationProps): React.ReactNode {
         <QrCodeModal
           url={encode(proxy as Shadowsocks)}
           close={() => {
-            setIsQrcodeModalOpen(false);
+            setIsQrcodeModalOpen(false)
           }}
         />
       )}
       {isEditingDialogOpen && (
         <EditModal
-          close={() => setIsEditingDialogOpen(false)}
+          close={() => { setIsEditingDialogOpen(false) }}
           initialValue={proxy}
           type={proxy.type as ProxyTypeEnum}
           isSelected={isSelected}
@@ -183,8 +183,8 @@ export function Operation(props: OperationProps): React.ReactNode {
             appearance="transparent"
             icon={<InfoRegular />}
             onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
+              e.stopPropagation()
+              e.preventDefault()
             }}
           />
         </MenuTrigger>
@@ -196,9 +196,9 @@ export function Operation(props: OperationProps): React.ReactNode {
                 key={item.id}
                 icon={item.icon}
                 onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  onSelect(item.id as string);
+                  e.stopPropagation()
+                  e.preventDefault()
+                  onSelect(item.id as string)
                 }}
               >
                 {item.content}
@@ -208,5 +208,5 @@ export function Operation(props: OperationProps): React.ReactNode {
         </MenuPopover>
       </Menu>
     </>
-  );
+  )
 }

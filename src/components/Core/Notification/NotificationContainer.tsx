@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react'
 import {
   Toast,
   Toaster,
   ToastTitle,
   useId,
-  useToastController,
-} from "@fluentui/react-components";
-import { NotificationAction } from "./reducer";
-import { createEventManager } from "./util";
+  useToastController
+} from '@fluentui/react-components'
+import { type NotificationAction } from './reducer'
+import { createEventManager } from './util'
 
 export const notificationEventManager =
-  createEventManager<NotificationAction>();
+  createEventManager<NotificationAction>()
 
-export function NotificationContainer() {
-  const toasterId = useId("toaster");
-  const { dispatchToast } = useToastController(toasterId);
+export function NotificationContainer () {
+  const toasterId = useId('toaster')
+  const { dispatchToast } = useToastController(toasterId)
 
   useEffect(() => {
     notificationEventManager.on((data) => {
@@ -22,13 +22,13 @@ export function NotificationContainer() {
         <Toast>
           <ToastTitle>{data.title}</ToastTitle>
         </Toast>,
-        { intent: data.type, position: "top-end", pauseOnHover: true }
-      );
-    });
+        { intent: data.type, position: 'top-end', pauseOnHover: true }
+      )
+    })
     return () => {
-      notificationEventManager.remove();
-    };
-  }, [dispatchToast]);
+      notificationEventManager.remove()
+    }
+  }, [dispatchToast])
 
-  return <Toaster toasterId={toasterId} />;
+  return <Toaster toasterId={toasterId} />
 }

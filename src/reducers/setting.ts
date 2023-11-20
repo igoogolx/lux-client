@@ -1,45 +1,45 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SettingRes } from "lux-js-sdk";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { type SettingRes } from 'lux-js-sdk'
 
 const initialState: SettingRes = {
-  mode: "tun",
-  language: "en-US",
-  defaultInterface: "",
+  mode: 'tun',
+  language: 'en-US',
+  defaultInterface: '',
   localServer: {
     allowLan: false,
-    port: 0,
+    port: 0
   },
   dns: {
     remote: {
-      type: "builtIn",
-      value: "",
+      type: 'builtIn',
+      value: ''
     },
     local: {
-      type: "builtIn",
-      value: "",
+      type: 'builtIn',
+      value: ''
     },
     boost: {
-      type: "builtIn",
-      value: "",
-    },
+      type: 'builtIn',
+      value: ''
+    }
   },
   autoMode: {
     enabled: false,
-    url: "",
-    type: "url-test",
+    url: '',
+    type: 'url-test'
   },
   hijackDns: {
     enabled: true,
-    networkService: "",
-  },
-};
+    networkService: ''
+  }
+}
 
 export const settingSlice = createSlice({
-  name: "setting",
+  name: 'setting',
   initialState,
   reducers: {
-    setSetting(state, action: PayloadAction<SettingRes>) {
-      return action.payload;
-    },
-  },
-});
+    setSetting (state, action: PayloadAction<SettingRes>) {
+      return action.payload
+    }
+  }
+})

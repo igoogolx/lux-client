@@ -1,53 +1,53 @@
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   addProxiesFromClashUrlConfig,
   getClashYamlUrl,
-  updateClashYamlUrl,
-} from "lux-js-sdk";
-import { useDispatch } from "react-redux";
-import { Input } from "@fluentui/react-components";
-import { proxiesSlice } from "@/reducers";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Modal, notifier } from "../../Core";
-import styles from "./index.module.css";
+  updateClashYamlUrl
+} from 'lux-js-sdk'
+import { useDispatch } from 'react-redux'
+import { Input } from '@fluentui/react-components'
+import { proxiesSlice } from '@/reducers'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { Modal, notifier } from '../../Core'
+import styles from './index.module.css'
 
-type ClashConfigUrlModalProps = {
-  close: () => void;
-};
+interface ClashConfigUrlModalProps {
+  close: () => void
+}
 
-function ClashConfigUrlModal(props: ClashConfigUrlModalProps) {
-  const { close } = props;
-  const { t } = useTranslation();
-  const [destination, setDestination] = useState("");
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+function ClashConfigUrlModal (props: ClashConfigUrlModalProps) {
+  const { close } = props
+  const { t } = useTranslation()
+  const [destination, setDestination] = useState('')
+  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch()
   const handleConfirm = async () => {
     try {
-      setLoading(true);
-      await updateClashYamlUrl({ url: destination });
+      setLoading(true)
+      await updateClashYamlUrl({ url: destination })
       if (destination) {
-        const res = await addProxiesFromClashUrlConfig({ url: destination });
-        dispatch(proxiesSlice.actions.received(res));
+        const res = await addProxiesFromClashUrlConfig({ url: destination })
+        dispatch(proxiesSlice.actions.received(res))
       }
-      close();
-      notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
+      close()
+      notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
   useEffect(() => {
     getClashYamlUrl().then((res) => {
-      setDestination(res.url);
-    });
-  }, []);
+      setDestination(res.url)
+    })
+  }, [])
   return (
     <Modal close={close} onOk={handleConfirm} loadingOk={loading}>
       <div className={styles.search}>
         <Input
           value={destination}
           onChange={(e) => {
-            setDestination(e.target.value.trim());
+            setDestination(e.target.value.trim())
           }}
           className={styles.input}
           placeholder={t(TRANSLATION_KEY.CLASH_URL)}
@@ -55,7 +55,7 @@ function ClashConfigUrlModal(props: ClashConfigUrlModalProps) {
         />
       </div>
     </Modal>
-  );
+  )
 }
 
-export default ClashConfigUrlModal;
+export default ClashConfigUrlModal

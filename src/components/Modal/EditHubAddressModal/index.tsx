@@ -1,17 +1,17 @@
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { getHubAddress, HubAddress } from "@/utils/hubAddress";
-import { Field, Form, Modal } from "../../Core";
-import styles from "./index.module.css";
+import * as React from 'react'
+import { useTranslation } from 'react-i18next'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { getHubAddress, type HubAddress } from '@/utils/hubAddress'
+import { Field, Form, Modal } from '../../Core'
+import styles from './index.module.css'
 
-export default function CheckHubAddressModal(): React.ReactNode {
-  const { t } = useTranslation();
+export default function CheckHubAddressModal (): React.ReactNode {
+  const { t } = useTranslation()
 
   const onSubmit = () => {
-    window.location.reload();
-  };
-  const initialValue = getHubAddress();
+    window.location.reload()
+  }
+  const initialValue = getHubAddress()
 
   return (
     <Modal>
@@ -31,9 +31,9 @@ export default function CheckHubAddressModal(): React.ReactNode {
                 disabled
               />
             </>
-          );
+          )
         }}
       </Form>
     </Modal>
-  );
+  )
 }

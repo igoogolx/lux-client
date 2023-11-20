@@ -1,40 +1,40 @@
-import React, { useState } from "react";
-import { Caption1, Card, Subtitle2, Switch } from "@fluentui/react-components";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { setSetting, SettingRes } from "lux-js-sdk";
-import { RootState, settingSlice } from "@/reducers";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import styles from "../index.module.css";
-import { notifier } from "../../../Core";
-import EditItemWithDialog from "../../../Core/EditItemWithDialog";
+import React, { useState } from 'react'
+import { Caption1, Card, Subtitle2, Switch } from '@fluentui/react-components'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSetting, type SettingRes } from 'lux-js-sdk'
+import { type RootState, settingSlice } from '@/reducers'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import styles from '../index.module.css'
+import { notifier } from '../../../Core'
+import EditItemWithDialog from '../../../Core/EditItemWithDialog'
 
-export default function LocalHttpServer() {
-  const { t } = useTranslation();
+export default function LocalHttpServer () {
+  const { t } = useTranslation()
 
-  const setting = useSelector<RootState, SettingRes>((state) => state.setting);
+  const setting = useSelector<RootState, SettingRes>((state) => state.setting)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false)
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared || state.manager.isLoading
-  );
+  )
 
-  const onSubmit = async (httpConfig: Partial<SettingRes["localServer"]>) => {
+  const onSubmit = async (httpConfig: Partial<SettingRes['localServer']>) => {
     const newSetting = {
       ...setting,
       localServer: {
         ...setting.localServer,
-        ...httpConfig,
-      },
-    };
-    await setSetting(newSetting);
-    dispatch(settingSlice.actions.setSetting(newSetting));
-    setOpenModal(false);
-    notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
-  };
+        ...httpConfig
+      }
+    }
+    await setSetting(newSetting)
+    dispatch(settingSlice.actions.setSetting(newSetting))
+    setOpenModal(false)
+    notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS))
+  }
 
   return (
     <Card className={styles.card}>
@@ -46,7 +46,7 @@ export default function LocalHttpServer() {
         <Switch
           checked={setting.localServer.allowLan}
           onChange={(e, data) => {
-            onSubmit({ allowLan: data.checked });
+            onSubmit({ allowLan: data.checked })
           }}
           disabled={isStarted}
         />
@@ -62,12 +62,12 @@ export default function LocalHttpServer() {
           open={openModal}
           setOpen={setOpenModal}
           onSubmit={(value) => {
-            onSubmit({ port: +value });
+            onSubmit({ port: +value })
           }}
           value={setting.localServer.port.toString()}
           disabled={isStarted}
         />
       </div>
     </Card>
-  );
+  )
 }

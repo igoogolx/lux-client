@@ -1,18 +1,18 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { ConfirmModal } from "../../Core";
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { ConfirmModal } from '../../Core'
 
-type DeleteAllProxiesConfirmModalProps = {
-  onConfirm: () => Promise<void>;
-  onClose: () => void;
-};
+interface DeleteAllProxiesConfirmModalProps {
+  onConfirm: () => Promise<void>
+  onClose: () => void
+}
 
-export function DeleteAllProxiesConfirmModal(
+export function DeleteAllProxiesConfirmModal (
   props: DeleteAllProxiesConfirmModalProps
 ): React.ReactNode {
-  const { onConfirm, onClose } = props;
-  const { t } = useTranslation();
+  const { onConfirm, onClose } = props
+  const { t } = useTranslation()
 
   return (
     <ConfirmModal
@@ -21,5 +21,5 @@ export function DeleteAllProxiesConfirmModal(
       onConfirm={onConfirm}
       onCancel={onClose}
     />
-  );
+  )
 }

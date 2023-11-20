@@ -1,61 +1,61 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import * as Yup from "yup";
-import { addProxy, Http, ProxyTypeEnum, updateProxy } from "lux-js-sdk";
-import { Button } from "@fluentui/react-components";
-import { MAX_PORT, MIN_PORT } from "@/utils/validator";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { proxiesSlice, RootState } from "@/reducers";
-import { Field, Form } from "../../../Core";
-import styles from "./index.module.css";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import * as Yup from 'yup'
+import { addProxy, type Http, ProxyTypeEnum, updateProxy } from 'lux-js-sdk'
+import { Button } from '@fluentui/react-components'
+import { MAX_PORT, MIN_PORT } from '@/utils/validator'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { proxiesSlice, type RootState } from '@/reducers'
+import { Field, Form } from '../../../Core'
+import styles from './index.module.css'
 
-type EditHttpModalProps = {
-  close: () => void;
-  initialValue?: Http;
-  isSelected?: boolean;
-};
+interface EditHttpModalProps {
+  close: () => void
+  initialValue?: Http
+  isSelected?: boolean
+}
 
 const INIT_DATA: Http = {
   type: ProxyTypeEnum.Http,
-  server: "",
-  id: "",
-  name: "",
+  server: '',
+  id: '',
+  name: '',
   port: 1080,
-  password: "",
-  username: "",
-};
+  password: '',
+  username: ''
+}
 
 const HttpSchema = Yup.object().shape({
   name: Yup.string(),
-  server: Yup.string().required("Required"),
-  port: Yup.number().min(MIN_PORT).max(MAX_PORT).required("Required"),
+  server: Yup.string().required('Required'),
+  port: Yup.number().min(MIN_PORT).max(MAX_PORT).required('Required'),
   username: Yup.string(),
-  password: Yup.string(),
-});
+  password: Yup.string()
+})
 
-export function EditHttpModal(props: EditHttpModalProps) {
-  const { t } = useTranslation();
-  const { close, initialValue, isSelected } = props;
-  const dispatch = useDispatch();
+export function EditHttpModal (props: EditHttpModalProps) {
+  const { t } = useTranslation()
+  const { close, initialValue, isSelected } = props
+  const dispatch = useDispatch()
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared
-  );
+  )
   const onSubmit = async (data: Http) => {
     if (initialValue) {
       await updateProxy({
         id: data.id,
-        proxy: data,
-      });
-      dispatch(proxiesSlice.actions.updateOne({ proxy: data }));
+        proxy: data
+      })
+      dispatch(proxiesSlice.actions.updateOne({ proxy: data }))
     } else {
       const { id } = await addProxy({
-        proxy: data,
-      });
-      dispatch(proxiesSlice.actions.addOne({ proxy: { ...data, id } }));
+        proxy: data
+      })
+      dispatch(proxiesSlice.actions.addOne({ proxy: { ...data, id } }))
     }
-    close();
-  };
+    close()
+  }
 
   return (
     <Form
@@ -105,8 +105,8 @@ export function EditHttpModal(props: EditHttpModalProps) {
               </Button>
             </div>
           </>
-        );
+        )
       }}
     </Form>
-  );
+  )
 }

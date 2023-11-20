@@ -1,36 +1,36 @@
-import React, { useRef } from "react";
-import { useTranslation } from "react-i18next";
-import { Button } from "@fluentui/react-components";
-import { Obfs, ObfsModeEnum } from "lux-js-sdk";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Field, FiledSelector, Form } from "../../../../Core";
-import { ObfsPluginSchema } from "../../EditShadowsocksModal/validate";
-import styles from "./index.module.css";
+import React, { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Button } from '@fluentui/react-components'
+import { type Obfs, ObfsModeEnum } from 'lux-js-sdk'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { Field, FiledSelector, Form } from '../../../../Core'
+import { ObfsPluginSchema } from '../../EditShadowsocksModal/validate'
+import styles from './index.module.css'
 
-type EditObfsProps = {
-  close: () => void;
-  initialValue: Obfs;
-  onChange: (data: Obfs) => void;
-};
+interface EditObfsProps {
+  close: () => void
+  initialValue: Obfs
+  onChange: (data: Obfs) => void
+}
 
-export function EditObfsPlugin(props: EditObfsProps) {
-  const { t } = useTranslation();
-  const { close, initialValue, onChange } = props;
+export function EditObfsPlugin (props: EditObfsProps) {
+  const { t } = useTranslation()
+  const { close, initialValue, onChange } = props
   const onSubmit = async (data: Obfs) => {
-    onChange(data);
-    close();
-  };
+    onChange(data)
+    close()
+  }
 
   const modeOption = useRef([
     {
       id: ObfsModeEnum.Http,
-      content: "Http",
+      content: 'Http'
     },
     {
       id: ObfsModeEnum.Tls,
-      content: "Tls",
-    },
-  ]);
+      content: 'Tls'
+    }
+  ])
 
   return (
     <Form
@@ -60,8 +60,8 @@ export function EditObfsPlugin(props: EditObfsProps) {
               </Button>
             </div>
           </>
-        );
+        )
       }}
     </Form>
-  );
+  )
 }

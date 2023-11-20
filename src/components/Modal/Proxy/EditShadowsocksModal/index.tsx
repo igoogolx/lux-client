@@ -1,111 +1,113 @@
-import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { addProxy, ProxyTypeEnum, Shadowsocks, updateProxy } from "lux-js-sdk";
-import { Button } from "@fluentui/react-components";
-import { proxiesSlice, RootState } from "@/reducers";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Field, FiledSelector, Form, PasswordFiled } from "../../../Core";
-import { EditPlugin } from "../Plugin";
-import { ShadowsocksSchema } from "./validate";
+import React, { useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { addProxy, ProxyTypeEnum, type Shadowsocks, updateProxy } from 'lux-js-sdk'
+import { Button } from '@fluentui/react-components'
+import { proxiesSlice, type RootState } from '@/reducers'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { Field, FiledSelector, Form, PasswordFiled } from '../../../Core'
+import { EditPlugin } from '../Plugin'
+import { ShadowsocksSchema } from './validate'
 import {
   ENCRYPTION_METHODS,
   NONE_ID,
   PageStepEnum,
-  SHADOWSOCKS_PLUINS,
-} from "./constant";
-import styles from "./index.module.css";
+  SHADOWSOCKS_PLUINS
+} from './constant'
+import styles from './index.module.css'
 
-type EditShadowsocksModalProps = {
-  close: () => void;
-  initialValue?: Shadowsocks;
-  isSelected?: boolean;
-  setPageStep?: (step: PageStepEnum) => void;
-};
+interface EditShadowsocksModalProps {
+  close: () => void
+  initialValue?: Shadowsocks
+  isSelected?: boolean
+  setPageStep?: (step: PageStepEnum) => void
+}
 
 const INIT_DATA: Shadowsocks = {
   type: ProxyTypeEnum.Shadowsocks,
-  id: "",
-  name: "",
-  server: "",
-  password: "",
+  id: '',
+  name: '',
+  server: '',
+  password: '',
   port: 1080,
-  cipher: ENCRYPTION_METHODS[0],
-};
+  cipher: ENCRYPTION_METHODS[0]
+}
 
 export const EditShadowsocksModal = React.memo(
   (props: EditShadowsocksModalProps) => {
-    const { close, initialValue, isSelected = false, setPageStep } = props;
-    const { t } = useTranslation();
-    const dispatch = useDispatch();
+    const { close, initialValue, isSelected = false, setPageStep } = props
+    const { t } = useTranslation()
+    const dispatch = useDispatch()
     const methodsOptions = useRef(
       ENCRYPTION_METHODS.map((METHOD) => ({ content: METHOD, id: METHOD }))
-    );
+    )
 
     const pluginOptions = useRef(
       [...SHADOWSOCKS_PLUINS, NONE_ID].map((METHOD) => ({
         content: METHOD,
-        id: METHOD,
+        id: METHOD
       }))
-    );
+    )
 
     const isStarted = useSelector<RootState, boolean>(
       (state) => state.manager.isStared
-    );
+    )
 
-    const [editingPlugin, setEditingPlugin] = useState(false);
+    const [editingPlugin, setEditingPlugin] = useState(false)
 
-    const initData = initialValue || INIT_DATA;
+    const initData = initialValue || INIT_DATA
 
     const initPlugin = {
       plugin: initData.plugin,
-      "plugin-opts": initData["plugin-opts"],
-    };
+      'plugin-opts': initData['plugin-opts']
+    }
 
     const [pluginData, setPluginData] =
-      useState<Partial<typeof initPlugin>>(initPlugin);
+      useState<Partial<typeof initPlugin>>(initPlugin)
 
     const onSubmit = async (value: Shadowsocks) => {
       if (initialValue) {
         await updateProxy({
           id: value.id,
-          proxy: { ...value, ...pluginData },
-        });
+          proxy: { ...value, ...pluginData }
+        })
         dispatch(
           proxiesSlice.actions.updateOne({ proxy: { ...value, ...pluginData } })
-        );
+        )
       } else {
         const { id } = await addProxy({
-          proxy: { ...value, ...pluginData },
-        });
+          proxy: { ...value, ...pluginData }
+        })
         dispatch(
           proxiesSlice.actions.addOne({
-            proxy: { ...value, ...pluginData, id },
+            proxy: { ...value, ...pluginData, id }
           })
-        );
+        )
       }
-      close();
-    };
+      close()
+    }
     return (
       <div>
-        {editingPlugin ? (
+        {editingPlugin
+          ? (
           <div>
             <EditPlugin
               type={pluginData.plugin}
               initialValue={pluginData}
               onSave={(data) => {
-                setPluginData(data);
+                setPluginData(data)
               }}
               close={() => {
-                setEditingPlugin(false);
+                setEditingPlugin(false)
                 if (setPageStep) {
-                  setPageStep(PageStepEnum.First);
+                  setPageStep(PageStepEnum.First)
                 }
               }}
             />
           </div>
-        ) : null}
-        <div style={{ display: !editingPlugin ? "block" : "none" }}>
+            )
+          : null}
+        <div style={{ display: !editingPlugin ? 'block' : 'none' }}>
           <Form
             validationSchema={ShadowsocksSchema}
             initialValues={initData}
@@ -132,7 +134,7 @@ export const EditShadowsocksModal = React.memo(
                   />
                   <FiledSelector
                     clearable
-                    value={pluginData.plugin ? pluginData.plugin : NONE_ID}
+                    value={(pluginData.plugin != null) ? pluginData.plugin : NONE_ID}
                     name="plugin"
                     items={pluginOptions.current}
                     label={`${t(TRANSLATION_KEY.FORM_PLUGIN)}(${t(
@@ -140,9 +142,9 @@ export const EditShadowsocksModal = React.memo(
                     )})`}
                     editable
                     onEditClick={() => {
-                      setEditingPlugin(true);
+                      setEditingPlugin(true)
                       if (setPageStep) {
-                        setPageStep(PageStepEnum.Second);
+                        setPageStep(PageStepEnum.Second)
                       }
                     }}
                   />
@@ -160,11 +162,11 @@ export const EditShadowsocksModal = React.memo(
                     </Button>
                   </div>
                 </div>
-              );
+              )
             }}
           </Form>
         </div>
       </div>
-    );
+    )
   }
-);
+)

@@ -1,12 +1,12 @@
-import { CSSProperties, useEffect, useRef } from "react";
-import { PopoverProps } from "./type";
-import { BASE_PLACEMENT, VARIATION_PLACEMENT } from "./constants";
+import { type CSSProperties, useEffect, useRef } from 'react'
+import { type PopoverProps } from './type'
+import { BASE_PLACEMENT, VARIATION_PLACEMENT } from './constants'
 
-const defaultArrowWidth = 8;
-const arrowDistance = 5;
+const defaultArrowWidth = 8
+const arrowDistance = 5
 
 export const computeDistance = (withArrow: boolean, distance: number) =>
-  withArrow ? distance + arrowDistance : distance;
+  withArrow ? distance + arrowDistance : distance
 
 const getReferenceRect = (
   originalReferenceRect: DOMRect,
@@ -18,12 +18,12 @@ const getReferenceRect = (
     left: originalReferenceRect.left - containerRect.left,
     right: originalReferenceRect.right - containerRect.left,
     width: originalReferenceRect.width,
-    height: originalReferenceRect.height,
-  };
-};
+    height: originalReferenceRect.height
+  }
+}
 
-const getBasePlacement = (placement: string) => placement.split("-")[0];
-const getVariationPlacement = (placement: string) => placement.split("-")[1];
+const getBasePlacement = (placement: string) => placement.split('-')[0]
+const getVariationPlacement = (placement: string) => placement.split('-')[1]
 
 export const computeStyle = (
   containerRect: DOMRect,
@@ -35,82 +35,82 @@ export const computeStyle = (
     withArrow,
     arrowBorderColor,
     arrowWidth,
-    skidding,
+    skidding
   }: {
-    distance: number;
-    withArrow: boolean;
-    arrowBorderColor?: string;
-    arrowWidth?: number;
-    skidding: number;
+    distance: number
+    withArrow: boolean
+    arrowBorderColor?: string
+    arrowWidth?: number
+    skidding: number
   }
 ) => {
-  const referenceRect = getReferenceRect(originalReferenceRect, containerRect);
-  const basePlacement = getBasePlacement(placement);
-  const { top, bottom, left, right } = BASE_PLACEMENT;
-  const { start, end } = VARIATION_PLACEMENT;
-  const computedDistance = computeDistance(withArrow, distance);
-  const arrowSideLength = arrowWidth || defaultArrowWidth;
-  const computedArrowHeight = arrowSideLength / 2;
-  let arrowStyle: CSSProperties = {};
-  const popperStyle: CSSProperties & { top?: number; left?: number } = {};
+  const referenceRect = getReferenceRect(originalReferenceRect, containerRect)
+  const basePlacement = getBasePlacement(placement)
+  const { top, bottom, left, right } = BASE_PLACEMENT
+  const { start, end } = VARIATION_PLACEMENT
+  const computedDistance = computeDistance(withArrow, distance)
+  const arrowSideLength = arrowWidth || defaultArrowWidth
+  const computedArrowHeight = arrowSideLength / 2
+  let arrowStyle: CSSProperties = {}
+  const popperStyle: CSSProperties & { top?: number, left?: number } = {}
 
   switch (placement) {
     case `${left}-${start}`:
-      popperStyle.top = referenceRect.top + skidding;
-      break;
+      popperStyle.top = referenceRect.top + skidding
+      break
     case `${left}-${end}`:
-      popperStyle.top = referenceRect.bottom - popperRect.height + skidding;
-      break;
+      popperStyle.top = referenceRect.bottom - popperRect.height + skidding
+      break
     case left:
       popperStyle.top =
         referenceRect.top +
         (referenceRect.height - popperRect.height) / 2 +
-        skidding;
-      break;
+        skidding
+      break
     case `${right}-${start}`:
-      popperStyle.top = referenceRect.top + skidding;
-      break;
+      popperStyle.top = referenceRect.top + skidding
+      break
     case `${right}-${end}`:
-      popperStyle.top = referenceRect.bottom - popperRect.height + skidding;
-      break;
+      popperStyle.top = referenceRect.bottom - popperRect.height + skidding
+      break
     case right:
       popperStyle.top =
         referenceRect.top +
         (referenceRect.height - popperRect.height) / 2 +
-        skidding;
-      break;
+        skidding
+      break
     case `${top}-${start}`:
-      popperStyle.left = referenceRect.left + skidding;
-      break;
+      popperStyle.left = referenceRect.left + skidding
+      break
     case `${top}-${end}`:
-      popperStyle.left = referenceRect.right - popperRect.width + skidding;
-      break;
+      popperStyle.left = referenceRect.right - popperRect.width + skidding
+      break
     case top:
       popperStyle.left =
         referenceRect.left +
         (referenceRect.width - popperRect.width) / 2 +
-        skidding;
-      break;
+        skidding
+      break
     case `${bottom}-${start}`:
-      popperStyle.left = referenceRect.left + skidding;
-      break;
+      popperStyle.left = referenceRect.left + skidding
+      break
     case `${bottom}-${end}`:
-      popperStyle.left = referenceRect.right - popperRect.width + skidding;
-      break;
+      popperStyle.left = referenceRect.right - popperRect.width + skidding
+      break
     case bottom:
       popperStyle.left =
         referenceRect.left +
         (referenceRect.width - popperRect.width) / 2 +
-        skidding;
-      break;
+        skidding
+      break
     default: {
-      throw new Error(`invalid popover placement: ${placement}`);
+      throw new Error(`invalid popover placement: ${placement}`)
     }
   }
   switch (basePlacement) {
     case left:
       popperStyle.left =
-        referenceRect.left - computedDistance - popperRect.width;
+        referenceRect.left - computedDistance - popperRect.width
       if (withArrow) {
         arrowStyle = {
           right: -computedArrowHeight,
@@ -120,12 +120,12 @@ export const computeStyle = (
               referenceRect.height / 2 -
               (popperStyle.top as number) -
               arrowSideLength / 2
-          ),
-        };
+          )
+        }
       }
-      break;
+      break
     case right:
-      popperStyle.left = referenceRect.right + computedDistance;
+      popperStyle.left = referenceRect.right + computedDistance
       if (withArrow) {
         arrowStyle = {
           left: -computedArrowHeight,
@@ -135,13 +135,13 @@ export const computeStyle = (
               referenceRect.height / 2 -
               (popperStyle.top as number) -
               arrowSideLength / 2
-          ),
-        };
+          )
+        }
       }
-      break;
+      break
     case top:
       popperStyle.top =
-        referenceRect.top - popperRect.height - computedDistance;
+        referenceRect.top - popperRect.height - computedDistance
       if (withArrow) {
         arrowStyle = {
           bottom: -computedArrowHeight,
@@ -151,12 +151,12 @@ export const computeStyle = (
               referenceRect.width / 2 -
               (popperStyle.left as number) -
               arrowSideLength / 2
-          ),
-        };
+          )
+        }
       }
-      break;
+      break
     case bottom:
-      popperStyle.top = referenceRect.bottom + computedDistance;
+      popperStyle.top = referenceRect.bottom + computedDistance
       if (withArrow) {
         arrowStyle = {
           top: -computedArrowHeight,
@@ -166,88 +166,88 @@ export const computeStyle = (
               referenceRect.width / 2 -
               (popperStyle.left as number) -
               arrowSideLength / 2
-          ),
-        };
+          )
+        }
       }
-      break;
+      break
     default: {
-      throw new Error(`invalid popover placement: ${placement}`);
+      throw new Error(`invalid popover placement: ${placement}`)
     }
   }
   if (withArrow) {
     arrowStyle = {
       ...arrowStyle,
       width: arrowSideLength,
-      height: arrowSideLength,
-    };
+      height: arrowSideLength
+    }
   }
 
   return {
     popper: popperStyle,
-    arrow: arrowStyle,
-  };
-};
+    arrow: arrowStyle
+  }
+}
 
 export const preventOverflow = (
   popperRect: DOMRect,
   originalReferenceRect: DOMRect,
   containerRect: DOMRect,
-  placement: NonNullable<PopoverProps["placement"]>,
-  option: { distance: number; withArrow: boolean; skidding: number }
+  placement: NonNullable<PopoverProps['placement']>,
+  option: { distance: number, withArrow: boolean, skidding: number }
 ) => {
-  const referenceRect = getReferenceRect(originalReferenceRect, containerRect);
-  let basePlacement = getBasePlacement(placement);
-  let variationPlacement = getVariationPlacement(placement);
-  const { withArrow, distance, skidding } = option;
-  const computedDistance = computeDistance(withArrow, distance);
-  const { height: clientHeight, width: clientWidth } = containerRect;
+  const referenceRect = getReferenceRect(originalReferenceRect, containerRect)
+  let basePlacement = getBasePlacement(placement)
+  let variationPlacement = getVariationPlacement(placement)
+  const { withArrow, distance, skidding } = option
+  const computedDistance = computeDistance(withArrow, distance)
+  const { height: clientHeight, width: clientWidth } = containerRect
   const baseOffset = {
     x: referenceRect.left + referenceRect.width / 2,
-    y: referenceRect.top + referenceRect.height / 2,
-  };
-  const { top, bottom, left, right } = BASE_PLACEMENT;
-  const { start, end } = VARIATION_PLACEMENT;
+    y: referenceRect.top + referenceRect.height / 2
+  }
+  const { top, bottom, left, right } = BASE_PLACEMENT
+  const { start, end } = VARIATION_PLACEMENT
 
-  let baseVariationPositionType: "x" | "y" = "x";
-  let baseVariationLengthType: "width" | "height" = "width";
+  let baseVariationPositionType: 'x' | 'y' = 'x'
+  let baseVariationLengthType: 'width' | 'height' = 'width'
 
   switch (basePlacement) {
     case top:
-      baseVariationPositionType = "x";
-      baseVariationLengthType = "width";
+      baseVariationPositionType = 'x'
+      baseVariationLengthType = 'width'
       if (referenceRect.top < popperRect.height + computedDistance) {
-        basePlacement = bottom;
+        basePlacement = bottom
       }
-      break;
+      break
     case bottom:
-      baseVariationPositionType = "x";
-      baseVariationLengthType = "width";
+      baseVariationPositionType = 'x'
+      baseVariationLengthType = 'width'
       if (
         clientHeight - referenceRect.bottom <
         popperRect.height + computedDistance
       ) {
-        basePlacement = top;
+        basePlacement = top
       }
-      break;
+      break
     case left:
-      baseVariationPositionType = "y";
-      baseVariationLengthType = "height";
+      baseVariationPositionType = 'y'
+      baseVariationLengthType = 'height'
       if (referenceRect.left < popperRect.width + computedDistance) {
-        basePlacement = right;
+        basePlacement = right
       }
-      break;
+      break
     case right:
-      baseVariationPositionType = "y";
-      baseVariationLengthType = "height";
+      baseVariationPositionType = 'y'
+      baseVariationLengthType = 'height'
       if (
         clientWidth - referenceRect.right <
         popperRect.width + computedDistance
       ) {
-        basePlacement = left;
+        basePlacement = left
       }
-      break;
+      break
     default: {
-      throw new Error(`invalid popover placement: ${placement}`);
+      throw new Error(`invalid popover placement: ${placement}`)
     }
   }
 
@@ -256,15 +256,15 @@ export const preventOverflow = (
       baseOffset[baseVariationPositionType] <
       popperRect[baseVariationLengthType] / 2 - skidding
     ) {
-      variationPlacement = start;
+      variationPlacement = start
     }
     if (
       baseOffset[baseVariationPositionType] +
         popperRect[baseVariationLengthType] / 2 +
         skidding >
-      (baseVariationLengthType === "width" ? clientWidth : clientHeight)
+      (baseVariationLengthType === 'width' ? clientWidth : clientHeight)
     ) {
-      variationPlacement = end;
+      variationPlacement = end
     }
   } else if (variationPlacement === start) {
     if (
@@ -272,9 +272,9 @@ export const preventOverflow = (
         referenceRect[baseVariationLengthType] / 2 +
         popperRect[baseVariationLengthType] +
         skidding >
-      (baseVariationLengthType === "width" ? clientWidth : clientHeight)
+      (baseVariationLengthType === 'width' ? clientWidth : clientHeight)
     ) {
-      variationPlacement = end;
+      variationPlacement = end
     }
   } else if (variationPlacement === end) {
     if (
@@ -283,20 +283,20 @@ export const preventOverflow = (
         skidding <
       popperRect[baseVariationLengthType]
     ) {
-      variationPlacement = start;
+      variationPlacement = start
     }
   }
   return variationPlacement
     ? `${basePlacement}-${variationPlacement}`
-    : basePlacement;
-};
+    : basePlacement
+}
 
 export const useMemoObj = <T>(obj: T) => {
-  const previousObj = useRef(obj);
+  const previousObj = useRef(obj)
   useEffect(() => {
     if (JSON.stringify(obj) !== JSON.stringify(previousObj.current)) {
-      previousObj.current = obj;
+      previousObj.current = obj
     }
-  }, [obj]);
-  return previousObj.current;
-};
+  }, [obj])
+  return previousObj.current
+}

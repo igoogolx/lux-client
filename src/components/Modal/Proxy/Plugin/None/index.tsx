@@ -1,21 +1,21 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Button } from "@fluentui/react-components";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import styles from "./index.module.css";
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { Button } from '@fluentui/react-components'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import styles from './index.module.css'
 
-type NoneProps = {
-  close: () => void;
-  onChange: () => void;
-};
+interface NoneProps {
+  close: () => void
+  onChange: () => void
+}
 
-export function NonePlugin(props: NoneProps) {
-  const { t } = useTranslation();
-  const { close, onChange } = props;
+export function NonePlugin (props: NoneProps) {
+  const { t } = useTranslation()
+  const { close, onChange } = props
   const onSubmit = async () => {
-    onChange();
-    close();
-  };
+    onChange()
+    close()
+  }
 
   return (
     <div className={styles.buttonContainer}>
@@ -26,5 +26,5 @@ export function NonePlugin(props: NoneProps) {
         {t(TRANSLATION_KEY.FORM_SAVE)}
       </Button>
     </div>
-  );
+  )
 }

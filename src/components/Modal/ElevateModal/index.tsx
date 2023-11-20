@@ -1,28 +1,29 @@
-import { useSelector } from "react-redux";
-import React, { ReactNode, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { getExecutablePath } from "lux-js-sdk";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { RootState } from "@/reducers";
-import { ConfirmModal } from "../../Core";
-import CodeBlock from "../../Core/CodeBlock";
+import { useSelector } from 'react-redux'
+import React, { type ReactNode, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { getExecutablePath } from 'lux-js-sdk'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { type RootState } from '@/reducers'
+import { ConfirmModal } from '../../Core'
+import CodeBlock from '../../Core/CodeBlock'
 
-const CORE_PATH_VAR = "LUX_CORE_PATH";
+const CORE_PATH_VAR = 'LUX_CORE_PATH'
 
-export function ElevateModal(): ReactNode {
-  const { t } = useTranslation();
+export function ElevateModal (): ReactNode {
+  const { t } = useTranslation()
   const isAdmin = useSelector<RootState, boolean>(
     (state) => state.general.isAdmin
-  );
-  const [corePath, setCorePath] = useState("");
+  )
+  const [corePath, setCorePath] = useState('')
 
   useEffect(() => {
     getExecutablePath().then((path) => {
-      setCorePath(path);
-    });
-  }, []);
+      setCorePath(path)
+    })
+  }, [])
 
-  return !isAdmin ? (
+  return !isAdmin
+    ? (
     <ConfirmModal
       title={t(TRANSLATION_KEY.ELEVATE_CORE)}
       content={
@@ -34,7 +35,8 @@ export function ElevateModal(): ReactNode {
         </div>
       }
     />
-  ) : (
-    ""
-  );
+      )
+    : (
+        ''
+      )
 }

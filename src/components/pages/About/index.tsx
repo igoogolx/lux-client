@@ -1,53 +1,53 @@
-import React, { useCallback, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useCallback, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   Button,
   Caption1,
   Divider,
   Link,
-  Title2,
-} from "@fluentui/react-components";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
+  Title2
+} from '@fluentui/react-components'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import {
   DOCS_URL,
   LATEST_RELEASE_URL,
   REPOSITORY_ISSUE_URL,
-  REPOSITORY_URL,
-} from "@/utils/constants";
-import { getVersion } from "@/utils/version";
+  REPOSITORY_URL
+} from '@/utils/constants'
+import { getVersion } from '@/utils/version'
 import {
   HomeMoreRegular,
   BugRegular,
-  DocumentBulletListRegular,
-} from "@fluentui/react-icons";
+  DocumentBulletListRegular
+} from '@fluentui/react-icons'
 import {
   ConfirmModal,
   Icon,
   IconNameEnum,
   IconSizeEnum,
-  notifier,
-} from "../../Core";
-import checkForUpdate from "../../../utils/checkForUpdate";
-import styles from "./index.module.css";
+  notifier
+} from '../../Core'
+import checkForUpdate from '../../../utils/checkForUpdate'
+import styles from './index.module.css'
 
-export default function About(): React.ReactNode {
-  const { t } = useTranslation();
-  const version = getVersion();
-  const [hasLatestVersion, setHasLatestVersion] = useState(false);
-  const [isCheckingUpdate, setIsCheckingUpdate] = useState(false);
+export default function About (): React.ReactNode {
+  const { t } = useTranslation()
+  const version = getVersion()
+  const [hasLatestVersion, setHasLatestVersion] = useState(false)
+  const [isCheckingUpdate, setIsCheckingUpdate] = useState(false)
 
   const onCheckForUpdate = useCallback(async () => {
     try {
-      setIsCheckingUpdate(true);
-      const checkedResult = await checkForUpdate();
+      setIsCheckingUpdate(true)
+      const checkedResult = await checkForUpdate()
       if (!checkedResult) {
-        notifier.info(t(TRANSLATION_KEY.NO_UPDATE_INFO));
+        notifier.info(t(TRANSLATION_KEY.NO_UPDATE_INFO))
       }
-      setHasLatestVersion(checkedResult);
+      setHasLatestVersion(checkedResult)
     } finally {
-      setIsCheckingUpdate(false);
+      setIsCheckingUpdate(false)
     }
-  }, [t]);
+  }, [t])
   return (
     <div className={styles.container}>
       {hasLatestVersion && (
@@ -55,11 +55,11 @@ export default function About(): React.ReactNode {
           title={t(TRANSLATION_KEY.CONFIRM)}
           content={t(TRANSLATION_KEY.NEW_VERSION_INFO)}
           onCancel={() => {
-            setHasLatestVersion(false);
+            setHasLatestVersion(false)
           }}
           confirmText={t(TRANSLATION_KEY.GO)}
           onConfirm={() => {
-            window.open(LATEST_RELEASE_URL);
+            window.open(LATEST_RELEASE_URL)
           }}
         />
       )}
@@ -70,7 +70,7 @@ export default function About(): React.ReactNode {
           </div>
           <div className={styles.desc}>
             <Title2>Lux App</Title2>
-            <Caption1>{version || "none"}</Caption1>
+            <Caption1>{version || 'none'}</Caption1>
           </div>
         </div>
         <div>
@@ -89,7 +89,7 @@ export default function About(): React.ReactNode {
         <div>
           <Button
             onClick={() => {
-              window.open(REPOSITORY_URL);
+              window.open(REPOSITORY_URL)
             }}
             appearance="transparent"
             icon={<HomeMoreRegular />}
@@ -101,7 +101,7 @@ export default function About(): React.ReactNode {
         <div>
           <Button
             onClick={() => {
-              window.open(REPOSITORY_ISSUE_URL);
+              window.open(REPOSITORY_ISSUE_URL)
             }}
             appearance="transparent"
             icon={<BugRegular />}
@@ -113,7 +113,7 @@ export default function About(): React.ReactNode {
         <div>
           <Button
             onClick={() => {
-              window.open(DOCS_URL);
+              window.open(DOCS_URL)
             }}
             appearance="transparent"
             icon={<DocumentBulletListRegular />}
@@ -123,5 +123,5 @@ export default function About(): React.ReactNode {
         </div>
       </div>
     </div>
-  );
+  )
 }

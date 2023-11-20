@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 import {
-  DataGridProps,
-  TableColumnSizingOptions,
+  type DataGridProps,
+  type TableColumnSizingOptions,
   useFluent,
   useScrollbarWidth,
   DataGrid,
@@ -10,25 +10,25 @@ import {
   DataGridHeader,
   DataGridHeaderCell,
   DataGridRow,
-  TableColumnDefinition,
-} from "@fluentui/react-components";
+  type TableColumnDefinition
+} from '@fluentui/react-components'
 
-import styles from "./index.module.css";
+import styles from './index.module.css'
 
-type TableProps<T> = {
-  columns: TableColumnDefinition<T>[];
-  data: T[];
-  columnSizingOptions?: TableColumnSizingOptions;
-  resizableColumns?: boolean;
-  selectionMode?: DataGridProps["selectionMode"];
-  selectedItems?: DataGridProps["selectedItems"];
-  onSelectionChange?: DataGridProps["onSelectionChange"];
-  getRowId?: DataGridProps["getRowId"];
-  defaultSortState?: DataGridProps["defaultSortState"];
-  sortable?: boolean;
-};
+interface TableProps<T> {
+  columns: Array<TableColumnDefinition<T>>
+  data: T[]
+  columnSizingOptions?: TableColumnSizingOptions
+  resizableColumns?: boolean
+  selectionMode?: DataGridProps['selectionMode']
+  selectedItems?: DataGridProps['selectedItems']
+  onSelectionChange?: DataGridProps['onSelectionChange']
+  getRowId?: DataGridProps['getRowId']
+  defaultSortState?: DataGridProps['defaultSortState']
+  sortable?: boolean
+}
 
-export function Table<T extends { id: string }>(props: TableProps<T>) {
+export function Table<T extends { id: string }> (props: TableProps<T>) {
   const {
     columns,
     data,
@@ -39,11 +39,11 @@ export function Table<T extends { id: string }>(props: TableProps<T>) {
     onSelectionChange,
     getRowId,
     defaultSortState,
-    sortable = false,
-  } = props;
+    sortable = false
+  } = props
 
-  const { targetDocument } = useFluent();
-  const scrollbarWidth = useScrollbarWidth({ targetDocument });
+  const { targetDocument } = useFluent()
+  const scrollbarWidth = useScrollbarWidth({ targetDocument })
 
   return (
     <DataGrid
@@ -76,5 +76,5 @@ export function Table<T extends { id: string }>(props: TableProps<T>) {
         )}
       </DataGridBody>
     </DataGrid>
-  );
+  )
 }
