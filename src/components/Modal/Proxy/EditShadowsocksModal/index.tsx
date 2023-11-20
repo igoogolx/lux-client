@@ -55,7 +55,7 @@ export const EditShadowsocksModal = React.memo(
 
     const [editingPlugin, setEditingPlugin] = useState(false)
 
-    const initData = initialValue || INIT_DATA
+    const initData = initialValue ?? INIT_DATA
 
     const initPlugin = {
       plugin: initData.plugin,
@@ -134,7 +134,7 @@ export const EditShadowsocksModal = React.memo(
                   />
                   <FiledSelector
                     clearable
-                    value={(pluginData.plugin != null) ? pluginData.plugin : NONE_ID}
+                    value={pluginData.plugin ?? NONE_ID}
                     name="plugin"
                     items={pluginOptions.current}
                     label={`${t(TRANSLATION_KEY.FORM_PLUGIN)}(${t(
@@ -170,3 +170,5 @@ export const EditShadowsocksModal = React.memo(
     )
   }
 )
+
+EditShadowsocksModal.displayName = 'EditShadowsocksModal'

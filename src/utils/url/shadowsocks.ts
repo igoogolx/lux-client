@@ -61,13 +61,13 @@ const convertConfig = (rawConfig: Config) => {
   }
 
   const pluginStr = rawConfig.extra.plugin
-  if (pluginStr) {
+  if (pluginStr !== '') {
     const separatorIndex = pluginStr.indexOf(';')
     result.plugin = pluginStr.substring(
       0,
       separatorIndex
     ) as Shadowsocks['plugin']
-    if (result.plugin?.includes('obfs')) {
+    if ((result.plugin?.includes('obfs')) === true) {
       result.plugin = PluginTypeEnum.Obfs
     }
     result['plugin-opts'] = parsePluginOptsStr(
@@ -87,7 +87,7 @@ export const decode = (url: string) => {
 
 export const encode = (config: Shadowsocks) => {
   let pluginStr = `${config.plugin}`
-  if (config['plugin-opts']) {
+  if (config['plugin-opts'] != null) {
     pluginStr = `${pluginStr};${convertPluginOptsStr(config['plugin-opts'])}`
   }
   return SIP002_URI.stringify(

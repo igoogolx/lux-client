@@ -30,7 +30,7 @@ export function DelayTag (props: DelayTagProps): React.ReactNode {
 
   const { loading } = useSelector<RootState, DelayInfo | undefined>((state) =>
     delaysSelectors.selectById(state, id)
-  ) || { loading: true }
+  ) ?? { loading: true }
 
   if (value === undefined && !loading) {
     return ''

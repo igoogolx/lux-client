@@ -132,7 +132,7 @@ export function Header (): React.ReactNode {
       }
       dispatch(managerSlice.actions.setIsStarted({ isStarted: !isStarted }))
     } catch (e) {
-      notifier.error((e as { message?: string }).message || 'unknown error')
+      notifier.error((e as { message?: string }).message ?? 'unknown error')
     } finally {
       dispatch(managerSlice.actions.setIsLoading({ isLoading: false }))
     }

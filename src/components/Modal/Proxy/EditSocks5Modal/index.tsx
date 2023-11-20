@@ -60,7 +60,7 @@ export function EditSocks5Modal (props: EditSocks5ModalProps) {
   return (
     <Form
       onSubmit={onSubmit}
-      initialValues={initialValue || INIT_DATA}
+      initialValues={initialValue ?? INIT_DATA}
       validationSchema={Socks5Schema}
     >
       {({ isValid, submitForm }) => {

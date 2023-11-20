@@ -113,7 +113,7 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
         break
       }
       default: {
-        throw new Error(`invalid ${id}`)
+        throw new Error('invalid id')
       }
     }
   }

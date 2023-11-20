@@ -60,7 +60,7 @@ export function EditHttpModal (props: EditHttpModalProps) {
   return (
     <Form
       onSubmit={onSubmit}
-      initialValues={initialValue || INIT_DATA}
+      initialValues={initialValue ?? INIT_DATA}
       validationSchema={HttpSchema}
     >
       {({ isValid, submitForm }) => {

@@ -25,7 +25,7 @@ const HUB_ADDRESS_KEY = 'hubAddress'
 
 export function getHubAddress (): HubAddress {
   const isDev = process.env.NODE_ENV === 'development'
-  const hubAddress = (isDev ? process.env.HUB_ADDRESS : getCoreAddress()) || ''
+  const hubAddress = (isDev ? process.env.HUB_ADDRESS : getCoreAddress()) ?? ''
 
   try {
     return parseAddress(hubAddress)

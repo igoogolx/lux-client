@@ -6,13 +6,11 @@ import {
   DialogBody,
   DialogContent,
   DialogSurface,
-  DialogTrigger,
   Spinner
 } from '@fluentui/react-components'
 import { useTranslation } from 'react-i18next'
 import { useLockBodyScroll } from '@/hooks'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { APP_CONTAINER_ID } from '@/utils/constants'
 import styles from './index.module.css'
 
 interface ModalProps {
@@ -51,7 +49,7 @@ export const Modal = React.memo((props: ModalProps) => {
           <DialogActions>
             {!hideCloseButton && close && (
               <Button appearance="secondary" onClick={close}>
-                {closeText || t(TRANSLATION_KEY.CLOSE)}
+                {closeText ?? t(TRANSLATION_KEY.CLOSE)}
               </Button>
             )}
             {!hideOkButton && onOk && (
@@ -64,7 +62,7 @@ export const Modal = React.memo((props: ModalProps) => {
                   <Spinner size="extra-tiny" className={styles.spinner} />
                 )}
 
-                {okText || t(TRANSLATION_KEY.OK)}
+                {okText ?? t(TRANSLATION_KEY.OK)}
               </Button>
             )}
           </DialogActions>
@@ -73,3 +71,5 @@ export const Modal = React.memo((props: ModalProps) => {
     </Dialog>
   )
 })
+
+Modal.displayName = 'Modal'
