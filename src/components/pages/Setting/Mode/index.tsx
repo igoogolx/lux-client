@@ -45,6 +45,7 @@ export default function Mode () {
         </div>
 
         <Dropdown
+          className={styles.selector}
           disabled={isStarted}
           value={setting.mode}
           onOptionSelect={(e, data) => {

@@ -12,12 +12,19 @@
       }
 
       & .actionBtn{
-        @apply ml-2;
+        @apply ml-2 mb-2 sm:mb-0;
       }
     }
+  }
+
+
+  & .selector{
+    @apply min-w-fit;
   }
 }
 
 .dialogBody {
   @apply flex flex-col;
 }
+
+

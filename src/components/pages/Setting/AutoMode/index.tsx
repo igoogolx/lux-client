@@ -73,6 +73,7 @@ export default function AutoMode () {
               <Caption1>{t(TRANSLATION_KEY.PROXY_MODE_TYPE_DESC)}</Caption1>
             </div>
             <Dropdown
+              className={styles.selector}
               disabled={isStarted}
               value={setting.autoMode.type}
               onOptionSelect={(e, data) => {
