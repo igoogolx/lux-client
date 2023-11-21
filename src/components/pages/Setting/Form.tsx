@@ -27,7 +27,7 @@ export function SettingForm () {
       <div>
         <Mode />
         {isTun && <Dns />}
-        {os === 'darwin' && <HijackDns />}
+        {os === 'darwin' && isTun && <HijackDns />}
         {isTun && <DefaultInterface />}
         <LocalHttpServer />
         <AutoMode />
