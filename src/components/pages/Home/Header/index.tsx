@@ -35,6 +35,7 @@ import { type MenuItemProps, notifier } from '../../../Core'
 import { Operation } from './Operation'
 import { AddingOptions } from './AddingOptions'
 import styles from './index.module.css'
+import { useMedia } from '@/hooks'
 
 const TIMER_INTERVAL = 1000
 
@@ -44,6 +45,8 @@ export function Header (): React.ReactNode {
     name: '',
     addr: ''
   })
+
+  const isWideScreen = useMedia('(min-width: 640px)')
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared
@@ -173,7 +176,7 @@ export function Header (): React.ReactNode {
         </Menu>
       </div>
       <div>
-        {isStarted && curProxy && (
+        {isStarted && curProxy && isWideScreen && (
           <Caption1>{curProxy.name || curProxy.addr}</Caption1>
         )}
         <Tooltip
