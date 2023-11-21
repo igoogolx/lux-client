@@ -16,6 +16,7 @@ import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { type RootState } from '@/reducers'
 import { Table, Tag, type TagTypeEnum } from '../../Core'
 import styles from './index.module.css'
+import { useMedia } from '@/hooks'
 
 function TimeCell (props: { value: number }) {
   const { value } = props
@@ -48,6 +49,8 @@ export default function Logger (): React.ReactNode {
   const logs = useSelector<RootState, Log[]>((state) => state.logger.logs)
   const [searchedValue, setSearchedValue] = useState('')
 
+  const isWideScreen = useMedia('(min-width: 640px)')
+
   const columns = useMemo<Array<TableColumnDefinition<Log>>>(() => {
     return [
       createTableColumn<Log>({
@@ -63,19 +66,21 @@ export default function Logger (): React.ReactNode {
           )
         }
       }),
-      createTableColumn<Log>({
-        columnId: 'time',
-        renderHeaderCell: () => {
-          return t(TRANSLATION_KEY.TIME)
-        },
-        renderCell: (item) => {
-          return (
+      isWideScreen
+        ? createTableColumn<Log>({
+          columnId: 'time',
+          renderHeaderCell: () => {
+            return t(TRANSLATION_KEY.TIME)
+          },
+          renderCell: (item) => {
+            return (
             <TableCellLayout>
               <TimeCell value={item.time} />
             </TableCellLayout>
-          )
-        }
-      }),
+            )
+          }
+        })
+        : null,
       createTableColumn<Log>({
         columnId: 'content',
         renderHeaderCell: () => {
@@ -92,8 +97,8 @@ export default function Logger (): React.ReactNode {
           )
         }
       })
-    ]
-  }, [searchedValue, t])
+    ].filter(Boolean) as Array<TableColumnDefinition<Log>>
+  }, [searchedValue, t, isWideScreen])
 
   const data = useMemo(() => {
     return logs.filter((log) => {

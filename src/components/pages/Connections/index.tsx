@@ -21,6 +21,7 @@ import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { convertByte } from '@/utils/traffic'
 import { Table, Tag, TagTypeEnum } from '../../Core'
 import styles from './index.module.css'
+import { useMedia } from '@/hooks'
 
 interface Connection {
   destination: string
@@ -77,6 +78,8 @@ export default function Connections (): React.ReactNode {
   }>({ tcp: 0, udp: 0, history: [] })
   const [searchedValue, setSearchedValue] = useState('')
 
+  const isWideScreen = useMedia('(min-width: 640px)')
+
   useEffect(() => {
     const subscriber = subscribeConnections({
       onMessage: (m) => {
@@ -100,15 +103,17 @@ export default function Connections (): React.ReactNode {
   }, [])
   const columns = useMemo<Array<TableColumnDefinition<Connection>>>(() => {
     return [
-      createTableColumn<Connection>({
-        columnId: 'destination',
-        renderHeaderCell: () => {
-          return t(TRANSLATION_KEY.DESTINATION)
-        },
-        renderCell: (item) => {
-          return <TableCellLayout truncate>{item.destination}</TableCellLayout>
-        }
-      }),
+      isWideScreen
+        ? createTableColumn<Connection>({
+          columnId: 'destination',
+          renderHeaderCell: () => {
+            return t(TRANSLATION_KEY.DESTINATION)
+          },
+          renderCell: (item) => {
+            return <TableCellLayout truncate>{item.destination}</TableCellLayout>
+          }
+        })
+        : null,
       createTableColumn<Connection>({
         columnId: 'domain',
         renderHeaderCell: () => {
@@ -140,15 +145,17 @@ export default function Connections (): React.ReactNode {
           return <TableCellLayout>{tag}</TableCellLayout>
         }
       }),
-      createTableColumn<Connection>({
-        columnId: 'network',
-        renderHeaderCell: () => {
-          return t(TRANSLATION_KEY.NETWORK)
-        },
-        renderCell: (item) => {
-          return <TableCellLayout>{item.network}</TableCellLayout>
-        }
-      }),
+      isWideScreen
+        ? createTableColumn<Connection>({
+          columnId: 'network',
+          renderHeaderCell: () => {
+            return t(TRANSLATION_KEY.NETWORK)
+          },
+          renderCell: (item) => {
+            return <TableCellLayout>{item.network}</TableCellLayout>
+          }
+        })
+        : null,
       createTableColumn<Connection>({
         columnId: 'start',
         compare: (a, b) => {
@@ -165,21 +172,24 @@ export default function Connections (): React.ReactNode {
           )
         }
       }),
-      createTableColumn<Connection>({
-        columnId: 'data',
-        renderHeaderCell: () => {
-          return t(TRANSLATION_KEY.DATA)
-        },
-        renderCell: (item) => {
-          return (
+
+      isWideScreen
+        ? createTableColumn<Connection>({
+          columnId: 'data',
+          renderHeaderCell: () => {
+            return t(TRANSLATION_KEY.DATA)
+          },
+          renderCell: (item) => {
+            return (
             <TableCellLayout>
               <LoadTag value={item.download + item.upload} />
             </TableCellLayout>
-          )
-        }
-      })
-    ]
-  }, [t])
+            )
+          }
+        })
+        : null
+    ].filter(Boolean) as Array<TableColumnDefinition<Connection>>
+  }, [t, isWideScreen])
 
   const data = useMemo(() => {
     return conns

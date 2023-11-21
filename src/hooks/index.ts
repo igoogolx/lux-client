@@ -1,5 +1,5 @@
 import type * as React from 'react'
-import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Chart, type ChartConfiguration } from 'chart.js'
 import { useDispatch } from 'react-redux'
 import { getProxyDelay } from 'lux-js-sdk'
@@ -81,3 +81,28 @@ export const useDangerStyles = makeStyles({
     borderBottomColor: tokens.colorStatusDangerBorder1
   }
 })
+
+export const useMedia = (query: string, defaultState?: boolean) => {
+  const [state, setState] = useState(defaultState)
+
+  useEffect(() => {
+    let mounted = true
+    const mql = window.matchMedia(query)
+    const onChange = () => {
+      if (!mounted) {
+        return
+      }
+      setState(mql.matches)
+    }
+
+    mql.addEventListener('change', onChange)
+    setState(mql.matches)
+
+    return () => {
+      mounted = false
+      mql.removeEventListener('change', onChange)
+    }
+  }, [query])
+
+  return state
+}
