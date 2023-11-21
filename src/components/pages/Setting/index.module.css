@@ -19,7 +19,7 @@
 
 
   & .selector{
-    @apply min-w-fit;
+    @apply min-w-[120px];
   }
 }
 
