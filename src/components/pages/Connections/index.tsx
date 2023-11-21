@@ -156,22 +156,25 @@ export default function Connections (): React.ReactNode {
           }
         })
         : null,
-      createTableColumn<Connection>({
-        columnId: 'start',
-        compare: (a, b) => {
-          return a.start - b.start
-        },
-        renderHeaderCell: () => {
-          return t(TRANSLATION_KEY.TIME)
-        },
-        renderCell: (item) => {
-          return (
+
+      isWideScreen
+        ? createTableColumn<Connection>({
+          columnId: 'start',
+          compare: (a, b) => {
+            return a.start - b.start
+          },
+          renderHeaderCell: () => {
+            return t(TRANSLATION_KEY.TIME)
+          },
+          renderCell: (item) => {
+            return (
             <TableCellLayout>
               <StartTag value={item.start} />
             </TableCellLayout>
-          )
-        }
-      }),
+            )
+          }
+        })
+        : null,
 
       isWideScreen
         ? createTableColumn<Connection>({
