@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Caption1, Card, Subtitle2 } from '@fluentui/react-components'
+import React from 'react'
+import { Caption1, Card, Dropdown, Option, Subtitle2 } from '@fluentui/react-components'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSetting, type SettingRes } from 'lux-js-sdk'
@@ -7,7 +7,6 @@ import { type RootState, settingSlice } from '@/reducers'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import styles from '../index.module.css'
 import { notifier } from '../../../Core'
-import EditItemWithDialog from '../../../Core/EditItemWithDialog'
 
 const OPTIONS = [
   {
@@ -23,7 +22,6 @@ const OPTIONS = [
 export default function Mode () {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const [openModal, setOpenModal] = useState(false)
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared || state.manager.isLoading
@@ -35,7 +33,6 @@ export default function Mode () {
     const newSetting = { ...setting, mode: value }
     await setSetting(newSetting)
     dispatch(settingSlice.actions.setSetting(newSetting))
-    setOpenModal(false)
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS))
   }
 
@@ -46,19 +43,19 @@ export default function Mode () {
           <Subtitle2>{t(TRANSLATION_KEY.MODE)}</Subtitle2>
           <Caption1>{t(TRANSLATION_KEY.PROXY_MODE_TOOLTIP)}</Caption1>
         </div>
-        <EditItemWithDialog
-          title={t(TRANSLATION_KEY.EDIT_MODE_TOOLTIP)}
-          open={openModal}
-          setOpen={setOpenModal}
-          onSubmit={(value) => {
-            onSubmit(value)
-          }}
-          value={setting.mode}
+
+        <Dropdown
           disabled={isStarted}
-          type="selector"
-          selectorItems={OPTIONS}
-          canReset={false}
-        />
+          value={setting.mode}
+          onOptionSelect={(e, data) => {
+            onSubmit(data.optionValue as SettingRes['mode'])
+          }}
+        >
+          {OPTIONS.map((option) => (
+            <Option key={option.id}>{option.content}</Option>
+          ))}
+        </Dropdown>
+
       </div>
     </Card>
   )
