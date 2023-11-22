@@ -13,7 +13,7 @@ export interface ThemeContextType {
 export const ThemeContext = createContext<ThemeContextType | null>(null)
 
 export const getTheme = (): ThemeEnum => {
-  return ((localStorage.getItem('theme') as ThemeEnum | null)) ?? ThemeEnum.Light
+  return (localStorage.getItem('theme') as ThemeEnum | null) ?? ThemeEnum.Light
 }
 
 export const setTheme = (theme: ThemeEnum) => {
