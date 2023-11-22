@@ -88,37 +88,28 @@ export default function About (): React.ReactNode {
       <div className={styles.links}>
         <div>
           <Button
-            onClick={() => {
-              window.open(REPOSITORY_URL)
-            }}
             appearance="transparent"
             icon={<HomeMoreRegular />}
           >
-            <Link>{t(TRANSLATION_KEY.APP_HOME_PAGE)}</Link>
+            <Link href={REPOSITORY_URL}>{t(TRANSLATION_KEY.APP_HOME_PAGE)}</Link>
           </Button>
         </div>
 
         <div>
           <Button
-            onClick={() => {
-              window.open(REPOSITORY_ISSUE_URL)
-            }}
             appearance="transparent"
             icon={<BugRegular />}
           >
-            <Link>{t(TRANSLATION_KEY.APP_REPORT_ISSUE)}</Link>
+            <Link href={REPOSITORY_ISSUE_URL}>{t(TRANSLATION_KEY.APP_REPORT_ISSUE)}</Link>
           </Button>
         </div>
 
         <div>
           <Button
-            onClick={() => {
-              window.open(DOCS_URL)
-            }}
             appearance="transparent"
             icon={<DocumentBulletListRegular />}
           >
-            <Link>{t(TRANSLATION_KEY.APP_DOCS)}</Link>
+            <Link href={DOCS_URL}>{t(TRANSLATION_KEY.APP_DOCS)}</Link>
           </Button>
         </div>
       </div>
