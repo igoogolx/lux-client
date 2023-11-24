@@ -4,12 +4,10 @@
     flex-1
     flex-col;
 
-  &:not(:last-child) {
-    @apply mb-4;
-  }
+
 
   & .data {
-    @apply mb-2 flex flex-wrap flex-row justify-between;
+    @apply my-2 flex flex-wrap flex-row justify-between;
 
 
     & .info {

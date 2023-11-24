@@ -53,11 +53,6 @@ export function Nav (props: NavProps): React.ReactNode {
         name: ROUTER_NAME[ROUTER_PATH.Dashboard]
       },
       {
-        to: ROUTER_PATH.Connections,
-        icon: <DataUsageRegular />,
-        name: ROUTER_NAME[ROUTER_PATH.Connections]
-      },
-      {
         to: ROUTER_PATH.Logger,
         icon: <NoteRegular />,
         name: ROUTER_NAME[ROUTER_PATH.Logger]

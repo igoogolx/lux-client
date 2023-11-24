@@ -25,6 +25,7 @@ import Logger from '../components/pages/Logger'
 import Connections from '../components/pages/Connections'
 import Dashboard from '../components/pages/Dashboard'
 import Home from '../components/pages/Home'
+import Data from '@/components/pages/Data'
 
 axios.interceptors.response.use(
   (res) => res,
@@ -119,8 +120,7 @@ export function App (): React.ReactNode {
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Routes>
             <Route path={ROUTER_PATH.Home} element={<Home />} />
-            <Route path={ROUTER_PATH.Dashboard} element={<Dashboard />} />
-            <Route path={ROUTER_PATH.Connections} element={<Connections />} />
+            <Route path={ROUTER_PATH.Dashboard} element={<Data />} />
             <Route path={ROUTER_PATH.Logger} element={<Logger />} />
             <Route path={ROUTER_PATH.Setting} element={<Setting />} />
             <Route path={ROUTER_PATH.About} element={<About />} />

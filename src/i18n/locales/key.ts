@@ -137,5 +137,6 @@ export const TRANSLATION_KEY = {
   DOMAIN: 'common.domain',
   MODE_TOOLTIP: 'common.mode_tooltip',
   EDIT_MODE_TOOLTIP: 'common.edit_mode_tooltip',
-  PROXY_MODE_TOOLTIP: 'common.proxy_mode_tooltip'
+  PROXY_MODE_TOOLTIP: 'common.proxy_mode_tooltip',
+  STATISTICS: 'common.statistics'
 }
