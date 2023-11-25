@@ -4,14 +4,18 @@ import {
   type TableColumnSizingOptions,
   useFluent,
   useScrollbarWidth,
-  DataGrid,
-  DataGridBody,
-  DataGridCell,
-  DataGridHeader,
-  DataGridHeaderCell,
-  DataGridRow,
   type TableColumnDefinition
 } from '@fluentui/react-components'
+
+import {
+  DataGridBody,
+  DataGrid,
+  DataGridRow,
+  DataGridHeader,
+  DataGridCell,
+  DataGridHeaderCell,
+  RowRenderer
+} from '@fluentui-contrib/react-data-grid-react-window'
 
 import styles from './index.module.css'
 
@@ -66,7 +70,7 @@ export function Table<T extends { id: string }> (props: TableProps<T>) {
           )}
         </DataGridRow>
       </DataGridHeader>
-      <DataGridBody<T>>
+      <DataGridBody<T> itemSize={50} height={480}>
         {({ item, rowId }, style) => (
           <DataGridRow<T> key={rowId} style={style as React.CSSProperties}>
             {({ renderCell }) => (
