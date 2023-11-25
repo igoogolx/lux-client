@@ -12,6 +12,7 @@
   "author": "igoogolx",
   "license": "MIT",
   "dependencies": {
+    "@fluentui-contrib/react-data-grid-react-window": "^1.1.2",
     "@fluentui/react-components": "^9.40.0",
     "@fortawesome/fontawesome-free": "^6.4.2",
     "@reduxjs/toolkit": "^1.9.7",
