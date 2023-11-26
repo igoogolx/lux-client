@@ -154,6 +154,7 @@ export default function ProxyCard<T extends { id: string }> (
               onSelectionChange={onSelectionChange}
               selectedItems={selectedItems}
               getRowId={(item) => item.id}
+              virtualized={false}
             />
           </AccordionPanel>
         </AccordionItem>
