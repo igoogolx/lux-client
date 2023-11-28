@@ -22,7 +22,7 @@ export function NotificationContainer () {
         <Toast>
           <ToastTitle>{data.title}</ToastTitle>
         </Toast>,
-        { intent: data.type, position: 'top-end', pauseOnHover: true }
+        { intent: data.type, position: 'top', pauseOnHover: true }
       )
     })
     return () => {
