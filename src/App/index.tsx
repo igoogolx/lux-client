@@ -22,8 +22,6 @@ import styles from './index.module.css'
 import About from '../components/pages/About'
 import Setting from '../components/pages/Setting'
 import Logger from '../components/pages/Logger'
-import Connections from '../components/pages/Connections'
-import Dashboard from '../components/pages/Dashboard'
 import Home from '../components/pages/Home'
 import Data from '@/components/pages/Data'
 

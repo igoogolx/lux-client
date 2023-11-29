@@ -2,7 +2,7 @@ import React from 'react'
 import { type TrafficItem } from 'lux-js-sdk'
 import { useTranslation } from 'react-i18next'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { Icon, IconNameEnum } from '../../../../Core'
+import { Icon, IconNameEnum } from '../../../../../Core'
 import { FlowText, FlowTextTypeEnum } from '../FlowText'
 import styles from './index.module.css'
 

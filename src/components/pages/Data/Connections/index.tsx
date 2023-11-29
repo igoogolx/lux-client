@@ -19,7 +19,7 @@ import {
 import { DeleteRegular, SearchRegular } from '@fluentui/react-icons'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { convertByte } from '@/utils/traffic'
-import { Table, Tag, TagTypeEnum } from '../../Core'
+import { Table, Tag, TagTypeEnum } from '../../../Core'
 import styles from './index.module.css'
 import { useMedia } from '@/hooks'
 
