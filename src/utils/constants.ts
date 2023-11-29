@@ -16,10 +16,12 @@ export enum ROUTER_PATH {
   Logger = '/logs',
   Setting = '/setting',
   About = '/about',
+  Rules = '/rules'
 }
 
 export const ROUTER_NAME = {
   [ROUTER_PATH.Home]: TRANSLATION_KEY.NAV_HOME,
+  [ROUTER_PATH.Rules]: TRANSLATION_KEY.RULE,
   [ROUTER_PATH.Dashboard]: TRANSLATION_KEY.NAV_DATA,
   [ROUTER_PATH.Logger]: TRANSLATION_KEY.LOG,
   [ROUTER_PATH.Setting]: TRANSLATION_KEY.NAV_SETTING,

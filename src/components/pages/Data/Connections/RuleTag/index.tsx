@@ -4,7 +4,7 @@ import { ConnRuleEnum } from 'lux-js-sdk'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { Tag, TagTypeEnum } from '../../../../Core'
 
-function RuleCell ({ value }: { value: number }) {
+function RuleCell ({ value }: { value: string }) {
   const { t } = useTranslation()
 
   if (value === ConnRuleEnum.Proxy) {

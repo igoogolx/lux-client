@@ -138,5 +138,8 @@ export const TRANSLATION_KEY = {
   MODE_TOOLTIP: 'common.mode_tooltip',
   EDIT_MODE_TOOLTIP: 'common.edit_mode_tooltip',
   PROXY_MODE_TOOLTIP: 'common.proxy_mode_tooltip',
-  STATISTICS: 'common.statistics'
+  STATISTICS: 'common.statistics',
+  PAYLOAD: 'common.payload',
+  POLICY: 'common.policy',
+  SEARCH_RULE_TIP: 'search_rule_tip'
 }

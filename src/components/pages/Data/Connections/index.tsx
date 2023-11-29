@@ -3,7 +3,7 @@ import {
   closeAllConnections,
   type Conn,
   ConnNetworkMetaEnum,
-  ConnRuleEnum,
+  type ConnRuleEnum,
   subscribeConnections
 } from 'lux-js-sdk'
 import { useTranslation } from 'react-i18next'
@@ -22,6 +22,7 @@ import { convertByte } from '@/utils/traffic'
 import { Table, Tag, TagTypeEnum } from '../../../Core'
 import styles from './index.module.css'
 import { useMedia } from '@/hooks'
+import RuleCell from '@/components/pages/Data/Connections/RuleTag'
 
 interface Connection {
   destination: string
@@ -129,20 +130,7 @@ export default function Connections (): React.ReactNode {
           return t(TRANSLATION_KEY.RULE)
         },
         renderCell: (item) => {
-          let tag
-          if (item.rule === ConnRuleEnum.Proxy) {
-            tag = (
-              <Tag type={TagTypeEnum.Info} value={t(TRANSLATION_KEY.PROXY)} />
-            )
-          } else {
-            tag = (
-              <Tag
-                type={TagTypeEnum.Warning}
-                value={t(TRANSLATION_KEY.BYPASS)}
-              />
-            )
-          }
-          return <TableCellLayout>{tag}</TableCellLayout>
+          return <RuleCell value={item.rule} />
         }
       }),
       isWideScreen

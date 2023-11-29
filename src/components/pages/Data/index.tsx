@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Tab, TabList } from '@fluentui/react-components'
-import Dashboard from 'src/components/pages/Data/Dashboard'
-import Connections from 'src/components/pages/Data/Connections'
+import Dashboard from '@/components/pages/Data/Dashboard'
+import Connections from '@/components/pages/Data/Connections'
 import { useTranslation } from 'react-i18next'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 

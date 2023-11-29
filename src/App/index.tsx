@@ -24,6 +24,7 @@ import Setting from '../components/pages/Setting'
 import Logger from '../components/pages/Logger'
 import Home from '../components/pages/Home'
 import Data from '@/components/pages/Data'
+import Rules from '@/components/pages/Rules'
 
 axios.interceptors.response.use(
   (res) => res,
@@ -118,6 +119,7 @@ export function App (): React.ReactNode {
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Routes>
             <Route path={ROUTER_PATH.Home} element={<Home />} />
+            <Route path={ROUTER_PATH.Rules} element={<Rules />} />
             <Route path={ROUTER_PATH.Dashboard} element={<Data />} />
             <Route path={ROUTER_PATH.Logger} element={<Logger />} />
             <Route path={ROUTER_PATH.Setting} element={<Setting />} />

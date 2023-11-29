@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 import {
-  DataUsageRegular,
   HomeRegular,
   InfoRegular,
   NoteRegular,
@@ -46,6 +45,11 @@ export function Nav (props: NavProps): React.ReactNode {
         to: ROUTER_PATH.Home,
         icon: <HomeRegular />,
         name: ROUTER_NAME[ROUTER_PATH.Home]
+      },
+      {
+        to: ROUTER_PATH.Rules,
+        icon: <TopSpeedRegular />,
+        name: ROUTER_NAME[ROUTER_PATH.Rules]
       },
       {
         to: ROUTER_PATH.Dashboard,

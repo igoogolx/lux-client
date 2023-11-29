@@ -156,5 +156,8 @@ export default {
   [TRANSLATION_KEY.EDIT_MODE_TOOLTIP]: 'Edit mode',
   [TRANSLATION_KEY.PROXY_MODE_TOOLTIP]:
     'System proxy usually only supports TCP and is not accepted by all applications, but tun can handle all traffic.',
-  [TRANSLATION_KEY.STATISTICS]: 'Statistics'
+  [TRANSLATION_KEY.STATISTICS]: 'Statistics',
+  [TRANSLATION_KEY.PAYLOAD]: 'Payload',
+  [TRANSLATION_KEY.POLICY]: 'Policy',
+  [TRANSLATION_KEY.SEARCH_RULE_TIP]: 'Type to search'
 }

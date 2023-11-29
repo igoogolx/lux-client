@@ -38,7 +38,7 @@ interface TableProps<T> {
   virtualized?: boolean
 }
 
-export function Table<T extends { id: string }> (props: TableProps<T>) {
+export function Table<T> (props: TableProps<T>) {
   const {
     columns,
     data,
