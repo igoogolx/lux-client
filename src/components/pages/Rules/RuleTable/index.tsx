@@ -1,13 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { type TableColumnDefinition } from '@fluentui/react-table'
 import { Button, createTableColumn, Input, TableCellLayout, Tooltip } from '@fluentui/react-components'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { closeAllConnections, getRuleDetail, type RuleDetailItem } from 'lux-js-sdk'
+import { getRuleDetail, type RuleDetailItem } from 'lux-js-sdk'
 import { t } from 'i18next'
 import { Table } from '@/components/Core'
 import RuleCell from '@/components/pages/Data/Connections/RuleTag'
 import styles from './index.module.css'
-import { DeleteRegular, SearchRegular } from '@fluentui/react-icons'
+import { AddFilled, SearchRegular } from '@fluentui/react-icons'
+import { AddRuleModal } from '@/components/Modal/AddRuleModal'
 
 interface RuleTableProps {
   id: string
@@ -20,6 +21,8 @@ export default function RuleTable (props: RuleTableProps) {
 
   const [searchedValue, setSearchedValue] = useState('')
 
+  const [isAddingRule, setIsAddingRule] = useState(false)
+
   useEffect(() => {
     if (id) {
       getRuleDetail(id).then(res => {
@@ -27,6 +30,10 @@ export default function RuleTable (props: RuleTableProps) {
       })
     }
   }, [id])
+
+  const handleAddRule = useCallback((newRule: RuleDetailItem) => {
+    console.log(newRule)
+  }, [])
 
   const data = useMemo(() => {
     return rules
@@ -74,6 +81,11 @@ export default function RuleTable (props: RuleTableProps) {
     ].filter(Boolean) as Array<TableColumnDefinition<RuleDetailItem>>
   }, [])
   return <div className={styles.wrapper}>
+    {isAddingRule &&
+      <AddRuleModal close={() => {
+        setIsAddingRule(false)
+      }} onSave={handleAddRule} />
+    }
     <div className={styles.toolbar}>
       <Input
         value={searchedValue}
@@ -90,9 +102,9 @@ export default function RuleTable (props: RuleTableProps) {
           relationship="description"
         >
           <Button
-            onClick={closeAllConnections}
+            onClick={() => { setIsAddingRule(true) }}
             className={styles.closeAll}
-            icon={<DeleteRegular />}
+            icon={<AddFilled />}
           />
         </Tooltip>
       </div>
