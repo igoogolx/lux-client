@@ -81,6 +81,7 @@ export default {
     'The core is disconnected. Trying to reconnect...',
   [TRANSLATION_KEY.PROXY]: 'Proxy',
   [TRANSLATION_KEY.BYPASS]: 'Bypass',
+  [TRANSLATION_KEY.REJECT]: 'Reject',
   [TRANSLATION_KEY.COPIED]: 'Copied!',
   [TRANSLATION_KEY.DELETED]: 'Deleted!',
   [TRANSLATION_KEY.HTTP_SERVER_PORT_LABEL]: 'Local Server Port',

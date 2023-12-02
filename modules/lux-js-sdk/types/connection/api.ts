@@ -17,7 +17,7 @@ export interface Metadata {
 export enum ConnRuleEnum {
   Direct = 'bypass',
   Proxy = 'proxy',
-
+  Reject = 'reject',
 }
 
 export interface Conn {

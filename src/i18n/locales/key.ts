@@ -70,6 +70,7 @@ export const TRANSLATION_KEY = {
   PROXY: 'common.proxy',
   BYPASS: 'common.bypass',
   COPIED: 'common.copied',
+  REJECT: 'common.reject',
   DELETED: 'common.deleted',
   SEARCH: 'common.search',
   HTTP_SERVER_SWITCH_LABEL: 'http_server_switch_label',
