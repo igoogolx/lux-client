@@ -9,7 +9,7 @@
         }
 
         & .actions {
-            @apply flex items-center;
+            @apply flex items-center hidden;
 
             & .closeAll {
                 @apply ml-4 mr-4;

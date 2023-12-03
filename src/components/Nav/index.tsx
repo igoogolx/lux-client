@@ -8,7 +8,8 @@ import {
   InfoRegular,
   NoteRegular,
   SettingsRegular,
-  TopSpeedRegular
+  TopSpeedRegular,
+  RowTripleRegular
 } from '@fluentui/react-icons'
 import {
   makeStyles,
@@ -48,7 +49,7 @@ export function Nav (props: NavProps): React.ReactNode {
       },
       {
         to: ROUTER_PATH.Rules,
-        icon: <TopSpeedRegular />,
+        icon: <RowTripleRegular />,
         name: ROUTER_NAME[ROUTER_PATH.Rules]
       },
       {
