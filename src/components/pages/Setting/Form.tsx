@@ -9,6 +9,7 @@ import AutoMode from './AutoMode'
 import LocalHttpServer from './LocalHttpServer'
 import Dns from './Dns'
 import ConfigFile from './ConfigFile'
+import BlockQuic from '@/components/pages/Setting/BlockQuic'
 
 export function SettingForm () {
   const [os, setOs] = useState('')
@@ -27,6 +28,7 @@ export function SettingForm () {
       <div>
         <Mode />
         {isTun && <Dns />}
+        {isTun && <BlockQuic />}
         {os === 'darwin' && isTun && <HijackDns />}
         {isTun && <DefaultInterface />}
         <LocalHttpServer />

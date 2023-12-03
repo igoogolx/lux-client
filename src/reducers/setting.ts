@@ -31,7 +31,8 @@ const initialState: SettingRes = {
   hijackDns: {
     enabled: true,
     networkService: ''
-  }
+  },
+  blockQuic: false
 }
 
 export const settingSlice = createSlice({

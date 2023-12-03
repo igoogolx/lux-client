@@ -142,6 +142,8 @@ export default {
   [TRANSLATION_KEY.APP_DOCS]: 'Lux Docs Page',
   [TRANSLATION_KEY.APP_REPORT_ISSUE]: 'Report An Issue',
   [TRANSLATION_KEY.HIJACK_DNS_SWITCH_LABEL]: 'Hijack Dns',
+  [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_LABEL]: 'Block Quic',
+  [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_TOOLTIP]: 'Some websites use http3 which is not supported well by proxy servers, like youtube. Block quic to disable http3.',
   [TRANSLATION_KEY.HIJACK_DNS_SWITCH_TOOLTIP]:
     'Modify the system dns to hijack or you must do it manually',
   [TRANSLATION_KEY.HIJACK_DNS_SERVICE_LABEL]: 'Network Service',

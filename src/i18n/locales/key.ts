@@ -125,6 +125,8 @@ export const TRANSLATION_KEY = {
   HIJACK_DNS_SERVICE_LABEL: 'hijack_dns_service_label',
   HIJACK_DNS_SERVICE_DESC: 'hijack_dns_service_desc',
   EDIT_HIJACK_DNS_SERVICE_TITLE: 'edit_hijack_dns_service_title',
+  BLOCK_QUIC_SWITCH_LABEL: 'block_quic_switch_label',
+  BLOCK_QUIC_SWITCH_TOOLTIP: 'block_quic_switch_tooltip',
   COPY: 'common.copy',
   UPDATE_CLASH_PROXIES: 'update_clash_proxies',
   LOCAL_SERVERS: 'local_servers',
