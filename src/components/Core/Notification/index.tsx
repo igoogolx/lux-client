@@ -1,15 +1,16 @@
 import { notificationEventManager } from './NotificationContainer'
 import { MessageTypeEnum } from '../Message'
+import { type NotificationAddActionItem } from '@/components/Core/Notification/reducer'
 
 const createNotifier = () => {
-  const create = (title: string, type: MessageTypeEnum) => {
-    notificationEventManager.emit({ title, type })
+  const create = (title: string, type: MessageTypeEnum, actions?: NotificationAddActionItem[]) => {
+    notificationEventManager.emit({ title, type, actions })
   }
 
-  const success = (title: string) => { create(title, MessageTypeEnum.Success) }
-  const error = (title: string) => { create(title, MessageTypeEnum.Error) }
-  const warn = (title: string) => { create(title, MessageTypeEnum.Warning) }
-  const info = (title: string) => { create(title, MessageTypeEnum.Info) }
+  const success = (title: string, actions?: NotificationAddActionItem[]) => { create(title, MessageTypeEnum.Success, actions) }
+  const error = (title: string, actions?: NotificationAddActionItem[]) => { create(title, MessageTypeEnum.Error, actions) }
+  const warn = (title: string, actions?: NotificationAddActionItem[]) => { create(title, MessageTypeEnum.Warning, actions) }
+  const info = (title: string, actions?: NotificationAddActionItem[]) => { create(title, MessageTypeEnum.Info, actions) }
 
   return {
     success,

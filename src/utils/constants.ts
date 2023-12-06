@@ -10,6 +10,8 @@ export const LATEST_RELEASE_URL = `${REPOSITORY_URL}/releases/latest`
 
 export const APP_CONTAINER_ID = 'app-content'
 
+export const LAST_CHECK_UPDATE_DATE = 'LAST_CHECK_UPDATE_DATE'
+
 export enum ROUTER_PATH {
   Home = '/',
   Dashboard = '/dashboard',

@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react'
 import {
+  Link,
   Toast,
-  Toaster,
-  ToastTitle,
+  Toaster, ToastFooter,
+  ToastTitle, ToastTrigger,
   useId,
   useToastController
 } from '@fluentui/react-components'
 import { type NotificationAction } from './reducer'
 import { createEventManager } from './util'
+import { useTranslation } from 'react-i18next'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
 
 export const notificationEventManager =
   createEventManager<NotificationAction>()
@@ -15,12 +18,28 @@ export const notificationEventManager =
 export function NotificationContainer () {
   const toasterId = useId('toaster')
   const { dispatchToast } = useToastController(toasterId)
+  const { t } = useTranslation()
 
   useEffect(() => {
     notificationEventManager.on((data) => {
       dispatchToast(
         <Toast>
-          <ToastTitle>{data.title}</ToastTitle>
+          <ToastTitle
+            action={
+              <ToastTrigger>
+                <Link>{t(TRANSLATION_KEY.DISMISS)}</Link>
+              </ToastTrigger>
+            }
+          >{data.title}</ToastTitle>
+          {
+            data.actions &&
+            <ToastFooter>
+              {data.actions.map((action) => {
+                return <Link key={action.text} onClick={action.onClick}>{action.text}</Link>
+              })}
+            </ToastFooter>
+          }
+
         </Toast>,
         { intent: data.type, position: 'top', pauseOnHover: true }
       )
@@ -28,7 +47,7 @@ export function NotificationContainer () {
     return () => {
       notificationEventManager.remove()
     }
-  }, [dispatchToast])
+  }, [dispatchToast, t])
 
   return <Toaster toasterId={toasterId} />
 }

@@ -120,7 +120,7 @@ export default {
   [TRANSLATION_KEY.PROXY_SERVER]: 'Proxy Server',
   [TRANSLATION_KEY.SEARCH_LOG_TIP]: 'Type a content to search',
   [TRANSLATION_KEY.BOOST_DNS]: 'Boost Dns',
-  [TRANSLATION_KEY.NEW_VERSION_INFO]: 'There is a new available version',
+  [TRANSLATION_KEY.NEW_VERSION_INFO]: 'New available version!',
   [TRANSLATION_KEY.CONFIRM]: 'Confirm',
   [TRANSLATION_KEY.CHECK_UPDATE]: 'Check For Updates',
   [TRANSLATION_KEY.GO]: 'Go',
@@ -162,5 +162,6 @@ export default {
   [TRANSLATION_KEY.STATISTICS]: 'Statistics',
   [TRANSLATION_KEY.PAYLOAD]: 'Payload',
   [TRANSLATION_KEY.POLICY]: 'Policy',
-  [TRANSLATION_KEY.SEARCH_RULE_TIP]: 'Type to search'
+  [TRANSLATION_KEY.SEARCH_RULE_TIP]: 'Type to search',
+  [TRANSLATION_KEY.DISMISS]: 'Dismiss'
 }

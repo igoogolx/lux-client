@@ -6,6 +6,11 @@ import { getProxyDelay } from 'lux-js-sdk'
 import { delaysSlice, proxiesSlice } from '@/reducers'
 import { makeStyles } from '@fluentui/react-components'
 import { tokens } from '@fluentui/react-theme'
+import checkForUpdate from '@/utils/checkForUpdate'
+import { notifier } from '@/components/Core'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { useTranslation } from 'react-i18next'
+import { LAST_CHECK_UPDATE_DATE, LATEST_RELEASE_URL } from '@/utils/constants'
 
 export const useChartJs = (
   initialConfiguration: ChartConfiguration
@@ -105,4 +110,25 @@ export const useMedia = (query: string, defaultState?: boolean) => {
   }, [query])
 
   return state
+}
+
+export const useCheckForUpdate = () => {
+  const { t } = useTranslation()
+  return useCallback(async () => {
+    const curDate = new Date().toDateString()
+    const lastCheckUpdateDate = localStorage.getItem(LAST_CHECK_UPDATE_DATE)
+    if (curDate === lastCheckUpdateDate) {
+      return
+    }
+    const checkedResult = await checkForUpdate()
+    if (checkedResult) {
+      localStorage.setItem(LAST_CHECK_UPDATE_DATE, curDate)
+      notifier.success(t(TRANSLATION_KEY.NEW_VERSION_INFO), [{
+        text: t(TRANSLATION_KEY.GO),
+        onClick: () => {
+          window.open(LATEST_RELEASE_URL)
+        }
+      }])
+    }
+  }, [t])
 }

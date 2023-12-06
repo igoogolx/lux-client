@@ -25,6 +25,7 @@ import Logger from '../components/pages/Logger'
 import Home from '../components/pages/Home'
 import Data from '@/components/pages/Data'
 import Rules from '@/components/pages/Rules'
+import { useCheckForUpdate } from '@/hooks'
 
 axios.interceptors.response.use(
   (res) => res,
@@ -60,6 +61,8 @@ export function App (): React.ReactNode {
 
   const inlineStyles = useStyles()
 
+  const checkForUpdate = useCheckForUpdate()
+
   getStatus().then((status) => {
     dispatch(
       managerSlice.actions.setIsStarted({ isStarted: status.isStarted })
@@ -67,6 +70,7 @@ export function App (): React.ReactNode {
   })
 
   useEffect(() => {
+    checkForUpdate()
     timer.current = setInterval(async () => {
       try {
         await ping()

@@ -144,5 +144,6 @@ export const TRANSLATION_KEY = {
   STATISTICS: 'common.statistics',
   PAYLOAD: 'common.payload',
   POLICY: 'common.policy',
-  SEARCH_RULE_TIP: 'search_rule_tip'
+  SEARCH_RULE_TIP: 'search_rule_tip',
+  DISMISS: 'common.dismiss'
 }
