@@ -33,7 +33,7 @@ const initialState: SettingRes = {
     networkService: ''
   },
   blockQuic: false,
-  stack: 'system'
+  stack: 'gvisor'
 }
 
 export const settingSlice = createSlice({
