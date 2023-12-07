@@ -40,8 +40,8 @@ export default function Stack () {
     <Card className={styles.card}>
       <div className={styles.cardItem}>
         <div className={styles.desc}>
-          <Subtitle2>{t(TRANSLATION_KEY.NET_STACK)}</Subtitle2>
-          <Caption1>{t(TRANSLATION_KEY.PROXY_MODE_TOOLTIP)}</Caption1>
+          <Subtitle2>{t(TRANSLATION_KEY.NETWORK_STACK)}</Subtitle2>
+          <Caption1>{t(TRANSLATION_KEY.NETWORK_STACK_TIP)}</Caption1>
         </div>
 
         <Dropdown
