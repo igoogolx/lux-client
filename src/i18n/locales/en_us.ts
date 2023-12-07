@@ -21,6 +21,7 @@ export default {
   [TRANSLATION_KEY.CONNECTIVITY_TEST]: 'Connectivity Test',
   [TRANSLATION_KEY.FORM_NAME]: 'Name',
   [TRANSLATION_KEY.MODE]: 'Mode',
+  [TRANSLATION_KEY.NET_STACK]: 'Network stack',
   [TRANSLATION_KEY.HOST]: 'Host',
   [TRANSLATION_KEY.PATH]: 'Path',
   [TRANSLATION_KEY.SKIP_CERT_VERIFY]: 'Skip cert verify',

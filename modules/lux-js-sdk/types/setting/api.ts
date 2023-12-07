@@ -26,6 +26,7 @@ export interface SettingRes {
     networkService: string
   }
   blockQuic: boolean
+  stack: string
 }
 
 export type GetSetting = () => Promise<SettingRes>

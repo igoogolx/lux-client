@@ -14,6 +14,7 @@ export const TRANSLATION_KEY = {
   COMMON_QR_CODE: 'common.qr_code',
   FORM_NAME: 'form.name',
   MODE: 'common.mode',
+  NET_STACK: 'common.net_stack',
   HOST: 'common.host',
   TLS: 'common.tls',
   SKIP_CERT_VERIFY: 'skip_cert_verify',

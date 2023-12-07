@@ -32,7 +32,8 @@ const initialState: SettingRes = {
     enabled: true,
     networkService: ''
   },
-  blockQuic: false
+  blockQuic: false,
+  stack: 'system'
 }
 
 export const settingSlice = createSlice({
