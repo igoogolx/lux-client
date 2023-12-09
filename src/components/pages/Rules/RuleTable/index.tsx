@@ -2,13 +2,16 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { type TableColumnDefinition } from '@fluentui/react-table'
 import { Button, createTableColumn, Input, TableCellLayout, Tooltip } from '@fluentui/react-components'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { getRuleDetail, type RuleDetailItem } from 'lux-js-sdk'
+import { addCustomizedRules, deleteCustomizedRules, getRuleDetail, type Proxy, type RuleDetailItem } from 'lux-js-sdk'
 import { t } from 'i18next'
 import { Table } from '@/components/Core'
 import RuleCell from '@/components/pages/Data/Connections/RuleTag'
 import styles from './index.module.css'
-import { AddFilled, SearchRegular } from '@fluentui/react-icons'
+import { AddFilled, DeleteRegular, EditRegular, SearchRegular } from '@fluentui/react-icons'
 import { AddRuleModal } from '@/components/Modal/AddRuleModal'
+import { CUSTOMIZED_RULE_ID } from '@/utils/constants'
+import { DelayTag } from '@/components/pages/Home/Content/ProxyCard/DelayTag'
+import { Operation } from '@/components/pages/Home/Content/ProxyCard/Operation'
 
 interface RuleTableProps {
   id: string
@@ -23,17 +26,27 @@ export default function RuleTable (props: RuleTableProps) {
 
   const [isAddingRule, setIsAddingRule] = useState(false)
 
-  useEffect(() => {
+  const refresh = useCallback(async () => {
     if (id) {
       getRuleDetail(id).then(res => {
-        setRules(res.items)
+        setRules(res.items || [])
       })
     }
   }, [id])
 
-  const handleAddRule = useCallback((newRule: RuleDetailItem) => {
-    console.log(newRule)
-  }, [])
+  useEffect(() => {
+    refresh()
+  }, [refresh])
+
+  const handleDeleteCustomizedRule = useCallback(async (rule: RuleDetailItem) => {
+    await deleteCustomizedRules([`${rule.ruleType},${rule.payload},${rule.policy}`])
+    await refresh()
+  }, [refresh])
+
+  const handleAddRule = useCallback(async (newRule: RuleDetailItem) => {
+    await addCustomizedRules([`${newRule.ruleType},${newRule.payload},${newRule.policy}`])
+    await refresh()
+  }, [refresh])
 
   const data = useMemo(() => {
     return rules
@@ -77,9 +90,32 @@ export default function RuleTable (props: RuleTableProps) {
         renderCell: (item) => {
           return <RuleCell value={item.policy} />
         }
-      })
+      }
+      ),
+      id === CUSTOMIZED_RULE_ID
+        ? createTableColumn<RuleDetailItem>({
+          columnId: 'action',
+          renderHeaderCell: () => {
+            return ''
+          },
+          renderCell: (item) => {
+            return (
+            <TableCellLayout truncate >
+              <div
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                }}
+              >
+                <Button icon={<DeleteRegular />} onClick={() => { handleDeleteCustomizedRule(item) }} />
+              </div>
+            </TableCellLayout>
+            )
+          }
+        })
+        : null
     ].filter(Boolean) as Array<TableColumnDefinition<RuleDetailItem>>
-  }, [])
+  }, [handleDeleteCustomizedRule, id])
   return <div className={styles.wrapper}>
     {isAddingRule &&
       <AddRuleModal close={() => {
@@ -97,16 +133,22 @@ export default function RuleTable (props: RuleTableProps) {
         className={styles.input}
       />
       <div className={styles.actions}>
-        <Tooltip
-          content={t(TRANSLATION_KEY.CLOSE_ALL)}
-          relationship="description"
-        >
-          <Button
-            onClick={() => { setIsAddingRule(true) }}
-            className={styles.closeAll}
-            icon={<AddFilled />}
-          />
-        </Tooltip>
+        {
+          id === CUSTOMIZED_RULE_ID &&
+          <Tooltip
+            content={t(TRANSLATION_KEY.CLOSE_ALL)}
+            relationship="description"
+          >
+            <Button
+              onClick={() => {
+                setIsAddingRule(true)
+              }}
+              className={styles.closeAll}
+              icon={<AddFilled />}
+            />
+          </Tooltip>
+        }
+
       </div>
     </div>
     <Table

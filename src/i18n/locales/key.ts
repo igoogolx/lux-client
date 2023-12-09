@@ -147,5 +147,6 @@ export const TRANSLATION_KEY = {
   PAYLOAD: 'common.payload',
   POLICY: 'common.policy',
   SEARCH_RULE_TIP: 'search_rule_tip',
-  DISMISS: 'common.dismiss'
+  DISMISS: 'common.dismiss',
+  CUSTOMIZED: 'customized'
 }

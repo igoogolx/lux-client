@@ -12,6 +12,8 @@ export const APP_CONTAINER_ID = 'app-content'
 
 export const LAST_CHECK_UPDATE_DATE = 'LAST_CHECK_UPDATE_DATE'
 
+export const CUSTOMIZED_RULE_ID = 'customized'
+
 export enum ROUTER_PATH {
   Home = '/',
   Dashboard = '/dashboard',

@@ -3,17 +3,17 @@ import { Tab, TabList } from '@fluentui/react-components'
 import { useTranslation } from 'react-i18next'
 import RuleTable from '@/components/pages/Rules/RuleTable'
 import { getRules } from 'lux-js-sdk'
+import { CUSTOMIZED_RULE_ID } from '@/utils/constants'
 
 export default function Rules () {
-  const [selectedValue, setSelectedValue] = useState<string>('')
+  const [selectedValue, setSelectedValue] = useState<string>(CUSTOMIZED_RULE_ID)
   const { t } = useTranslation()
   const [ruleIds, setRuleIds] = useState<string[]>([])
 
   useEffect(() => {
     getRules().then(res => {
       const ids = res.rules.map(item => item.id)
-      setRuleIds(ids)
-      setSelectedValue(ids[0])
+      setRuleIds([CUSTOMIZED_RULE_ID, ...ids])
     })
   }, [])
 

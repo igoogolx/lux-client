@@ -165,5 +165,6 @@ export default {
   [TRANSLATION_KEY.PAYLOAD]: 'Payload',
   [TRANSLATION_KEY.POLICY]: 'Policy',
   [TRANSLATION_KEY.SEARCH_RULE_TIP]: 'Type to search',
-  [TRANSLATION_KEY.DISMISS]: 'Dismiss'
+  [TRANSLATION_KEY.DISMISS]: 'Dismiss',
+  [TRANSLATION_KEY.CUSTOMIZED]: 'Customized'
 }
