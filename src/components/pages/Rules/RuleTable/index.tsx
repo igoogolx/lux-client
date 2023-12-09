@@ -7,11 +7,9 @@ import { t } from 'i18next'
 import { Table } from '@/components/Core'
 import RuleCell from '@/components/pages/Data/Connections/RuleTag'
 import styles from './index.module.css'
-import { AddFilled, DeleteRegular, EditRegular, SearchRegular } from '@fluentui/react-icons'
+import { AddFilled, DeleteRegular, SearchRegular } from '@fluentui/react-icons'
 import { AddRuleModal } from '@/components/Modal/AddRuleModal'
 import { CUSTOMIZED_RULE_ID } from '@/utils/constants'
-import { DelayTag } from '@/components/pages/Home/Content/ProxyCard/DelayTag'
-import { Operation } from '@/components/pages/Home/Content/ProxyCard/Operation'
 
 interface RuleTableProps {
   id: string

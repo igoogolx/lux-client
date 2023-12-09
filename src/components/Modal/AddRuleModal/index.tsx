@@ -54,14 +54,14 @@ export function AddRuleModal (props: AddRuleModalProps) {
         return (
           <Modal close={close} onOk={submitForm}>
             <FiledSelector
-              name="policy"
-              label={t(TRANSLATION_KEY.MODE)}
-              items={POLICY_OPTIONS}
+              name="ruleType"
+              label={t(TRANSLATION_KEY.TYPE)}
+              items={RULE_TYPE_OPTIONS}
             />
             <FiledSelector
-              name="ruleType"
-              label={t(TRANSLATION_KEY.MODE)}
-              items={RULE_TYPE_OPTIONS}
+              name="policy"
+              label={t(TRANSLATION_KEY.POLICY)}
+              items={POLICY_OPTIONS}
             />
             <Field name="payload" label={t(TRANSLATION_KEY.PAYLOAD)} />
           </Modal>
