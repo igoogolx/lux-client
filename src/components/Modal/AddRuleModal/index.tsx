@@ -29,11 +29,11 @@ const RULE_TYPE_OPTIONS = [
 const POLICY_OPTIONS = [
   {
     id: 'proxy',
-    content: 'proxy'
+    content: 'Proxy'
   },
   {
     id: 'bypass',
-    content: 'bypass'
+    content: 'Bypass'
   }
 ]
 
