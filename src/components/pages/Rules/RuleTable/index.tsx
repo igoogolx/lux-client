@@ -134,7 +134,7 @@ export default function RuleTable (props: RuleTableProps) {
         {
           id === CUSTOMIZED_RULE_ID &&
           <Tooltip
-            content={t(TRANSLATION_KEY.CLOSE_ALL)}
+            content={t(TRANSLATION_KEY.ADD_RULE)}
             relationship="description"
           >
             <Button
