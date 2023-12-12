@@ -149,5 +149,6 @@ export const TRANSLATION_KEY = {
   SEARCH_RULE_TIP: 'search_rule_tip',
   DISMISS: 'common.dismiss',
   CUSTOMIZED: 'customized',
-  ADD_RULE: 'common.add_rule'
+  ADD_RULE: 'common.add_rule',
+  EMPTY_DNS: 'notification.empty_dns'
 }

@@ -167,5 +167,6 @@ export default {
   [TRANSLATION_KEY.SEARCH_RULE_TIP]: 'Type to search',
   [TRANSLATION_KEY.DISMISS]: 'Dismiss',
   [TRANSLATION_KEY.CUSTOMIZED]: 'Customized',
-  [TRANSLATION_KEY.ADD_RULE]: 'Add customized rules'
+  [TRANSLATION_KEY.ADD_RULE]: 'Add customized rules',
+  [TRANSLATION_KEY.EMPTY_DNS]: "Dns can't be empty"
 }

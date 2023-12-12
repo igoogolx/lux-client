@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { type RootState } from '@/reducers'
 import styles from '../../index.module.css'
 import { type MenuItemProps, notifier } from '../../../../Core'
+import { TRANSLATION_KEY } from '@/i18n/locales/key'
 
 interface EditDnsItemProps {
   items: MenuItemProps[]
@@ -35,7 +36,7 @@ export default function EditDnsItem (props: EditDnsItemProps) {
 
   const handelOnOptionSelect: DropdownProps['onOptionSelect'] = (e, data) => {
     if (data.selectedOptions.length === 0) {
-      notifier.warn("dns can't be empty")
+      notifier.warn(TRANSLATION_KEY.EMPTY_DNS)
       return
     }
     setValue(data.selectedOptions.map(item => DNS_LABEL[item] || item).join(','))
