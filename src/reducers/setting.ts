@@ -10,18 +10,12 @@ const initialState: SettingRes = {
     port: 0
   },
   dns: {
-    remote: {
-      type: 'builtIn',
-      value: ''
+    server: {
+      boost: [],
+      local: [],
+      remote: []
     },
-    local: {
-      type: 'builtIn',
-      value: ''
-    },
-    boost: {
-      type: 'builtIn',
-      value: ''
-    }
+    customizedOptions: []
   },
   autoMode: {
     enabled: false,

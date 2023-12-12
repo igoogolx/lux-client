@@ -1,29 +1,52 @@
-import React, { useState } from 'react'
-import { Caption1, Subtitle2 } from '@fluentui/react-components'
+import React, { useEffect, useState } from 'react'
+import { Caption1, Dropdown, type DropdownProps, Option, Subtitle2 } from '@fluentui/react-components'
 import { useSelector } from 'react-redux'
 import { type RootState } from '@/reducers'
 import styles from '../../index.module.css'
-import { type MenuItemProps } from '../../../../Core'
-import EditItemWithSelectDialog, {
-  type DnsTypeEnum
-} from '../../../../Core/EditItemWithSelectDialog'
+import { type MenuItemProps, notifier } from '../../../../Core'
 
 interface EditDnsItemProps {
   items: MenuItemProps[]
-  value: string
-  type: DnsTypeEnum
-  onSubmit: (data: { value: string, type: DnsTypeEnum }) => void
   title: string
   desc: string
+  selectedOptions: DropdownProps['selectedOptions']
+  onOptionSelect: DropdownProps['onOptionSelect']
+}
+
+const DNS_LABEL: Record<string, string> = {
+  'tcp://114.114.114.114:53': '114(China)',
+  'tcp://119.29.29.29:53': '119(China)',
+  'tcp://8.8.8.8:53': '8(Google)',
+  'tcp://1.1.1.1:53': '1(Cloudflare)',
+  'https://dns.google/dns-query': 'https(Google)',
+  'https://cloudflare-dns.com/dns-query': 'https(Cloudflare)',
+  'https://doh.pub/dns-query': 'https(China)',
+  'dhcp://auto': 'auto(Dhcp)'
 }
 
 export default function EditDnsItem (props: EditDnsItemProps) {
-  const { items, value, onSubmit, title, desc, type } = props
-  const [openModal, setOpenModal] = useState(false)
+  const { items, title, desc, selectedOptions, onOptionSelect } = props
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared || state.manager.isLoading
   )
+
+  const [value, setValue] = useState('')
+
+  const handelOnOptionSelect: DropdownProps['onOptionSelect'] = (e, data) => {
+    if (data.selectedOptions.length === 0) {
+      notifier.warn("dns can't be empty")
+      return
+    }
+    setValue(data.selectedOptions.map(item => DNS_LABEL[item] || item).join(','))
+    if (onOptionSelect) {
+      onOptionSelect(e, data)
+    }
+  }
+
+  useEffect(() => {
+    setValue(selectedOptions ? selectedOptions.map(item => DNS_LABEL[item] || item).join(',') : '')
+  }, [selectedOptions])
 
   return (
     <div className={styles.cardItem}>
@@ -31,16 +54,17 @@ export default function EditDnsItem (props: EditDnsItemProps) {
         <Subtitle2>{title}</Subtitle2>
         <Caption1>{desc}</Caption1>
       </div>
-      <EditItemWithSelectDialog
-        title={title}
-        open={openModal}
-        setOpen={setOpenModal}
-        onSubmit={onSubmit}
+      <Dropdown
         value={value}
+        multiselect={true}
         disabled={isStarted}
-        selectorItems={items}
-        type={type}
-      />
+        selectedOptions={selectedOptions}
+        onOptionSelect={handelOnOptionSelect}
+      >
+        {items.map((option) => (
+          <Option key={option.id} text={option.id as string}>{option.content}</Option>
+        ))}
+      </Dropdown>
     </div>
   )
 }

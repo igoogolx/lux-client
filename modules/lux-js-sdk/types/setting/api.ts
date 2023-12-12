@@ -1,15 +1,13 @@
-interface DnsServer {
-  value: string
-  type: 'builtIn' | 'custom'
-}
-
 export interface SettingRes {
   mode: string
   language: string
   dns: {
-    boost: DnsServer
-    remote: DnsServer
-    local: DnsServer
+    server: {
+      boost: string[]
+      local: string[]
+      remote: string[]
+    }
+    customizedOptions: []
   }
   defaultInterface: string
   localServer: {

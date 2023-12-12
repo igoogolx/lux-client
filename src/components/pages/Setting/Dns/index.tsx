@@ -8,7 +8,6 @@ import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import styles from '../index.module.css'
 import { notifier } from '../../../Core'
 import EditDnsItem from './EditDnsItem'
-import { type DnsTypeEnum } from '../../../Core/EditItemWithSelectDialog'
 
 const BOOST_DNS = [
   'tcp://114.114.114.114:53',
@@ -63,51 +62,48 @@ export default function Dns () {
   return (
     <Card className={styles.card}>
       <EditDnsItem
-        type={setting.dns.remote.type as DnsTypeEnum}
         items={remoteDnsOptions.current}
-        value={setting.dns.remote.value}
-        onSubmit={(data) => {
+        onOptionSelect={(e, data) => {
           onSubmit({
             ...setting.dns,
-            remote: {
-              ...setting.dns.remote,
-              ...data
+            server: {
+              ...setting.dns.server,
+              remote: data.selectedOptions
             }
           })
         }}
+        selectedOptions={setting.dns.server.remote}
         title={t(TRANSLATION_KEY.REMOTE_DNS_LABEL)}
         desc={t(TRANSLATION_KEY.REMOTE_DNS_DESC)}
       />
 
       <EditDnsItem
-        type={setting.dns.remote.type as DnsTypeEnum}
         items={localDnsOptions.current}
-        value={setting.dns.local.value}
-        onSubmit={(data) => {
+        onOptionSelect={(e, data) => {
           onSubmit({
             ...setting.dns,
-            local: {
-              ...setting.dns.local,
-              ...data
+            server: {
+              ...setting.dns.server,
+              local: data.selectedOptions
             }
           })
         }}
+        selectedOptions={setting.dns.server.local}
         title={t(TRANSLATION_KEY.LOCAL_DNS_LABEL)}
         desc={t(TRANSLATION_KEY.LOCAL_DNS_DESC)}
       />
       <EditDnsItem
-        type={setting.dns.boost.type as DnsTypeEnum}
         items={boostDnsOptions.current}
-        value={setting.dns.boost.value}
-        onSubmit={(data) => {
+        onOptionSelect={(e, data) => {
           onSubmit({
             ...setting.dns,
-            boost: {
-              ...setting.dns.boost,
-              ...data
+            server: {
+              ...setting.dns.server,
+              boost: data.selectedOptions
             }
           })
         }}
+        selectedOptions={setting.dns.server.boost}
         title={t(TRANSLATION_KEY.BOOST_DNS_LABEL)}
         desc={t(TRANSLATION_KEY.BOOST_DNS_DESC)}
       />
