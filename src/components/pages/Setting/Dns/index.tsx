@@ -8,6 +8,7 @@ import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import styles from '../index.module.css'
 import { notifier } from '../../../Core'
 import EditDnsItem from './EditDnsItem'
+import AddDnsOption from '@/components/pages/Setting/Dns/AddDnsOption'
 
 const BOOST_DNS = [
   'tcp://114.114.114.114:53',
@@ -61,6 +62,7 @@ export default function Dns () {
 
   return (
     <Card className={styles.card}>
+      <AddDnsOption />
       <EditDnsItem
         items={remoteDnsOptions.current}
         onOptionSelect={(e, data) => {
