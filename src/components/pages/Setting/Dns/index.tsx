@@ -59,7 +59,7 @@ export default function Dns () {
     const newDns = { ...setting.dns }
     switch (dnsType) {
       case DNS_TYPE.REMOTE:{
-        const isValid = items.every(item => ['tcp://', 'https://'].every(prefix => item.startsWith(prefix)))
+        const isValid = items.every(item => ['tcp://', 'https://'].some(prefix => item.startsWith(prefix)))
         if (!isValid) {
           notifier.error('must be tcp or https')
           return
@@ -68,7 +68,7 @@ export default function Dns () {
         break
       }
       case DNS_TYPE.LOCAL:{
-        const isValid = items.every(item => ['tcp://', 'https://', 'dhcp://', 'udp://'].every(prefix => item.startsWith(prefix)))
+        const isValid = items.every(item => ['tcp://', 'https://', 'dhcp://', 'udp://'].some(prefix => item.startsWith(prefix)))
         if (!isValid) {
           notifier.error('must be tcp, udp, https or dhcp')
           return
@@ -77,7 +77,7 @@ export default function Dns () {
         break
       }
       case DNS_TYPE.BOOST:{
-        const isValid = items.every(item => ['tcp://', 'dhcp://', 'udp://'].every(prefix => item.startsWith(prefix)))
+        const isValid = items.every(item => ['tcp://', 'dhcp://', 'udp://'].some(prefix => item.startsWith(prefix)))
         if (!isValid) {
           notifier.error('must be tcp, udp or dhcp')
           return
