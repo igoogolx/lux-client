@@ -10,6 +10,12 @@ import { notifier } from '../../../Core'
 import EditDnsItem from './EditDnsItem'
 import AddDnsOption from '@/components/pages/Setting/Dns/AddDnsOption'
 
+enum DNS_TYPE {
+  REMOTE,
+  BOOST,
+  LOCAL
+}
+
 const BOOST_DNS = [
   'tcp://114.114.114.114:53',
   'tcp://119.29.29.29:53',
@@ -49,12 +55,41 @@ export default function Dns () {
 
   const dispatch = useDispatch()
 
-  const onSubmit = async (newDns: SettingRes['dns']) => {
+  const onSubmit = async (items: string[], dnsType: DNS_TYPE) => {
+    const newDns = { ...setting.dns }
+    switch (dnsType) {
+      case DNS_TYPE.REMOTE:{
+        const isValid = items.every(item => ['tcp://', 'https://'].every(prefix => item.startsWith(prefix)))
+        if (!isValid) {
+          notifier.error('must be tcp or https')
+          return
+        }
+        newDns.server.remote = items
+        break
+      }
+      case DNS_TYPE.LOCAL:{
+        const isValid = items.every(item => ['tcp://', 'https://', 'dhcp://', 'udp://'].every(prefix => item.startsWith(prefix)))
+        if (!isValid) {
+          notifier.error('must be tcp, udp, https or dhcp')
+          return
+        }
+        newDns.server.local = items
+        break
+      }
+      case DNS_TYPE.BOOST:{
+        const isValid = items.every(item => ['tcp://', 'dhcp://', 'udp://'].every(prefix => item.startsWith(prefix)))
+        if (!isValid) {
+          notifier.error('must be tcp, udp or dhcp')
+          return
+        }
+        newDns.server.boost = items
+        break
+      }
+    }
     const newSetting = {
       ...setting,
       dns: newDns
     }
-
     await setSetting(newSetting)
     dispatch(settingSlice.actions.setSetting(newSetting))
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS))
@@ -66,13 +101,7 @@ export default function Dns () {
       <EditDnsItem
         items={remoteDnsOptions}
         onOptionSelect={(e, data) => {
-          onSubmit({
-            ...setting.dns,
-            server: {
-              ...setting.dns.server,
-              remote: data.selectedOptions
-            }
-          })
+          onSubmit(data.selectedOptions, DNS_TYPE.REMOTE)
         }}
         selectedOptions={setting.dns.server.remote}
         title={t(TRANSLATION_KEY.REMOTE_DNS_LABEL)}
@@ -82,13 +111,7 @@ export default function Dns () {
       <EditDnsItem
         items={localDnsOptions}
         onOptionSelect={(e, data) => {
-          onSubmit({
-            ...setting.dns,
-            server: {
-              ...setting.dns.server,
-              local: data.selectedOptions
-            }
-          })
+          onSubmit(data.selectedOptions, DNS_TYPE.LOCAL)
         }}
         selectedOptions={setting.dns.server.local}
         title={t(TRANSLATION_KEY.LOCAL_DNS_LABEL)}
@@ -97,13 +120,7 @@ export default function Dns () {
       <EditDnsItem
         items={boostDnsOptions}
         onOptionSelect={(e, data) => {
-          onSubmit({
-            ...setting.dns,
-            server: {
-              ...setting.dns.server,
-              boost: data.selectedOptions
-            }
-          })
+          onSubmit(data.selectedOptions, DNS_TYPE.BOOST)
         }}
         selectedOptions={setting.dns.server.boost}
         title={t(TRANSLATION_KEY.BOOST_DNS_LABEL)}
