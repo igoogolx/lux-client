@@ -22,7 +22,7 @@ export default function AddDnsOption () {
         {
           <Subtitle2>{'Customized Dns Options'}</Subtitle2>
         }
-        <Caption1>{'add your dns options'}</Caption1>
+        <Caption1>{'Add your dns options'}</Caption1>
       </div>
       <div>
         <Button

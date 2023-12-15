@@ -6,7 +6,7 @@ import { getSetting, setSetting, type SettingRes } from 'lux-js-sdk'
 import { t } from 'i18next'
 import { Modal, notifier, Table } from '@/components/Core'
 import styles from './index.module.css'
-import { DeleteRegular, SearchRegular } from '@fluentui/react-icons'
+import { DeleteRegular } from '@fluentui/react-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { type RootState, settingSlice } from '@/reducers'
 
@@ -50,6 +50,10 @@ export default function AddDnsOptionModal (props: AddDnsOptionModalProps) {
   }, [dispatch, refresh, setting])
 
   const handleAddCustomizedOption = useCallback(async () => {
+    if (!['dhcp://', 'https://', 'udp://', 'tcp://'].some(prefix => newDnsOption.startsWith(prefix))) {
+      notifier.error('invalid dns option')
+      return
+    }
     const newSetting = {
       ...setting,
       dns: { ...setting.dns, customizedOptions: [...setting.dns.customizedOptions, newDnsOption] }
@@ -122,7 +126,7 @@ export default function AddDnsOptionModal (props: AddDnsOptionModalProps) {
         <Input
           value={newDnsOption}
           onChange={(e) => {
-            setNewDnsOption(e.target.value)
+            setNewDnsOption(e.target.value.trim())
           }}
           placeholder={t(TRANSLATION_KEY.DNS_OPTION_TIP)}
           className={styles.input}
