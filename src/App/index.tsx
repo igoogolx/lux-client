@@ -90,7 +90,7 @@ export function App (): React.ReactNode {
     return () => {
       logSubscriber.close()
     }
-  }, [dispatch])
+  }, [dispatch, checkForUpdate])
   return !connected
     ? (
     <CheckHubAddressModal />

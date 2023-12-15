@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useMemo } from 'react'
 import { Card } from '@fluentui/react-components'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -33,19 +33,19 @@ const LOCAL_DNS = [
 export default function Dns () {
   const { t } = useTranslation()
 
-  const remoteDnsOptions = useRef(
-    REMOTE_DNS.map((item) => ({ content: item, id: item }))
-  )
-
-  const localDnsOptions = useRef(
-    LOCAL_DNS.map((item) => ({ content: item, id: item }))
-  )
-
-  const boostDnsOptions = useRef(
-    BOOST_DNS.map((item) => ({ content: item, id: item }))
-  )
-
   const setting = useSelector<RootState, SettingRes>((state) => state.setting)
+
+  const remoteDnsOptions = useMemo(
+    () => [...REMOTE_DNS, ...setting.dns.customizedOptions].map((item) => ({ content: item, id: item }))
+    , [setting.dns.customizedOptions])
+
+  const localDnsOptions = useMemo(
+    () => [...LOCAL_DNS, ...setting.dns.customizedOptions].map((item) => ({ content: item, id: item }))
+    , [setting.dns.customizedOptions])
+
+  const boostDnsOptions = useMemo(
+    () => [...BOOST_DNS, ...setting.dns.customizedOptions].map((item) => ({ content: item, id: item }))
+    , [setting.dns.customizedOptions])
 
   const dispatch = useDispatch()
 
@@ -64,7 +64,7 @@ export default function Dns () {
     <Card className={styles.card}>
       <AddDnsOption />
       <EditDnsItem
-        items={remoteDnsOptions.current}
+        items={remoteDnsOptions}
         onOptionSelect={(e, data) => {
           onSubmit({
             ...setting.dns,
@@ -80,7 +80,7 @@ export default function Dns () {
       />
 
       <EditDnsItem
-        items={localDnsOptions.current}
+        items={localDnsOptions}
         onOptionSelect={(e, data) => {
           onSubmit({
             ...setting.dns,
@@ -95,7 +95,7 @@ export default function Dns () {
         desc={t(TRANSLATION_KEY.LOCAL_DNS_DESC)}
       />
       <EditDnsItem
-        items={boostDnsOptions.current}
+        items={boostDnsOptions}
         onOptionSelect={(e, data) => {
           onSubmit({
             ...setting.dns,

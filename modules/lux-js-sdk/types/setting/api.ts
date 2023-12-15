@@ -7,7 +7,7 @@ export interface SettingRes {
       local: string[]
       remote: string[]
     }
-    customizedOptions: []
+    customizedOptions: string[]
   }
   defaultInterface: string
   localServer: {

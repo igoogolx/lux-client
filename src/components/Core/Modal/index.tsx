@@ -5,13 +5,14 @@ import {
   DialogActions,
   DialogBody,
   DialogContent,
-  DialogSurface,
+  DialogSurface, DialogTitle, DialogTrigger,
   Spinner
 } from '@fluentui/react-components'
 import { useTranslation } from 'react-i18next'
 import { useLockBodyScroll } from '@/hooks'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import styles from './index.module.css'
+import { DismissRegular } from '@fluentui/react-icons'
 
 interface ModalProps {
   children: React.ReactNode
@@ -23,6 +24,7 @@ interface ModalProps {
   hideOkButton?: boolean
   closeText?: string
   okText?: string
+  title?: string
 }
 
 export const Modal = React.memo((props: ModalProps) => {
@@ -35,7 +37,8 @@ export const Modal = React.memo((props: ModalProps) => {
     hideOkButton = false,
     hideCloseButton = false,
     closeText,
-    okText
+    okText,
+    title = ''
   } = props
 
   const { t } = useTranslation()
@@ -43,8 +46,26 @@ export const Modal = React.memo((props: ModalProps) => {
   useLockBodyScroll()
   return (
     <Dialog open modalType="alert">
+
       <DialogSurface>
         <DialogBody>
+          {close &&
+            <DialogTitle
+              action={
+                <DialogTrigger action="close">
+                  <Button
+                    appearance="subtle"
+                    aria-label="close"
+                    icon={<DismissRegular />}
+                    onClick={close}
+                  />
+                </DialogTrigger>
+              }
+            >
+              { title }
+            </DialogTitle>
+          }
+
           <DialogContent>{children}</DialogContent>
           <DialogActions>
             {!hideCloseButton && close && (

@@ -150,5 +150,8 @@ export const TRANSLATION_KEY = {
   DISMISS: 'common.dismiss',
   CUSTOMIZED: 'customized',
   ADD_RULE: 'common.add_rule',
-  EMPTY_DNS: 'notification.empty_dns'
+  EMPTY_DNS: 'notification.empty_dns',
+  ADD: 'common.add',
+  DNS_OPTION_TIP: 'dns_option_tip',
+  ADD_DNS_OPTION: 'common.add_dns_option'
 }

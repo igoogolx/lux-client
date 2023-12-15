@@ -16,11 +16,11 @@ export default function AddDnsOption () {
   return (
     <div className={styles.cardItem}>
         {
-            isOpenConfigModal && <AddDnsOptionModal id={''} />
+            isOpenConfigModal && <AddDnsOptionModal close={() => { setIsOpenConfigModal(false) }}/>
         }
       <div className={styles.desc}>
         {
-          <Subtitle2>{'Customized Options'}</Subtitle2>
+          <Subtitle2>{'Customized Dns Options'}</Subtitle2>
         }
         <Caption1>{'add your dns options'}</Caption1>
       </div>
@@ -34,7 +34,7 @@ export default function AddDnsOption () {
             )}
             disabled={isStarted}
         >
-          {t(TRANSLATION_KEY.FORM_RESET)}
+          {t(TRANSLATION_KEY.COMMON_EDIT)}
         </Button>
       </div>
     </div>

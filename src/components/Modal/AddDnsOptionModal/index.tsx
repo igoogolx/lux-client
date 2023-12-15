@@ -2,66 +2,87 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { type TableColumnDefinition } from '@fluentui/react-table'
 import { Button, createTableColumn, Input, TableCellLayout, Tooltip } from '@fluentui/react-components'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { deleteCustomizedRules, getRuleDetail, type RuleDetailItem } from 'lux-js-sdk'
+import { getSetting, setSetting, type SettingRes } from 'lux-js-sdk'
 import { t } from 'i18next'
-import { Modal, Table } from '@/components/Core'
+import { Modal, notifier, Table } from '@/components/Core'
 import styles from './index.module.css'
-import { AddFilled, DeleteRegular, SearchRegular } from '@fluentui/react-icons'
+import { DeleteRegular, SearchRegular } from '@fluentui/react-icons'
+import { useDispatch, useSelector } from 'react-redux'
+import { type RootState, settingSlice } from '@/reducers'
 
-interface RuleTableProps {
-  id: string
+interface AddDnsOptionModalProps {
+  close: () => void
 }
 
-export default function AddDnsOptionModal (props: RuleTableProps) {
-  const { id } = props
+interface DnsOption {
+  type: string
+  payload: string
+  value: string
+}
 
-  const [rules, setRules] = useState<RuleDetailItem[]>([])
+export default function AddDnsOptionModal (props: AddDnsOptionModalProps) {
+  const { close } = props
 
-  const [searchedValue, setSearchedValue] = useState('')
+  const [newDnsOption, setNewDnsOption] = useState('')
+  const setting = useSelector<RootState, SettingRes>((state) => state.setting)
+  const dispatch = useDispatch()
 
   const refresh = useCallback(async () => {
-    if (id) {
-      getRuleDetail(id).then(res => {
-        setRules(res.items || [])
-      })
-    }
-  }, [id])
+    getSetting().then(res => {
+      dispatch(settingSlice.actions.setSetting(res))
+    })
+  }, [dispatch])
 
   useEffect(() => {
     refresh()
   }, [refresh])
 
-  const handleDeleteCustomizedRule = useCallback(async (rule: RuleDetailItem) => {
-    await deleteCustomizedRules([`${rule.ruleType},${rule.payload},${rule.policy}`])
+  const handleDeleteCustomizedOption = useCallback(async (option: DnsOption) => {
+    const newCustomizedOptions = setting.dns.customizedOptions.filter(item => item !== option.value)
+    const newSetting = {
+      ...setting,
+      dns: { ...setting.dns, customizedOptions: newCustomizedOptions }
+    }
+    await setSetting(newSetting)
+    dispatch(settingSlice.actions.setSetting(newSetting))
+    notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS))
     await refresh()
-  }, [refresh])
+  }, [dispatch, refresh, setting])
+
+  const handleAddCustomizedOption = useCallback(async () => {
+    const newSetting = {
+      ...setting,
+      dns: { ...setting.dns, customizedOptions: [...setting.dns.customizedOptions, newDnsOption] }
+    }
+    await setSetting(newSetting)
+    dispatch(settingSlice.actions.setSetting(newSetting))
+    notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS))
+    await refresh()
+  }, [setting, newDnsOption, dispatch, refresh])
 
   const data = useMemo(() => {
-    return rules
-      .filter((conn) => {
-        if (searchedValue) {
-          return [conn.payload, conn.policy, conn.ruleType].some((value) => {
-            return value
-              .toLocaleLowerCase()
-              .includes(searchedValue.toLocaleLowerCase())
-          })
-        }
-        return true
-      })
-  }, [rules, searchedValue])
+    return setting.dns.customizedOptions.map(option => {
+      try {
+        const [type, payload] = option.split('://')
+        return { type, payload, value: option }
+      } catch (e) {
+        return null
+      }
+    }).filter(Boolean) as DnsOption[]
+  }, [setting.dns.customizedOptions])
 
-  const columns = useMemo<Array<TableColumnDefinition<RuleDetailItem>>>(() => {
+  const columns = useMemo<Array<TableColumnDefinition<DnsOption>>>(() => {
     return [
-      createTableColumn<RuleDetailItem>({
-        columnId: 'ruleType',
+      createTableColumn<DnsOption>({
+        columnId: 'type',
         renderHeaderCell: () => {
           return t(TRANSLATION_KEY.TYPE)
         },
         renderCell: (item) => {
-          return <TableCellLayout truncate>{item.ruleType}</TableCellLayout>
+          return <TableCellLayout truncate>{item.type}</TableCellLayout>
         }
       }),
-      createTableColumn<RuleDetailItem>({
+      createTableColumn<DnsOption>({
         columnId: 'payload',
         renderHeaderCell: () => {
           return t(TRANSLATION_KEY.PAYLOAD)
@@ -70,62 +91,64 @@ export default function AddDnsOptionModal (props: RuleTableProps) {
           return <TableCellLayout truncate>{item.payload}</TableCellLayout>
         }
       }),
-      createTableColumn<RuleDetailItem>({
+      createTableColumn<DnsOption>({
         columnId: 'action',
         renderHeaderCell: () => {
           return ''
         },
-        renderCell: (item) => {
+        renderCell: (item: DnsOption) => {
           return (
-            <TableCellLayout truncate >
+            <TableCellLayout truncate>
               <div
                 onClick={(e) => {
                   e.preventDefault()
                   e.stopPropagation()
                 }}
               >
-                <Button icon={<DeleteRegular />} onClick={() => { handleDeleteCustomizedRule(item) }} />
+                <Button icon={<DeleteRegular />} onClick={() => {
+                  handleDeleteCustomizedOption(item)
+                }} />
               </div>
             </TableCellLayout>
           )
         }
       })
 
-    ].filter(Boolean) as Array<TableColumnDefinition<RuleDetailItem>>
-  }, [handleDeleteCustomizedRule])
-  return <Modal>
+    ].filter(Boolean) as Array<TableColumnDefinition<DnsOption>>
+  }, [handleDeleteCustomizedOption])
+  return <Modal close={close} hideCloseButton={true}>
     <div className={styles.wrapper}>
       <div className={styles.toolbar}>
         <Input
-            value={searchedValue}
-            onChange={(e) => {
-              setSearchedValue(e.target.value)
-            }}
-            contentAfter={<SearchRegular/>}
-            placeholder={t(TRANSLATION_KEY.SEARCH_RULE_TIP)}
-            className={styles.input}
+          value={newDnsOption}
+          onChange={(e) => {
+            setNewDnsOption(e.target.value)
+          }}
+          placeholder={t(TRANSLATION_KEY.DNS_OPTION_TIP)}
+          className={styles.input}
         />
         <div className={styles.actions}>
           {
             <Tooltip
-                content={t(TRANSLATION_KEY.ADD_RULE)}
-                relationship="description"
+              content={t(TRANSLATION_KEY.ADD_RULE)}
+              relationship="description"
             >
               <Button
-                  onClick={() => {
-                  }}
-                  className={styles.closeAll}
-                  icon={<AddFilled/>}
-              />
+                appearance={'primary'}
+                onClick={handleAddCustomizedOption}
+                className={styles.closeAll}
+              >
+                {t(TRANSLATION_KEY.ADD)}
+              </Button>
             </Tooltip>
           }
 
         </div>
       </div>
       <Table
-          columns={columns}
-          data={data}
-          sortable
+        columns={columns}
+        data={data}
+        sortable
       />
     </div>
   </Modal>
