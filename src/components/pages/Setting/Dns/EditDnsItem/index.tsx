@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Caption1, Dropdown, type DropdownProps, Option, Subtitle2 } from '@fluentui/react-components'
+import { Caption1, Combobox, type DropdownProps, Option, Subtitle2 } from '@fluentui/react-components'
 import { useSelector } from 'react-redux'
 import { type RootState } from '@/reducers'
 import styles from '../../index.module.css'
 import { type MenuItemProps, notifier } from '../../../../Core'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { useTranslation } from 'react-i18next'
 
 interface EditDnsItemProps {
   items: MenuItemProps[]
@@ -31,15 +32,15 @@ export default function EditDnsItem (props: EditDnsItemProps) {
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared || state.manager.isLoading
   )
+  const { t } = useTranslation()
 
   const [value, setValue] = useState('')
 
   const handelOnOptionSelect: DropdownProps['onOptionSelect'] = (e, data) => {
     if (data.selectedOptions.length === 0) {
-      notifier.warn(TRANSLATION_KEY.EMPTY_DNS)
+      notifier.warn(t(TRANSLATION_KEY.EMPTY_DNS))
       return
     }
-    setValue(data.selectedOptions.map(item => DNS_LABEL[item] || item).join(','))
     if (onOptionSelect) {
       onOptionSelect(e, data)
     }
@@ -55,7 +56,7 @@ export default function EditDnsItem (props: EditDnsItemProps) {
         <Subtitle2>{title}</Subtitle2>
         <Caption1>{desc}</Caption1>
       </div>
-      <Dropdown
+      <Combobox
         value={value}
         multiselect={true}
         disabled={isStarted}
@@ -65,7 +66,7 @@ export default function EditDnsItem (props: EditDnsItemProps) {
         {items.map((option) => (
           <Option key={option.id} text={option.id as string}>{option.content}</Option>
         ))}
-      </Dropdown>
+      </Combobox>
     </div>
   )
 }

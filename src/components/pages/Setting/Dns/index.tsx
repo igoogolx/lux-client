@@ -56,7 +56,7 @@ export default function Dns () {
   const dispatch = useDispatch()
 
   const onSubmit = async (items: string[], dnsType: DNS_TYPE) => {
-    const newDns = { ...setting.dns }
+    let newDns = { ...setting.dns }
     switch (dnsType) {
       case DNS_TYPE.REMOTE:{
         const isValid = items.every(item => ['tcp://', 'https://'].some(prefix => item.startsWith(prefix)))
@@ -64,7 +64,7 @@ export default function Dns () {
           notifier.error('must be tcp or https')
           return
         }
-        newDns.server.remote = items
+        newDns = { ...newDns, server: { ...newDns.server, remote: items } }
         break
       }
       case DNS_TYPE.LOCAL:{
@@ -73,7 +73,7 @@ export default function Dns () {
           notifier.error('must be tcp, udp, https or dhcp')
           return
         }
-        newDns.server.local = items
+        newDns = { ...newDns, server: { ...newDns.server, local: items } }
         break
       }
       case DNS_TYPE.BOOST:{
@@ -82,7 +82,7 @@ export default function Dns () {
           notifier.error('must be tcp, udp or dhcp')
           return
         }
-        newDns.server.boost = items
+        newDns = { ...newDns, server: { ...newDns.server, boost: items } }
         break
       }
     }
@@ -107,7 +107,6 @@ export default function Dns () {
         title={t(TRANSLATION_KEY.REMOTE_DNS_LABEL)}
         desc={t(TRANSLATION_KEY.REMOTE_DNS_DESC)}
       />
-
       <EditDnsItem
         items={localDnsOptions}
         onOptionSelect={(e, data) => {
