@@ -153,5 +153,8 @@ export const TRANSLATION_KEY = {
   EMPTY_DNS: 'notification.empty_dns',
   ADD: 'common.add',
   DNS_OPTION_TIP: 'dns_option_tip',
-  ADD_DNS_OPTION: 'common.add_dns_option'
+  ADD_DNS_OPTION: 'common.add_dns_option',
+  DNS_OPTION_TITLE: 'common.dns_option_title',
+  DNS_OPTION_DESC: 'common.dns_option_desc',
+  INVALID_DNS_PREFIX: 'notification.invalid_dns_prefix'
 }

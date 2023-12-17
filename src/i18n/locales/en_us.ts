@@ -171,5 +171,8 @@ export default {
   [TRANSLATION_KEY.ADD]: 'Add',
   [TRANSLATION_KEY.EMPTY_DNS]: "Dns can't be empty",
   [TRANSLATION_KEY.DNS_OPTION_TIP]: 'Dns option',
-  [TRANSLATION_KEY.ADD_DNS_OPTION]: 'Add dns options'
+  [TRANSLATION_KEY.ADD_DNS_OPTION]: 'Add dns options',
+  [TRANSLATION_KEY.DNS_OPTION_TITLE]: 'Customized Dns Options',
+  [TRANSLATION_KEY.DNS_OPTION_DESC]: 'Add your dns options',
+  [TRANSLATION_KEY.INVALID_DNS_PREFIX]: 'Must start with '
 }

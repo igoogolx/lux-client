@@ -20,6 +20,8 @@ interface DnsOption {
   value: string
 }
 
+const VALID_DNS_PREFIXES = ['dhcp://', 'https://', 'udp://', 'tcp://']
+
 export default function AddDnsOptionModal (props: AddDnsOptionModalProps) {
   const { close } = props
 
@@ -38,10 +40,14 @@ export default function AddDnsOptionModal (props: AddDnsOptionModalProps) {
   }, [refresh])
 
   const handleDeleteCustomizedOption = useCallback(async (option: DnsOption) => {
-    const newCustomizedOptions = setting.dns.customizedOptions.filter(item => item !== option.value)
+    const newDns = { ...setting.dns, server: { ...setting.dns.server } }
+    newDns.customizedOptions = setting.dns.customizedOptions.filter(item => item !== option.value)
+    newDns.server.remote = setting.dns.server.remote.filter(item => item !== option.value)
+    newDns.server.local = setting.dns.server.local.filter(item => item !== option.value)
+    newDns.server.boost = setting.dns.server.boost.filter(item => item !== option.value)
     const newSetting = {
       ...setting,
-      dns: { ...setting.dns, customizedOptions: newCustomizedOptions }
+      dns: newDns
     }
     await setSetting(newSetting)
     dispatch(settingSlice.actions.setSetting(newSetting))
@@ -50,8 +56,8 @@ export default function AddDnsOptionModal (props: AddDnsOptionModalProps) {
   }, [dispatch, refresh, setting])
 
   const handleAddCustomizedOption = useCallback(async () => {
-    if (!['dhcp://', 'https://', 'udp://', 'tcp://'].some(prefix => newDnsOption.startsWith(prefix))) {
-      notifier.error('invalid dns option')
+    if (!VALID_DNS_PREFIXES.some(prefix => newDnsOption.startsWith(prefix))) {
+      notifier.error(`${t(TRANSLATION_KEY.INVALID_DNS_PREFIX)} ${VALID_DNS_PREFIXES.join(',')}`)
       return
     }
     const newSetting = {

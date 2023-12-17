@@ -9,6 +9,7 @@ import styles from '../index.module.css'
 import { notifier } from '../../../Core'
 import EditDnsItem from './EditDnsItem'
 import AddDnsOption from '@/components/pages/Setting/Dns/AddDnsOption'
+import { t } from 'i18next'
 
 enum DNS_TYPE {
   REMOTE,
@@ -36,6 +37,10 @@ const LOCAL_DNS = [
   'dhcp://auto'
 ]
 
+const VALID_REMOTE_DNS_PREFIXES = ['tcp://', 'https://']
+const VALID_LOCAL_DNS_PREFIXES = ['tcp://', 'https://', 'dhcp://', 'udp://']
+const VALID_BOOST_DNS_PREFIXES = ['tcp://', 'dhcp://', 'udp://']
+
 export default function Dns () {
   const { t } = useTranslation()
 
@@ -59,27 +64,27 @@ export default function Dns () {
     let newDns = { ...setting.dns }
     switch (dnsType) {
       case DNS_TYPE.REMOTE:{
-        const isValid = items.every(item => ['tcp://', 'https://'].some(prefix => item.startsWith(prefix)))
+        const isValid = items.every(item => VALID_REMOTE_DNS_PREFIXES.some(prefix => item.startsWith(prefix)))
         if (!isValid) {
-          notifier.error('must be tcp or https')
+          notifier.error(`${t(TRANSLATION_KEY.INVALID_DNS_PREFIX)}${VALID_REMOTE_DNS_PREFIXES.join(',')}`)
           return
         }
         newDns = { ...newDns, server: { ...newDns.server, remote: items } }
         break
       }
       case DNS_TYPE.LOCAL:{
-        const isValid = items.every(item => ['tcp://', 'https://', 'dhcp://', 'udp://'].some(prefix => item.startsWith(prefix)))
+        const isValid = items.every(item => VALID_LOCAL_DNS_PREFIXES.some(prefix => item.startsWith(prefix)))
         if (!isValid) {
-          notifier.error('must be tcp, udp, https or dhcp')
+          notifier.error(`${t(TRANSLATION_KEY.INVALID_DNS_PREFIX)}${VALID_LOCAL_DNS_PREFIXES.join(',')}`)
           return
         }
         newDns = { ...newDns, server: { ...newDns.server, local: items } }
         break
       }
       case DNS_TYPE.BOOST:{
-        const isValid = items.every(item => ['tcp://', 'dhcp://', 'udp://'].some(prefix => item.startsWith(prefix)))
+        const isValid = items.every(item => VALID_BOOST_DNS_PREFIXES.some(prefix => item.startsWith(prefix)))
         if (!isValid) {
-          notifier.error('must be tcp, udp or dhcp')
+          notifier.error(`${t(TRANSLATION_KEY.INVALID_DNS_PREFIX)}${VALID_BOOST_DNS_PREFIXES.join(',')}`)
           return
         }
         newDns = { ...newDns, server: { ...newDns.server, boost: items } }

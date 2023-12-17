@@ -20,9 +20,9 @@ export default function AddDnsOption () {
         }
       <div className={styles.desc}>
         {
-          <Subtitle2>{'Customized Dns Options'}</Subtitle2>
+          <Subtitle2>{t(TRANSLATION_KEY.DNS_OPTION_TITLE)}</Subtitle2>
         }
-        <Caption1>{'Add your dns options'}</Caption1>
+        <Caption1>{t(TRANSLATION_KEY.DNS_OPTION_DESC)}</Caption1>
       </div>
       <div>
         <Button
