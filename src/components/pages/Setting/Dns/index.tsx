@@ -9,7 +9,6 @@ import styles from '../index.module.css'
 import { notifier } from '../../../Core'
 import EditDnsItem from './EditDnsItem'
 import AddDnsOption from '@/components/pages/Setting/Dns/AddDnsOption'
-import { t } from 'i18next'
 
 enum DNS_TYPE {
   REMOTE,
