@@ -126,7 +126,6 @@ export default function ProxyCard<T extends { id: string }> (
                       onClick={handleCopyUrl}
                       icon={<ClipboardRegular />}
                       className={styles.btn}
-                      disabled={isStarted}
                     />
                   </Tooltip>
                 )}
