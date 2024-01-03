@@ -3,6 +3,20 @@ export interface Rule {
   value: string
 }
 
+export enum RULE_TYPE {
+  Domain = 'DOMAIN',
+  IpCidr = 'IP-CIDR',
+  DomainKeyword = 'DOMAIN-KEYWORD',
+  DomainRegex = 'DOMAIN-REGEX',
+  DomainSuffix = 'DOMAIN-SUFFIX',
+}
+
+export enum RULE_POLICY {
+  Direct = 'DIRECT',
+  Proxy = 'PROXY',
+  Reject = 'REJECT',
+}
+
 interface GetRulesRes {
   rules: Rule[]
   selectedId: string
@@ -10,9 +24,9 @@ interface GetRulesRes {
 export type GetRules = () => Promise<GetRulesRes>
 
 export interface RuleDetailItem {
-  policy: string
+  policy: RULE_POLICY
   payload: string
-  ruleType: string
+  ruleType: RULE_TYPE
 }
 
 interface GetRuleDetailRes {

@@ -40,7 +40,7 @@ export function TrafficCard (props: TrafficCardProps): React.ReactNode {
         </Card>
         <Card className={styles.info}>
           <div className={styles.header}>
-            <div className={styles.avatar}>{t(TRANSLATION_KEY.BYPASS)}</div>
+            <div className={styles.avatar}>{t(TRANSLATION_KEY.DIRECT)}</div>
           </div>
           <div className={styles.content}>
             <FlowInfo current={currentDirect} total={total.direct} />

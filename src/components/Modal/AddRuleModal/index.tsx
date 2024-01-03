@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { type RuleDetailItem } from 'lux-js-sdk'
+import { RULE_POLICY, RULE_TYPE, type RuleDetailItem } from 'lux-js-sdk'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { Field, FiledSelector, Form, Modal } from '@/components/Core'
 
@@ -10,30 +10,46 @@ interface AddRuleModalProps {
 }
 
 const INITIAL_VALUES: RuleDetailItem = {
-  policy: 'proxy',
+  policy: RULE_POLICY.Proxy,
   payload: '',
-  ruleType: 'DOMAIN'
+  ruleType: RULE_TYPE.Domain
 }
 
 const RULE_TYPE_OPTIONS = [
   {
-    id: 'DOMAIN',
-    content: 'DOMAIN'
+    id: RULE_TYPE.IpCidr,
+    content: RULE_TYPE.IpCidr
   },
   {
-    id: 'IP-CIDR',
-    content: 'IP-CIDR'
+    id: RULE_TYPE.Domain,
+    content: RULE_TYPE.Domain
+  },
+  {
+    id: RULE_TYPE.DomainKeyword,
+    content: RULE_TYPE.DomainKeyword
+  },
+  {
+    id: RULE_TYPE.DomainRegex,
+    content: RULE_TYPE.DomainRegex
+  },
+  {
+    id: RULE_TYPE.DomainSuffix,
+    content: RULE_TYPE.DomainSuffix
   }
 ]
 
 const POLICY_OPTIONS = [
   {
-    id: 'proxy',
-    content: 'Proxy'
+    id: RULE_POLICY.Proxy,
+    content: RULE_POLICY.Proxy
   },
   {
-    id: 'bypass',
-    content: 'Bypass'
+    id: RULE_POLICY.Direct,
+    content: RULE_POLICY.Direct
+  },
+  {
+    id: RULE_POLICY.Reject,
+    content: RULE_POLICY.Reject
   }
 ]
 

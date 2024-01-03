@@ -48,7 +48,7 @@ export default {
     'No proxy server is selected or loading',
   [TRANSLATION_KEY.DEFAULT_INTERFACE]: 'Default Interface',
   [TRANSLATION_KEY.DEFAULT_INTERFACE_TOOLTIP]:
-    'The network interface used to process bypassed connections',
+    'The network interface used to process directed connections',
   [TRANSLATION_KEY.PROXY_SERVER_MSG]:
     "Localhost or 127.0.0.1 can't be used as proxy server",
   [TRANSLATION_KEY.SAVE_SUCCESS]: 'Save Successfully',
@@ -82,7 +82,7 @@ export default {
   [TRANSLATION_KEY.DISCONNECTED_WARN_TIP]:
     'The core is disconnected. Trying to reconnect...',
   [TRANSLATION_KEY.PROXY]: 'Proxy',
-  [TRANSLATION_KEY.BYPASS]: 'Bypass',
+  [TRANSLATION_KEY.DIRECT]: 'Direct',
   [TRANSLATION_KEY.REJECT]: 'Reject',
   [TRANSLATION_KEY.COPIED]: 'Copied!',
   [TRANSLATION_KEY.DELETED]: 'Deleted!',

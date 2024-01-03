@@ -13,7 +13,7 @@ function RuleCell ({ value }: { value: string }) {
   if (value === ConnRuleEnum.Reject) {
     return <Tag type={TagTypeEnum.Error} value={t(TRANSLATION_KEY.REJECT)} />
   }
-  return <Tag type={TagTypeEnum.Warning} value={t(TRANSLATION_KEY.BYPASS)} />
+  return <Tag type={TagTypeEnum.Warning} value={t(TRANSLATION_KEY.DIRECT)} />
 }
 
 export default RuleCell
