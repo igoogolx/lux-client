@@ -25,3 +25,9 @@ export const V2rayPluginSchema = Yup.object().shape({
     .matches(/websocket/)
     .required('Required')
 })
+
+export const RuleSchema = Yup.object().shape({
+  ruleType: Yup.string().required('Required'),
+  policy: Yup.string().required('Required'),
+  payload: Yup.string().required('Required')
+})

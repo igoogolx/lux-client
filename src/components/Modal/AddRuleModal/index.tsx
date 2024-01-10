@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { RULE_POLICY, RULE_TYPE, type RuleDetailItem } from 'lux-js-sdk'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { Field, FiledSelector, Form, Modal } from '@/components/Core'
+import { RuleSchema } from '@/components/Modal/Proxy/EditShadowsocksModal/validate'
 
 interface AddRuleModalProps {
   close: () => void
@@ -65,6 +66,7 @@ export function AddRuleModal (props: AddRuleModalProps) {
     <Form
       onSubmit={onSubmit}
       initialValues={INITIAL_VALUES}
+      validationSchema={RuleSchema}
     >
       {({ submitForm }) => {
         return (

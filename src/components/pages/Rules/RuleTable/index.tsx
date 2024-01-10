@@ -10,6 +10,8 @@ import styles from './index.module.css'
 import { AddFilled, DeleteRegular, SearchRegular } from '@fluentui/react-icons'
 import { AddRuleModal } from '@/components/Modal/AddRuleModal'
 import { CUSTOMIZED_RULE_ID } from '@/utils/constants'
+import { useSelector } from 'react-redux'
+import type { RootState } from '@/reducers'
 
 interface RuleTableProps {
   id: string
@@ -17,6 +19,10 @@ interface RuleTableProps {
 
 export default function RuleTable (props: RuleTableProps) {
   const { id } = props
+
+  const isStarted = useSelector<RootState, boolean>(
+    (state) => state.manager.isStared
+  )
 
   const [rules, setRules] = useState<RuleDetailItem[]>([])
 
@@ -143,6 +149,7 @@ export default function RuleTable (props: RuleTableProps) {
               }}
               className={styles.closeAll}
               icon={<AddFilled />}
+              disabled={isStarted}
             />
           </Tooltip>
         }
