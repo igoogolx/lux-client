@@ -81,13 +81,13 @@ export function EditHttpModal (props: EditHttpModalProps) {
             />
             <Field<keyof Http>
               name="username"
-              label={`${t(TRANSLATION_KEY.FORM_PASSWORD)}(${t(
+              label={`${t(TRANSLATION_KEY.FORM_USERNAME)}(${t(
                 TRANSLATION_KEY.FORM_OPTIONAL
               )})`}
             />
             <Field<keyof Http>
               name="password"
-              label={`${t(TRANSLATION_KEY.FORM_USERNAME)}(${t(
+              label={`${t(TRANSLATION_KEY.FORM_PASSWORD)}(${t(
                 TRANSLATION_KEY.FORM_OPTIONAL
               )})`}
             />

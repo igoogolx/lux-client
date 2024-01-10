@@ -81,13 +81,13 @@ export function EditSocks5Modal (props: EditSocks5ModalProps) {
             />
             <Field<keyof Socks5>
               name="username"
-              label={`${t(TRANSLATION_KEY.FORM_PASSWORD)}(${t(
+              label={`${t(TRANSLATION_KEY.FORM_USERNAME)}(${t(
                 TRANSLATION_KEY.FORM_OPTIONAL
               )})`}
             />
             <Field<keyof Socks5>
               name="password"
-              label={`${t(TRANSLATION_KEY.FORM_USERNAME)}(${t(
+              label={`${t(TRANSLATION_KEY.FORM_PASSWORD)}(${t(
                 TRANSLATION_KEY.FORM_OPTIONAL
               )})`}
             />
