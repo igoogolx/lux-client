@@ -124,6 +124,8 @@ export const TRANSLATION_KEY = {
   APP_REPORT_ISSUE: 'app_report_issue',
   HIJACK_DNS_SWITCH_LABEL: 'hijack_dns_switch_label',
   HIJACK_DNS_SWITCH_TOOLTIP: 'hijack_dns_switch_tooltip',
+  DISABLE_DNS_CACHE_SWITCH_LABEL: 'disable_dns_cache_switch_label',
+  DISABLE_DNS_CACHE_SWITCH_TOOLTIP: 'disable_dns_cache_switch_tooltip',
   HIJACK_DNS_SERVICE_LABEL: 'hijack_dns_service_label',
   HIJACK_DNS_SERVICE_DESC: 'hijack_dns_service_desc',
   EDIT_HIJACK_DNS_SERVICE_TITLE: 'edit_hijack_dns_service_title',

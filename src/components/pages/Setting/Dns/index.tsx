@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Card } from '@fluentui/react-components'
+import { Caption1, Card, Subtitle2, Switch } from '@fluentui/react-components'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSetting, type SettingRes } from 'lux-js-sdk'
@@ -44,6 +44,10 @@ export default function Dns () {
   const { t } = useTranslation()
 
   const setting = useSelector<RootState, SettingRes>((state) => state.setting)
+
+  const isStarted = useSelector<RootState, boolean>(
+    (state) => state.manager.isStared || state.manager.isLoading
+  )
 
   const remoteDnsOptions = useMemo(
     () => [...REMOTE_DNS, ...setting.dns.customizedOptions].map((item) => ({ content: item, id: item }))
@@ -99,6 +103,16 @@ export default function Dns () {
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS))
   }
 
+  const setDisableCache = async (value: boolean) => {
+    const newSetting = {
+      ...setting,
+      dns: { ...setting.dns, disableCache: value }
+    }
+    await setSetting(newSetting)
+    dispatch(settingSlice.actions.setSetting(newSetting))
+    notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS))
+  }
+
   return (
     <Card className={styles.card}>
       <AddDnsOption />
@@ -129,6 +143,19 @@ export default function Dns () {
         title={t(TRANSLATION_KEY.BOOST_DNS_LABEL)}
         desc={t(TRANSLATION_KEY.BOOST_DNS_DESC)}
       />
+      <div className={styles.cardItem}>
+        <div className={styles.desc}>
+          <Subtitle2>{t(TRANSLATION_KEY.DISABLE_DNS_CACHE_SWITCH_LABEL)}</Subtitle2>
+          <Caption1>{t(TRANSLATION_KEY.DISABLE_DNS_CACHE_SWITCH_TOOLTIP)}</Caption1>
+        </div>
+        <Switch
+          checked={setting.dns.disableCache}
+          onChange={(e, data) => {
+            setDisableCache(data.checked)
+          }}
+          disabled={isStarted}
+        />
+      </div>
     </Card>
   )
 }

@@ -2,6 +2,7 @@ export interface SettingRes {
   mode: string
   language: string
   dns: {
+    disableCache: boolean
     server: {
       boost: string[]
       local: string[]

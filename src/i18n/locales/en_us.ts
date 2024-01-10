@@ -144,6 +144,8 @@ export default {
   [TRANSLATION_KEY.APP_DOCS]: 'Lux Docs Page',
   [TRANSLATION_KEY.APP_REPORT_ISSUE]: 'Report An Issue',
   [TRANSLATION_KEY.HIJACK_DNS_SWITCH_LABEL]: 'Hijack Dns',
+  [TRANSLATION_KEY.DISABLE_DNS_CACHE_SWITCH_LABEL]: 'Disable Dns Cache',
+  [TRANSLATION_KEY.DISABLE_DNS_CACHE_SWITCH_TOOLTIP]: 'Always get the latest dns response',
   [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_LABEL]: 'Block Quic',
   [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_TOOLTIP]: 'Some websites use http3 which is not supported well by proxy servers, like youtube. Block quic to disable http3.',
   [TRANSLATION_KEY.HIJACK_DNS_SWITCH_TOOLTIP]:

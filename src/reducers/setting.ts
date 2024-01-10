@@ -10,6 +10,7 @@ const initialState: SettingRes = {
     port: 0
   },
   dns: {
+    disableCache: false,
     server: {
       boost: [],
       local: [],
