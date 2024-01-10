@@ -7,7 +7,7 @@ import { Button } from '@fluentui/react-components'
 import { MAX_PORT, MIN_PORT } from '@/utils/validator'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { proxiesSlice, type RootState } from '@/reducers'
-import { Field, Form } from '../../../Core'
+import { Field, Form, PasswordFiled } from '../../../Core'
 import styles from './index.module.css'
 
 interface EditSocks5ModalProps {
@@ -85,7 +85,7 @@ export function EditSocks5Modal (props: EditSocks5ModalProps) {
                 TRANSLATION_KEY.FORM_OPTIONAL
               )})`}
             />
-            <Field<keyof Socks5>
+            <PasswordFiled<keyof Socks5>
               name="password"
               label={`${t(TRANSLATION_KEY.FORM_PASSWORD)}(${t(
                 TRANSLATION_KEY.FORM_OPTIONAL
