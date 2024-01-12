@@ -86,18 +86,19 @@ export const decode = (url: string) => {
 }
 
 export const encode = (config: Shadowsocks) => {
-  let pluginStr = `${config.plugin}`
-  if (config['plugin-opts'] != null) {
-    pluginStr = `${pluginStr};${convertPluginOptsStr(config['plugin-opts'])}`
+  const inputConfig: Record<string, any> = {
+    host: config.server,
+    port: config.port,
+    method: config.cipher,
+    password: config.password,
+    tag: config.name
+  }
+  if (config.plugin) {
+    if (config['plugin-opts'] != null) {
+      inputConfig.plugin = `${config.plugin};${convertPluginOptsStr(config['plugin-opts'])}`
+    }
   }
   return SIP002_URI.stringify(
-    makeConfig({
-      host: config.server,
-      port: config.port,
-      method: config.cipher,
-      password: config.password,
-      tag: config.name,
-      plugin: pluginStr
-    })
+    makeConfig(inputConfig)
   )
 }
