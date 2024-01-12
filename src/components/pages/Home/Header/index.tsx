@@ -121,12 +121,6 @@ export function Header (): React.ReactNode {
 
   const onSwitch = async () => {
     try {
-      if (curProxy) {
-        if (isLocalAddr(curProxy.addr)) {
-          notifier.error(t(TRANSLATION_KEY.PROXY_SERVER_MSG))
-          return
-        }
-      }
       dispatch(managerSlice.actions.setIsLoading({ isLoading: true }))
       if (isStarted) {
         await stop()
@@ -134,6 +128,12 @@ export function Header (): React.ReactNode {
         await start()
       }
       dispatch(managerSlice.actions.setIsStarted({ isStarted: !isStarted }))
+      if (!isStarted) {
+        const latestProxy = await getCurProxy()
+        if (isLocalAddr(latestProxy.addr)) {
+          notifier.warn(t(TRANSLATION_KEY.PROXY_SERVER_MSG))
+        }
+      }
     } catch (e) {
       notifier.error((e as { message?: string }).message ?? 'unknown error')
     } finally {

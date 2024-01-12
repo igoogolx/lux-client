@@ -50,7 +50,7 @@ export default {
   [TRANSLATION_KEY.DEFAULT_INTERFACE_TOOLTIP]:
     'The network interface used to process directed connections',
   [TRANSLATION_KEY.PROXY_SERVER_MSG]:
-    "Localhost or 127.0.0.1 can't be used as proxy server",
+    'Localhost or 127.0.0.1 is used as proxy server. Lux may not work as expected.',
   [TRANSLATION_KEY.SAVE_SUCCESS]: 'Save Successfully',
   [TRANSLATION_KEY.UPDATE_SUCCESS]: 'Update Successfully',
   [TRANSLATION_KEY.DOWNLOAD]: 'Download',
