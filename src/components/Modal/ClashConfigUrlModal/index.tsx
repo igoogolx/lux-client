@@ -6,7 +6,7 @@ import {
   updateClashYamlUrl
 } from 'lux-js-sdk'
 import { useDispatch } from 'react-redux'
-import { Input } from '@fluentui/react-components'
+import { Textarea } from '@fluentui/react-components'
 import { proxiesSlice } from '@/reducers'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { Modal, notifier } from '../../Core'
@@ -44,7 +44,7 @@ function ClashConfigUrlModal (props: ClashConfigUrlModalProps) {
   return (
     <Modal close={close} onOk={handleConfirm} loadingOk={loading}>
       <div className={styles.search}>
-        <Input
+        <Textarea
           value={destination}
           onChange={(e) => {
             setDestination(e.target.value.trim())
