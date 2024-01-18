@@ -10,6 +10,7 @@ import { notifier } from '@/components/Core'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { useTranslation } from 'react-i18next'
 import { LAST_CHECK_UPDATE_DATE, LATEST_RELEASE_URL } from '@/utils/constants'
+import checkForUpdate from '@/utils/checkForUpdate'
 
 export const useChartJs = (
   initialConfiguration: ChartConfiguration
@@ -119,12 +120,15 @@ export const useCheckForUpdate = () => {
     if (curDate === lastCheckUpdateDate) {
       return
     }
-    localStorage.setItem(LAST_CHECK_UPDATE_DATE, curDate)
-    notifier.success(t(TRANSLATION_KEY.NEW_VERSION_INFO), [{
-      text: t(TRANSLATION_KEY.GO),
-      onClick: () => {
-        window.open(LATEST_RELEASE_URL)
-      }
-    }])
+    const checkedResult = await checkForUpdate()
+    if (checkedResult) {
+      localStorage.setItem(LAST_CHECK_UPDATE_DATE, curDate)
+      notifier.success(t(TRANSLATION_KEY.NEW_VERSION_INFO), [{
+        text: t(TRANSLATION_KEY.GO),
+        onClick: () => {
+          window.open(LATEST_RELEASE_URL)
+        }
+      }])
+    }
   }, [t])
 }
