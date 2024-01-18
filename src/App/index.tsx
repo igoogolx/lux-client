@@ -70,6 +70,7 @@ export function App (): React.ReactNode {
   })
 
   useEffect(() => {
+    console.log('init!')
     checkForUpdate()
     timer.current = setInterval(async () => {
       try {
