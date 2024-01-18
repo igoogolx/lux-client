@@ -1,6 +1,6 @@
 import { initI18n } from '@/i18n'
 import * as React from 'react'
-import { useMemo, useState } from 'react'
+import { StrictMode, useMemo, useState } from 'react'
 import './index.css'
 import { HashRouter as Router } from 'react-router-dom'
 import { init } from 'lux-js-sdk'
@@ -23,18 +23,20 @@ function Root () {
   const [theme, setTheme] = useState(ThemeEnum.Light)
   const themeContextValue = useMemo(() => ({ setTheme, theme }), [theme])
   return (
-    <Provider store={store}>
-      <Router>
-        <ThemeContext.Provider value={themeContextValue}>
-          <FluentProvider
-            theme={theme === ThemeEnum.Light ? webLightTheme : webDarkTheme}
-            style={{ width: '100%' }}
-          >
-            <App />
-          </FluentProvider>
-        </ThemeContext.Provider>
-      </Router>
-    </Provider>
+    <StrictMode>
+      <Provider store={store}>
+        <Router>
+          <ThemeContext.Provider value={themeContextValue}>
+            <FluentProvider
+              theme={theme === ThemeEnum.Light ? webLightTheme : webDarkTheme}
+              style={{ width: '100%' }}
+            >
+              <App />
+            </FluentProvider>
+          </ThemeContext.Provider>
+        </Router>
+      </Provider>
+    </StrictMode>
   )
 }
 
