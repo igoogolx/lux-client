@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Button,
@@ -24,30 +24,18 @@ import {
   ConfirmModal,
   Icon,
   IconNameEnum,
-  IconSizeEnum,
-  notifier
+  IconSizeEnum
 } from '../../Core'
-import checkForUpdate from '../../../utils/checkForUpdate'
 import styles from './index.module.css'
+import { useCheckForUpdate } from '@/hooks'
 
 export default function About (): React.ReactNode {
   const { t } = useTranslation()
   const version = getVersion()
   const [hasLatestVersion, setHasLatestVersion] = useState(false)
-  const [isCheckingUpdate, setIsCheckingUpdate] = useState(false)
 
-  const onCheckForUpdate = useCallback(async () => {
-    try {
-      setIsCheckingUpdate(true)
-      const checkedResult = await checkForUpdate()
-      if (!checkedResult) {
-        notifier.info(t(TRANSLATION_KEY.NO_UPDATE_INFO))
-      }
-      setHasLatestVersion(checkedResult)
-    } finally {
-      setIsCheckingUpdate(false)
-    }
-  }, [t])
+  const onCheckForUpdate = useCheckForUpdate()
+
   return (
     <div className={styles.container}>
       {hasLatestVersion && (
@@ -76,7 +64,6 @@ export default function About (): React.ReactNode {
         <div>
           <Button
             onClick={onCheckForUpdate}
-            disabled={isCheckingUpdate}
             appearance="secondary"
             className={styles.btn}
           >

@@ -89,6 +89,9 @@ export function App (): React.ReactNode {
     })
     return () => {
       logSubscriber.close()
+      if (timer.current) {
+        clearInterval(timer.current)
+      }
     }
   }, [dispatch, checkForUpdate])
   return !connected
