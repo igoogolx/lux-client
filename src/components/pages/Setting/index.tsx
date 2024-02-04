@@ -27,6 +27,11 @@ export default function Setting () {
 
   useEffect(() => {
     init()
+    return () => {
+      if (timer.current) {
+        clearTimeout(timer.current)
+      }
+    }
   }, [init])
 
   return (
