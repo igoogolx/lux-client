@@ -26,7 +26,7 @@ import {
 } from '@fluentui/react-icons'
 import { type MenuItemProps, notifier } from '@/components/Core'
 import { proxiesSlice, type RootState, selectedSlice } from '@/reducers'
-import { useTestDelay } from '@/hooks'
+import { useDangerStyles, useTestDelay } from '@/hooks'
 
 import { EditModal } from '@/components/Modal/Proxy'
 import { encode } from '@/utils/url/shadowsocks'
@@ -51,6 +51,8 @@ export function Operation (props: OperationProps): React.ReactNode {
   const { t } = useTranslation()
   const { proxy } = props
   const { id: proxyId } = proxy
+
+  const inlineStyles = useDangerStyles()
 
   const [isEditingDialogOpen, setIsEditingDialogOpen] = useState(false)
   const [isQrcodeModalOpen, setIsQrcodeModalOpen] = useState(false)
@@ -192,6 +194,7 @@ export function Operation (props: OperationProps): React.ReactNode {
           <MenuList>
             {menuItems.map((item) => (
               <MenuItem
+                className={item.isDanger ? inlineStyles.danger : '' }
                 disabled={item.disabled}
                 key={item.id}
                 icon={item.icon}
