@@ -4,12 +4,10 @@ import {
   type AddProxy,
   type DeleteAllProxies,
   type DeleteProxies,
-  type GetClashYamlUrl,
   type GetCurProxy,
   type GetProxies,
   type GetProxyDelay,
   type TestProxyUdp,
-  type UpdateClashYamlUrl,
   type UpdateProxy
 } from './types'
 import { urtConfig } from './url'

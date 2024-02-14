@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
-  addProxiesFromClashUrlConfig,
-  getClashYamlUrl,
-  updateClashYamlUrl
+  addProxiesFromClashUrlConfig
 } from 'lux-js-sdk'
 import { useDispatch } from 'react-redux'
 import { Textarea } from '@fluentui/react-components'
