@@ -1,73 +1,67 @@
-import { Shadowsocks } from "./shadowsocks";
-import { Socks5 } from "./socks5";
-import { Http } from "./http";
-import { BaseProxy } from "./base";
+import { type Shadowsocks } from './shadowsocks'
+import { type Socks5 } from './socks5'
+import { type Http } from './http'
+import { type BaseProxy } from './base'
 
-export type Proxy = Shadowsocks | Socks5 | Http;
+export type Proxy = Shadowsocks | Socks5 | Http
 
-export type GetProxiesRes = {
-  proxies: Proxy[];
-  selectedId: string;
-};
-export type GetProxies = () => Promise<GetProxiesRes>;
+export interface GetProxiesRes {
+  proxies: Proxy[]
+  selectedId: string
+}
+export type GetProxies = () => Promise<GetProxiesRes>
 
-export type GetCurProxyRes = {
-  name: string;
-  addr: string;
-};
+export interface GetCurProxyRes {
+  name: string
+  addr: string
+}
 
-export type GetCurProxy = () => Promise<GetCurProxyRes>;
+export type GetCurProxy = () => Promise<GetCurProxyRes>
 
-type GetUpdateProxyReq = {
-  proxy: Proxy;
-  id: string;
-};
-export type UpdateProxy = (req: GetUpdateProxyReq) => Promise<void>;
+interface GetUpdateProxyReq {
+  proxy: Proxy
+  id: string
+}
+export type UpdateProxy = (req: GetUpdateProxyReq) => Promise<void>
 
-type AddProxyReq = {
-  proxy: Omit<Proxy, "id" | "region">;
-};
+interface AddProxyReq {
+  proxy: Omit<Proxy, 'id' | 'region'>
+}
 
-export type AddProxy = (req: AddProxyReq) => Promise<{ id: string }>;
+export type AddProxy = (req: AddProxyReq) => Promise<{ id: string }>
 
-type AddProxiesFromClashConfigUrlReq = {
-  url: string;
-};
+interface AddProxiesFromClashConfigUrlReq {
+  url: string
+}
 
 export type AddProxiesFromClashConfigUrl = (
   req: AddProxiesFromClashConfigUrlReq
-) => Promise<{ proxies: BaseProxy[] }>;
+) => Promise<{ proxies: BaseProxy[] }>
 
-export type UpdateClashYamlUrl = (
-  req: AddProxiesFromClashConfigUrlReq
-) => Promise<void>;
+interface DeleteProxiesReq {
+  ids: string[]
+}
 
-export type GetClashYamlUrl = () => Promise<{ url: string }>;
+export type DeleteProxies = (req: DeleteProxiesReq) => Promise<void>
 
-type DeleteProxiesReq = {
-  ids: string[];
-};
+export type DeleteAllProxies = () => Promise<void>
 
-export type DeleteProxies = (req: DeleteProxiesReq) => Promise<void>;
+export interface Delay {
+  id: string
+  value: number
+}
 
-export type DeleteAllProxies = () => Promise<void>;
-
-export type Delay = {
-  id: string;
-  value: number;
-};
-
-type GetProxyDelayReq = {
-  id: string;
-  url?: string;
-};
+interface GetProxyDelayReq {
+  id: string
+  url?: string
+}
 export type GetProxyDelay = (
   req: GetProxyDelayReq
-) => Promise<{ delay: number }>;
+) => Promise<{ delay: number }>
 
-type TestProxyUpdReq = {
-  id: string;
-};
+interface TestProxyUpdReq {
+  id: string
+}
 export type TestProxyUdp = (
   req: TestProxyUpdReq
-) => Promise<{ result: boolean }>;
+) => Promise<{ result: boolean }>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   addProxiesFromClashUrlConfig,
@@ -25,7 +25,6 @@ function ClashConfigUrlModal (props: ClashConfigUrlModalProps) {
   const handleConfirm = async () => {
     try {
       setLoading(true)
-      await updateClashYamlUrl({ url: destination })
       if (destination) {
         const res = await addProxiesFromClashUrlConfig({ url: destination })
         dispatch(proxiesSlice.actions.received(res))
@@ -36,11 +35,6 @@ function ClashConfigUrlModal (props: ClashConfigUrlModalProps) {
       setLoading(false)
     }
   }
-  useEffect(() => {
-    getClashYamlUrl().then((res) => {
-      setDestination(res.url)
-    })
-  }, [])
   return (
     <Modal close={close} onOk={handleConfirm} loadingOk={loading}>
       <div className={styles.search}>
