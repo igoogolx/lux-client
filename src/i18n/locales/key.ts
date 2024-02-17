@@ -70,7 +70,7 @@ export const TRANSLATION_KEY = {
   WARNING: 'common.warning',
   DISCONNECTED_WARN_TIP: 'disconnected_warn_tip',
   PROXY: 'common.proxy',
-  DIRECT: 'common.bypass',
+  DIRECT: 'common.direct',
   COPIED: 'common.copied',
   REJECT: 'common.reject',
   DELETED: 'common.deleted',
