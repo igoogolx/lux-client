@@ -11,6 +11,7 @@ import Dns from './Dns'
 import ConfigFile from './ConfigFile'
 import BlockQuic from '@/components/pages/Setting/BlockQuic'
 import Stack from '@/components/pages/Setting/Stack'
+import Language from '@/components/pages/Setting/Language'
 
 export function SettingForm () {
   const [os, setOs] = useState('')
@@ -27,6 +28,7 @@ export function SettingForm () {
   return (
     <div>
       <div>
+        <Language />
         <Mode />
         {isTun && <Stack />}
         {isTun && <Dns />}
