@@ -112,17 +112,31 @@ export const useMedia = (query: string, defaultState?: boolean) => {
   return state
 }
 
-export const useCheckForUpdate = () => {
+export const useCheckForUpdate = (force = false) => {
   const { t } = useTranslation()
+  const loading = useRef(false)
   return useCallback(async () => {
-    const curDate = new Date().toDateString()
-    const lastCheckUpdateDate = localStorage.getItem(LAST_CHECK_UPDATE_DATE)
-    if (curDate === lastCheckUpdateDate) {
+    if (loading.current) {
       return
     }
-    const checkedResult = await checkForUpdate()
+    const curDate = new Date().toDateString()
+    if (!force) {
+      const lastCheckUpdateDate = localStorage.getItem(LAST_CHECK_UPDATE_DATE)
+      if (curDate === lastCheckUpdateDate) {
+        return
+      }
+    }
+    let checkedResult = false
+    try {
+      loading.current = true
+      checkedResult = await checkForUpdate()
+    } finally {
+      loading.current = false
+    }
     if (checkedResult) {
-      localStorage.setItem(LAST_CHECK_UPDATE_DATE, curDate)
+      if (!force) {
+        localStorage.setItem(LAST_CHECK_UPDATE_DATE, curDate)
+      }
       notifier.success(t(TRANSLATION_KEY.NEW_VERSION_INFO), [{
         text: t(TRANSLATION_KEY.GO),
         onClick: () => {
@@ -130,5 +144,5 @@ export const useCheckForUpdate = () => {
         }
       }])
     }
-  }, [t])
+  }, [force, t])
 }

@@ -34,7 +34,7 @@ export default function About (): React.ReactNode {
   const version = getVersion()
   const [hasLatestVersion, setHasLatestVersion] = useState(false)
 
-  const onCheckForUpdate = useCheckForUpdate()
+  const onCheckForUpdate = useCheckForUpdate(true)
 
   return (
     <div className={styles.container}>
