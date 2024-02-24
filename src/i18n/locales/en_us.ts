@@ -67,8 +67,10 @@ export default {
   [TRANSLATION_KEY.TYPE]: 'Type',
   [TRANSLATION_KEY.CONTENT]: 'Content',
   [TRANSLATION_KEY.ELEVATE_CORE]: 'Elevate core',
-  [TRANSLATION_KEY.ELEVATE_TIP]:
+  [TRANSLATION_KEY.ELEVATE_TIP_MACOS]:
     "The core is not run as admin. Open terminal and copy following commands. Once it's finished, restart the app.",
+  [TRANSLATION_KEY.ELEVATE_TIP_WINDOWS]:
+      'The core is not run as admin. Run it as admin.',
   [TRANSLATION_KEY.DELETE_ALL_PROXIES_TIPS]:
     'Are you sure to delete all proxies?',
   [TRANSLATION_KEY.UNKNOWN_ERROR]: 'Unknown Error',
