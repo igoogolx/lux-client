@@ -61,7 +61,7 @@ const convertConfig = (rawConfig: Config) => {
   }
 
   const pluginStr = rawConfig.extra.plugin
-  if (pluginStr !== '') {
+  if (pluginStr) {
     const separatorIndex = pluginStr.indexOf(';')
     result.plugin = pluginStr.substring(
       0,
