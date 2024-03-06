@@ -60,20 +60,25 @@ const convertConfig = (rawConfig: Config) => {
     udp: true
   }
 
-  const pluginStr = rawConfig.extra.plugin
-  if (pluginStr) {
-    const separatorIndex = pluginStr.indexOf(';')
-    result.plugin = pluginStr.substring(
-      0,
-      separatorIndex
-    ) as Shadowsocks['plugin']
-    if ((result.plugin?.includes('obfs')) === true) {
-      result.plugin = PluginTypeEnum.Obfs
+  try {
+    const pluginStr = rawConfig.extra.plugin
+    if (pluginStr) {
+      const separatorIndex = pluginStr.indexOf(';')
+      result.plugin = pluginStr.substring(
+        0,
+        separatorIndex
+      ) as Shadowsocks['plugin']
+      if ((result.plugin?.includes('obfs')) === true) {
+        result.plugin = PluginTypeEnum.Obfs
+      }
+      result['plugin-opts'] = parsePluginOptsStr(
+        pluginStr.substring(separatorIndex + 1)
+      ) as Shadowsocks['plugin-opts']
     }
-    result['plugin-opts'] = parsePluginOptsStr(
-      pluginStr.substring(separatorIndex + 1)
-    ) as Shadowsocks['plugin-opts']
+  } catch (e) {
+    console.error('fail to parse plugin', e)
   }
+
   return result
 }
 
