@@ -4,16 +4,21 @@ import { getSetting } from 'lux-js-sdk'
 import enUS from './locales/en_us'
 import zhCN from './locales/zh_cn'
 
-enum I18nLang {
+export enum LANGUAGE_ENUM {
+  SYSTEM = 'system',
   EN_US = 'en-US',
   ZH_CN = 'zh-CN',
 }
 
 export function getLang (value?: string) {
-  if (value === I18nLang.EN_US || value === I18nLang.ZH_CN) {
-    return value
+  let curValue = value
+  if (value === LANGUAGE_ENUM.SYSTEM) {
+    curValue = navigator.language
   }
-  return I18nLang.EN_US
+  if (curValue === LANGUAGE_ENUM.EN_US || curValue === LANGUAGE_ENUM.ZH_CN) {
+    return curValue
+  }
+  return LANGUAGE_ENUM.EN_US
 }
 
 async function initLanguage (language?: string) {
@@ -22,10 +27,10 @@ async function initLanguage (language?: string) {
     debug: process.env.NODE_ENV === 'development',
     returnObjects: true,
     resources: {
-      [I18nLang.EN_US]: {
+      [LANGUAGE_ENUM.EN_US]: {
         translation: enUS
       },
-      [I18nLang.ZH_CN]: {
+      [LANGUAGE_ENUM.ZH_CN]: {
         translation: zhCN
       }
     }

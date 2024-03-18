@@ -140,6 +140,7 @@ export const TRANSLATION_KEY = {
   LANGUAGE: 'common.language',
   EN_US: 'en_us',
   ZH_CN: 'zh_cn',
+  SYSTEM: 'common.system',
   TOTAL: 'common.total',
   SPEED: 'common.speed',
   DOMAIN: 'common.domain',

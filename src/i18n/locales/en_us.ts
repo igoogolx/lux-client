@@ -3,6 +3,7 @@ import { TRANSLATION_KEY } from './key'
 export default {
   [TRANSLATION_KEY.EN_US]: 'English',
   [TRANSLATION_KEY.ZH_CN]: '中文',
+  [TRANSLATION_KEY.SYSTEM]: 'System',
   [TRANSLATION_KEY.MODE_SELECT_TIP]:
     "It's in auto mode. Proxy can't be selected manually",
   [TRANSLATION_KEY.NAV_HOME]: 'Home',

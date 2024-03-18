@@ -6,13 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { type RootState, settingSlice } from '@/reducers'
 import { setSetting, type SettingRes } from 'lux-js-sdk'
 import { notifier } from '@/components/Core'
-import { getLang } from '@/i18n'
+import { getLang, LANGUAGE_ENUM } from '@/i18n'
 import styles from '../index.module.css'
-
-enum LANGUAGE_ENUM {
-  EN_US = 'en-US',
-  ZH_CN = 'zh-CN',
-}
 
 export default function Language () {
   const { t, i18n } = useTranslation()
@@ -21,11 +16,13 @@ export default function Language () {
   const setting = useSelector<RootState, SettingRes>((state) => state.setting)
 
   const LANGUAGE_OPTIONS = [
+    { content: t(TRANSLATION_KEY.SYSTEM), id: LANGUAGE_ENUM.SYSTEM },
     { content: t(TRANSLATION_KEY.EN_US), id: LANGUAGE_ENUM.EN_US },
     { content: t(TRANSLATION_KEY.ZH_CN), id: LANGUAGE_ENUM.ZH_CN }
   ]
 
   const TRANSLATION_MAP = {
+    [LANGUAGE_ENUM.SYSTEM]: t(TRANSLATION_KEY.SYSTEM),
     [LANGUAGE_ENUM.EN_US]: t(TRANSLATION_KEY.EN_US),
     [LANGUAGE_ENUM.ZH_CN]: t(TRANSLATION_KEY.ZH_CN)
   }
@@ -47,10 +44,10 @@ export default function Language () {
         <div>
           <Dropdown
             value={TRANSLATION_MAP[setting.language as LANGUAGE_ENUM]}
-            selectedOptions={[getLang(setting.language)]}
+            selectedOptions={[setting.language]}
             onOptionSelect={(e, data) => {
               onChange(data.optionValue as string)
-              i18n.changeLanguage(data.optionValue)
+              i18n.changeLanguage(getLang(data.optionValue))
             }}
           >
             {LANGUAGE_OPTIONS.map((option) => (
