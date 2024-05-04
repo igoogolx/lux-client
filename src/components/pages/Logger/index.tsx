@@ -5,11 +5,10 @@ import { useTranslation } from 'react-i18next'
 import { type TableColumnDefinition } from '@fluentui/react-table'
 import {
   createTableColumn,
-  Input,
+  SearchBox,
   TableCellLayout,
   type TableColumnSizingOptions, Tooltip
 } from '@fluentui/react-components'
-import { SearchRegular } from '@fluentui/react-icons'
 import dayjs from 'dayjs'
 import Highlighter from 'react-highlight-words'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
@@ -125,11 +124,10 @@ export default function Logger (): React.ReactNode {
   return (
     <div className={styles.wrapper}>
       <div className={styles.toolbar}>
-        <Input
-          onChange={(e) => {
-            setSearchedValue(e.target.value)
+        <SearchBox
+          onChange={(e, data) => {
+            setSearchedValue(data.value)
           }}
-          contentAfter={<SearchRegular />}
           placeholder={t(TRANSLATION_KEY.SEARCH_LOG_TIP)}
           className={styles.input}
         />
