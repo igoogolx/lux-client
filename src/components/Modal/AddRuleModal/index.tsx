@@ -1,9 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { RULE_POLICY, RULE_TYPE, type RuleDetailItem } from 'lux-js-sdk'
+import { RULE_POLICY, RULE_TYPE, type RuleDetailItem, type SettingRes } from 'lux-js-sdk'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { Field, FiledSelector, Form, Modal } from '@/components/Core'
 import { RuleSchema } from '@/components/Modal/Proxy/EditShadowsocksModal/validate'
+import { useSelector } from 'react-redux'
+import type { RootState } from '@/reducers'
 
 interface AddRuleModalProps {
   close: () => void
@@ -61,6 +63,18 @@ export function AddRuleModal (props: AddRuleModalProps) {
     onSave(data)
     close()
   }
+  const ruleItems = [...RULE_TYPE_OPTIONS]
+
+  const setting = useSelector<RootState, SettingRes>((state) => state.setting)
+
+  if (setting.shouldFindProcess) {
+    ruleItems.push(
+      {
+        id: RULE_TYPE.Process,
+        content: RULE_TYPE.Process
+      }
+    )
+  }
 
   return (
     <Form
@@ -74,7 +88,7 @@ export function AddRuleModal (props: AddRuleModalProps) {
             <FiledSelector
               name="ruleType"
               label={t(TRANSLATION_KEY.TYPE)}
-              items={RULE_TYPE_OPTIONS}
+              items={ruleItems}
             />
             <FiledSelector
               name="policy"

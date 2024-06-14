@@ -12,6 +12,7 @@ export interface Metadata {
   destinationIP: string
   sourcePort: number
   destinationPort: number
+  processPath: string
 }
 
 export enum ConnRuleEnum {

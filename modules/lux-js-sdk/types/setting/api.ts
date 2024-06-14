@@ -26,6 +26,7 @@ export interface SettingRes {
   }
   blockQuic: boolean
   stack: string
+  shouldFindProcess: boolean
 }
 
 export type GetSetting = () => Promise<SettingRes>

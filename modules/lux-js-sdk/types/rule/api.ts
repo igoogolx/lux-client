@@ -9,6 +9,7 @@ export enum RULE_TYPE {
   DomainKeyword = 'DOMAIN-KEYWORD',
   DomainRegex = 'DOMAIN-REGEX',
   DomainSuffix = 'DOMAIN-SUFFIX',
+  Process = 'PROCESS',
 }
 
 export enum RULE_POLICY {

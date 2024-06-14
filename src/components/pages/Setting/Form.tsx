@@ -12,6 +12,7 @@ import ConfigFile from './ConfigFile'
 import BlockQuic from '@/components/pages/Setting/BlockQuic'
 import Stack from '@/components/pages/Setting/Stack'
 import Language from '@/components/pages/Setting/Language'
+import ShouldFindProcess from '@/components/pages/Setting/ShouldFindProcess'
 
 export function SettingForm () {
   const [os, setOs] = useState('')
@@ -37,6 +38,7 @@ export function SettingForm () {
         {isTun && <DefaultInterface />}
         <LocalHttpServer />
         <AutoMode />
+        {isTun && <ShouldFindProcess />}
         <ConfigFile />
       </div>
     </div>

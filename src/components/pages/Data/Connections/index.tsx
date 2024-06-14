@@ -3,7 +3,7 @@ import {
   closeAllConnections,
   type Conn,
   ConnNetworkMetaEnum,
-  type ConnRuleEnum,
+  type ConnRuleEnum, type SettingRes,
   subscribeConnections
 } from 'lux-js-sdk'
 import { useTranslation } from 'react-i18next'
@@ -19,10 +19,12 @@ import {
 import { DeleteRegular, SearchRegular } from '@fluentui/react-icons'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { convertByte } from '@/utils/traffic'
-import { Table, Tag, TagTypeEnum } from '../../../Core'
+import { Table } from '../../../Core'
 import styles from './index.module.css'
 import { useMedia } from '@/hooks'
 import RuleCell from '@/components/pages/Data/Connections/RuleTag'
+import { useSelector } from 'react-redux'
+import type { RootState } from '@/reducers'
 
 interface Connection {
   destination: string
@@ -33,6 +35,7 @@ interface Connection {
   rule: ConnRuleEnum
   start: number
   id: string
+  process: string
 }
 
 function convertDuration (duration: number) {
@@ -71,6 +74,8 @@ function StartTag (props: { value: number }): React.ReactNode {
 
 export default function Connections (): React.ReactNode {
   const { t } = useTranslation()
+
+  const setting = useSelector<RootState, SettingRes>((state) => state.setting)
   const [conns, setConns] = useState<Conn[]>([])
   const [total, setTotal] = useState<{
     tcp: number
@@ -133,6 +138,17 @@ export default function Connections (): React.ReactNode {
           return <RuleCell value={item.rule} />
         }
       }),
+      setting.shouldFindProcess
+        ? createTableColumn<Connection>({
+          columnId: 'process',
+          renderHeaderCell: () => {
+            return t(TRANSLATION_KEY.PROCESS)
+          },
+          renderCell: (item) => {
+            return item.process
+          }
+        })
+        : null,
       isWideScreen
         ? createTableColumn<Connection>({
           columnId: 'network',
@@ -192,7 +208,8 @@ export default function Connections (): React.ReactNode {
         network: conn.metadata.network,
         rule: conn.rule,
         start: conn.start,
-        id: conn.id
+        id: conn.id,
+        process: conn.metadata.processPath
       }))
       .filter((conn) => {
         if (searchedValue) {
