@@ -3,7 +3,7 @@ import {
   closeAllConnections,
   type Conn,
   ConnNetworkMetaEnum,
-  type ConnRuleEnum, type SettingRes,
+  type ConnRuleEnum, getRuntimeOS, type SettingRes,
   subscribeConnections
 } from 'lux-js-sdk'
 import { useTranslation } from 'react-i18next'
@@ -74,6 +74,12 @@ function StartTag (props: { value: number }): React.ReactNode {
 
 export default function Connections (): React.ReactNode {
   const { t } = useTranslation()
+  const [os, setOs] = useState('')
+  useEffect(() => {
+    getRuntimeOS().then((res) => {
+      setOs(res.os)
+    })
+  }, [])
 
   const setting = useSelector<RootState, SettingRes>((state) => state.setting)
   const [conns, setConns] = useState<Conn[]>([])
@@ -145,7 +151,9 @@ export default function Connections (): React.ReactNode {
             return t(TRANSLATION_KEY.PROCESS)
           },
           renderCell: (item) => {
-            return item.process
+            const separator = os === 'darwin' ? '/' : '\\'
+            const chunks = item.process.split(separator)
+            return chunks[chunks.length - 1]
           }
         })
         : null,
@@ -196,7 +204,7 @@ export default function Connections (): React.ReactNode {
         })
         : null
     ].filter(Boolean) as Array<TableColumnDefinition<Connection>>
-  }, [t, isWideScreen])
+  }, [isWideScreen, setting.shouldFindProcess, t, os])
 
   const data = useMemo(() => {
     return conns
