@@ -1,5 +1,5 @@
 import type WsClient from 'isomorphic-ws'
-import { type RULE_TYPE } from '../rule'
+import { type RuleDetailItem } from '../rule'
 
 export enum ConnNetworkMetaEnum {
   Tcp = 'tcp',
@@ -16,19 +16,13 @@ export interface Metadata {
   processPath: string
 }
 
-export enum ConnRuleEnum {
-  Direct = 'DIRECT',
-  Proxy = 'PROXY',
-  Reject = 'REJECT',
-}
-
 export interface Conn {
   id: string
   metadata: Metadata
   upload: number
   download: number
   start: number
-  rule: { ruleType: RULE_TYPE, payload: string, policy: ConnRuleEnum }
+  rule: RuleDetailItem
   domain: string
 }
 

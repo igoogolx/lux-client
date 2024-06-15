@@ -1,5 +1,5 @@
-import { ConnRuleEnum } from "../connection";
+import { type RULE_POLICY } from '../rule'
 
 export type TestRule = (req: {
-  destination: string;
-}) => Promise<{ rule: ConnRuleEnum }>;
+  destination: string
+}) => Promise<{ rule: RULE_POLICY }>

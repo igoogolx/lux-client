@@ -3,7 +3,7 @@ import {
   closeAllConnections,
   type Conn,
   ConnNetworkMetaEnum,
-  type ConnRuleEnum, getRuntimeOS, type SettingRes,
+  getRuntimeOS, type RuleDetailItem, type SettingRes,
   subscribeConnections
 } from 'lux-js-sdk'
 import { useTranslation } from 'react-i18next'
@@ -32,7 +32,7 @@ interface Connection {
   download: number
   upload: number
   network: ConnNetworkMetaEnum
-  rule: ConnRuleEnum
+  rule: RuleDetailItem
   start: number
   id: string
   process: string
@@ -153,7 +153,14 @@ export default function Connections (): React.ReactNode {
           renderCell: (item) => {
             const separator = os === 'darwin' ? '/' : '\\'
             const chunks = item.process.split(separator)
-            return chunks[chunks.length - 1]
+            const value = chunks.pop() ?? ''
+            return <TableCellLayout truncate>
+                  <Tooltip content={value} relationship={'description'}>
+                          <span>
+                            {value}
+                          </span>
+                  </Tooltip>
+              </TableCellLayout>
           }
         })
         : null,
@@ -214,7 +221,7 @@ export default function Connections (): React.ReactNode {
         download: conn.download,
         upload: conn.upload,
         network: conn.metadata.network,
-        rule: conn.rule.policy,
+        rule: conn.rule,
         start: conn.start,
         id: conn.id,
         process: conn.metadata.processPath

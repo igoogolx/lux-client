@@ -1,19 +1,30 @@
 import { useTranslation } from 'react-i18next'
 import React from 'react'
-import { ConnRuleEnum } from 'lux-js-sdk'
+import { type RuleDetailItem, RULE_POLICY } from 'lux-js-sdk'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { Tag, TagTypeEnum } from '../../../../Core'
+import { TableCellLayout, Tooltip } from '@fluentui/react-components'
 
-function RuleCell ({ value }: { value: string }) {
+function RuleCell ({ value }: { value: RuleDetailItem }) {
   const { t } = useTranslation()
 
-  if (value === ConnRuleEnum.Proxy) {
-    return <Tag type={TagTypeEnum.Info} value={t(TRANSLATION_KEY.PROXY)} />
+  let content = <Tag type={TagTypeEnum.Warning} value={t(TRANSLATION_KEY.DIRECT)} />
+  const fullRule = `${value.ruleType},${value.payload},${value.policy}`
+
+  if (value.policy === RULE_POLICY.Proxy) {
+    content = <Tag type={TagTypeEnum.Info} value={t(TRANSLATION_KEY.PROXY)} />
   }
-  if (value === ConnRuleEnum.Reject) {
-    return <Tag type={TagTypeEnum.Error} value={t(TRANSLATION_KEY.REJECT)} />
+  if (value.policy === RULE_POLICY.Reject) {
+    content = <Tag type={TagTypeEnum.Error} value={t(TRANSLATION_KEY.REJECT)} />
   }
-  return <Tag type={TagTypeEnum.Warning} value={t(TRANSLATION_KEY.DIRECT)} />
+
+  return <TableCellLayout truncate>
+    <Tooltip relationship={'description'} content={fullRule}>
+      <span>
+      {content}
+      </span>
+    </Tooltip>
+  </TableCellLayout>
 }
 
 export default RuleCell

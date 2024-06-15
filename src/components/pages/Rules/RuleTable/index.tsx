@@ -112,7 +112,7 @@ export default function RuleTable (props: RuleTableProps) {
           return t(TRANSLATION_KEY.POLICY)
         },
         renderCell: (item) => {
-          return <RuleCell value={item.policy} />
+          return <RuleCell value={item} />
         }
       }),
       id === CUSTOMIZED_RULE_ID
