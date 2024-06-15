@@ -214,7 +214,7 @@ export default function Connections (): React.ReactNode {
         download: conn.download,
         upload: conn.upload,
         network: conn.metadata.network,
-        rule: conn.rule,
+        rule: conn.rule.policy,
         start: conn.start,
         id: conn.id,
         process: conn.metadata.processPath

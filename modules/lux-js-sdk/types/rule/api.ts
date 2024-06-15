@@ -10,6 +10,7 @@ export enum RULE_TYPE {
   DomainRegex = 'DOMAIN-REGEX',
   DomainSuffix = 'DOMAIN-SUFFIX',
   Process = 'PROCESS',
+  BuiltIn = 'BUILD-IN',
 }
 
 export enum RULE_POLICY {
