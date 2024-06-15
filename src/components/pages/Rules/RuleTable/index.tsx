@@ -23,6 +23,7 @@ import { AddRuleModal } from '@/components/Modal/AddRuleModal'
 import { CUSTOMIZED_RULE_ID } from '@/utils/constants'
 import { useSelector } from 'react-redux'
 import type { RootState } from '@/reducers'
+import { useDangerStyles } from '@/hooks'
 
 interface RuleTableProps {
   id: string
@@ -40,6 +41,8 @@ export default function RuleTable (props: RuleTableProps) {
   const [searchedValue, setSearchedValue] = useState('')
 
   const [isAddingRule, setIsAddingRule] = useState(false)
+
+  const inlineStyles = useDangerStyles()
 
   const refresh = useCallback(async () => {
     if (id) {
@@ -131,7 +134,8 @@ export default function RuleTable (props: RuleTableProps) {
                     }}
                   >
                     <Button
-                      icon={<DeleteRegular />}
+                      icon={<DeleteRegular className={inlineStyles.danger}/>}
+                      disabled={isStarted}
                       onClick={() => {
                         handleDeleteCustomizedRule(item)
                       }}
@@ -143,7 +147,7 @@ export default function RuleTable (props: RuleTableProps) {
         })
         : null
     ].filter(Boolean) as Array<TableColumnDefinition<RuleDetailItem>>
-  }, [handleDeleteCustomizedRule, id])
+  }, [handleDeleteCustomizedRule, id, inlineStyles.danger, isStarted])
   return (
     <div className={styles.wrapper}>
       {isAddingRule && (
