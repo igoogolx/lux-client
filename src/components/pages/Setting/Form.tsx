@@ -26,6 +26,8 @@ export function SettingForm () {
 
   const isTun = setting.mode === 'tun'
 
+  const isDarwin = os === 'darwin'
+
   return (
     <div>
       <div>
@@ -34,11 +36,11 @@ export function SettingForm () {
         {isTun && <Stack />}
         {isTun && <Dns />}
         {isTun && <BlockQuic />}
-        {os === 'darwin' && isTun && <HijackDns />}
+        {isDarwin && isTun && <HijackDns />}
         {isTun && <DefaultInterface />}
         <LocalHttpServer />
         <AutoMode />
-        {isTun && <ShouldFindProcess />}
+        {isTun && isDarwin && <ShouldFindProcess />}
         <ConfigFile />
       </div>
     </div>
