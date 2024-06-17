@@ -39,7 +39,7 @@ interface Connection {
 }
 
 function convertDuration (duration: number) {
-  const secNum = duration / 1000 // don't forget the second param
+  const secNum = duration / 1000
   const hoursNum = Math.floor(secNum / 3600)
   const minutesNum = Math.floor((secNum - hoursNum * 3600) / 60)
   const secondsNum = Math.floor(secNum - hoursNum * 3600 - minutesNum * 60)
