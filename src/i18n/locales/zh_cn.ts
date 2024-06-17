@@ -142,6 +142,8 @@ export default {
   [TRANSLATION_KEY.DISABLE_DNS_CACHE_SWITCH_TOOLTIP]: '总是返回最新的 dns 响应',
   [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_LABEL]: '拦截 Quic',
   [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_TOOLTIP]: '一些网站会使用 http3, 比如 youtube, 但是代理服务器往往不能很好地支持 http3. 拦截 quic 为了禁用 http3.',
+  [TRANSLATION_KEY.SHOULD_FIND_PROCESS_SWITCH_LABEL]: '进程规则',
+  [TRANSLATION_KEY.SHOULD_FIND_PROCESS_SWITCH_TOOLTIP]: '现在你能够添加进程规则和在看到每个连接所属的进程',
   [TRANSLATION_KEY.HIJACK_DNS_SWITCH_TOOLTIP]:
     '修改系统DNS以进行劫持，否则你必须手动进行',
   [TRANSLATION_KEY.HIJACK_DNS_SERVICE_LABEL]: '网络服务',
