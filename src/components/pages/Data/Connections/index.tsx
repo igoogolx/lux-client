@@ -155,7 +155,7 @@ export default function Connections (): React.ReactNode {
             const chunks = item.process.split(separator)
             const value = chunks.pop() ?? ''
             return <TableCellLayout truncate>
-                  <Tooltip content={value} relationship={'description'}>
+                  <Tooltip content={item.process} relationship={'description'}>
                           <span>
                             {value}
                           </span>
