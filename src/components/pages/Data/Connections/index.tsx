@@ -25,6 +25,7 @@ import { useMedia } from '@/hooks'
 import RuleCell from '@/components/pages/Data/Connections/RuleTag'
 import { useSelector } from 'react-redux'
 import type { RootState } from '@/reducers'
+import { ProcessCell } from '@/components/pages/Data/Connections/ProcessCell'
 
 interface Connection {
   destination: string
@@ -151,16 +152,7 @@ export default function Connections (): React.ReactNode {
             return t(TRANSLATION_KEY.PROCESS)
           },
           renderCell: (item) => {
-            const separator = os === 'darwin' ? '/' : '\\'
-            const chunks = item.process.split(separator)
-            const value = chunks.pop() ?? ''
-            return <TableCellLayout truncate>
-                  <Tooltip content={item.process} relationship={'description'}>
-                          <span>
-                            {value}
-                          </span>
-                  </Tooltip>
-              </TableCellLayout>
+            return <ProcessCell process={item.process} os={os}/>
           }
         })
         : null,

@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next'
 import React from 'react'
 import { type RuleDetailItem, RULE_POLICY } from 'lux-js-sdk'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { Tag, TagTypeEnum } from '../../../../Core'
 import { TableCellLayout, Tooltip } from '@fluentui/react-components'
+import { ClickToCopy, TagTypeEnum, Tag } from '@/components/Core'
 
 function RuleCell ({ value }: { value: RuleDetailItem }) {
   const { t } = useTranslation()
@@ -20,9 +20,9 @@ function RuleCell ({ value }: { value: RuleDetailItem }) {
 
   return <TableCellLayout truncate>
     <Tooltip relationship={'description'} content={fullRule}>
-      <span>
-      {content}
-      </span>
+        <ClickToCopy value={fullRule}>
+          {content}
+        </ClickToCopy>
     </Tooltip>
   </TableCellLayout>
 }

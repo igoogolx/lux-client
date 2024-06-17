@@ -1,10 +1,8 @@
 import React from 'react'
 import { CopyRegular } from '@fluentui/react-icons'
 import { Button } from '@fluentui/react-components'
-import { notifier } from '@/components/Core'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { useTranslation } from 'react-i18next'
 import styles from './index.module.css'
+import { useClipboard } from '@/utils/clipboard'
 
 interface CodeBlockProps {
   text: string
@@ -12,17 +10,15 @@ interface CodeBlockProps {
 
 export default function CodeBlock (props: CodeBlockProps) {
   const { text } = props
-  const { t } = useTranslation()
+
+  const { copy } = useClipboard()
 
   return (
     <article className={styles.container}>
       <Button
         icon={<CopyRegular />}
         className={styles.btn}
-        onClick={async () => {
-          await navigator.clipboard.writeText(text.replace('\n', '&&'))
-          notifier.success(t(TRANSLATION_KEY.COPIED))
-        }}
+        onClick={() => copy(text.replace('\n', '&&'))}
       />
       <pre>
         <code>{text}</code>
