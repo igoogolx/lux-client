@@ -3,8 +3,11 @@ import {
   closeAllConnections,
   type Conn,
   ConnNetworkMetaEnum,
-  getRuntimeOS, type RuleDetailItem, type SettingRes,
+  getRuntimeOS,
+  type RuleDetailItem,
+  type SettingRes,
   subscribeConnections
+
 } from 'lux-js-sdk'
 import { useTranslation } from 'react-i18next'
 import { type TableColumnDefinition } from '@fluentui/react-table'
@@ -26,6 +29,7 @@ import RuleCell from '@/components/pages/Data/Connections/RuleTag'
 import { useSelector } from 'react-redux'
 import type { RootState } from '@/reducers'
 import { ProcessCell } from '@/components/pages/Data/Connections/ProcessCell'
+import Highlighter from 'react-highlight-words'
 
 interface Connection {
   destination: string
@@ -123,17 +127,34 @@ export default function Connections (): React.ReactNode {
             return t(TRANSLATION_KEY.DESTINATION)
           },
           renderCell: (item) => {
-            return <TableCellLayout truncate>{item.destination}</TableCellLayout>
+            return (
+                <TableCellLayout truncate>
+                  <Highlighter
+                    searchWords={[searchedValue]}
+                    autoEscape
+                    textToHighlight={item.destination}
+                  />
+                </TableCellLayout>
+            )
           }
         })
         : null,
+
       createTableColumn<Connection>({
         columnId: 'domain',
         renderHeaderCell: () => {
           return t(TRANSLATION_KEY.DOMAIN)
         },
         renderCell: (item) => {
-          return <TableCellLayout truncate>{item.domain}</TableCellLayout>
+          return (
+            <TableCellLayout truncate>
+              <Highlighter
+                searchWords={[searchedValue]}
+                autoEscape
+                textToHighlight={item.domain}
+              />
+            </TableCellLayout>
+          )
         }
       }),
       createTableColumn<Connection>({
@@ -152,7 +173,13 @@ export default function Connections (): React.ReactNode {
             return t(TRANSLATION_KEY.PROCESS)
           },
           renderCell: (item) => {
-            return <ProcessCell process={item.process} os={os}/>
+            return (
+                <ProcessCell
+                  process={item.process}
+                  os={os}
+                  searchedValue={searchedValue}
+                />
+            )
           }
         })
         : null,
@@ -179,9 +206,9 @@ export default function Connections (): React.ReactNode {
           },
           renderCell: (item) => {
             return (
-            <TableCellLayout>
-              <StartTag value={item.start} />
-            </TableCellLayout>
+                <TableCellLayout>
+                  <StartTag value={item.start} />
+                </TableCellLayout>
             )
           }
         })
@@ -195,15 +222,15 @@ export default function Connections (): React.ReactNode {
           },
           renderCell: (item) => {
             return (
-            <TableCellLayout>
-              <LoadTag value={item.download + item.upload} />
-            </TableCellLayout>
+                <TableCellLayout>
+                  <LoadTag value={item.download + item.upload} />
+                </TableCellLayout>
             )
           }
         })
         : null
     ].filter(Boolean) as Array<TableColumnDefinition<Connection>>
-  }, [isWideScreen, setting.shouldFindProcess, t, os])
+  }, [isWideScreen, setting.shouldFindProcess, t, searchedValue, os])
 
   const data = useMemo(() => {
     return conns
@@ -220,7 +247,7 @@ export default function Connections (): React.ReactNode {
       }))
       .filter((conn) => {
         if (searchedValue) {
-          return [conn.domain, conn.destination].some((value) => {
+          return [conn.domain, conn.destination, conn.process].some((value) => {
             return value
               .toLocaleLowerCase()
               .includes(searchedValue.toLocaleLowerCase())
