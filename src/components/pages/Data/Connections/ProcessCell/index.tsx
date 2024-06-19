@@ -12,10 +12,12 @@ export function ProcessCell (props: ProcessCellProps) {
   const chunks = process.split(separator)
   const value = chunks.pop() ?? ''
   return <TableCellLayout truncate>
+      <ClickToCopy value={value}>
         <Tooltip content={process} relationship={'description'}>
-            <ClickToCopy value={value}>
-                {value}
-            </ClickToCopy>
+                <span>
+                    {value}
+                </span>
         </Tooltip>
+      </ClickToCopy>
     </TableCellLayout>
 }

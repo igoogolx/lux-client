@@ -19,11 +19,13 @@ function RuleCell ({ value }: { value: RuleDetailItem }) {
   }
 
   return <TableCellLayout truncate>
-    <Tooltip relationship={'description'} content={fullRule}>
-        <ClickToCopy value={fullRule}>
+    <ClickToCopy value={fullRule}>
+      <Tooltip relationship={'description'} content={fullRule}>
+        <span>
           {content}
-        </ClickToCopy>
-    </Tooltip>
+        </span>
+      </Tooltip>
+    </ClickToCopy>
   </TableCellLayout>
 }
 
