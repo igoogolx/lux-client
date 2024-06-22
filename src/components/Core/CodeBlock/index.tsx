@@ -18,7 +18,7 @@ export default function CodeBlock (props: CodeBlockProps) {
       <Button
         icon={<CopyRegular />}
         className={styles.btn}
-        onClick={() => copy(text.replace('\n', '&&'))}
+        onClick={async () => { await copy(text.replace(/\n/g, '&&')) }}
       />
       <pre>
         <code>{text}</code>
