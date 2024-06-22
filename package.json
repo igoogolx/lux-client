@@ -34,7 +34,7 @@
     "redux": "^4.1.0",
     "semver": "^7.5.4",
     "shadowsocksconfig": "github:Jigsaw-Code/outline-shadowsocksconfig",
-    "ws": "^8.14.2",
+    "ws": "^8.17.1",
     "yaml": "^2.3.4",
     "yup": "^1.3.2"
   },
