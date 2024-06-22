@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import {
   type BaseProxy,
   getProxies,
@@ -111,8 +111,18 @@ export function Content (): React.ReactNode {
     }
   }
 
+  const preProxiesLength = useRef(proxies.length)
+  const listRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (listRef.current && proxies.length > preProxiesLength.current) {
+      listRef.current.scrollTop = listRef.current.scrollHeight
+    }
+    preProxiesLength.current = proxies.length
+  }, [proxies.length])
+
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} ref={listRef}>
       {Object.keys(proxyMap).map((key) => {
         return (
           <ProxyCard
