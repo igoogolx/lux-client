@@ -30,6 +30,7 @@ import { useSelector } from 'react-redux'
 import type { RootState } from '@/reducers'
 import { ProcessCell } from '@/components/pages/Data/Connections/ProcessCell'
 import Highlighter from 'react-highlight-words'
+import { ClickToCopy } from '@/components/Core'
 
 interface Connection {
   destination: string
@@ -158,9 +159,31 @@ export default function Connections (): React.ReactNode {
         }
       }),
       createTableColumn<Connection>({
-        columnId: 'rule',
+        columnId: 'fullRule',
         renderHeaderCell: () => {
           return t(TRANSLATION_KEY.RULE)
+        },
+        renderCell: (item) => {
+          const fullRule = `${item.rule.ruleType},${item.rule.payload},${item.rule.policy}`
+          return (
+                <TableCellLayout truncate>
+                    <ClickToCopy value={fullRule}>
+                        <span>
+                        <Highlighter
+                            searchWords={[searchedValue]}
+                            autoEscape
+                            textToHighlight={fullRule}
+                        />
+                        </span>
+                    </ClickToCopy>
+                </TableCellLayout>
+          )
+        }
+      }),
+      createTableColumn<Connection>({
+        columnId: 'rule',
+        renderHeaderCell: () => {
+          return ''
         },
         renderCell: (item) => {
           return <RuleCell value={item.rule} />
@@ -168,9 +191,30 @@ export default function Connections (): React.ReactNode {
       }),
       setting.shouldFindProcess
         ? createTableColumn<Connection>({
-          columnId: 'process',
+          columnId: 'processPath',
           renderHeaderCell: () => {
             return t(TRANSLATION_KEY.PROCESS)
+          },
+          renderCell: (item) => {
+            return (
+                <TableCellLayout truncate>
+                    <ClickToCopy value={item.process}>
+                    <Highlighter
+                        searchWords={[searchedValue]}
+                        autoEscape
+                        textToHighlight={item.process}
+                    />
+                    </ClickToCopy>
+                </TableCellLayout>
+            )
+          }
+        })
+        : null,
+      setting.shouldFindProcess
+        ? createTableColumn<Connection>({
+          columnId: 'process',
+          renderHeaderCell: () => {
+            return ''
           },
           renderCell: (item) => {
             return (
@@ -262,6 +306,31 @@ export default function Connections (): React.ReactNode {
     []
   )
 
+  const columnSizingOptions = useMemo(() => {
+    return {
+      processPath: {
+        minWidth: 256,
+        defaultWidth: 256
+      },
+      fullRule: {
+        minWidth: 256,
+        defaultWidth: 256
+      },
+      rule: {
+        minWidth: 64,
+        defaultWidth: 64
+      },
+      network: {
+        minWidth: 64,
+        defaultWidth: 64
+      },
+      data: {
+        minWidth: 64,
+        defaultWidth: 64
+      }
+    }
+  }, [])
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.toolbar}>
@@ -288,6 +357,8 @@ export default function Connections (): React.ReactNode {
         </div>
       </div>
       <Table
+        columnSizingOptions={columnSizingOptions}
+        resizableColumns
         columns={columns}
         data={data}
         defaultSortState={defaultSortState}
