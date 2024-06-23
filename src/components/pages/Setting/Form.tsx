@@ -40,7 +40,7 @@ export function SettingForm () {
         {isTun && <DefaultInterface />}
         <LocalHttpServer />
         <AutoMode />
-        {isTun && isDarwin && <ShouldFindProcess />}
+        {isTun && !isDarwin && <ShouldFindProcess />}
         <ConfigFile />
       </div>
     </div>
