@@ -168,13 +168,18 @@ export default function Connections (): React.ReactNode {
           return (
                 <TableCellLayout truncate>
                     <ClickToCopy value={fullRule}>
-                        <span>
-                        <Highlighter
-                            searchWords={[searchedValue]}
-                            autoEscape
-                            textToHighlight={fullRule}
-                        />
-                        </span>
+                        <Tooltip
+                            content={fullRule}
+                            relationship="description"
+                        >
+                            <span>
+                            <Highlighter
+                                searchWords={[searchedValue]}
+                                autoEscape
+                                textToHighlight={fullRule}
+                            />
+                            </span>
+                        </Tooltip>
                     </ClickToCopy>
                 </TableCellLayout>
           )
@@ -199,11 +204,19 @@ export default function Connections (): React.ReactNode {
             return (
                 <TableCellLayout truncate>
                     <ClickToCopy value={item.process}>
-                    <Highlighter
-                        searchWords={[searchedValue]}
-                        autoEscape
-                        textToHighlight={item.process}
-                    />
+                        <Tooltip
+                            content={item.process}
+                            relationship="description"
+                        >
+                            <span>
+                            <Highlighter
+                                searchWords={[searchedValue]}
+                                autoEscape
+                                textToHighlight={item.process}
+                            />
+                            </span>
+                        </Tooltip>
+
                     </ClickToCopy>
                 </TableCellLayout>
             )
