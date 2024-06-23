@@ -142,7 +142,7 @@ export default {
   [TRANSLATION_KEY.EDIT_LOCAL_HTTP_SERVER_TITLE]:
     'Edit the local http server port',
   [TRANSLATION_KEY.SEARCH_CONNECTION_TIP]:
-    'Type a destination, domain to search',
+    'Type a destination, domain, rule or process to search',
   [TRANSLATION_KEY.APP_HOME_PAGE]: 'Lux App Home Page',
   [TRANSLATION_KEY.APP_DOCS]: 'Lux Docs Page',
   [TRANSLATION_KEY.APP_REPORT_ISSUE]: 'Report An Issue',
