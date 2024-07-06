@@ -98,6 +98,8 @@ export default function Connections (): React.ReactNode {
 
   const isWideScreen = useMedia('(min-width: 640px)')
 
+  const shouldShowProcess = setting.shouldFindProcess && setting.mode === 'tun'
+
   useEffect(() => {
     const subscriber = subscribeConnections({
       onMessage: (m) => {
@@ -194,7 +196,7 @@ export default function Connections (): React.ReactNode {
           return <RuleCell value={item.rule} />
         }
       }),
-      setting.shouldFindProcess
+      shouldShowProcess
         ? createTableColumn<Connection>({
           columnId: 'processPath',
           renderHeaderCell: () => {
@@ -223,7 +225,7 @@ export default function Connections (): React.ReactNode {
           }
         })
         : null,
-      setting.shouldFindProcess
+      shouldShowProcess
         ? createTableColumn<Connection>({
           columnId: 'process',
           renderHeaderCell: () => {
@@ -287,7 +289,7 @@ export default function Connections (): React.ReactNode {
         })
         : null
     ].filter(Boolean) as Array<TableColumnDefinition<Connection>>
-  }, [isWideScreen, setting.shouldFindProcess, t, searchedValue, os])
+  }, [isWideScreen, shouldShowProcess, t, searchedValue, os])
 
   const data = useMemo(() => {
     return conns
