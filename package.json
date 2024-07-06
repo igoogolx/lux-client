@@ -1,6 +1,6 @@
 {
   "name": "lux",
-  "version": "0.19.4",
+  "version": "0.19.5",
   "description": "A system network proxy tool",
   "main": "src/index.js",
   "scripts": {
