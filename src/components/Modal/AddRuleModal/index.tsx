@@ -9,7 +9,7 @@ import type { RootState } from '@/reducers'
 
 interface AddRuleModalProps {
   close: () => void
-  onSave: (data: RuleDetailItem) => void
+  onSave: (data: RuleDetailItem) => Promise<void>
 }
 
 const INITIAL_VALUES: RuleDetailItem = {
@@ -60,7 +60,7 @@ export function AddRuleModal (props: AddRuleModalProps) {
   const { t } = useTranslation()
   const { close, onSave } = props
   const onSubmit = async (data: RuleDetailItem) => {
-    onSave(data)
+    await onSave(data)
     close()
   }
   const ruleItems = [...RULE_TYPE_OPTIONS]
