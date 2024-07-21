@@ -81,8 +81,10 @@ export function App (): React.ReactNode {
       }
     }, PING_TIMEOUT)
     const logSubscriber = subscribeLog({
-      onMessage: (m) => {
-        dispatch(loggerSlice.actions.pushLog(m))
+      onMessage: (logs) => {
+        logs.forEach(log => {
+          dispatch(loggerSlice.actions.pushLog(log))
+        })
       }
     })
     getIsAdmin().then((res) => {
