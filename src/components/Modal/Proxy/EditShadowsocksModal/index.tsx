@@ -30,7 +30,7 @@ const INIT_DATA: Shadowsocks = {
   server: '',
   password: '',
   port: 1080,
-  cipher: ENCRYPTION_METHODS[0]
+  cipher: ENCRYPTION_METHODS[0] as Shadowsocks['cipher']
 }
 
 export const EditShadowsocksModal = React.memo(

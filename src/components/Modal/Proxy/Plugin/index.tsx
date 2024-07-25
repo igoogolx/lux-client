@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {
+  type BaseProxy,
   type Obfs,
   ObfsModeEnum,
   PluginTypeEnum,
@@ -17,7 +18,7 @@ import styles from './index.module.css'
 
 interface EditPluginProps {
   close: () => void
-  type?: PluginTypeEnum
+  type?: BaseProxy['plugin']
   initialValue: Pick<Shadowsocks, 'plugin' | 'plugin-opts'>
   onSave: (data: Partial<Pick<Shadowsocks, 'plugin' | 'plugin-opts'>>) => void
 }
@@ -25,10 +26,7 @@ interface EditPluginProps {
 const INIT_V2RAY_DATA: V2rayObfs = {
   mode: 'websocket',
   host: '',
-  port: '',
-  path: '',
-  tls: false,
-  skipCertVerify: false
+  path: ''
 }
 
 const INIT_OBFS_DATA: Obfs = {
@@ -46,7 +44,7 @@ export function EditPlugin (props: EditPluginProps) {
     [NONE_ID]: 'None'
   }
 
-  const [currentType, setCurrentType] = useState<keyof typeof typeOption>(type)
+  const [currentType, setCurrentType] = useState<string>(type)
 
   const { t } = useTranslation()
 
@@ -55,7 +53,7 @@ export function EditPlugin (props: EditPluginProps) {
       content = (
         <EditObfsPlugin
           close={close}
-          initialValue={(initialValue['plugin-opts'] as Obfs) || INIT_OBFS_DATA}
+          initialValue={((initialValue['plugin-opts']) ?? INIT_OBFS_DATA) as NonNullable<Obfs>}
           onChange={(data) => {
             onSave({ plugin: currentType, 'plugin-opts': data })
           }}
@@ -67,7 +65,7 @@ export function EditPlugin (props: EditPluginProps) {
         <EditV2rayPlugin
           close={close}
           initialValue={
-            (initialValue['plugin-opts'] as V2rayObfs) || INIT_V2RAY_DATA
+            ((initialValue['plugin-opts']) ?? INIT_V2RAY_DATA as NonNullable<V2rayObfs>)
           }
           onChange={(data) => {
             onSave({ plugin: currentType, 'plugin-opts': data })

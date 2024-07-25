@@ -3,7 +3,6 @@ import { useEffect, useMemo, useRef } from 'react'
 import {
   type BaseProxy,
   getProxies,
-  type Proxy,
   type SettingRes,
   updateSelectedProxyId
 } from 'lux-js-sdk'
@@ -51,8 +50,8 @@ export function Content (): React.ReactNode {
     })
   }, [dispatch])
 
-  const columns: Array<TableColumnDefinition<Proxy>> = [
-    createTableColumn<Proxy>({
+  const columns: Array<TableColumnDefinition<BaseProxy>> = [
+    createTableColumn<BaseProxy>({
       columnId: 'name',
       renderHeaderCell: () => {
         return ''
@@ -70,7 +69,7 @@ export function Content (): React.ReactNode {
         )
       }
     }),
-    createTableColumn<Proxy>({
+    createTableColumn<BaseProxy>({
       columnId: 'action',
       renderHeaderCell: () => {
         return ''

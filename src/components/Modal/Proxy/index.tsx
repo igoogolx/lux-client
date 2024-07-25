@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { type Http, type Proxy, ProxyTypeEnum, type Shadowsocks, type Socks5 } from 'lux-js-sdk'
+import { type BaseProxy, type Http, ProxyTypeEnum, type Shadowsocks, type Socks5 } from 'lux-js-sdk'
 import { Dropdown, Option, Text } from '@fluentui/react-components'
 import { useTranslation } from 'react-i18next'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
@@ -12,8 +12,8 @@ import styles from './index.module.css'
 
 interface EditModalProps {
   close: () => void
-  type: ProxyTypeEnum
-  initialValue?: Proxy
+  type: BaseProxy['type']
+  initialValue?: BaseProxy
   isSelected?: boolean
 }
 

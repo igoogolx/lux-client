@@ -91,7 +91,7 @@ export function Operation (props: OperationProps): React.ReactNode {
     ]
     if (
       ![
-        ProxyTypeEnum.Shadowsocks,
+        ProxyTypeEnum.Shadowsocks as BaseProxy['type'],
         ProxyTypeEnum.Http,
         ProxyTypeEnum.Socks5
       ].includes(proxy.type)
