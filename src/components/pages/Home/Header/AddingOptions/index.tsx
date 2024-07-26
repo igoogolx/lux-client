@@ -13,7 +13,7 @@ import {
 } from '@fluentui/react-components'
 import { AddFilled } from '@fluentui/react-icons'
 import { proxiesSlice } from '@/reducers'
-import { decode } from '@/utils/url/shadowsocks'
+import { decode } from '@/utils/url'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { EditModal } from '../../../../Modal/Proxy'
 import ClashConfigUrlModal from '../../../../Modal/ClashConfigUrlModal'
