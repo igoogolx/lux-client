@@ -81,10 +81,10 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
         break
       case OperationTypeEnum.Clipboard: {
         const url = await navigator.clipboard.readText()
-        const shadowsockses = decode(url)
+        const proxyConfigs = decode(url)
         await Promise.all(
-          shadowsockses.map(async (shadowsocks) => {
-            const proxy = { ...shadowsocks, type: ProxyTypeEnum.Shadowsocks }
+          proxyConfigs.map(async (proxyConfig) => {
+            const proxy = { ...proxyConfig }
             const res = await addProxy({ proxy })
             dispatch(
               proxiesSlice.actions.addOne({ proxy: { ...proxy, id: res.id } })
