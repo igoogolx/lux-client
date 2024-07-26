@@ -22,10 +22,11 @@ import {
 } from '@fluentui/react-icons'
 import { useTranslation } from 'react-i18next'
 import { generalSlice, proxiesSlice, type RootState } from '@/reducers'
-import { addProxiesFromClashUrlConfig, deleteProxies } from 'lux-js-sdk'
+import { addProxiesFromSubscriptionUrl, deleteProxies } from 'lux-js-sdk'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDangerStyles } from '@/hooks'
 import styles from './index.module.css'
+import { decodeFromUrl } from '@/utils/url'
 
 export interface ProxyCardProps<T> {
   url: string
@@ -59,8 +60,9 @@ export default function ProxyCard<T extends { id: string }> (
   const handleUpdateClashProxies = async () => {
     try {
       dispatch(generalSlice.actions.setLoading({ loading: true }))
-      const res = await addProxiesFromClashUrlConfig({ url })
-      dispatch(proxiesSlice.actions.received(res))
+      const decodedProxies = await decodeFromUrl(url)
+      const res = await addProxiesFromSubscriptionUrl({ proxies: decodedProxies, subscriptionUrl: url })
+      dispatch(proxiesSlice.actions.received({ proxies: res.proxies }))
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS))
     } finally {
       dispatch(generalSlice.actions.setLoading({ loading: false }))

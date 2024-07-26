@@ -10,7 +10,7 @@ export interface CommonProxy {
   id: string
   name: string
   delay?: number
-  clashYamlUrl?: string
+  subscriptionUrl?: string
 }
 
 export interface BaseProxy extends IProxyConfig, CommonProxy {

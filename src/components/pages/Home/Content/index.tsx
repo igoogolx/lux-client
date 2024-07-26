@@ -30,8 +30,8 @@ export function Content (): React.ReactNode {
   const proxyMap = useMemo(() => {
     const res: Record<string, BaseProxy[]> = {}
     proxies.forEach((proxy) => {
-      if (proxy.clashYamlUrl) {
-        res[proxy.clashYamlUrl] = [...(res[proxy.clashYamlUrl] || []), proxy]
+      if (proxy.subscriptionUrl) {
+        res[proxy.subscriptionUrl] = [...(res[proxy.subscriptionUrl] || []), proxy]
       } else {
         res[LOCAL_SERVERS] = [...(res[LOCAL_SERVERS] || []), proxy]
       }

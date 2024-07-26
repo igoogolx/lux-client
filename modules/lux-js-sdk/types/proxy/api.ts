@@ -25,12 +25,13 @@ interface AddProxyReq {
 
 export type AddProxy = (req: AddProxyReq) => Promise<{ id: string }>
 
-interface AddProxiesFromClashConfigUrlReq {
-  url: string
+interface addProxiesFromSubscriptionUrlReq {
+  proxies: Array<Omit<BaseProxy, 'id'>>
+  subscriptionUrl: string
 }
 
-export type AddProxiesFromClashConfigUrl = (
-  req: AddProxiesFromClashConfigUrlReq
+export type AddProxiesFromSubscriptionUrl = (
+  req: addProxiesFromSubscriptionUrlReq
 ) => Promise<{ proxies: BaseProxy[] }>
 
 interface DeleteProxiesReq {

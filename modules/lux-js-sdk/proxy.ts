@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {
-  type AddProxiesFromClashConfigUrl,
+  type AddProxiesFromSubscriptionUrl,
   type AddProxy,
   type DeleteAllProxies,
   type DeleteProxies,
@@ -37,9 +37,9 @@ export const addProxy: AddProxy = async (req) => {
   return res.data
 }
 
-export const addProxiesFromClashUrlConfig: AddProxiesFromClashConfigUrl =
+export const addProxiesFromSubscriptionUrl: AddProxiesFromSubscriptionUrl =
   async (req) => {
-    const url = `${urtConfig.proxies}/clash-url`
+    const url = `${urtConfig.proxies}/subscription-url`
     const res = await axios.put(url, req)
     return res.data
   }
