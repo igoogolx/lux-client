@@ -1,9 +1,7 @@
 import { type BaseProxy } from './base'
 
-export type Proxy = BaseProxy
-
 export interface GetProxiesRes {
-  proxies: Proxy[]
+  proxies: BaseProxy[]
   selectedId: string
 }
 export type GetProxies = () => Promise<GetProxiesRes>
@@ -16,13 +14,13 @@ export interface GetCurProxyRes {
 export type GetCurProxy = () => Promise<GetCurProxyRes>
 
 interface GetUpdateProxyReq {
-  proxy: Proxy
+  proxy: BaseProxy
   id: string
 }
 export type UpdateProxy = (req: GetUpdateProxyReq) => Promise<void>
 
 interface AddProxyReq {
-  proxy: Omit<Proxy, 'id' | 'region'>
+  proxy: Omit<BaseProxy, 'id' | 'region'>
 }
 
 export type AddProxy = (req: AddProxyReq) => Promise<{ id: string }>
