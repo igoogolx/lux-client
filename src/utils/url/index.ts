@@ -2,10 +2,9 @@ import {
   makeConfig,
   SIP002_URI
 } from 'shadowsocksconfig'
-import { type BaseProxy, type Shadowsocks } from 'lux-js-sdk'
+import { getResFromUrl, type Shadowsocks } from 'lux-js-sdk'
 import { parseUri } from 'proxy-uri-parser/src/index'
 import { parse as parseYaml } from 'yaml'
-import axios from 'axios'
 
 export const convertPluginOptsStr = (
   opts: NonNullable<Shadowsocks['plugin-opts']>
@@ -68,14 +67,13 @@ function isClashYaml (text: string) {
 }
 
 export async function decodeFromUrl (url: string) {
-  let proxyConfigs: Array<Omit<BaseProxy, 'id'>> = []
-  const res = await axios.get(url)
+  const res = await getResFromUrl({ url })
   if (!res.data) {
-    return proxyConfigs
+    return []
   }
   const rawText = res.data.trim()
   if (isClashYaml(rawText)) {
-    proxyConfigs = parseYaml(rawText).proxies
+    return parseYaml(rawText).proxies
   } else {
     const names: string[] = []
     let uris = ''
@@ -87,13 +85,13 @@ export async function decodeFromUrl (url: string) {
     uris
       .trim()
       .split('\n')
-      .forEach((uri) => {
+      .map((uri) => {
         const proxy = parseUri(uri.trim())
         if (!names.includes(proxy.name)) {
-          proxyConfigs.push(proxy)
           names.push(proxy.name)
+          return proxy
         }
-      })
+        return null
+      }).filter(Boolean)
   }
-  return proxyConfigs
 }

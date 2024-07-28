@@ -29,12 +29,12 @@ function ClashConfigUrlModal (props: ClashConfigUrlModalProps) {
           const decodedProxies = await decodeFromUrl(destination)
           const res = await addProxiesFromSubscriptionUrl({ proxies: decodedProxies, subscriptionUrl: destination })
           dispatch(proxiesSlice.actions.received({ proxies: res.proxies }))
+          close()
+          notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS))
         } catch (e) {
           notifier.error(`fail to parse url, error:${e}`)
         }
       }
-      close()
-      notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS))
     } finally {
       setLoading(false)
     }

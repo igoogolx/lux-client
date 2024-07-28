@@ -61,3 +61,10 @@ interface TestProxyUpdReq {
 export type TestProxyUdp = (
   req: TestProxyUpdReq
 ) => Promise<{ result: boolean }>
+
+interface GetResFromUrlReq {
+  url: string
+}
+export type GetResFromUrl = (
+  req: GetResFromUrlReq
+) => Promise<{ data: string }>

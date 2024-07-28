@@ -64,6 +64,8 @@ export default function ProxyCard<T extends { id: string }> (
       const res = await addProxiesFromSubscriptionUrl({ proxies: decodedProxies, subscriptionUrl: url })
       dispatch(proxiesSlice.actions.received({ proxies: res.proxies }))
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS))
+    } catch (e) {
+      notifier.error(`fail to update proxies, error:${e}`)
     } finally {
       dispatch(generalSlice.actions.setLoading({ loading: false }))
     }

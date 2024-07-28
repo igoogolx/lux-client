@@ -7,6 +7,7 @@ import {
   type GetCurProxy,
   type GetProxies,
   type GetProxyDelay,
+  type GetResFromUrl,
   type TestProxyUdp,
   type UpdateProxy
 } from './types'
@@ -66,5 +67,12 @@ export const testProxyUdp: TestProxyUdp = async (req) => {
   const { id } = req
   const url = `${urtConfig.proxies}/udp-test/${id}`
   const res = await axios.get(url)
+  return res.data
+}
+
+export const getResFromUrl: GetResFromUrl = async (req) => {
+  const { url: targetUrl } = req
+  const url = `${urtConfig.proxies}/url`
+  const res = await axios.post(url, { url: targetUrl })
   return res.data
 }
