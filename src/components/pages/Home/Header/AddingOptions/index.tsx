@@ -16,7 +16,7 @@ import { proxiesSlice } from '@/reducers'
 import { decode } from '@/utils/url'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { EditModal } from '../../../../Modal/Proxy'
-import ClashConfigUrlModal from '../../../../Modal/ClashConfigUrlModal'
+import SubscriptionUrlModal from '../../../../Modal/SubscriptionUrlModalProps'
 
 enum OperationTypeEnum {
   Shadowsocks,
@@ -38,7 +38,7 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
     useState<ProxyTypeEnum | null>(null)
   const dispatch = useDispatch()
 
-  const [isOpenClashUrlModal, setIsOpenClashUrlModal] = useState(false)
+  const [isOpenSubscriptionUrlModal, setIsOpenSubscriptionUrlModal] = useState(false)
 
   const closeAddingModal = () => {
     setCurrentAddingType(null)
@@ -109,7 +109,7 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
         break
       }
       case OperationTypeEnum.ClashUrl: {
-        setIsOpenClashUrlModal(true)
+        setIsOpenSubscriptionUrlModal(true)
         break
       }
       default: {
@@ -120,10 +120,10 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
 
   return (
     <div className={className}>
-      {isOpenClashUrlModal && (
-        <ClashConfigUrlModal
+      {isOpenSubscriptionUrlModal && (
+        <SubscriptionUrlModal
           close={() => {
-            setIsOpenClashUrlModal(false)
+            setIsOpenSubscriptionUrlModal(false)
           }}
         />
       )}

@@ -11,11 +11,11 @@ import { Modal, notifier } from '../../Core'
 import styles from './index.module.css'
 import { decodeFromUrl } from '@/utils/url'
 
-interface ClashConfigUrlModalProps {
+interface SubscriptionUrlModalProps {
   close: () => void
 }
 
-function ClashConfigUrlModal (props: ClashConfigUrlModalProps) {
+function SubscriptionUrlModal (props: SubscriptionUrlModalProps) {
   const { close } = props
   const { t } = useTranslation()
   const [destination, setDestination] = useState('')
@@ -56,4 +56,4 @@ function ClashConfigUrlModal (props: ClashConfigUrlModalProps) {
   )
 }
 
-export default ClashConfigUrlModal
+export default SubscriptionUrlModal
