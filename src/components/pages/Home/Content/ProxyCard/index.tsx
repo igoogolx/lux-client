@@ -73,13 +73,12 @@ export default function ProxyCard<T extends { id: string }> (
 
   const handleDeleteProxies = async () => {
     try {
-      dispatch(generalSlice.actions.setLoading({ loading: true }))
       const ids = data.map((item) => item.id)
       await deleteProxies({ ids: data.map((item) => item.id) })
       dispatch(proxiesSlice.actions.deleteMany({ ids }))
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS))
-    } finally {
-      dispatch(generalSlice.actions.setLoading({ loading: false }))
+    } catch (e) {
+      notifier.error(`fail to delete proxies, error:${e}`)
     }
   }
 
