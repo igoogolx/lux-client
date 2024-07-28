@@ -29,11 +29,30 @@ export const convertPluginOptsStr = (
   return plugin
 }
 
-export const decode = (url: string) => {
-  const serverUrls = url.split(/[\n\r ]/)
-  return serverUrls.map((serverUrl) => {
-    return parseUri(serverUrl)
-  })
+export const decode = (text: string) => {
+  const rawText = text.trim()
+  if (isClashYaml(rawText)) {
+    return parseYaml(rawText).proxies as Array<Omit<BaseProxy, 'id'>>
+  } else {
+    const names: string[] = []
+    let uris = ''
+    try {
+      uris = atob(rawText)
+    } catch {
+      uris = rawText
+    }
+    return uris
+      .trim()
+      .split('\n')
+      .map((uri) => {
+        const proxy = parseUri(uri.trim())
+        if (!names.includes(proxy.name)) {
+          names.push(proxy.name)
+          return proxy
+        }
+        return null
+      }).filter(Boolean) as Array<Omit<BaseProxy, 'id'>>
+  }
 }
 
 export const encode = (config: Shadowsocks) => {
@@ -71,27 +90,5 @@ export async function decodeFromUrl (url: string) {
   if (!res.data) {
     return []
   }
-  const rawText = res.data.trim()
-  if (isClashYaml(rawText)) {
-    return parseYaml(rawText).proxies as Array<Omit<BaseProxy, 'id'>>
-  } else {
-    const names: string[] = []
-    let uris = ''
-    try {
-      uris = atob(rawText)
-    } catch {
-      uris = rawText
-    }
-    return uris
-      .trim()
-      .split('\n')
-      .map((uri) => {
-        const proxy = parseUri(uri.trim())
-        if (!names.includes(proxy.name)) {
-          names.push(proxy.name)
-          return proxy
-        }
-        return null
-      }).filter(Boolean) as Array<Omit<BaseProxy, 'id'>>
-  }
+  return decode(res.data || '')
 }

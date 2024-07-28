@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { addProxy, type BaseProxy, ProxyTypeEnum } from 'lux-js-sdk'
+import { addProxy, ProxyTypeEnum } from 'lux-js-sdk'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { parse as parseYaml } from 'yaml'
 import {
   Button,
   Menu,
