@@ -23,8 +23,7 @@ enum OperationTypeEnum {
   Socks5,
   Clipboard,
   Http,
-  CLASH,
-  ClashUrl,
+  SubscriptionUrl,
 }
 
 interface AddingOptionsProps {
@@ -59,12 +58,8 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
       content: t(TRANSLATION_KEY.CLIPBOARD_IMPORT)
     },
     {
-      id: OperationTypeEnum.CLASH,
-      content: t(TRANSLATION_KEY.CLASH_IMPORT)
-    },
-    {
-      id: OperationTypeEnum.ClashUrl,
-      content: t(TRANSLATION_KEY.CLASH_URL_IMPORT)
+      id: OperationTypeEnum.SubscriptionUrl,
+      content: t(TRANSLATION_KEY.SUBSCRIPTION_URL_IMPORT)
     }
   ]
 
@@ -93,22 +88,7 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
         )
         break
       }
-      case OperationTypeEnum.CLASH: {
-        const clashConfigText = await navigator.clipboard.readText()
-        const clashConfig = parseYaml(clashConfigText) as {
-          proxies: BaseProxy[]
-        }
-        await Promise.all(
-          clashConfig.proxies.map(async (proxy) => {
-            const res = await addProxy({ proxy })
-            dispatch(
-              proxiesSlice.actions.addOne({ proxy: { ...proxy, id: res.id } })
-            )
-          })
-        )
-        break
-      }
-      case OperationTypeEnum.ClashUrl: {
+      case OperationTypeEnum.SubscriptionUrl: {
         setIsOpenSubscriptionUrlModal(true)
         break
       }

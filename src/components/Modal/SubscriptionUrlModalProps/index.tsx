@@ -48,7 +48,7 @@ function SubscriptionUrlModal (props: SubscriptionUrlModalProps) {
             setDestination(e.target.value.trim())
           }}
           className={styles.input}
-          placeholder={t(TRANSLATION_KEY.CLASH_URL)}
+          placeholder={t(TRANSLATION_KEY.SUBSCRIPTION_URL)}
           autoFocus
         />
       </div>

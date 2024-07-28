@@ -57,7 +57,7 @@ export default function ProxyCard<T extends { id: string }> (
   )
 
   const dispatch = useDispatch()
-  const handleUpdateClashProxies = async () => {
+  const handleUpdateSubscriptionProxies = async () => {
     try {
       dispatch(generalSlice.actions.setLoading({ loading: true }))
       const decodedProxies = await decodeFromUrl(url)
@@ -135,11 +135,11 @@ export default function ProxyCard<T extends { id: string }> (
                 )}
                 {url !== LOCAL_SERVERS && (
                   <Tooltip
-                    content={t(TRANSLATION_KEY.UPDATE_CLASH_PROXIES)}
+                    content={t(TRANSLATION_KEY.UPDATE_SUBSCRIPTION_PROXIES)}
                     relationship="description"
                   >
                     <Button
-                      onClick={handleUpdateClashProxies}
+                      onClick={handleUpdateSubscriptionProxies}
                       icon={<ArrowSyncRegular />}
                       className={styles.btn}
                       disabled={isStarted}

@@ -2,7 +2,7 @@ import {
   makeConfig,
   SIP002_URI
 } from 'shadowsocksconfig'
-import { getResFromUrl, type Shadowsocks } from 'lux-js-sdk'
+import { type BaseProxy, getResFromUrl, type Shadowsocks } from 'lux-js-sdk'
 import { parseUri } from 'proxy-uri-parser/src/index'
 import { parse as parseYaml } from 'yaml'
 
@@ -73,7 +73,7 @@ export async function decodeFromUrl (url: string) {
   }
   const rawText = res.data.trim()
   if (isClashYaml(rawText)) {
-    return parseYaml(rawText).proxies
+    return parseYaml(rawText).proxies as Array<Omit<BaseProxy, 'id'>>
   } else {
     const names: string[] = []
     let uris = ''
@@ -82,7 +82,7 @@ export async function decodeFromUrl (url: string) {
     } catch {
       uris = rawText
     }
-    uris
+    return uris
       .trim()
       .split('\n')
       .map((uri) => {
@@ -92,6 +92,6 @@ export async function decodeFromUrl (url: string) {
           return proxy
         }
         return null
-      }).filter(Boolean)
+      }).filter(Boolean) as Array<Omit<BaseProxy, 'id'>>
   }
 }
