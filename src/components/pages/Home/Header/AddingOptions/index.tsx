@@ -15,7 +15,7 @@ import { proxiesSlice } from '@/reducers'
 import { decode } from '@/utils/url'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { EditModal } from '../../../../Modal/Proxy'
-import SubscriptionUrlModal from '../../../../Modal/SubscriptionUrlModalProps'
+import SubscriptionUrlModal from '../../../../Modal/SubscriptionUrlModal'
 
 enum OperationTypeEnum {
   Shadowsocks,
