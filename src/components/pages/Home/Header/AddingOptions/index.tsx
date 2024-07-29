@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { addProxy, type BaseProxy, ProxyTypeEnum } from 'lux-js-sdk'
+import { addProxy, ProxyTypeEnum } from 'lux-js-sdk'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { parse as parseYaml } from 'yaml'
 import {
   Button,
   Menu,
@@ -13,18 +12,18 @@ import {
 } from '@fluentui/react-components'
 import { AddFilled } from '@fluentui/react-icons'
 import { proxiesSlice } from '@/reducers'
-import { decode } from '@/utils/url/shadowsocks'
+import { decode } from '@/utils/url'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { EditModal } from '../../../../Modal/Proxy'
-import ClashConfigUrlModal from '../../../../Modal/ClashConfigUrlModal'
+import SubscriptionUrlModal from '../../../../Modal/SubscriptionUrlModal'
+import { notifier } from '@/components/Core'
 
 enum OperationTypeEnum {
   Shadowsocks,
   Socks5,
   Clipboard,
   Http,
-  CLASH,
-  ClashUrl,
+  SubscriptionUrl,
 }
 
 interface AddingOptionsProps {
@@ -38,7 +37,7 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
     useState<ProxyTypeEnum | null>(null)
   const dispatch = useDispatch()
 
-  const [isOpenClashUrlModal, setIsOpenClashUrlModal] = useState(false)
+  const [isOpenSubscriptionUrlModal, setIsOpenSubscriptionUrlModal] = useState(false)
 
   const closeAddingModal = () => {
     setCurrentAddingType(null)
@@ -59,12 +58,8 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
       content: t(TRANSLATION_KEY.CLIPBOARD_IMPORT)
     },
     {
-      id: OperationTypeEnum.CLASH,
-      content: t(TRANSLATION_KEY.CLASH_IMPORT)
-    },
-    {
-      id: OperationTypeEnum.ClashUrl,
-      content: t(TRANSLATION_KEY.CLASH_URL_IMPORT)
+      id: OperationTypeEnum.SubscriptionUrl,
+      content: t(TRANSLATION_KEY.SUBSCRIPTION_URL_IMPORT)
     }
   ]
 
@@ -80,36 +75,25 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
         setCurrentAddingType(ProxyTypeEnum.Http)
         break
       case OperationTypeEnum.Clipboard: {
-        const url = await navigator.clipboard.readText()
-        const shadowsockses = decode(url)
-        await Promise.all(
-          shadowsockses.map(async (shadowsocks) => {
-            const proxy = { ...shadowsocks, type: ProxyTypeEnum.Shadowsocks }
-            const res = await addProxy({ proxy })
-            dispatch(
-              proxiesSlice.actions.addOne({ proxy: { ...proxy, id: res.id } })
-            )
-          })
-        )
-        break
-      }
-      case OperationTypeEnum.CLASH: {
-        const clashConfigText = await navigator.clipboard.readText()
-        const clashConfig = parseYaml(clashConfigText) as {
-          proxies: BaseProxy[]
+        try {
+          const url = await navigator.clipboard.readText()
+          const proxyConfigs = decode(url)
+          await Promise.all(
+            proxyConfigs.map(async (proxyConfig) => {
+              const proxy = { ...proxyConfig }
+              const res = await addProxy({ proxy })
+              dispatch(
+                proxiesSlice.actions.addOne({ proxy: { ...proxy, id: res.id } })
+              )
+            })
+          )
+        } catch (e) {
+          notifier.error(`fail to parse url, error:${e}`)
         }
-        await Promise.all(
-          clashConfig.proxies.map(async (proxy) => {
-            const res = await addProxy({ proxy })
-            dispatch(
-              proxiesSlice.actions.addOne({ proxy: { ...proxy, id: res.id } })
-            )
-          })
-        )
         break
       }
-      case OperationTypeEnum.ClashUrl: {
-        setIsOpenClashUrlModal(true)
+      case OperationTypeEnum.SubscriptionUrl: {
+        setIsOpenSubscriptionUrlModal(true)
         break
       }
       default: {
@@ -120,10 +104,10 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
 
   return (
     <div className={className}>
-      {isOpenClashUrlModal && (
-        <ClashConfigUrlModal
+      {isOpenSubscriptionUrlModal && (
+        <SubscriptionUrlModal
           close={() => {
-            setIsOpenClashUrlModal(false)
+            setIsOpenSubscriptionUrlModal(false)
           }}
         />
       )}

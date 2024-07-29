@@ -1,9 +1,5 @@
-import { BaseProxy } from "./base";
+import { type CommonProxy } from './base'
+import { type IProxySocks5Config } from 'proxy-uri-parser/src'
 
-export interface Socks5 extends BaseProxy {
-  username?: string;
-  password?: string;
-  tls?: boolean;
-  udp?: boolean;
-  "skip-cert-verify"?: boolean;
+export interface Socks5 extends IProxySocks5Config, CommonProxy {
 }
