@@ -16,6 +16,7 @@ import { decode } from '@/utils/url'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { EditModal } from '../../../../Modal/Proxy'
 import SubscriptionUrlModal from '../../../../Modal/SubscriptionUrlModal'
+import { notifier } from '@/components/Core'
 
 enum OperationTypeEnum {
   Shadowsocks,
@@ -74,17 +75,21 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
         setCurrentAddingType(ProxyTypeEnum.Http)
         break
       case OperationTypeEnum.Clipboard: {
-        const url = await navigator.clipboard.readText()
-        const proxyConfigs = decode(url)
-        await Promise.all(
-          proxyConfigs.map(async (proxyConfig) => {
-            const proxy = { ...proxyConfig }
-            const res = await addProxy({ proxy })
-            dispatch(
-              proxiesSlice.actions.addOne({ proxy: { ...proxy, id: res.id } })
-            )
-          })
-        )
+        try {
+          const url = await navigator.clipboard.readText()
+          const proxyConfigs = decode(url)
+          await Promise.all(
+            proxyConfigs.map(async (proxyConfig) => {
+              const proxy = { ...proxyConfig }
+              const res = await addProxy({ proxy })
+              dispatch(
+                proxiesSlice.actions.addOne({ proxy: { ...proxy, id: res.id } })
+              )
+            })
+          )
+        } catch (e) {
+          notifier.error(`fail to parse url, error:${e}`)
+        }
         break
       }
       case OperationTypeEnum.SubscriptionUrl: {
