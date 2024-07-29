@@ -31,6 +31,9 @@ export const convertPluginOptsStr = (
 
 export const decode = (text: string) => {
   const rawText = text.trim()
+  if (rawText.length === 0) {
+    return []
+  }
   if (isClashYaml(rawText)) {
     return parseYaml(rawText).proxies as Array<Omit<BaseProxy, 'id'>>
   } else {
