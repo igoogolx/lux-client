@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getIsAdmin, getStatus, ping, subscribeLog } from 'lux-js-sdk'
 import axios from 'axios'
-import i18next from 'i18next'
 import { makeStyles } from '@fluentui/react-components'
 import { tokens } from '@fluentui/react-theme'
 import classNames from 'classnames'
@@ -12,7 +11,6 @@ import { Nav } from '@/components/Nav'
 import { NotificationContainer, notifier } from '@/components/Core'
 import { generalSlice, loggerSlice, managerSlice, type RootState } from '@/reducers'
 import { ElevateModal } from '@/components/Modal/ElevateModal'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { Header } from '@/components/Header'
 import { APP_CONTAINER_ID, ROUTER_PATH } from '@/utils/constants'
 import Splash from '@/components/Splash'
@@ -26,12 +24,13 @@ import Home from '../components/pages/Home'
 import Data from '@/components/pages/Data'
 import Rules from '@/components/pages/Rules'
 import { useCheckForUpdate } from '@/hooks'
+import { formatError } from '@/utils/error'
 
 axios.interceptors.response.use(
   (res) => res,
   async (error) => {
     notifier.error(
-      error.response?.data?.message || i18next.t(TRANSLATION_KEY.UNKNOWN_ERROR)
+      formatError(error)
     )
     return await Promise.reject(error)
   }
