@@ -173,6 +173,7 @@ export default function Connections (): React.ReactNode {
                         <Tooltip
                             content={fullRule}
                             relationship="description"
+                            positioning={'above-start'}
                         >
                             <span>
                             <Highlighter
@@ -209,6 +210,7 @@ export default function Connections (): React.ReactNode {
                         <Tooltip
                             content={item.process}
                             relationship="description"
+                            positioning={'above-start'}
                         >
                             <span>
                             <Highlighter
