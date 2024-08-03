@@ -1,9 +1,5 @@
-import { BaseProxy } from "./base";
+import type { IProxyHttpConfig } from 'proxy-uri-parser/src'
+import { type CommonProxy } from './base'
 
-export interface Http extends BaseProxy {
-  username?: string;
-  password?: string;
-  tls?: boolean;
-  sni?: string;
-  "skip-cert-verify"?: boolean;
+export interface Http extends IProxyHttpConfig, CommonProxy {
 }

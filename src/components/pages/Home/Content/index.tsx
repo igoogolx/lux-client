@@ -3,7 +3,6 @@ import { useEffect, useMemo, useRef } from 'react'
 import {
   type BaseProxy,
   getProxies,
-  type Proxy,
   type SettingRes,
   updateSelectedProxyId
 } from 'lux-js-sdk'
@@ -31,8 +30,8 @@ export function Content (): React.ReactNode {
   const proxyMap = useMemo(() => {
     const res: Record<string, BaseProxy[]> = {}
     proxies.forEach((proxy) => {
-      if (proxy.clashYamlUrl) {
-        res[proxy.clashYamlUrl] = [...(res[proxy.clashYamlUrl] || []), proxy]
+      if (proxy.subscriptionUrl) {
+        res[proxy.subscriptionUrl] = [...(res[proxy.subscriptionUrl] || []), proxy]
       } else {
         res[LOCAL_SERVERS] = [...(res[LOCAL_SERVERS] || []), proxy]
       }
@@ -51,8 +50,8 @@ export function Content (): React.ReactNode {
     })
   }, [dispatch])
 
-  const columns: Array<TableColumnDefinition<Proxy>> = [
-    createTableColumn<Proxy>({
+  const columns: Array<TableColumnDefinition<BaseProxy>> = [
+    createTableColumn<BaseProxy>({
       columnId: 'name',
       renderHeaderCell: () => {
         return ''
@@ -70,7 +69,7 @@ export function Content (): React.ReactNode {
         )
       }
     }),
-    createTableColumn<Proxy>({
+    createTableColumn<BaseProxy>({
       columnId: 'action',
       renderHeaderCell: () => {
         return ''

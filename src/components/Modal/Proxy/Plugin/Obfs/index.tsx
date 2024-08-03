@@ -9,7 +9,7 @@ import styles from './index.module.css'
 
 interface EditObfsProps {
   close: () => void
-  initialValue: Obfs
+  initialValue: NonNullable<Obfs>
   onChange: (data: Obfs) => void
 }
 

@@ -29,7 +29,7 @@ import { proxiesSlice, type RootState, selectedSlice } from '@/reducers'
 import { useDangerStyles, useTestDelay } from '@/hooks'
 
 import { EditModal } from '@/components/Modal/Proxy'
-import { encode } from '@/utils/url/shadowsocks'
+import { encode } from '@/utils/url'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { QrCodeModal } from '@/components/Modal/QrCodeModal'
 import { useTestUdp } from '@/utils/testUdp'
@@ -91,7 +91,7 @@ export function Operation (props: OperationProps): React.ReactNode {
     ]
     if (
       ![
-        ProxyTypeEnum.Shadowsocks,
+        ProxyTypeEnum.Shadowsocks as BaseProxy['type'],
         ProxyTypeEnum.Http,
         ProxyTypeEnum.Socks5
       ].includes(proxy.type)

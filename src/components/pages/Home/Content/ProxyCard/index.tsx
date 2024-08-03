@@ -22,10 +22,11 @@ import {
 } from '@fluentui/react-icons'
 import { useTranslation } from 'react-i18next'
 import { generalSlice, proxiesSlice, type RootState } from '@/reducers'
-import { addProxiesFromClashUrlConfig, deleteProxies } from 'lux-js-sdk'
+import { addProxiesFromSubscriptionUrl, deleteProxies } from 'lux-js-sdk'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDangerStyles } from '@/hooks'
 import styles from './index.module.css'
+import { decodeFromUrl } from '@/utils/url'
 
 export interface ProxyCardProps<T> {
   url: string
@@ -56,12 +57,15 @@ export default function ProxyCard<T extends { id: string }> (
   )
 
   const dispatch = useDispatch()
-  const handleUpdateClashProxies = async () => {
+  const handleUpdateSubscriptionProxies = async () => {
     try {
       dispatch(generalSlice.actions.setLoading({ loading: true }))
-      const res = await addProxiesFromClashUrlConfig({ url })
-      dispatch(proxiesSlice.actions.received(res))
+      const decodedProxies = await decodeFromUrl(url)
+      const res = await addProxiesFromSubscriptionUrl({ proxies: decodedProxies, subscriptionUrl: url })
+      dispatch(proxiesSlice.actions.received({ proxies: res.proxies }))
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS))
+    } catch (e) {
+      notifier.error(`fail to update proxies, error:${e}`)
     } finally {
       dispatch(generalSlice.actions.setLoading({ loading: false }))
     }
@@ -69,13 +73,12 @@ export default function ProxyCard<T extends { id: string }> (
 
   const handleDeleteProxies = async () => {
     try {
-      dispatch(generalSlice.actions.setLoading({ loading: true }))
       const ids = data.map((item) => item.id)
       await deleteProxies({ ids: data.map((item) => item.id) })
       dispatch(proxiesSlice.actions.deleteMany({ ids }))
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS))
-    } finally {
-      dispatch(generalSlice.actions.setLoading({ loading: false }))
+    } catch (e) {
+      notifier.error(`fail to delete proxies, error:${e}`)
     }
   }
 
@@ -131,11 +134,11 @@ export default function ProxyCard<T extends { id: string }> (
                 )}
                 {url !== LOCAL_SERVERS && (
                   <Tooltip
-                    content={t(TRANSLATION_KEY.UPDATE_CLASH_PROXIES)}
+                    content={t(TRANSLATION_KEY.UPDATE_SUBSCRIPTION_PROXIES)}
                     relationship="description"
                   >
                     <Button
-                      onClick={handleUpdateClashProxies}
+                      onClick={handleUpdateSubscriptionProxies}
                       icon={<ArrowSyncRegular />}
                       className={styles.btn}
                       disabled={isStarted}

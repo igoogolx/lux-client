@@ -1,12 +1,7 @@
-import { type Shadowsocks } from './shadowsocks'
-import { type Socks5 } from './socks5'
-import { type Http } from './http'
 import { type BaseProxy } from './base'
 
-export type Proxy = Shadowsocks | Socks5 | Http
-
 export interface GetProxiesRes {
-  proxies: Proxy[]
+  proxies: BaseProxy[]
   selectedId: string
 }
 export type GetProxies = () => Promise<GetProxiesRes>
@@ -19,23 +14,24 @@ export interface GetCurProxyRes {
 export type GetCurProxy = () => Promise<GetCurProxyRes>
 
 interface GetUpdateProxyReq {
-  proxy: Proxy
+  proxy: BaseProxy
   id: string
 }
 export type UpdateProxy = (req: GetUpdateProxyReq) => Promise<void>
 
 interface AddProxyReq {
-  proxy: Omit<Proxy, 'id' | 'region'>
+  proxy: Omit<BaseProxy, 'id' | 'region'>
 }
 
 export type AddProxy = (req: AddProxyReq) => Promise<{ id: string }>
 
-interface AddProxiesFromClashConfigUrlReq {
-  url: string
+interface addProxiesFromSubscriptionUrlReq {
+  proxies: Array<Omit<BaseProxy, 'id'>>
+  subscriptionUrl: string
 }
 
-export type AddProxiesFromClashConfigUrl = (
-  req: AddProxiesFromClashConfigUrlReq
+export type AddProxiesFromSubscriptionUrl = (
+  req: addProxiesFromSubscriptionUrlReq
 ) => Promise<{ proxies: BaseProxy[] }>
 
 interface DeleteProxiesReq {
@@ -65,3 +61,10 @@ interface TestProxyUpdReq {
 export type TestProxyUdp = (
   req: TestProxyUpdReq
 ) => Promise<{ result: boolean }>
+
+interface GetResFromUrlReq {
+  url: string
+}
+export type GetResFromUrl = (
+  req: GetResFromUrlReq
+) => Promise<{ data: string }>

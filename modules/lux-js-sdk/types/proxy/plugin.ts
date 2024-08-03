@@ -1,23 +1,15 @@
+import { type IProxyShadowsocksConfig } from 'proxy-uri-parser/src/index'
+
 export enum ObfsModeEnum {
-  Tls = "tls",
-  Http = "http",
+  Tls = 'tls',
+  Http = 'http',
 }
 
 export enum PluginTypeEnum {
-  Obfs = "obfs",
-  V2ray = "v2ray-plugin",
+  Obfs = 'obfs',
+  V2ray = 'v2ray-plugin',
 }
 
-export type Obfs = {
-  mode: ObfsModeEnum;
-  host: string;
-};
+export type Obfs = IProxyShadowsocksConfig['plugin-opts']
 
-export type V2rayObfs = {
-  mode: "websocket";
-  host: string;
-  port: string;
-  path: string;
-  tls: boolean;
-  skipCertVerify: boolean;
-};
+export type V2rayObfs = IProxyShadowsocksConfig['plugin-opts']

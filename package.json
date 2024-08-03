@@ -1,6 +1,6 @@
 {
   "name": "lux",
-  "version": "0.19.6",
+  "version": "1.0.0",
   "description": "A system network proxy tool",
   "main": "src/index.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "formik": "^2.4.5",
     "i18next": "^23.7.6",
     "isomorphic-ws": "^5.0.0",
+    "proxy-uri-parser": "https://github.com/igoogolx/proxy-uri-parser.git#v0.2.0",
     "qrcode": "^1.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

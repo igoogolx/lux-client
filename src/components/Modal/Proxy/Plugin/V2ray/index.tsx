@@ -9,7 +9,7 @@ import styles from './index.module.css'
 
 interface EditV2rayProps {
   close: () => void
-  initialValue: V2rayObfs
+  initialValue: NonNullable<V2rayObfs>
   onChange: (data: V2rayObfs) => void
 }
 
