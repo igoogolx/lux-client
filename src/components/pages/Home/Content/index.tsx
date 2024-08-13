@@ -114,7 +114,9 @@ export function Content (): React.ReactNode {
   const listRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (listRef.current && proxies.length > preProxiesLength.current) {
+    if (listRef.current &&
+        preProxiesLength.current !== 0 &&
+        proxies.length > preProxiesLength.current) {
       listRef.current.scrollTop = listRef.current.scrollHeight
     }
     preProxiesLength.current = proxies.length
