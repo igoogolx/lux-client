@@ -130,6 +130,10 @@ export const useCheckForUpdate = (force = false) => {
     try {
       loading.current = true
       checkedResult = await checkForUpdate()
+    } catch (e) {
+      if (force) {
+        notifier.error(t(TRANSLATION_KEY.CHECK_UPDATE_ERROR))
+      }
     } finally {
       loading.current = false
     }

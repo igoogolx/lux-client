@@ -15,7 +15,7 @@ export default async function checkForUpdate (): Promise<boolean> {
   if (!currenVersion) {
     return false
   }
-  const res = await axios.get(
+  const res = await axios.create().get(
     'https://api.github.com/repos/igoogolx/lux/releases/latest'
   )
   const latestVersion = getVersionFromTag(res.data.tag_name as string)
