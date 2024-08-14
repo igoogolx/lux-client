@@ -181,5 +181,6 @@ export default {
   [TRANSLATION_KEY.DNS_OPTION_TITLE]: 'Customized Dns Options',
   [TRANSLATION_KEY.DNS_OPTION_DESC]: 'Add your dns options',
   [TRANSLATION_KEY.INVALID_DNS_PREFIX]: 'Must start with ',
-  [TRANSLATION_KEY.CHECK_UPDATE_ERROR]: 'Failed to check for updates'
+  [TRANSLATION_KEY.CHECK_UPDATE_ERROR]: 'Failed to check for updates',
+  [TRANSLATION_KEY.NO_NEW_VERSION]: 'Lux is up to date'
 }
