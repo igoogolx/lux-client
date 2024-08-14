@@ -130,6 +130,10 @@ export const useCheckForUpdate = (force = false) => {
     try {
       loading.current = true
       checkedResult = await checkForUpdate()
+    } catch (e) {
+      if (force) {
+        notifier.error(t(TRANSLATION_KEY.CHECK_UPDATE_ERROR))
+      }
     } finally {
       loading.current = false
     }
@@ -143,6 +147,10 @@ export const useCheckForUpdate = (force = false) => {
           window.open(LATEST_RELEASE_URL)
         }
       }])
+    } else {
+      if (force) {
+        notifier.success(t(TRANSLATION_KEY.NO_NEW_VERSION))
+      }
     }
   }, [force, t])
 }
