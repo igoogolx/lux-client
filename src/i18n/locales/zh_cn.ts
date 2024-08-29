@@ -173,5 +173,6 @@ export default {
   [TRANSLATION_KEY.DNS_OPTION_DESC]: '添加你的 dns 选项',
   [TRANSLATION_KEY.INVALID_DNS_PREFIX]: '必须以以下规则开头:',
   [TRANSLATION_KEY.CHECK_UPDATE_ERROR]: '检查更新失败',
-  [TRANSLATION_KEY.NO_NEW_VERSION]: '当前已是最新版本'
+  [TRANSLATION_KEY.NO_NEW_VERSION]: '当前已是最新版本',
+  [TRANSLATION_KEY.DNS_SERVER_NUM_MSG]: '本地 Dns 或者远程 Dns 有两个以上的服务器配置，可能导致网络缓慢'
 }

@@ -163,5 +163,6 @@ export const TRANSLATION_KEY = {
   DNS_OPTION_DESC: 'common.dns_option_desc',
   INVALID_DNS_PREFIX: 'notification.invalid_dns_prefix',
   CHECK_UPDATE_ERROR: 'notification.check_update_error',
-  NO_NEW_VERSION: 'notification.no_new_version'
+  NO_NEW_VERSION: 'notification.no_new_version',
+  DNS_SERVER_NUM_MSG: 'dns_server_num_msg'
 }

@@ -182,5 +182,6 @@ export default {
   [TRANSLATION_KEY.DNS_OPTION_DESC]: 'Add your dns options',
   [TRANSLATION_KEY.INVALID_DNS_PREFIX]: 'Must start with ',
   [TRANSLATION_KEY.CHECK_UPDATE_ERROR]: 'Failed to check for updates',
-  [TRANSLATION_KEY.NO_NEW_VERSION]: 'Lux is up to date'
+  [TRANSLATION_KEY.NO_NEW_VERSION]: 'Lux is up to date',
+  [TRANSLATION_KEY.DNS_SERVER_NUM_MSG]: 'Local Dns or Remote Dns has more than two servers in setting, which may cause the network to be slow.'
 }

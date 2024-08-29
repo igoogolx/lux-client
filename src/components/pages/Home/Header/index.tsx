@@ -66,6 +66,9 @@ export function Header (): React.ReactNode {
     }
     return false
   })
+  const isDnsSettingValid = useSelector<RootState, boolean>((state) => {
+    return state.setting.dns.server.remote.length <= 2 && state.setting.dns.server.local.length <= 2
+  })
   const dispatch = useDispatch()
   const rules = useSelector(rulesSelectors.selectAll)
   const selectedRuleId = useSelector<RootState, string>(
@@ -132,6 +135,9 @@ export function Header (): React.ReactNode {
         const latestProxy = await getCurProxy()
         if (isLocalAddr(latestProxy.addr)) {
           notifier.warn(t(TRANSLATION_KEY.PROXY_SERVER_MSG))
+        }
+        if (!isDnsSettingValid) {
+          notifier.warn(t(TRANSLATION_KEY.DNS_SERVER_NUM_MSG))
         }
       }
     } catch (e) {
