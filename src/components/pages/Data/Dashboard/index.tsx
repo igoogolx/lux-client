@@ -70,6 +70,7 @@ export default function Dashboard (): React.ReactNode {
     })
     return () => {
       speedClient.close()
+      totalClient.close()
     }
   }, [dispatch])
 
