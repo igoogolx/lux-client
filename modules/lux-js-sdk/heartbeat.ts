@@ -1,31 +1,30 @@
-import { type SubscribeNowTraffic, type SubscribeTotalTraffic } from './types'
+import { type SubscribePing, type SubscribeRuntimeStatus } from './types'
 import { urtConfig } from './url'
 import { createWebsocket } from './websocket'
 
-export const subscribeNowTraffic: SubscribeNowTraffic = (config) => {
+export const subscribePing: SubscribePing = (config) => {
   const { onError, onClose, onMessage } = config
-  const url = `${urtConfig.traffic}/now`
+  const url = `${urtConfig.heartbeat}/ping`
   return createWebsocket(url, {
     onError,
     onMessage: (data) => {
       if (typeof data === 'string') {
-        const traffic = JSON.parse(data)
-        onMessage(traffic)
+        onMessage(data)
       }
     },
     onClose
   })
 }
 
-export const subscribeTotalTraffic: SubscribeTotalTraffic = (config) => {
+export const subscribeRuntimeStatus: SubscribeRuntimeStatus = (config) => {
   const { onError, onClose, onMessage } = config
-  const url = `${urtConfig.traffic}/total`
+  const url = `${urtConfig.heartbeat}/runtime-status`
   return createWebsocket(url, {
     onError,
     onMessage: (data) => {
       if (typeof data === 'string') {
-        const traffic = JSON.parse(data)
-        onMessage(traffic)
+        const runtimeStatus = JSON.parse(data)
+        onMessage(runtimeStatus)
       }
     },
     onClose

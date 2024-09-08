@@ -1,12 +1,11 @@
 import * as React from 'react'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   getCurProxy,
   type GetCurProxyRes,
   getRules,
-  getStatus,
   start,
-  stop,
+  stop, subscribeRuntimeStatus,
   updateSelectedRuleId
 } from 'lux-js-sdk'
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,8 +35,6 @@ import { Operation } from './Operation'
 import { AddingOptions } from './AddingOptions'
 import styles from './index.module.css'
 import { useMedia } from '@/hooks'
-
-const TIMER_INTERVAL = 1000
 
 export function Header (): React.ReactNode {
   const { t } = useTranslation()
@@ -77,29 +74,26 @@ export function Header (): React.ReactNode {
 
   const [tooltipVisible, setTooltipVisible] = useState(false)
 
-  const timer = useRef<ReturnType<typeof setInterval> | null>(null)
-
   useEffect(() => {
     getRules().then((res) => {
       dispatch(rulesSlice.actions.received(res))
       dispatch(selectedSlice.actions.setRule({ id: res.selectedId }))
     })
 
-    timer.current = setInterval(async () => {
-      if (!isSwitchLoading) {
-        const status = await getStatus()
+    const runtimeStatusSubscriber = subscribeRuntimeStatus({
+      onMessage: (msg) => {
+        setCurProxy({
+          name: msg.name,
+          addr: msg.addr
+        })
         dispatch(
-          managerSlice.actions.setIsStarted({ isStarted: status.isStarted })
+          managerSlice.actions.setIsStarted({ isStarted: msg.isStarted })
         )
+      },
+      onError: () => {
+        runtimeStatusSubscriber.close()
       }
-      const latestProxy = await getCurProxy()
-      setCurProxy(latestProxy)
-    }, TIMER_INTERVAL)
-    return () => {
-      if (timer.current) {
-        clearInterval(timer.current)
-      }
-    }
+    })
   }, [dispatch, isSwitchLoading])
 
   const selectRule = useCallback(
