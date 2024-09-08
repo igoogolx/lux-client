@@ -5,7 +5,7 @@ class UrlConfig {
 
   private readonly httpPrefix = 'http://'
 
-  get base (newUrl: string) {
+  get base () {
     return this.baseUrl
   }
 
@@ -33,8 +33,8 @@ class UrlConfig {
     return `${this.wsPrefix}${this.baseUrl}/log`
   }
 
-  get ping () {
-    return `${this.httpPrefix}${this.baseUrl}/heartbeat/ping`
+  get heartbeat () {
+    return `${this.httpPrefix}${this.baseUrl}/heartbeat`
   }
 
   get logHttp () {
