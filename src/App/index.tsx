@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getIsAdmin, getStatus, ping, subscribeLog } from 'lux-js-sdk'
+import { getIsAdmin, getStatus, subscribeLog, subscribePing } from 'lux-js-sdk'
 import axios from 'axios'
 import { makeStyles } from '@fluentui/react-components'
 import { tokens } from '@fluentui/react-theme'
@@ -36,8 +36,6 @@ axios.interceptors.response.use(
   }
 )
 
-const PING_TIMEOUT = 1000
-
 const useStyles = makeStyles({
   nav: {
     backgroundColor: tokens.colorNeutralBackground1
@@ -54,7 +52,6 @@ export function App (): React.ReactNode {
   const loading = useSelector<RootState, boolean>(
     (state) => state.general.loading
   )
-  const timer = useRef<null | ReturnType<typeof setInterval>>(null)
 
   const [isNavOpen, setIsNavOpen] = useState(false)
 
@@ -71,30 +68,30 @@ export function App (): React.ReactNode {
   useEffect(() => {
     console.log('init!')
     checkForUpdate()
-    timer.current = setInterval(async () => {
-      try {
-        await ping()
-        setConnected(true)
-      } catch (e) {
-        setConnected(false)
-      }
-    }, PING_TIMEOUT)
     const logSubscriber = subscribeLog({
       onMessage: (logs) => {
         logs.forEach(log => {
           dispatch(loggerSlice.actions.pushLog(log))
         })
+      },
+      onError: () => {
+        logSubscriber.close()
+      }
+    })
+    const pingSubscriber = subscribePing({
+      onMessage: (item) => {
+        if (item === 'pong') {
+          setConnected(true)
+        }
+      },
+      onError: () => {
+        pingSubscriber.close()
+        setConnected(false)
       }
     })
     getIsAdmin().then((res) => {
       dispatch(generalSlice.actions.setIsAdmin({ isAdmin: res.isAdmin }))
     })
-    return () => {
-      logSubscriber.close()
-      if (timer.current) {
-        clearInterval(timer.current)
-      }
-    }
   }, [dispatch, checkForUpdate])
   return !connected
     ? (

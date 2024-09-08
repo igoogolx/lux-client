@@ -1,69 +1,73 @@
 class UrlConfig {
-  private baseUrl = typeof window !== "undefined" ? window.location.host : "";
+  private baseUrl = typeof window !== 'undefined' ? window.location.host : ''
 
-  private wsPrefix = "ws://";
+  private readonly wsPrefix = 'ws://'
 
-  private httpPrefix = "http://";
+  private readonly httpPrefix = 'http://'
 
-  set base(newUrl: string) {
-    this.baseUrl = newUrl;
+  get base (newUrl: string) {
+    return this.baseUrl
   }
 
-  get proxies() {
-    return `${this.httpPrefix}${this.baseUrl}/proxies`;
+  set base (newUrl: string) {
+    this.baseUrl = newUrl
   }
 
-  get rule() {
-    return `${this.httpPrefix}${this.baseUrl}/rules`;
+  get proxies () {
+    return `${this.httpPrefix}${this.baseUrl}/proxies`
   }
 
-  get selected() {
-    return `${this.httpPrefix}${this.baseUrl}/selected`;
+  get rule () {
+    return `${this.httpPrefix}${this.baseUrl}/rules`
   }
 
-  get traffic() {
-    return `${this.wsPrefix}${this.baseUrl}/traffic`;
+  get selected () {
+    return `${this.httpPrefix}${this.baseUrl}/selected`
   }
 
-  get log() {
-    return `${this.wsPrefix}${this.baseUrl}/log`;
+  get traffic () {
+    return `${this.wsPrefix}${this.baseUrl}/traffic`
   }
 
-  get ping() {
-    return `${this.httpPrefix}${this.baseUrl}/ping`;
+  get log () {
+    return `${this.wsPrefix}${this.baseUrl}/log`
   }
 
-  get logHttp() {
-    return `${this.httpPrefix}${this.baseUrl}/log`;
+  get ping () {
+    return `${this.httpPrefix}${this.baseUrl}/heartbeat/ping`
   }
 
-  get wsConnection() {
-    return `${this.wsPrefix}${this.baseUrl}/connection`;
+  get logHttp () {
+    return `${this.httpPrefix}${this.baseUrl}/log`
   }
 
-  get connection() {
-    return `${this.httpPrefix}${this.baseUrl}/connection`;
+  get wsConnection () {
+    return `${this.wsPrefix}${this.baseUrl}/connection`
   }
 
-  get manager() {
-    return `${this.httpPrefix}${this.baseUrl}/manager`;
+  get connection () {
+    return `${this.httpPrefix}${this.baseUrl}/connection`
   }
 
-  get setting() {
-    return `${this.httpPrefix}${this.baseUrl}/setting`;
+  get manager () {
+    return `${this.httpPrefix}${this.baseUrl}/manager`
   }
 
-  get version() {
-    return `${this.httpPrefix}${this.baseUrl}/version`;
+  get setting () {
+    return `${this.httpPrefix}${this.baseUrl}/setting`
   }
 
-  get isAdmin() {
-    return `${this.httpPrefix}${this.baseUrl}/is-admin`;
+  get version () {
+    return `${this.httpPrefix}${this.baseUrl}/version`
   }
 
-  get runtimeDetail() {
-    return `${this.httpPrefix}${this.baseUrl}/runtime-detail`;
+  get isAdmin () {
+    return `${this.httpPrefix}${this.baseUrl}/is-admin`
+  }
+
+  get runtimeDetail () {
+    return `${this.httpPrefix}${this.baseUrl}/runtime-detail`
   }
 }
 
-export const urtConfig = new UrlConfig();
+export const urtConfig = new UrlConfig()

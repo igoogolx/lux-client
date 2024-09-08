@@ -1,8 +1,17 @@
-import axios from "axios";
-import { Ping } from "./types";
-import { urtConfig } from "./url";
+import { type SubscribePing } from './types'
+import { urtConfig } from './url'
+import { createWebsocket } from './websocket'
 
-export const ping: Ping = async () => {
-  const url = urtConfig.ping;
-  await axios.get(url);
-};
+export const subscribePing: SubscribePing = (config) => {
+  const { onError, onClose, onMessage } = config
+  const url = urtConfig.ping
+  return createWebsocket(url, {
+    onError,
+    onMessage: (data) => {
+      if (typeof data === 'string') {
+        onMessage(data)
+      }
+    },
+    onClose
+  })
+}
