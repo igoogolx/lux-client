@@ -8,6 +8,7 @@ import styles from './index.module.css'
 
 interface FieldSelectorProps<T extends string> {
   name: T
+  className?: string
   label: string
   items: MenuItemProps[]
   clearable?: boolean
@@ -27,7 +28,8 @@ export function FiledSelector<T extends string> (
     clearable = false,
     editable = false,
     onEditClick,
-    value
+    value,
+    className
   } = props
   const [field, meta, helpers] = useField({ name })
   const { setValue } = helpers
@@ -42,6 +44,7 @@ export function FiledSelector<T extends string> (
     <Field
       label={label}
       validationMessage={meta.touched && meta.error ? meta.error : null}
+      className={className}
     >
       <div className={styles.container}>
         <Dropdown
@@ -66,7 +69,7 @@ export function FiledSelector<T extends string> (
             </Option>
           ))}
         </Dropdown>
-        {editable && <Button icon={<EditRegular />} onClick={onEditClick} />}
+        {editable && <Button icon={<EditRegular />} onClick={onEditClick} className={styles.right} />}
       </div>
     </Field>
   )

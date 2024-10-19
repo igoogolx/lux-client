@@ -1,7 +1,11 @@
 .container {
   @apply flex flex-row;
 
-  & .left {
-    @apply mr-2;
+  & .left{
+    @apply w-full;
+  }
+
+  & .right{
+    @apply ml-2;
   }
 }

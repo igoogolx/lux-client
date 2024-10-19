@@ -6,6 +6,7 @@ import { Field, FiledSelector, Form, Modal } from '@/components/Core'
 import { RuleSchema } from '@/components/Modal/Proxy/EditShadowsocksModal/validate'
 import { useSelector } from 'react-redux'
 import type { RootState } from '@/reducers'
+import styles from './index.module.css'
 
 interface AddRuleModalProps {
   close: () => void
@@ -85,17 +86,21 @@ export function AddRuleModal (props: AddRuleModalProps) {
       {({ submitForm }) => {
         return (
           <Modal close={close} onOk={submitForm}>
-            <FiledSelector
-              name="ruleType"
-              label={t(TRANSLATION_KEY.TYPE)}
-              items={ruleItems}
-            />
-            <FiledSelector
-              name="policy"
-              label={t(TRANSLATION_KEY.POLICY)}
-              items={POLICY_OPTIONS}
-            />
-            <Field name="payload" label={t(TRANSLATION_KEY.PAYLOAD)} />
+            <div className={styles.container}>
+              <FiledSelector
+                  name="ruleType"
+                  label={t(TRANSLATION_KEY.TYPE)}
+                  items={ruleItems}
+                  className={styles.item}
+              />
+              <FiledSelector
+                  name="policy"
+                  label={t(TRANSLATION_KEY.POLICY)}
+                  items={POLICY_OPTIONS}
+                  className={styles.item}
+              />
+              <Field name="payload" label={t(TRANSLATION_KEY.PAYLOAD)}/>
+            </div>
           </Modal>
         )
       }}

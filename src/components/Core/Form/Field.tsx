@@ -13,15 +13,17 @@ export interface FieldProps<T extends string> {
   type?: InputProps['type']
   adornment?: InputProps['contentBefore']
   disabled?: boolean
+  className?: string
 }
 
 export function Field<T extends string> (props: FieldProps<T>) {
-  const { name, label, validate, type, adornment, disabled = false } = props
+  const { name, label, validate, type, adornment, disabled = false, className } = props
   const [field, meta] = useField({ name, validate })
   return (
     <FluentInput
       label={label}
       validationMessage={meta.error ? meta.error : null}
+      className={className}
     >
       <Input
         {...field}
