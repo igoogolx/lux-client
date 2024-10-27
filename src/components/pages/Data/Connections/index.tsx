@@ -154,7 +154,7 @@ export default function Connections (): React.ReactNode {
               <Highlighter
                 searchWords={[searchedValue]}
                 autoEscape
-                textToHighlight={item.domain}
+                textToHighlight={item.domain === 'unknown' ? '' : item.domain}
               />
             </TableCellLayout>
           )
@@ -199,42 +199,13 @@ export default function Connections (): React.ReactNode {
       }),
       shouldShowProcess
         ? createTableColumn<Connection>({
-          columnId: 'processPath',
+          columnId: 'process',
           renderHeaderCell: () => {
             return t(TRANSLATION_KEY.PROCESS)
           },
           renderCell: (item) => {
             return (
-                <TableCellLayout truncate>
-                    <ClickToCopy value={item.process}>
-                        <Tooltip
-                            content={item.process}
-                            relationship="description"
-                            positioning={'above-start'}
-                        >
-                            <span>
-                            <Highlighter
-                                searchWords={[searchedValue]}
-                                autoEscape
-                                textToHighlight={item.process}
-                            />
-                            </span>
-                        </Tooltip>
 
-                    </ClickToCopy>
-                </TableCellLayout>
-            )
-          }
-        })
-        : null,
-      shouldShowProcess
-        ? createTableColumn<Connection>({
-          columnId: 'process',
-          renderHeaderCell: () => {
-            return ''
-          },
-          renderCell: (item) => {
-            return (
                 <ProcessCell
                   process={item.process}
                   os={os}
@@ -325,21 +296,29 @@ export default function Connections (): React.ReactNode {
 
   const columnSizingOptions = useMemo(() => {
     return {
-      processPath: {
-        minWidth: 256,
-        defaultWidth: 256
+      process: {
+        minWidth: 360,
+        defaultWidth: 360
       },
       fullRule: {
         minWidth: 256,
         defaultWidth: 256
       },
       rule: {
-        minWidth: 64,
-        defaultWidth: 64
+        minWidth: 96,
+        defaultWidth: 96
       },
       network: {
         minWidth: 64,
         defaultWidth: 64
+      },
+      destination: {
+        minWidth: 200,
+        defaultWidth: 200
+      },
+      domain: {
+        minWidth: 320,
+        defaultWidth: 320
       },
       data: {
         minWidth: 64,
@@ -373,14 +352,18 @@ export default function Connections (): React.ReactNode {
           </Tooltip>
         </div>
       </div>
-      <Table
-        columnSizingOptions={columnSizingOptions}
-        resizableColumns
-        columns={columns}
-        data={data}
-        defaultSortState={defaultSortState}
-        sortable
-      />
+        <div className={'overflow-x-auto overflow-y-hidden w-full'}>
+            <Table
+                virtualized={true}
+                columnSizingOptions={columnSizingOptions}
+                resizableColumns
+                columns={columns}
+                data={data}
+                defaultSortState={defaultSortState}
+                sortable
+            />
+        </div>
+
       <div className={styles.footer}>
         <div>{`TCP:  ${total.tcp}`}</div>
         <div>{`UDP:  ${total.udp}`}</div>
