@@ -154,7 +154,7 @@ export default function Connections (): React.ReactNode {
               <Highlighter
                 searchWords={[searchedValue]}
                 autoEscape
-                textToHighlight={item.domain}
+                textToHighlight={item.domain === 'unknown' ? '' : item.domain}
               />
             </TableCellLayout>
           )
@@ -305,8 +305,8 @@ export default function Connections (): React.ReactNode {
         defaultWidth: 256
       },
       rule: {
-        minWidth: 64,
-        defaultWidth: 64
+        minWidth: 96,
+        defaultWidth: 96
       },
       network: {
         minWidth: 64,
@@ -315,6 +315,10 @@ export default function Connections (): React.ReactNode {
       destination: {
         minWidth: 200,
         defaultWidth: 200
+      },
+      domain: {
+        minWidth: 320,
+        defaultWidth: 320
       },
       data: {
         minWidth: 64,
