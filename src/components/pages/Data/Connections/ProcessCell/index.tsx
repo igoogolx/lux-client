@@ -1,4 +1,4 @@
-import { TableCellLayout } from '@fluentui/react-components'
+import { TableCellLayout, Tooltip } from '@fluentui/react-components'
 import { ClickToCopy } from '@/components/Core'
 import React from 'react'
 import Highlighter from 'react-highlight-words'
@@ -15,13 +15,22 @@ export function ProcessCell (props: ProcessCellProps) {
   const value = chunks.pop() ?? ''
   return (
     <TableCellLayout truncate>
-      <ClickToCopy value={value}>
-            <Highlighter
-              searchWords={[searchedValue]}
-              autoEscape
-              textToHighlight={value}
-            />
-      </ClickToCopy>
+        <ClickToCopy value={process}>
+            <Tooltip
+                content={process}
+                relationship="description"
+                positioning={'above-start'}
+            >
+              <div>
+                  <Highlighter
+                      searchWords={[searchedValue]}
+                      autoEscape
+                      textToHighlight={value}
+                  />
+              </div>
+            </Tooltip>
+        </ClickToCopy>
+
     </TableCellLayout>
   )
 }

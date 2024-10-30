@@ -102,11 +102,13 @@ export function Content (): React.ReactNode {
 
   const isAutoMode = setting.autoMode.enabled
 
-  const handleSelect: DataGridProps['onSelectionChange'] = async (e, data) => {
+  const handleSelect: DataGridProps['onSelectionChange'] = async (_, data) => {
     if (!isAutoMode) {
       const id = data.selectedItems.values().next().value
-      await updateSelectedProxyId({ id })
-      dispatch(selectedSlice.actions.setProxy({ id }))
+      if (typeof id === 'string') {
+        await updateSelectedProxyId({ id })
+        dispatch(selectedSlice.actions.setProxy({ id }))
+      }
     }
   }
 
