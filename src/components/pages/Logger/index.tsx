@@ -18,7 +18,7 @@ import styles from './index.module.css'
 import { useMedia } from '@/hooks'
 
 function calcTableHeight () {
-  return document.documentElement.clientHeight - 48 - 68 - 44 - 32
+  return document.documentElement.clientHeight - 48 - 68 - 44 - 32 - 32
 }
 
 function TimeCell (props: { value: number }) {
