@@ -164,5 +164,11 @@ export const TRANSLATION_KEY = {
   INVALID_DNS_PREFIX: 'notification.invalid_dns_prefix',
   CHECK_UPDATE_ERROR: 'notification.check_update_error',
   NO_NEW_VERSION: 'notification.no_new_version',
-  DNS_SERVER_NUM_MSG: 'dns_server_num_msg'
+  DNS_SERVER_NUM_MSG: 'dns_server_num_msg',
+  NEW_CUSTOMIZED_RULE: 'dns_server_num_msg',
+  NEW_SHADOWSOCKS: 'new_shadowsocks',
+  NEW_HTTP: 'new_http',
+  NEW_SOCKS5: 'new_socks5',
+  NEW_CUSTOMIZED_DNS_OPTION: 'new_customized_dns_option',
+  NEW_IMPORT_SUBSCRIPTION_URL: 'new_customized_dns_option'
 }

@@ -27,6 +27,8 @@ export function EditModal (props: EditModalProps) {
     [ProxyTypeEnum.Socks5]: 'Socks5'
   }
 
+  let titleI18nKey = ''
+
   const [currentType, setCurrentType] = useState(type)
 
   const [pageStep, setPageStep] = useState(PageStepEnum.First)
@@ -35,6 +37,7 @@ export function EditModal (props: EditModalProps) {
 
   switch (currentType) {
     case ProxyTypeEnum.Shadowsocks:
+      titleI18nKey = TRANSLATION_KEY.NEW_SHADOWSOCKS
       content = (
         <EditShadowsocksModal
           close={close}
@@ -45,6 +48,7 @@ export function EditModal (props: EditModalProps) {
       )
       break
     case ProxyTypeEnum.Socks5:
+      titleI18nKey = TRANSLATION_KEY.NEW_SOCKS5
       content = (
         <EditSocks5Modal
           close={close}
@@ -54,6 +58,7 @@ export function EditModal (props: EditModalProps) {
       )
       break
     case ProxyTypeEnum.Http:
+      titleI18nKey = TRANSLATION_KEY.NEW_HTTP
       content = (
         <EditHttpModal
           close={close}
@@ -67,7 +72,7 @@ export function EditModal (props: EditModalProps) {
     }
   }
   return (
-    <Modal close={close} hideCloseButton hideOkButton>
+    <Modal close={close} hideCloseButton hideOkButton title={t(titleI18nKey)}>
       {pageStep === PageStepEnum.First && (
         <div className={styles.type}>
           <Text>{t(TRANSLATION_KEY.TYPE)}</Text>

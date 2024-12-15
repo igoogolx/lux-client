@@ -126,7 +126,7 @@ export default function AddDnsOptionModal (props: AddDnsOptionModalProps) {
 
     ].filter(Boolean) as Array<TableColumnDefinition<DnsOption>>
   }, [handleDeleteCustomizedOption])
-  return <Modal close={close} hideCloseButton={true}>
+  return <Modal close={close} hideCloseButton={true} title={t(TRANSLATION_KEY.NEW_CUSTOMIZED_DNS_OPTION)}>
     <div className={styles.wrapper}>
       <div className={styles.toolbar}>
         <Input

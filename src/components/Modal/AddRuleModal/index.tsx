@@ -85,7 +85,7 @@ export function AddRuleModal (props: AddRuleModalProps) {
     >
       {({ submitForm }) => {
         return (
-          <Modal close={close} onOk={submitForm}>
+          <Modal close={close} onOk={submitForm} title={t(TRANSLATION_KEY.NEW_CUSTOMIZED_RULE)} okText={t(TRANSLATION_KEY.FORM_SAVE)}>
             <div className={styles.container}>
               <FiledSelector
                   name="ruleType"
