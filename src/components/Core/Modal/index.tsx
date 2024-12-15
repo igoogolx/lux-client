@@ -70,7 +70,7 @@ export const Modal = React.memo((props: ModalProps) => {
           <DialogActions>
             {!hideCloseButton && close && (
               <Button appearance="secondary" onClick={close}>
-                {closeText ?? t(TRANSLATION_KEY.CLOSE)}
+                {closeText ?? t(TRANSLATION_KEY.FORM_CANCEL)}
               </Button>
             )}
             {!hideOkButton && onOk && (

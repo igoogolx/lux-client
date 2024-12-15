@@ -37,7 +37,7 @@ export default {
   [TRANSLATION_KEY.FORM_SAVE]: '保存',
   [TRANSLATION_KEY.FORM_RESET]: '重置',
   [TRANSLATION_KEY.FORM_USERNAME]: '用户名',
-  [TRANSLATION_KEY.DELETE_ALL_PROXIES]: '删除所有代理',
+  [TRANSLATION_KEY.DELETE_PROXIES]: '删除代理',
   [TRANSLATION_KEY.COMMON_RUNTIME_DETAIL]: '运行时详情',
   [TRANSLATION_KEY.COMMON_DEFAULT_INTERFACE_NAME]: '默认接口名称',
   [TRANSLATION_KEY.COMMON_TUN_INTERFACE_NAME]: 'Tun接口名称',
@@ -68,7 +68,7 @@ export default {
     '核心没有以管理员身份运行。打开终端并复制以下命令。完成后，重新启动应用。',
   [TRANSLATION_KEY.ELEVATE_TIP_WINDOWS]:
       '核心没有以管理员身份运行。请以管理员身份运行。',
-  [TRANSLATION_KEY.DELETE_ALL_PROXIES_TIPS]: '你确定要删除所有代理吗？',
+  [TRANSLATION_KEY.DELETE_ALL_PROXIES_TIPS]: '你确定要删除属于{{title}}的代理吗？',
   [TRANSLATION_KEY.UNKNOWN_ERROR]: '未知错误',
   [TRANSLATION_KEY.SHADOWSOCKS]: 'Shadowsocks',
   [TRANSLATION_KEY.SOCKS5]: 'Socks5',
@@ -174,5 +174,11 @@ export default {
   [TRANSLATION_KEY.INVALID_DNS_PREFIX]: '必须以以下规则开头:',
   [TRANSLATION_KEY.CHECK_UPDATE_ERROR]: '检查更新失败',
   [TRANSLATION_KEY.NO_NEW_VERSION]: '当前已是最新版本',
-  [TRANSLATION_KEY.DNS_SERVER_NUM_MSG]: '本地 Dns 或者远程 Dns 有两个以上的服务器配置，可能导致网络缓慢'
+  [TRANSLATION_KEY.DNS_SERVER_NUM_MSG]: '本地 Dns 或者远程 Dns 有两个以上的服务器配置，可能导致网络缓慢',
+  [TRANSLATION_KEY.NEW_CUSTOMIZED_RULE]: '新建自定义规则',
+  [TRANSLATION_KEY.NEW_SHADOWSOCKS]: '新建 Shadowsocks',
+  [TRANSLATION_KEY.NEW_HTTP]: '新建 Http',
+  [TRANSLATION_KEY.NEW_SOCKS5]: '新建 Socks5',
+  [TRANSLATION_KEY.NEW_CUSTOMIZED_DNS_OPTION]: '新建自定义 Dns 选项',
+  [TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL]: '导入订阅链接'
 }

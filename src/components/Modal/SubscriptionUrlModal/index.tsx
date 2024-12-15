@@ -40,7 +40,7 @@ function SubscriptionUrlModal (props: SubscriptionUrlModalProps) {
     }
   }
   return (
-    <Modal close={close} onOk={handleConfirm} loadingOk={loading}>
+    <Modal close={close} onOk={handleConfirm} loadingOk={loading} title={t(TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL)} okText={t(TRANSLATION_KEY.FORM_SAVE)}>
       <div className={styles.search}>
         <Textarea
           value={destination}

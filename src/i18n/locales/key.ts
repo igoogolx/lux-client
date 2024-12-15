@@ -30,7 +30,7 @@ export const TRANSLATION_KEY = {
   FORM_SAVE: 'form.save',
   FORM_USERNAME: 'form.username',
   FORM_RESET: 'form.reset',
-  DELETE_ALL_PROXIES: 'delete_all_proxies',
+  DELETE_PROXIES: 'delete_proxies',
   COMMON_RUNTIME_DETAIL: 'common.runtime_detail',
   COMMON_TUN_INTERFACE_NAME: 'common.tun_interface_name',
   COMMON_DEFAULT_INTERFACE_NAME: 'common.default_interface_name',
@@ -164,5 +164,11 @@ export const TRANSLATION_KEY = {
   INVALID_DNS_PREFIX: 'notification.invalid_dns_prefix',
   CHECK_UPDATE_ERROR: 'notification.check_update_error',
   NO_NEW_VERSION: 'notification.no_new_version',
-  DNS_SERVER_NUM_MSG: 'dns_server_num_msg'
+  DNS_SERVER_NUM_MSG: 'dns_server_num_msg',
+  NEW_CUSTOMIZED_RULE: 'dns_server_num_msg',
+  NEW_SHADOWSOCKS: 'new_shadowsocks',
+  NEW_HTTP: 'new_http',
+  NEW_SOCKS5: 'new_socks5',
+  NEW_CUSTOMIZED_DNS_OPTION: 'new_customized_dns_option',
+  NEW_IMPORT_SUBSCRIPTION_URL: 'new_customized_dns_option'
 }
