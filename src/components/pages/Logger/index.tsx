@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { type Log } from 'lux-js-sdk'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
@@ -16,6 +16,10 @@ import { type RootState } from '@/reducers'
 import { Table, Tag, type TagTypeEnum } from '../../Core'
 import styles from './index.module.css'
 import { useMedia } from '@/hooks'
+
+function calcTableHeight () {
+  return document.documentElement.clientHeight - 48 - 68 - 44 - 32
+}
 
 function TimeCell (props: { value: number }) {
   const { value } = props
@@ -121,6 +125,19 @@ export default function Logger (): React.ReactNode {
     }
   }, [])
 
+  const [tableHeight, setTableHeight] = useState(calcTableHeight())
+
+  const onResize = useCallback(() => {
+    setTableHeight(calcTableHeight())
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [onResize])
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.toolbar}>
@@ -133,6 +150,7 @@ export default function Logger (): React.ReactNode {
         />
       </div>
       <Table
+        height={tableHeight}
         columns={columns}
         data={data}
         columnSizingOptions={columnSizingOptions}

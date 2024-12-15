@@ -29,6 +29,10 @@ interface RuleTableProps {
   id: string
 }
 
+function calcTableHeight () {
+  return document.documentElement.clientHeight - 48 - 68 - 44 - 32
+}
+
 export default function RuleTable (props: RuleTableProps) {
   const { id } = props
 
@@ -148,6 +152,20 @@ export default function RuleTable (props: RuleTableProps) {
         : null
     ].filter(Boolean) as Array<TableColumnDefinition<RuleDetailItem>>
   }, [handleDeleteCustomizedRule, id, inlineStyles.danger, isStarted])
+
+  const [tableHeight, setTableHeight] = useState(calcTableHeight())
+
+  const onResize = useCallback(() => {
+    setTableHeight(calcTableHeight())
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [onResize])
+
   return (
     <div className={styles.wrapper}>
       {isAddingRule && (
@@ -185,7 +203,7 @@ export default function RuleTable (props: RuleTableProps) {
           )}
         </div>
       </div>
-      <Table columns={columns} data={data} sortable />
+      <Table columns={columns} data={data} sortable height={tableHeight} />
     </div>
   )
 }

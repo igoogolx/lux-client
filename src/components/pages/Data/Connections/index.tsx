@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   closeAllConnections,
   type Conn,
@@ -42,6 +42,10 @@ interface Connection {
   start: number
   id: string
   process: string
+}
+
+function calcTableHeight () {
+  return document.documentElement.clientHeight - 48 - 68 - 44 - 40 - 32 - 48
 }
 
 function convertDuration (duration: number) {
@@ -326,6 +330,18 @@ export default function Connections (): React.ReactNode {
       }
     }
   }, [])
+  const [tableHeight, setTableHeight] = useState(calcTableHeight())
+
+  const onResize = useCallback(() => {
+    setTableHeight(calcTableHeight())
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [onResize])
 
   return (
     <div className={styles.wrapper}>
@@ -354,6 +370,7 @@ export default function Connections (): React.ReactNode {
       </div>
         <div className={'overflow-x-auto overflow-y-hidden w-full'}>
             <Table
+                height={tableHeight}
                 virtualized={true}
                 columnSizingOptions={columnSizingOptions}
                 resizableColumns
