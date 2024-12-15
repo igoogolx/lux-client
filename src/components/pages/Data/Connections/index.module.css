@@ -4,7 +4,7 @@
     @apply mb-2 flex w-full justify-between;
 
     & .input {
-      @apply w-96;
+      @apply w-[400px];
     }
 
     & .actions {

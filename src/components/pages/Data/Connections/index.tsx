@@ -15,11 +15,11 @@ import {
   Button,
   createTableColumn,
   type DataGridProps,
-  Input,
+  SearchBox,
   TableCellLayout,
   Tooltip
 } from '@fluentui/react-components'
-import { DeleteRegular, SearchRegular } from '@fluentui/react-icons'
+import { DeleteRegular } from '@fluentui/react-icons'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { convertByte } from '@/utils/traffic'
 import { Table } from '../../../Core'
@@ -346,12 +346,11 @@ export default function Connections (): React.ReactNode {
   return (
     <div className={styles.wrapper}>
       <div className={styles.toolbar}>
-        <Input
+        <SearchBox
           value={searchedValue}
-          onChange={(e) => {
-            setSearchedValue(e.target.value)
+          onChange={(e, data) => {
+            setSearchedValue(data.value)
           }}
-          contentAfter={<SearchRegular />}
           placeholder={t(TRANSLATION_KEY.SEARCH_CONNECTION_TIP)}
           className={styles.input}
         />
