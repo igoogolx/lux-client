@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { notifier, Table } from '@/components/Core'
 import {
   Accordion,
@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useDangerStyles } from '@/hooks'
 import styles from './index.module.css'
 import { decodeFromUrl } from '@/utils/url'
+import { DeleteAllProxiesConfirmModal } from '@/components/Modal/DeleteAllProxiesConfirmModal'
 
 export interface ProxyCardProps<T> {
   url: string
@@ -55,6 +56,9 @@ export default function ProxyCard<T extends { id: string }> (
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared
   )
+
+  const [isDeleteAllProxiesModalOpen, setIsDeleteAllProxiesModalOpen] =
+      useState(false)
 
   const dispatch = useDispatch()
   const handleUpdateSubscriptionProxies = async () => {
@@ -89,17 +93,34 @@ export default function ProxyCard<T extends { id: string }> (
 
   const inlineStyles = useDangerStyles()
 
+  const closeDeleteAllProxiesModal = () => {
+    setIsDeleteAllProxiesModalOpen(false)
+  }
+
+  const openDeleteAllProxiesModal = () => {
+    setIsDeleteAllProxiesModalOpen(true)
+  }
+
+  const title = url === LOCAL_SERVERS
+    ? t(TRANSLATION_KEY.LOCAL_SERVERS)
+    : new URL(url).hostname
+
   return (
     <Card className={styles.card}>
+      {isDeleteAllProxiesModalOpen && (
+          <DeleteAllProxiesConfirmModal
+              onClose={closeDeleteAllProxiesModal}
+              onConfirm={handleDeleteProxies}
+              title={title}
+          />
+      )}
       <Accordion collapsible defaultOpenItems={['1']}>
         <AccordionItem value="1">
           <CardHeader
             header={
               <AccordionHeader>
                 <Badge appearance="outline" size="large">
-                  {url === LOCAL_SERVERS
-                    ? t(TRANSLATION_KEY.LOCAL_SERVERS)
-                    : new URL(url).hostname}
+                  {title}
                 </Badge>
               </AccordionHeader>
             }
@@ -111,7 +132,7 @@ export default function ProxyCard<T extends { id: string }> (
                   relationship="description"
                 >
                   <Button
-                    onClick={handleDeleteProxies}
+                    onClick={openDeleteAllProxiesModal}
                     icon={<DeleteRegular />}
                     className={mergeClasses(
                       styles.btn,

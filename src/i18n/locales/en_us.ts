@@ -38,7 +38,7 @@ export default {
   [TRANSLATION_KEY.FORM_SAVE]: 'Save',
   [TRANSLATION_KEY.FORM_RESET]: 'Reset',
   [TRANSLATION_KEY.FORM_USERNAME]: 'Username',
-  [TRANSLATION_KEY.DELETE_ALL_PROXIES]: 'Delete All Proxies',
+  [TRANSLATION_KEY.DELETE_PROXIES]: 'Delete Proxies',
   [TRANSLATION_KEY.COMMON_RUNTIME_DETAIL]: 'Runtime Detail',
   [TRANSLATION_KEY.COMMON_DEFAULT_INTERFACE_NAME]: 'Default Interface Name',
   [TRANSLATION_KEY.COMMON_TUN_INTERFACE_NAME]: 'Tun Interface Name',
@@ -73,7 +73,7 @@ export default {
   [TRANSLATION_KEY.ELEVATE_TIP_WINDOWS]:
       'The core is not run as admin. Run it as admin.',
   [TRANSLATION_KEY.DELETE_ALL_PROXIES_TIPS]:
-    'Are you sure to delete all proxies?',
+    'Are you sure to delete all proxies from {{title}}?',
   [TRANSLATION_KEY.UNKNOWN_ERROR]: 'Unknown Error',
   [TRANSLATION_KEY.SHADOWSOCKS]: 'Shadowsocks',
   [TRANSLATION_KEY.SOCKS5]: 'Socks5',

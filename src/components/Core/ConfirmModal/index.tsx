@@ -36,9 +36,9 @@ export function ConfirmModal (props: ConfirmModalPros) {
       closeText={cancelText}
       okText={confirmText}
       onOk={onConfirm}
+      title={title}
     >
       <div className={styles.container}>
-        <div className={styles.title}>{title}</div>
         <div className={styles.content}>{content}</div>
       </div>
     </Modal>

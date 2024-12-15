@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { type BaseProxy, deleteAllProxies } from 'lux-js-sdk'
+import { type BaseProxy } from 'lux-js-sdk'
 import {
   Button,
   Menu,
@@ -14,13 +14,11 @@ import { MoreHorizontalFilled } from '@fluentui/react-icons'
 import {
   proxiesSelectors,
   proxiesSlice,
-  type RootState,
-  selectedSlice
+  type RootState
 } from '@/reducers'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { useTestDelay } from '@/hooks'
 import { type MenuItemProps } from '../../../../Core'
-import { DeleteAllProxiesConfirmModal } from '../../../../Modal/DeleteAllProxiesConfirmModal'
 import { RuntimeDetailModal } from '../../../../Modal/RuntimeDetailModal'
 import splitArrayIntoChunks from '../../../../../utils/splitArrayIntoChunks'
 
@@ -34,8 +32,6 @@ export function Operation (): React.ReactNode {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [isRuntimeDetailOpen, setIsRuntimeDetailOpen] = useState(false)
-  const [isDeleteAllProxiesModalOpen, setIsDeleteAllProxiesModalOpen] =
-    useState(false)
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared
@@ -76,21 +72,6 @@ export function Operation (): React.ReactNode {
     setIsRuntimeDetailOpen(false)
   }
 
-  const openDeleteAllProxiesModal = () => {
-    setIsDeleteAllProxiesModalOpen(true)
-  }
-
-  const closeDeleteAllProxiesModal = () => {
-    setIsDeleteAllProxiesModalOpen(false)
-  }
-
-  const onDeleteAllProxies = async () => {
-    await deleteAllProxies()
-    dispatch(proxiesSlice.actions.deleteAll())
-    dispatch(selectedSlice.actions.setProxy({ id: '' }))
-    closeDeleteAllProxiesModal()
-  }
-
   const menuItems: MenuItemProps[] = useMemo(() => {
     return [
       {
@@ -114,10 +95,6 @@ export function Operation (): React.ReactNode {
         openRuntimeDetail()
         return
       }
-      case OperationTypeEnum.DeleteAllProxies: {
-        openDeleteAllProxiesModal()
-        return
-      }
       default: {
         throw new Error(`invalid ${id}`)
       }
@@ -126,12 +103,7 @@ export function Operation (): React.ReactNode {
 
   return (
     <>
-      {isDeleteAllProxiesModalOpen && (
-        <DeleteAllProxiesConfirmModal
-          onClose={closeDeleteAllProxiesModal}
-          onConfirm={onDeleteAllProxies}
-        />
-      )}
+
       {isRuntimeDetailOpen && <RuntimeDetailModal close={closeRuntimeDetail} />}
       <Menu>
         <MenuTrigger disableButtonEnhancement>

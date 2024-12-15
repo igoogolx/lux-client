@@ -30,7 +30,7 @@ export const TRANSLATION_KEY = {
   FORM_SAVE: 'form.save',
   FORM_USERNAME: 'form.username',
   FORM_RESET: 'form.reset',
-  DELETE_ALL_PROXIES: 'delete_all_proxies',
+  DELETE_PROXIES: 'delete_proxies',
   COMMON_RUNTIME_DETAIL: 'common.runtime_detail',
   COMMON_TUN_INTERFACE_NAME: 'common.tun_interface_name',
   COMMON_DEFAULT_INTERFACE_NAME: 'common.default_interface_name',

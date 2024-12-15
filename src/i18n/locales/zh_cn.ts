@@ -37,7 +37,7 @@ export default {
   [TRANSLATION_KEY.FORM_SAVE]: '保存',
   [TRANSLATION_KEY.FORM_RESET]: '重置',
   [TRANSLATION_KEY.FORM_USERNAME]: '用户名',
-  [TRANSLATION_KEY.DELETE_ALL_PROXIES]: '删除所有代理',
+  [TRANSLATION_KEY.DELETE_PROXIES]: '删除代理',
   [TRANSLATION_KEY.COMMON_RUNTIME_DETAIL]: '运行时详情',
   [TRANSLATION_KEY.COMMON_DEFAULT_INTERFACE_NAME]: '默认接口名称',
   [TRANSLATION_KEY.COMMON_TUN_INTERFACE_NAME]: 'Tun接口名称',
@@ -68,7 +68,7 @@ export default {
     '核心没有以管理员身份运行。打开终端并复制以下命令。完成后，重新启动应用。',
   [TRANSLATION_KEY.ELEVATE_TIP_WINDOWS]:
       '核心没有以管理员身份运行。请以管理员身份运行。',
-  [TRANSLATION_KEY.DELETE_ALL_PROXIES_TIPS]: '你确定要删除所有代理吗？',
+  [TRANSLATION_KEY.DELETE_ALL_PROXIES_TIPS]: '你确定要删除属于{{title}}的代理吗？',
   [TRANSLATION_KEY.UNKNOWN_ERROR]: '未知错误',
   [TRANSLATION_KEY.SHADOWSOCKS]: 'Shadowsocks',
   [TRANSLATION_KEY.SOCKS5]: 'Socks5',
