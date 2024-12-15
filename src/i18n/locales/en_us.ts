@@ -185,7 +185,6 @@ export default {
   [TRANSLATION_KEY.NO_NEW_VERSION]: 'Lux is up to date',
   [TRANSLATION_KEY.DNS_SERVER_NUM_MSG]: 'Local Dns or Remote Dns has more than two servers in setting, which may cause the network to be slow.',
   [TRANSLATION_KEY.NEW_CUSTOMIZED_RULE]: 'Create Customized Rule',
-  [TRANSLATION_KEY.NEW_CUSTOMIZED_RULE]: 'Create Shadowsocks',
   [TRANSLATION_KEY.NEW_SHADOWSOCKS]: 'Create Shadowsocks',
   [TRANSLATION_KEY.NEW_HTTP]: 'Create Http',
   [TRANSLATION_KEY.NEW_SOCKS5]: 'Create Socks5',
