@@ -36,6 +36,7 @@ interface TableProps<T> {
   defaultSortState?: DataGridProps['defaultSortState']
   sortable?: boolean
   virtualized?: boolean
+  height?: number
 }
 
 export function Table<T> (props: TableProps<T>) {
@@ -50,7 +51,8 @@ export function Table<T> (props: TableProps<T>) {
     getRowId,
     defaultSortState,
     sortable = false,
-    virtualized = true
+    virtualized = true,
+    height = 480
   } = props
 
   const { targetDocument } = useFluent()
@@ -78,7 +80,7 @@ export function Table<T> (props: TableProps<T>) {
           )}
         </VirtualizedDataGridRow>
       </VirtualizedDataGridHeader>
-      <VirtualizedDataGridBody<T> itemSize={50} height={480}>
+      <VirtualizedDataGridBody<T> itemSize={50} height={height}>
         {({ item, rowId }, style) => (
           <VirtualizedDataGridRow<T> key={rowId} style={style}>
             {({ renderCell }) => (

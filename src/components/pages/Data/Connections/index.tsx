@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   closeAllConnections,
   type Conn,
@@ -15,11 +15,11 @@ import {
   Button,
   createTableColumn,
   type DataGridProps,
-  Input,
+  SearchBox,
   TableCellLayout,
   Tooltip
 } from '@fluentui/react-components'
-import { DeleteRegular, SearchRegular } from '@fluentui/react-icons'
+import { DeleteRegular } from '@fluentui/react-icons'
 import { TRANSLATION_KEY } from '@/i18n/locales/key'
 import { convertByte } from '@/utils/traffic'
 import { Table } from '../../../Core'
@@ -42,6 +42,10 @@ interface Connection {
   start: number
   id: string
   process: string
+}
+
+function calcTableHeight () {
+  return document.documentElement.clientHeight - 48 - 68 - 44 - 40 - 32 - 48
 }
 
 function convertDuration (duration: number) {
@@ -326,16 +330,27 @@ export default function Connections (): React.ReactNode {
       }
     }
   }, [])
+  const [tableHeight, setTableHeight] = useState(calcTableHeight())
+
+  const onResize = useCallback(() => {
+    setTableHeight(calcTableHeight())
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [onResize])
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.toolbar}>
-        <Input
+        <SearchBox
           value={searchedValue}
-          onChange={(e) => {
-            setSearchedValue(e.target.value)
+          onChange={(e, data) => {
+            setSearchedValue(data.value)
           }}
-          contentAfter={<SearchRegular />}
           placeholder={t(TRANSLATION_KEY.SEARCH_CONNECTION_TIP)}
           className={styles.input}
         />
@@ -354,6 +369,7 @@ export default function Connections (): React.ReactNode {
       </div>
         <div className={'overflow-x-auto overflow-y-hidden w-full'}>
             <Table
+                height={tableHeight}
                 virtualized={true}
                 columnSizingOptions={columnSizingOptions}
                 resizableColumns
