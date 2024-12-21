@@ -20,7 +20,11 @@ export function QrCodeModal(props: QrCodeModalProps): React.ReactNode {
     });
   }, [t, url]);
   return (
-    <Modal close={close}>
+    <Modal
+      close={close}
+      title={t(TRANSLATION_KEY.COMMON_QR_CODE)}
+      hideCloseButton={true}
+    >
       <div className={styles.container}>
         <canvas id={ELEMENT_ID} />
       </div>
