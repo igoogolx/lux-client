@@ -40,6 +40,7 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.17.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^22.10.2",
