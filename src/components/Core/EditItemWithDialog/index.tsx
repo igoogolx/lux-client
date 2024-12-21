@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
   Button,
   Dialog,
@@ -12,8 +12,8 @@ import {
   Input,
   Option,
 } from "@fluentui/react-components";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type MenuItemProps } from "../index";
 import styles from "./index.module.css";
 

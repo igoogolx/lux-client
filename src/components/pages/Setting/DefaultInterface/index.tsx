@@ -1,18 +1,18 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { type RootState, settingSlice } from "@/reducers";
 import { Caption1, Card, Subtitle2 } from "@fluentui/react-components";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import {
   getRuntimeOS,
   getSettingInterfaces,
   setSetting,
   type SettingRes,
 } from "lux-js-sdk";
-import { type RootState, settingSlice } from "@/reducers";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import styles from "../index.module.css";
+import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import { type MenuItemProps, notifier } from "../../../Core";
 import EditItemWithDialog from "../../../Core/EditItemWithDialog";
+import styles from "../index.module.css";
 
 export default function DefaultInterface() {
   const { t } = useTranslation();

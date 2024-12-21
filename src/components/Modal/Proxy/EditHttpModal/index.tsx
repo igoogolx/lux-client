@@ -1,12 +1,12 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import * as Yup from "yup";
-import { addProxy, type Http, ProxyTypeEnum, updateProxy } from "lux-js-sdk";
-import { Button } from "@fluentui/react-components";
-import { MAX_PORT, MIN_PORT } from "@/utils/validator";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSlice, type RootState } from "@/reducers";
+import { MAX_PORT, MIN_PORT } from "@/utils/validator";
+import { Button } from "@fluentui/react-components";
+import { addProxy, type Http, ProxyTypeEnum, updateProxy } from "lux-js-sdk";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
 import { Field, Form, PasswordFiled } from "../../../Core";
 import styles from "./index.module.css";
 

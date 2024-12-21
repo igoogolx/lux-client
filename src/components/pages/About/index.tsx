@@ -1,12 +1,4 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import {
-  Button,
-  Caption1,
-  Divider,
-  Link,
-  Title2,
-} from "@fluentui/react-components";
+import { useCheckForUpdate } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
   DOCS_URL,
@@ -16,13 +8,21 @@ import {
 } from "@/utils/constants";
 import { getVersion } from "@/utils/version";
 import {
-  HomeMoreRegular,
+  Button,
+  Caption1,
+  Divider,
+  Link,
+  Title2,
+} from "@fluentui/react-components";
+import {
   BugRegular,
   DocumentBulletListRegular,
+  HomeMoreRegular,
 } from "@fluentui/react-icons";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ConfirmModal, Icon, IconNameEnum, IconSizeEnum } from "../../Core";
 import styles from "./index.module.css";
-import { useCheckForUpdate } from "@/hooks";
 
 export default function About(): React.ReactNode {
   const { t } = useTranslation();

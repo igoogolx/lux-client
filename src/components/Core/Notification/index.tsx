@@ -1,6 +1,6 @@
-import { notificationEventManager } from "./NotificationContainer";
-import { MessageTypeEnum } from "../Message";
 import { type NotificationAddActionItem } from "@/components/Core/Notification/reducer";
+import { MessageTypeEnum } from "../Message";
+import { notificationEventManager } from "./NotificationContainer";
 
 const createNotifier = () => {
   const create = (

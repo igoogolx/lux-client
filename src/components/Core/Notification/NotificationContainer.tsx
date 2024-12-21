@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
   Link,
   Toast,
@@ -9,10 +9,10 @@ import {
   useId,
   useToastController,
 } from "@fluentui/react-components";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { type NotificationAction } from "./reducer";
 import { createEventManager } from "./util";
-import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
 
 export const notificationEventManager =
   createEventManager<NotificationAction>();

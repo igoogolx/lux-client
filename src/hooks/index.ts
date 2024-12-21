@@ -1,3 +1,12 @@
+import { notifier } from "@/components/Core";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { delaysSlice, proxiesSlice } from "@/reducers";
+import checkForUpdate from "@/utils/checkForUpdate";
+import { LAST_CHECK_UPDATE_DATE, LATEST_RELEASE_URL } from "@/utils/constants";
+import { makeStyles } from "@fluentui/react-components";
+import { tokens } from "@fluentui/react-theme";
+import { Chart, type ChartConfiguration } from "chart.js";
+import { getProxyDelay } from "lux-js-sdk";
 import type * as React from "react";
 import {
   useCallback,
@@ -6,17 +15,8 @@ import {
   useRef,
   useState,
 } from "react";
-import { Chart, type ChartConfiguration } from "chart.js";
-import { useDispatch } from "react-redux";
-import { getProxyDelay } from "lux-js-sdk";
-import { delaysSlice, proxiesSlice } from "@/reducers";
-import { makeStyles } from "@fluentui/react-components";
-import { tokens } from "@fluentui/react-theme";
-import { notifier } from "@/components/Core";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { useTranslation } from "react-i18next";
-import { LAST_CHECK_UPDATE_DATE, LATEST_RELEASE_URL } from "@/utils/constants";
-import checkForUpdate from "@/utils/checkForUpdate";
+import { useDispatch } from "react-redux";
 
 export const useChartJs = (
   initialConfiguration: ChartConfiguration,

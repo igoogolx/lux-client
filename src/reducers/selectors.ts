@@ -1,7 +1,7 @@
-import { proxiesAdapter } from "./proxy";
-import { type RootState } from "./store";
-import { rulesAdapter } from "./rule";
 import { delaysAdapter } from "./delay";
+import { proxiesAdapter } from "./proxy";
+import { rulesAdapter } from "./rule";
+import { type RootState } from "./store";
 
 export const proxiesSelectors = proxiesAdapter.getSelectors<RootState>(
   (state) => state.proxies,

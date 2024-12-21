@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import AddDnsOptionModal from "@/components/Modal/AddDnsOptionModal";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { type RootState } from "@/reducers";
 import {
   Button,
   Caption1,
   mergeClasses,
   Subtitle2,
 } from "@fluentui/react-components";
-import { useSelector } from "react-redux";
-import { type RootState } from "@/reducers";
-import styles from "../../index.module.css";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import AddDnsOptionModal from "@/components/Modal/AddDnsOptionModal";
+import { useSelector } from "react-redux";
+import styles from "../../index.module.css";
 
 export default function AddDnsOption() {
   const isStarted = useSelector<RootState, boolean>(

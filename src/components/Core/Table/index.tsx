@@ -1,25 +1,25 @@
-import React, { type CSSProperties } from "react";
 import {
   type DataGridProps,
+  type TableColumnDefinition,
   type TableColumnSizingOptions,
+  DataGrid,
+  DataGridBody,
+  DataGridCell,
+  DataGridHeader,
+  DataGridHeaderCell,
+  DataGridRow,
   useFluent,
   useScrollbarWidth,
-  type TableColumnDefinition,
-  DataGridBody,
-  DataGrid,
-  DataGridRow,
-  DataGridHeader,
-  DataGridCell,
-  DataGridHeaderCell,
 } from "@fluentui/react-components";
+import React, { type CSSProperties } from "react";
 
 import {
-  DataGridBody as VirtualizedDataGridBody,
   DataGrid as VirtualizedDataGrid,
-  DataGridRow as VirtualizedDataGridRow,
-  DataGridHeader as VirtualizedDataGridHeader,
+  DataGridBody as VirtualizedDataGridBody,
   DataGridCell as VirtualizedDataGridCell,
+  DataGridHeader as VirtualizedDataGridHeader,
   DataGridHeaderCell as VirtualizedDataGridHeaderCell,
+  DataGridRow as VirtualizedDataGridRow,
 } from "@fluentui-contrib/react-data-grid-react-window";
 
 import styles from "./index.module.css";

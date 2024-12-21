@@ -1,8 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { type Log } from "lux-js-sdk";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { type TableColumnDefinition } from "@fluentui/react-table";
+import { useMedia } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { type RootState } from "@/reducers";
 import {
   createTableColumn,
   SearchBox,
@@ -10,13 +8,15 @@ import {
   type TableColumnSizingOptions,
   Tooltip,
 } from "@fluentui/react-components";
+import { type TableColumnDefinition } from "@fluentui/react-table";
 import dayjs from "dayjs";
+import { type Log } from "lux-js-sdk";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Highlighter from "react-highlight-words";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { type RootState } from "@/reducers";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { Table, Tag, type TagTypeEnum } from "../../Core";
 import styles from "./index.module.css";
-import { useMedia } from "@/hooks";
 
 function calcTableHeight() {
   return document.documentElement.clientHeight - 48 - 68 - 44 - 32 - 32;

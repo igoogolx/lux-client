@@ -1,6 +1,6 @@
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { ConfirmModal } from "../../Core";
 
 interface DeleteAllProxiesConfirmModalProps {

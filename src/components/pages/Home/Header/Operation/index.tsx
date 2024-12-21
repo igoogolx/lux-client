@@ -1,7 +1,6 @@
-import React, { useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { type BaseProxy } from "lux-js-sdk";
+import { useTestDelay } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { proxiesSelectors, proxiesSlice, type RootState } from "@/reducers";
 import {
   Button,
   Menu,
@@ -11,12 +10,13 @@ import {
   MenuTrigger,
 } from "@fluentui/react-components";
 import { MoreHorizontalFilled } from "@fluentui/react-icons";
-import { proxiesSelectors, proxiesSlice, type RootState } from "@/reducers";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { useTestDelay } from "@/hooks";
+import { type BaseProxy } from "lux-js-sdk";
+import React, { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import splitArrayIntoChunks from "../../../../../utils/splitArrayIntoChunks";
 import { type MenuItemProps } from "../../../../Core";
 import { RuntimeDetailModal } from "../../../../Modal/RuntimeDetailModal";
-import splitArrayIntoChunks from "../../../../../utils/splitArrayIntoChunks";
 
 enum OperationTypeEnum {
   RuntimeDetail = "0",

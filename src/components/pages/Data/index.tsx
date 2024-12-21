@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Tab, TabList } from "@fluentui/react-components";
-import Dashboard from "@/components/pages/Data/Dashboard";
 import Connections from "@/components/pages/Data/Connections";
-import { useTranslation } from "react-i18next";
+import Dashboard from "@/components/pages/Data/Dashboard";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { Tab, TabList } from "@fluentui/react-components";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 enum DATA_TAB {
   Dashboard = "dashboard",

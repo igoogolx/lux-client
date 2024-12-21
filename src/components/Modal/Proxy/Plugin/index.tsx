@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { Dropdown, Option, Text } from "@fluentui/react-components";
 import {
   type BaseProxy,
   type Obfs,
@@ -7,13 +8,12 @@ import {
   type Shadowsocks,
   type V2rayObfs,
 } from "lux-js-sdk";
-import { Dropdown, Option, Text } from "@fluentui/react-components";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { EditObfsPlugin } from "./Obfs";
-import { EditV2rayPlugin } from "./V2ray";
 import { NONE_ID } from "../EditShadowsocksModal/constant";
 import { NonePlugin } from "./None";
+import { EditObfsPlugin } from "./Obfs";
+import { EditV2rayPlugin } from "./V2ray";
 import styles from "./index.module.css";
 
 interface EditPluginProps {

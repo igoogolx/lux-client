@@ -1,17 +1,13 @@
-import * as React from "react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMedia } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
-  getCurProxy,
-  type GetCurProxyRes,
-  getRules,
-  type SettingRes,
-  start,
-  stop,
-  subscribeRuntimeStatus,
-  updateSelectedRuleId,
-} from "lux-js-sdk";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+  managerSlice,
+  type RootState,
+  rulesSelectors,
+  rulesSlice,
+  selectedSlice,
+} from "@/reducers";
+import { isLocalAddr } from "@/utils/validator";
 import {
   Caption1,
   InteractionTag,
@@ -26,19 +22,23 @@ import {
   Tooltip,
 } from "@fluentui/react-components";
 import {
-  selectedSlice,
-  type RootState,
-  rulesSelectors,
-  rulesSlice,
-  managerSlice,
-} from "@/reducers";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { isLocalAddr } from "@/utils/validator";
+  getCurProxy,
+  type GetCurProxyRes,
+  getRules,
+  type SettingRes,
+  start,
+  stop,
+  subscribeRuntimeStatus,
+  updateSelectedRuleId,
+} from "lux-js-sdk";
+import * as React from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import { type MenuItemProps, notifier } from "../../../Core";
-import { Operation } from "./Operation";
 import { AddingOptions } from "./AddingOptions";
 import styles from "./index.module.css";
-import { useMedia } from "@/hooks";
+import { Operation } from "./Operation";
 
 export function Header(): React.ReactNode {
   const { t } = useTranslation();

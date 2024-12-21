@@ -1,5 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { type TableColumnDefinition } from "@fluentui/react-table";
+import { Table } from "@/components/Core";
+import { AddRuleModal } from "@/components/Modal/AddRuleModal";
+import RuleCell from "@/components/pages/Data/Connections/RuleTag";
+import { useDangerStyles } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import type { RootState } from "@/reducers";
+import { CUSTOMIZED_RULE_ID } from "@/utils/constants";
 import {
   Button,
   createTableColumn,
@@ -7,23 +12,18 @@ import {
   TableCellLayout,
   Tooltip,
 } from "@fluentui/react-components";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { AddFilled, DeleteRegular } from "@fluentui/react-icons";
+import { type TableColumnDefinition } from "@fluentui/react-table";
+import { t } from "i18next";
 import {
   addCustomizedRules,
   deleteCustomizedRules,
   getRuleDetail,
   type RuleDetailItem,
 } from "lux-js-sdk";
-import { t } from "i18next";
-import { Table } from "@/components/Core";
-import RuleCell from "@/components/pages/Data/Connections/RuleTag";
-import styles from "./index.module.css";
-import { AddFilled, DeleteRegular } from "@fluentui/react-icons";
-import { AddRuleModal } from "@/components/Modal/AddRuleModal";
-import { CUSTOMIZED_RULE_ID } from "@/utils/constants";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import type { RootState } from "@/reducers";
-import { useDangerStyles } from "@/hooks";
+import styles from "./index.module.css";
 
 interface RuleTableProps {
   id: string;

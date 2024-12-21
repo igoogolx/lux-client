@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { type TableColumnDefinition } from "@fluentui/react-table";
+import { Modal, notifier, Table } from "@/components/Core";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { type RootState, settingSlice } from "@/reducers";
 import {
   Button,
   createTableColumn,
@@ -7,14 +8,13 @@ import {
   TableCellLayout,
   Tooltip,
 } from "@fluentui/react-components";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { getSetting, setSetting, type SettingRes } from "lux-js-sdk";
-import { t } from "i18next";
-import { Modal, notifier, Table } from "@/components/Core";
-import styles from "./index.module.css";
 import { DeleteRegular } from "@fluentui/react-icons";
+import { type TableColumnDefinition } from "@fluentui/react-table";
+import { t } from "i18next";
+import { getSetting, setSetting, type SettingRes } from "lux-js-sdk";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { type RootState, settingSlice } from "@/reducers";
+import styles from "./index.module.css";
 
 interface AddDnsOptionModalProps {
   close: () => void;

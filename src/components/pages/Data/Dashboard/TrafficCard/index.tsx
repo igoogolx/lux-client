@@ -1,11 +1,11 @@
-import * as React from "react";
-import { type TrafficItem } from "lux-js-sdk";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { useTranslation } from "react-i18next";
 import { Card } from "@fluentui/react-components";
+import { type TrafficItem } from "lux-js-sdk";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { SpeedGraph } from "../SpeedGraph";
 import FlowInfo from "./FlowInfo";
 import styles from "./index.module.css";
-import { SpeedGraph } from "../SpeedGraph";
 
 export enum TrafficCardTypeEnum {
   Proxy,

@@ -1,6 +1,6 @@
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import React, { type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { ConfirmModal, type ConfirmModalPros } from "../../Core";
 
 type ResetConfigModalProps = Pick<ConfirmModalPros, "onConfirm" | "onCancel">;

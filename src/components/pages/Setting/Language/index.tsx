@@ -1,12 +1,12 @@
-import React from "react";
-import { Card, Dropdown, Option, Subtitle2 } from "@fluentui/react-components";
-import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { useDispatch, useSelector } from "react-redux";
-import { type RootState, settingSlice } from "@/reducers";
-import { setSetting, type SettingRes } from "lux-js-sdk";
 import { notifier } from "@/components/Core";
 import { getLang, LANGUAGE_ENUM } from "@/i18n";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { type RootState, settingSlice } from "@/reducers";
+import { Card, Dropdown, Option, Subtitle2 } from "@fluentui/react-components";
+import { setSetting, type SettingRes } from "lux-js-sdk";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "../index.module.css";
 
 export default function Language() {

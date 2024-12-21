@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import { ResetConfigModal } from "@/components/Modal/ResetConfigModal";
+import { useDangerStyles } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { type RootState } from "@/reducers";
 import {
   Button,
   Caption1,
@@ -6,13 +9,10 @@ import {
   mergeClasses,
   Subtitle2,
 } from "@fluentui/react-components";
-import { useTranslation } from "react-i18next";
 import { openConfigFileDir, resetConfigFile } from "lux-js-sdk";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { ResetConfigModal } from "@/components/Modal/ResetConfigModal";
-import { useDangerStyles } from "@/hooks";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { type RootState } from "@/reducers";
 import styles from "../index.module.css";
 
 export default function ConfigFile() {

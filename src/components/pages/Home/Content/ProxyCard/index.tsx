@@ -1,5 +1,9 @@
-import React, { useState } from "react";
 import { notifier, Table } from "@/components/Core";
+import { DeleteAllProxiesConfirmModal } from "@/components/Modal/DeleteAllProxiesConfirmModal";
+import { useDangerStyles } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { generalSlice, proxiesSlice, type RootState } from "@/reducers";
+import { decodeFromUrl } from "@/utils/url";
 import {
   Accordion,
   AccordionHeader,
@@ -14,20 +18,16 @@ import {
   type TableColumnDefinition,
   Tooltip,
 } from "@fluentui/react-components";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
   ArrowSyncRegular,
   ClipboardRegular,
   DeleteRegular,
 } from "@fluentui/react-icons";
-import { useTranslation } from "react-i18next";
-import { generalSlice, proxiesSlice, type RootState } from "@/reducers";
 import { addProxiesFromSubscriptionUrl, deleteProxies } from "lux-js-sdk";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { useDangerStyles } from "@/hooks";
 import styles from "./index.module.css";
-import { decodeFromUrl } from "@/utils/url";
-import { DeleteAllProxiesConfirmModal } from "@/components/Modal/DeleteAllProxiesConfirmModal";
 
 export interface ProxyCardProps<T> {
   url: string;

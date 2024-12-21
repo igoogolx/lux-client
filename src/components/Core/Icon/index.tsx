@@ -1,6 +1,6 @@
+import classNames from "classnames";
 import * as React from "react";
 import SVG from "react-inlinesvg";
-import classNames from "classnames";
 import { IconMap, type IconNameEnum } from "./constants";
 import styles from "./index.module.css";
 

@@ -1,9 +1,9 @@
-import * as React from "react";
-import { useMemo } from "react";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
 import { useTestDelay } from "@/hooks";
 import { type DelayInfo, delaysSelectors, type RootState } from "@/reducers";
+import classNames from "classnames";
+import * as React from "react";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
 import styles from "./index.module.css";
 
 interface DelayTagProps {

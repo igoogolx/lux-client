@@ -1,8 +1,3 @@
-import React, { useContext, useEffect } from "react";
-import classNames from "classnames";
-import { WeatherMoonRegular, WeatherSunnyRegular } from "@fluentui/react-icons";
-import { Button, makeStyles } from "@fluentui/react-components";
-import { tokens } from "@fluentui/react-theme";
 import {
   getTheme,
   setTheme,
@@ -10,6 +5,11 @@ import {
   type ThemeContextType,
   ThemeEnum,
 } from "@/utils/theme";
+import { Button, makeStyles } from "@fluentui/react-components";
+import { WeatherMoonRegular, WeatherSunnyRegular } from "@fluentui/react-icons";
+import { tokens } from "@fluentui/react-theme";
+import classNames from "classnames";
+import React, { useContext, useEffect } from "react";
 import styles from "./index.module.css";
 
 const useStyles = makeStyles({

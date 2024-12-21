@@ -1,12 +1,4 @@
-import * as React from "react";
-import { useEffect, useMemo } from "react";
-import {
-  subscribeNowTraffic,
-  subscribeTotalTraffic,
-  type Traffic,
-  type TrafficItem,
-} from "lux-js-sdk";
-import { useDispatch, useSelector } from "react-redux";
+import { type RootState, trafficsSlice } from "@/reducers";
 import {
   CategoryScale,
   Chart,
@@ -16,7 +8,15 @@ import {
   PointElement,
   Title,
 } from "chart.js";
-import { type RootState, trafficsSlice } from "@/reducers";
+import {
+  subscribeNowTraffic,
+  subscribeTotalTraffic,
+  type Traffic,
+  type TrafficItem,
+} from "lux-js-sdk";
+import * as React from "react";
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { TrafficCard } from "./TrafficCard";
 import styles from "./index.module.css";
 

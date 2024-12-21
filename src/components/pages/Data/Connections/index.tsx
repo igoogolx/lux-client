@@ -1,15 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  closeAllConnections,
-  type Conn,
-  ConnNetworkMetaEnum,
-  getRuntimeOS,
-  type RuleDetailItem,
-  type SettingRes,
-  subscribeConnections,
-} from "lux-js-sdk";
-import { useTranslation } from "react-i18next";
-import { type TableColumnDefinition } from "@fluentui/react-table";
+import { ClickToCopy } from "@/components/Core";
+import { ProcessCell } from "@/components/pages/Data/Connections/ProcessCell";
+import RuleCell from "@/components/pages/Data/Connections/RuleTag";
+import { useMedia } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import type { RootState } from "@/reducers";
+import { convertByte } from "@/utils/traffic";
 import {
   Button,
   createTableColumn,
@@ -19,17 +14,22 @@ import {
   Tooltip,
 } from "@fluentui/react-components";
 import { DeleteRegular } from "@fluentui/react-icons";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { convertByte } from "@/utils/traffic";
+import { type TableColumnDefinition } from "@fluentui/react-table";
+import {
+  closeAllConnections,
+  type Conn,
+  ConnNetworkMetaEnum,
+  getRuntimeOS,
+  type RuleDetailItem,
+  type SettingRes,
+  subscribeConnections,
+} from "lux-js-sdk";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import Highlighter from "react-highlight-words";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { Table } from "../../../Core";
 import styles from "./index.module.css";
-import { useMedia } from "@/hooks";
-import RuleCell from "@/components/pages/Data/Connections/RuleTag";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/reducers";
-import { ProcessCell } from "@/components/pages/Data/Connections/ProcessCell";
-import Highlighter from "react-highlight-words";
-import { ClickToCopy } from "@/components/Core";
 
 interface Connection {
   destination: string;

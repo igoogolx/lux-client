@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Tab, TabList } from "@fluentui/react-components";
-import { useTranslation } from "react-i18next";
 import RuleTable from "@/components/pages/Rules/RuleTable";
-import { getRules } from "lux-js-sdk";
 import { CUSTOMIZED_RULE_ID } from "@/utils/constants";
+import { Tab, TabList } from "@fluentui/react-components";
+import { getRules } from "lux-js-sdk";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Rules() {
   const [selectedValue, setSelectedValue] =

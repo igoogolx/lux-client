@@ -1,4 +1,5 @@
-import React from "react";
+import { useLockBodyScroll } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
   Button,
   Dialog,
@@ -10,11 +11,10 @@ import {
   DialogTrigger,
   Spinner,
 } from "@fluentui/react-components";
-import { useTranslation } from "react-i18next";
-import { useLockBodyScroll } from "@/hooks";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import styles from "./index.module.css";
 import { DismissRegular } from "@fluentui/react-icons";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import styles from "./index.module.css";
 
 interface ModalProps {
   children: React.ReactNode;

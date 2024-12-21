@@ -1,12 +1,6 @@
-import React, { useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  type BaseProxy,
-  deleteProxies,
-  ProxyTypeEnum,
-  type Shadowsocks,
-} from "lux-js-sdk";
-import { useTranslation } from "react-i18next";
+import { type MenuItemProps, notifier } from "@/components/Core";
+import { useDangerStyles, useTestDelay } from "@/hooks";
+import { proxiesSlice, type RootState, selectedSlice } from "@/reducers";
 import {
   Button,
   Menu,
@@ -24,15 +18,21 @@ import {
   QrCodeFilled,
   SendRegular,
 } from "@fluentui/react-icons";
-import { type MenuItemProps, notifier } from "@/components/Core";
-import { proxiesSlice, type RootState, selectedSlice } from "@/reducers";
-import { useDangerStyles, useTestDelay } from "@/hooks";
+import {
+  type BaseProxy,
+  deleteProxies,
+  ProxyTypeEnum,
+  type Shadowsocks,
+} from "lux-js-sdk";
+import React, { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 
 import { EditModal } from "@/components/Modal/Proxy";
-import { encode } from "@/utils/url";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { QrCodeModal } from "@/components/Modal/QrCodeModal";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { useTestUdp } from "@/utils/testUdp";
+import { encode } from "@/utils/url";
 
 interface OperationProps {
   proxy: BaseProxy;

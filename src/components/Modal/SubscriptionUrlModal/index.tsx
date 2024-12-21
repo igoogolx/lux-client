@@ -1,13 +1,13 @@
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { proxiesSlice } from "@/reducers";
+import { decodeFromUrl } from "@/utils/url";
+import { Textarea } from "@fluentui/react-components";
+import { addProxiesFromSubscriptionUrl } from "lux-js-sdk";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { addProxiesFromSubscriptionUrl } from "lux-js-sdk";
 import { useDispatch } from "react-redux";
-import { Textarea } from "@fluentui/react-components";
-import { proxiesSlice } from "@/reducers";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { Modal, notifier } from "../../Core";
 import styles from "./index.module.css";
-import { decodeFromUrl } from "@/utils/url";
 
 interface SubscriptionUrlModalProps {
   close: () => void;

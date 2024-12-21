@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { type RootState, settingSlice } from "@/reducers";
 import {
   Caption1,
   Card,
@@ -7,14 +8,13 @@ import {
   Subtitle2,
   Switch,
 } from "@fluentui/react-components";
+import { setSetting, type SettingRes } from "lux-js-sdk";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { setSetting, type SettingRes } from "lux-js-sdk";
-import { type RootState, settingSlice } from "@/reducers";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import styles from "../index.module.css";
 import { notifier } from "../../../Core";
 import EditItemWithDialog from "../../../Core/EditItemWithDialog";
+import styles from "../index.module.css";
 
 export default function AutoMode() {
   const { t } = useTranslation();

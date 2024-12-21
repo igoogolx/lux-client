@@ -1,35 +1,35 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getIsAdmin, getStatus, subscribeLog, subscribePing } from "lux-js-sdk";
-import axios from "axios";
-import { makeStyles } from "@fluentui/react-components";
-import { tokens } from "@fluentui/react-theme";
-import classNames from "classnames";
-import { Nav } from "@/components/Nav";
 import { NotificationContainer, notifier } from "@/components/Core";
+import { Header } from "@/components/Header";
+import { ElevateModal } from "@/components/Modal/ElevateModal";
+import { Nav } from "@/components/Nav";
+import Data from "@/components/pages/Data";
+import Rules from "@/components/pages/Rules";
+import Splash from "@/components/Splash";
+import { useCheckForUpdate } from "@/hooks";
 import {
   generalSlice,
   loggerSlice,
   managerSlice,
   type RootState,
 } from "@/reducers";
-import { ElevateModal } from "@/components/Modal/ElevateModal";
-import { Header } from "@/components/Header";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
-import Splash from "@/components/Splash";
-import ThemeSwitch from "../components/ThemeSwitch";
-import CheckHubAddressModal from "../components/Modal/EditHubAddressModal";
-import styles from "./index.module.css";
-import About from "../components/pages/About";
-import Setting from "../components/pages/Setting";
-import Logger from "../components/pages/Logger";
-import Home from "../components/pages/Home";
-import Data from "@/components/pages/Data";
-import Rules from "@/components/pages/Rules";
-import { useCheckForUpdate } from "@/hooks";
 import { formatError } from "@/utils/error";
+import { makeStyles } from "@fluentui/react-components";
+import { tokens } from "@fluentui/react-theme";
+import axios from "axios";
+import classNames from "classnames";
+import { getIsAdmin, getStatus, subscribeLog, subscribePing } from "lux-js-sdk";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import CheckHubAddressModal from "../components/Modal/EditHubAddressModal";
+import About from "../components/pages/About";
+import Home from "../components/pages/Home";
+import Logger from "../components/pages/Logger";
+import Setting from "../components/pages/Setting";
+import ThemeSwitch from "../components/ThemeSwitch";
+import styles from "./index.module.css";
 
 axios.interceptors.response.use(
   (res) => res,

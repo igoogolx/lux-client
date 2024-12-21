@@ -1,7 +1,7 @@
-import * as React from "react";
-import { useTranslation } from "react-i18next";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { getHubAddress, type HubAddress } from "@/utils/hubAddress";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
 import { Field, Form, Modal } from "../../Core";
 import styles from "./index.module.css";
 

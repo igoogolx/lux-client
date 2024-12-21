@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { type RootState } from "@/reducers";
 import {
   Caption1,
   Combobox,
@@ -6,12 +7,11 @@ import {
   Option,
   Subtitle2,
 } from "@fluentui/react-components";
-import { useSelector } from "react-redux";
-import { type RootState } from "@/reducers";
-import styles from "../../index.module.css";
-import { type MenuItemProps, notifier } from "../../../../Core";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { type MenuItemProps, notifier } from "../../../../Core";
+import styles from "../../index.module.css";
 
 interface EditDnsItemProps {
   items: MenuItemProps[];

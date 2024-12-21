@@ -1,8 +1,8 @@
-import React from "react";
-import { type TrafficItem } from "lux-js-sdk";
-import { useTranslation } from "react-i18next";
+import { Icon, IconNameEnum } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Icon, IconNameEnum } from "../../../../../Core";
+import { type TrafficItem } from "lux-js-sdk";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import { FlowText, FlowTextTypeEnum } from "../FlowText";
 import styles from "./index.module.css";
 

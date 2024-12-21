@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { getSetting } from "lux-js-sdk";
-import { useDispatch } from "react-redux";
 import { generalSlice, settingSlice } from "@/reducers";
+import { getSetting } from "lux-js-sdk";
+import React, { useCallback, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { SettingForm } from "./Form";
 import styles from "./index.module.css";
 

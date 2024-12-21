@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { settingSlice } from "@/reducers";
 import { Button } from "@fluentui/react-components";
 import { NavigationFilled } from "@fluentui/react-icons";
-import { useDispatch } from "react-redux";
 import { getSetting } from "lux-js-sdk";
-import { settingSlice } from "@/reducers";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styles from "./index.module.css";
 
 interface HeaderProps {

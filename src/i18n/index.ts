@@ -1,6 +1,6 @@
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
 import { getSetting } from "lux-js-sdk";
+import { initReactI18next } from "react-i18next";
 import enUS from "./locales/en_us";
 import zhCN from "./locales/zh_cn";
 

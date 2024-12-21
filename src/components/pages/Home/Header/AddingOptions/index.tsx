@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { addProxy, ProxyTypeEnum } from "lux-js-sdk";
-import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
+import { notifier } from "@/components/Core";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { proxiesSlice } from "@/reducers";
+import { decode } from "@/utils/url";
 import {
   Button,
   Menu,
@@ -11,12 +11,12 @@ import {
   MenuTrigger,
 } from "@fluentui/react-components";
 import { AddFilled } from "@fluentui/react-icons";
-import { proxiesSlice } from "@/reducers";
-import { decode } from "@/utils/url";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { addProxy, ProxyTypeEnum } from "lux-js-sdk";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { EditModal } from "../../../../Modal/Proxy";
 import SubscriptionUrlModal from "../../../../Modal/SubscriptionUrlModal";
-import { notifier } from "@/components/Core";
 
 enum OperationTypeEnum {
   Shadowsocks,

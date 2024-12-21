@@ -1,7 +1,7 @@
 import * as React from "react";
+import { Content } from "./Content";
 import { Header } from "./Header";
 import styles from "./index.module.css";
-import { Content } from "./Content";
 
 export default function Home(): React.ReactNode {
   return (

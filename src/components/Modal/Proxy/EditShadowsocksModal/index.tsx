@@ -1,18 +1,17 @@
-import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { proxiesSlice, type RootState } from "@/reducers";
+import { Button } from "@fluentui/react-components";
 import {
   addProxy,
   ProxyTypeEnum,
   type Shadowsocks,
   updateProxy,
 } from "lux-js-sdk";
-import { Button } from "@fluentui/react-components";
-import { proxiesSlice, type RootState } from "@/reducers";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import React, { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import { Field, FiledSelector, Form, PasswordFiled } from "../../../Core";
 import { EditPlugin } from "../Plugin";
-import { ShadowsocksSchema } from "./validate";
 import {
   ENCRYPTION_METHODS,
   NONE_ID,
@@ -20,6 +19,7 @@ import {
   SHADOWSOCKS_PLUINS,
 } from "./constant";
 import styles from "./index.module.css";
+import { ShadowsocksSchema } from "./validate";
 
 interface EditShadowsocksModalProps {
   close: () => void;

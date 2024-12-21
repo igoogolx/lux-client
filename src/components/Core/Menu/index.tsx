@@ -1,5 +1,5 @@
-import type * as React from "react";
 import { type MenuItemSlots } from "@fluentui/react-components";
+import type * as React from "react";
 import { type IconProps } from "../Icon";
 
 export interface MenuItemProps {

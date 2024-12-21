@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./index.module.css";
 import { Modal } from "../Modal";
+import styles from "./index.module.css";
 
 export interface ConfirmModalPros {
   title: string;

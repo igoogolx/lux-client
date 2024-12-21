@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { Dropdown, Option, Text } from "@fluentui/react-components";
 import {
   type BaseProxy,
   type Http,
@@ -6,14 +7,13 @@ import {
   type Shadowsocks,
   type Socks5,
 } from "lux-js-sdk";
-import { Dropdown, Option, Text } from "@fluentui/react-components";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { EditHttpModal } from "./EditHttpModal";
 import { Modal } from "../../Core";
+import { EditHttpModal } from "./EditHttpModal";
+import { EditShadowsocksModal } from "./EditShadowsocksModal";
 import { PageStepEnum } from "./EditShadowsocksModal/constant";
 import { EditSocks5Modal } from "./EditSocks5Modal";
-import { EditShadowsocksModal } from "./EditShadowsocksModal";
 import styles from "./index.module.css";
 
 interface EditModalProps {

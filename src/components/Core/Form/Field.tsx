@@ -1,10 +1,10 @@
-import React from "react";
-import { useField } from "formik";
 import {
   Field as FluentInput,
   Input,
   type InputProps,
 } from "@fluentui/react-components";
+import { useField } from "formik";
+import React from "react";
 
 export interface FieldProps<T extends string> {
   name: T;

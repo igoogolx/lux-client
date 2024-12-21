@@ -1,11 +1,11 @@
-import * as React from "react";
-import { useEffect } from "react";
+import { useChartJs } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { convertByte } from "@/utils/traffic";
 import { type ChartConfiguration } from "chart.js";
 import i18next from "i18next";
 import { type TrafficItem } from "lux-js-sdk";
-import { convertByte } from "@/utils/traffic";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { useChartJs } from "@/hooks";
+import * as React from "react";
+import { useEffect } from "react";
 
 const getConfiguration = () => {
   const configuration: ChartConfiguration = {

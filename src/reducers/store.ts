@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { testUdpSlice } from "./testUdp";
-import { settingSlice } from "./setting";
-import { loggerSlice } from "./logger";
-import { generalSlice } from "./general";
-import { proxiesSlice } from "./proxy";
-import { selectedSlice } from "./selected";
-import { rulesSlice } from "./rule";
 import { delaysSlice } from "./delay";
-import { trafficsSlice } from "./traffics";
+import { generalSlice } from "./general";
+import { loggerSlice } from "./logger";
 import { managerSlice } from "./manager";
+import { proxiesSlice } from "./proxy";
+import { rulesSlice } from "./rule";
+import { selectedSlice } from "./selected";
+import { settingSlice } from "./setting";
+import { testUdpSlice } from "./testUdp";
+import { trafficsSlice } from "./traffics";
 
 export const store = configureStore({
   reducer: {

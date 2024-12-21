@@ -1,9 +1,9 @@
-import { useTranslation } from "react-i18next";
-import React from "react";
-import { type RuleDetailItem, RULE_POLICY } from "lux-js-sdk";
+import { Tag, TagTypeEnum } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { TableCellLayout } from "@fluentui/react-components";
-import { TagTypeEnum, Tag } from "@/components/Core";
+import { type RuleDetailItem, RULE_POLICY } from "lux-js-sdk";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 function RuleCell({ value }: { value: RuleDetailItem }) {
   const { t } = useTranslation();

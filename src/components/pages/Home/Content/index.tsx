@@ -1,12 +1,9 @@
-import * as React from "react";
-import { useEffect, useMemo, useRef } from "react";
 import {
-  type BaseProxy,
-  getProxies,
-  type SettingRes,
-  updateSelectedProxyId,
-} from "lux-js-sdk";
-import { useDispatch, useSelector } from "react-redux";
+  proxiesSelectors,
+  proxiesSlice,
+  type RootState,
+  selectedSlice,
+} from "@/reducers";
 import {
   createTableColumn,
   type DataGridProps,
@@ -14,14 +11,17 @@ import {
   type TableColumnDefinition,
 } from "@fluentui/react-components";
 import {
-  proxiesSelectors,
-  proxiesSlice,
-  type RootState,
-  selectedSlice,
-} from "@/reducers";
+  type BaseProxy,
+  getProxies,
+  type SettingRes,
+  updateSelectedProxyId,
+} from "lux-js-sdk";
+import * as React from "react";
+import { useEffect, useMemo, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ProxyCard, { LOCAL_SERVERS } from "./ProxyCard";
-import { Operation } from "./ProxyCard/Operation";
 import { DelayTag } from "./ProxyCard/DelayTag";
+import { Operation } from "./ProxyCard/Operation";
 import styles from "./index.module.css";
 
 export function Content(): React.ReactNode {

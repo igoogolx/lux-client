@@ -1,16 +1,16 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import { Field, FiledSelector, Form, Modal } from "@/components/Core";
+import { RuleSchema } from "@/components/Modal/Proxy/EditShadowsocksModal/validate";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import type { RootState } from "@/reducers";
 import {
   RULE_POLICY,
   RULE_TYPE,
   type RuleDetailItem,
   type SettingRes,
 } from "lux-js-sdk";
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Field, FiledSelector, Form, Modal } from "@/components/Core";
-import { RuleSchema } from "@/components/Modal/Proxy/EditShadowsocksModal/validate";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import type { RootState } from "@/reducers";
 import styles from "./index.module.css";
 
 interface AddRuleModalProps {

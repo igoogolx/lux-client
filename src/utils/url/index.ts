@@ -1,6 +1,6 @@
-import { makeConfig, SIP002_URI } from "shadowsocksconfig";
 import { type BaseProxy, getResFromUrl, type Shadowsocks } from "lux-js-sdk";
 import { parseUri } from "proxy-uri-parser/src/index";
+import { makeConfig, SIP002_URI } from "shadowsocksconfig";
 import { parse as parseYaml } from "yaml";
 
 export const convertPluginOptsStr = (
