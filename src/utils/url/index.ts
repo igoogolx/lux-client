@@ -1,97 +1,95 @@
-import {
-  makeConfig,
-  SIP002_URI
-} from 'shadowsocksconfig'
-import { type BaseProxy, getResFromUrl, type Shadowsocks } from 'lux-js-sdk'
-import { parseUri } from 'proxy-uri-parser/src/index'
-import { parse as parseYaml } from 'yaml'
+import { makeConfig, SIP002_URI } from "shadowsocksconfig";
+import { type BaseProxy, getResFromUrl, type Shadowsocks } from "lux-js-sdk";
+import { parseUri } from "proxy-uri-parser/src/index";
+import { parse as parseYaml } from "yaml";
 
 export const convertPluginOptsStr = (
-  opts: NonNullable<Shadowsocks['plugin-opts']>
+  opts: NonNullable<Shadowsocks["plugin-opts"]>,
 ) => {
-  let plugin = ''
+  let plugin = "";
   Object.keys(opts).forEach((key) => {
-    let nextArg = ''
-    const value = opts[key as keyof Shadowsocks['plugin-opts']]
-    if (typeof value === 'string') {
-      nextArg = `${key}=${value}`
+    let nextArg = "";
+    const value = opts[key as keyof Shadowsocks["plugin-opts"]];
+    if (typeof value === "string") {
+      nextArg = `${key}=${value}`;
     } else if (value) {
-      nextArg = key
+      nextArg = key;
     }
     if (nextArg) {
       if (plugin) {
-        plugin = `${plugin};${nextArg}`
+        plugin = `${plugin};${nextArg}`;
       } else {
-        plugin = nextArg
+        plugin = nextArg;
       }
     }
-  })
-  return plugin
-}
+  });
+  return plugin;
+};
 
 export const decode = (text: string) => {
-  const rawText = text.trim()
+  const rawText = text.trim();
   if (rawText.length === 0) {
-    return []
+    return [];
   }
   if (isClashYaml(rawText)) {
-    return parseYaml(rawText).proxies as Array<Omit<BaseProxy, 'id'>>
+    return parseYaml(rawText).proxies as Array<Omit<BaseProxy, "id">>;
   } else {
-    const names: string[] = []
-    let uris = ''
+    const names: string[] = [];
+    let uris = "";
     try {
-      uris = atob(rawText)
+      uris = atob(rawText);
     } catch {
-      uris = rawText
+      uris = rawText;
     }
     return uris
       .trim()
-      .split('\n')
+      .split("\n")
       .map((uri) => {
-        const proxy = parseUri(uri.trim())
+        const proxy = parseUri(uri.trim());
         if (!names.includes(proxy.name)) {
-          names.push(proxy.name)
-          return proxy
+          names.push(proxy.name);
+          return proxy;
         }
-        return null
-      }).filter(Boolean) as Array<Omit<BaseProxy, 'id'>>
+        return null;
+      })
+      .filter(Boolean) as Array<Omit<BaseProxy, "id">>;
   }
-}
+};
 
 export const encode = (config: Shadowsocks) => {
-  const inputConfig: Record<string, any> = {
+  const inputConfig: Record<string, unknown> = {
     host: config.server,
     port: config.port,
     method: config.cipher,
     password: config.password,
-    tag: config.name
-  }
+    tag: config.name,
+  };
   if (config.plugin) {
-    if (config['plugin-opts'] != null) {
-      inputConfig.plugin = `${config.plugin};${convertPluginOptsStr(config['plugin-opts'])}`
+    if (config["plugin-opts"] != null) {
+      inputConfig.plugin = `${config.plugin};${convertPluginOptsStr(
+        config["plugin-opts"],
+      )}`;
     }
   }
-  return SIP002_URI.stringify(
-    makeConfig(inputConfig)
-  )
-}
+  return SIP002_URI.stringify(makeConfig(inputConfig));
+};
 
-function isClashYaml (text: string) {
+function isClashYaml(text: string) {
   try {
-    const clashYaml = parseYaml(text)
+    const clashYaml = parseYaml(text);
     if (Array.isArray(clashYaml?.proxies)) {
-      return true
+      return true;
     }
-  } catch (e) {
-    return false
+  } catch {
+    return false;
   }
-  return false
+  return false;
 }
 
-export async function decodeFromUrl (url: string) {
-  const res = await getResFromUrl({ url })
+export async function decodeFromUrl(url: string) {
+  const res = await getResFromUrl({ url });
   if (!res.data) {
-    return []
+    return [];
   }
-  return decode(res.data || '')
+  return decode(res.data || "");
 }
