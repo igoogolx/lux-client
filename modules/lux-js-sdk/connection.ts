@@ -11,7 +11,7 @@ import { createWebsocket } from "./websocket";
 const INTERVAL = 3000;
 export const subscribeConnections: SubscribeConnections = (config) => {
   const { onError, onClose, onMessage } = config;
-  const url = `${urtConfig.wsConnection}??token=${getToken()}&interval=${INTERVAL}`;
+  const url = `${urtConfig.wsConnection}?token=${getToken()}&interval=${INTERVAL}`;
   return createWebsocket(url, {
     onError,
     onMessage: (data) => {
