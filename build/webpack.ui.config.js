@@ -68,6 +68,7 @@ module.exports = (env) => {
             {
               loader: "css-loader",
               options: {
+                esModule: false,
                 importLoaders: 1,
                 modules: {
                   localIdentName: isDev
