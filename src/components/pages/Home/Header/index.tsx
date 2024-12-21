@@ -4,14 +4,18 @@ import {
   getCurProxy,
   type GetCurProxyRes,
   getRules,
+  type SettingRes,
   start,
-  stop, subscribeRuntimeStatus,
+  stop,
+  subscribeRuntimeStatus,
   updateSelectedRuleId
 } from 'lux-js-sdk'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import {
   Caption1,
+  InteractionTag,
+  InteractionTagPrimary,
   Menu,
   MenuButton,
   MenuItem,
@@ -64,7 +68,10 @@ export function Header (): React.ReactNode {
     return false
   })
   const isDnsSettingValid = useSelector<RootState, boolean>((state) => {
-    return state.setting.dns.server.remote.length <= 2 && state.setting.dns.server.local.length <= 2
+    return (
+      state.setting.dns.server.remote.length <= 2 &&
+      state.setting.dns.server.local.length <= 2
+    )
   })
   const dispatch = useDispatch()
   const rules = useSelector(rulesSelectors.selectAll)
@@ -143,6 +150,8 @@ export function Header (): React.ReactNode {
 
   const isSwitchDisabled = isSwitchLoading || !isProxyValid || isSettingRule
 
+  const setting = useSelector<RootState, SettingRes>((state) => state.setting)
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.actions}>
@@ -174,6 +183,29 @@ export function Header (): React.ReactNode {
             </MenuList>
           </MenuPopover>
         </Menu>
+
+        <Tooltip
+          content={t(TRANSLATION_KEY.PROXY_MODE_TOOLTIP)}
+          relationship="label"
+        >
+          <InteractionTag appearance="brand" className={styles.tag}>
+            <InteractionTagPrimary>{`${
+              setting.mode === 'tun' ? 'Tun' : 'System'
+            }`}</InteractionTagPrimary>
+          </InteractionTag>
+        </Tooltip>
+        {setting.autoMode.enabled && (
+          <Tooltip
+            content={t(TRANSLATION_KEY.MODE_SELECT_TIP)}
+            relationship="label"
+          >
+            <InteractionTag appearance="brand" className={styles.tag}>
+              <InteractionTagPrimary>
+                {t(TRANSLATION_KEY.MODE_SWITCH_LABEL)}
+              </InteractionTagPrimary>
+            </InteractionTag>
+          </Tooltip>
+        )}
       </div>
       <div>
         {isStarted && curProxy && isWideScreen && (
@@ -183,7 +215,9 @@ export function Header (): React.ReactNode {
           content={t(TRANSLATION_KEY.SWITCH_DISABLE_TIP)}
           relationship="description"
           visible={tooltipVisible && isSwitchDisabled}
-          onVisibleChange={(_ev, data) => { setTooltipVisible(data.visible) }}
+          onVisibleChange={(_ev, data) => {
+            setTooltipVisible(data.visible)
+          }}
         >
           <Switch
             checked={isStarted}

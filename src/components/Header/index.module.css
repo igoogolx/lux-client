@@ -1,5 +1,5 @@
 .container {
-  @apply flex items-center justify-between py-4;
+  @apply flex items-center justify-between;
 
   & .main {
     @apply flex items-center;
@@ -9,9 +9,7 @@
     }
   }
 
-  & .actionTag {
-    @apply ml-4;
-  }
+
 
 }
 

@@ -1,6 +1,5 @@
 .wrapper {
-    @apply flex h-full w-full items-center justify-between
-    pb-4;
+    @apply flex h-full w-full items-center justify-between pb-4;
 
     & .actions {
         @apply flex h-full items-center justify-end;
@@ -22,7 +21,10 @@
             @apply mr-8;
         }
 
+    }
 
+    & .tag {
+        @apply ml-4;
     }
 
 
