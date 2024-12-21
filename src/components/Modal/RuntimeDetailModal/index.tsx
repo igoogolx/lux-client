@@ -34,7 +34,10 @@ export function RuntimeDetailModal(
   useEffect(() => {
     getRuntimeDetail().then((detail) => {
       const hubAddress = getHubAddress();
-      setRuntimeDetail({ ...detail, hubAddress: stringAddress(hubAddress) });
+      setRuntimeDetail({
+        ...detail,
+        hubAddress: `http://${stringAddress(hubAddress)}?token=${hubAddress.token}`,
+      });
     });
   }, []);
 

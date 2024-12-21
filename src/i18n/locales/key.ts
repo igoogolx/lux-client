@@ -171,4 +171,5 @@ export const TRANSLATION_KEY = {
   NEW_SOCKS5: "new_socks5",
   NEW_CUSTOMIZED_DNS_OPTION: "new_customized_dns_option",
   NEW_IMPORT_SUBSCRIPTION_URL: "new_customized_dns_option",
+  TOKEN: "token",
 };

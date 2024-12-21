@@ -1,3 +1,5 @@
+import { getToken } from "./auth";
+
 const getCoreAddress = () => {
   return window.location.host;
 };
@@ -5,6 +7,7 @@ const getCoreAddress = () => {
 export interface HubAddress {
   server: string;
   port: number;
+  token: string;
 }
 
 const DEFAULT_ADDRESS = "127.0.0.1:9000";
@@ -14,7 +17,8 @@ function parseAddress(address: string): HubAddress {
   if (!(server && port)) {
     throw new Error("invalid hub address");
   }
-  return { server, port: Number(port) };
+  const token = getToken();
+  return { server, port: Number(port), token };
 }
 
 export function stringAddress(address: HubAddress): string {

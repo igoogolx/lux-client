@@ -195,4 +195,5 @@ export default {
   [TRANSLATION_KEY.NEW_SOCKS5]: "Create Socks5",
   [TRANSLATION_KEY.NEW_CUSTOMIZED_DNS_OPTION]: "Create Customized Dns Option",
   [TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL]: "Import Subscription Url",
+  [TRANSLATION_KEY.TOKEN]: "Token",
 };

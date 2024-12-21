@@ -30,6 +30,11 @@ export default function CheckHubAddressModal(): React.ReactNode {
                 label={t(TRANSLATION_KEY.FORM_PORT)}
                 disabled
               />
+              <Field<keyof HubAddress>
+                name="token"
+                label={t(TRANSLATION_KEY.TOKEN)}
+                disabled
+              />
             </>
           );
         }}
