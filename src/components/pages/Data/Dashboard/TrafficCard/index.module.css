@@ -4,14 +4,10 @@
     flex-1
     flex-col;
 
-
-
   & .data {
     @apply my-2 flex flex-wrap flex-row justify-between;
 
-
     & .info {
-
       @apply mb-2 basis-full sm:basis-[49%] h-[160px];
 
       & .header {

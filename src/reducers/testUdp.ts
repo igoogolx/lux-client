@@ -1,27 +1,31 @@
 import {
   createEntityAdapter,
   createSlice,
-  type PayloadAction
-} from '@reduxjs/toolkit'
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 
-interface TestUdpData { loading?: boolean, result?: boolean, id: string }
+interface TestUdpData {
+  loading?: boolean;
+  result?: boolean;
+  id: string;
+}
 
-export const testUdp = createEntityAdapter<TestUdpData>()
+export const testUdp = createEntityAdapter<TestUdpData>();
 
 export const testUdpSlice = createSlice({
-  name: 'testUdp',
+  name: "testUdp",
   initialState: testUdp.getInitialState(),
   reducers: {
-    deleteOne (state, action: PayloadAction<{ id: string }>) {
-      testUdp.removeOne(state, action.payload.id)
+    deleteOne(state, action: PayloadAction<{ id: string }>) {
+      testUdp.removeOne(state, action.payload.id);
     },
-    updateOne (
+    updateOne(
       state,
       action: PayloadAction<{
-        data: TestUdpData
-      }>
+        data: TestUdpData;
+      }>,
     ) {
-      testUdp.upsertOne(state, action.payload.data)
-    }
-  }
-})
+      testUdp.upsertOne(state, action.payload.data);
+    },
+  },
+});

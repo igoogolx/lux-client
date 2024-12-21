@@ -1,20 +1,20 @@
-import React from 'react'
-import styles from './index.module.css'
-import { Modal } from '../Modal'
+import React from "react";
+import { Modal } from "../Modal";
+import styles from "./index.module.css";
 
 export interface ConfirmModalPros {
-  title: string
-  content: React.ReactNode
-  cancelText?: string
-  confirmText?: string
-  onCancel?: () => void
-  onConfirm?: () => void
-  hideCancelText?: boolean
-  hideConfirmText?: boolean
-  loading?: boolean
+  title: string;
+  content: React.ReactNode;
+  cancelText?: string;
+  confirmText?: string;
+  onCancel?: () => void;
+  onConfirm?: () => void;
+  hideCancelText?: boolean;
+  hideConfirmText?: boolean;
+  loading?: boolean;
 }
 
-export function ConfirmModal (props: ConfirmModalPros) {
+export function ConfirmModal(props: ConfirmModalPros) {
   const {
     title,
     content,
@@ -24,8 +24,8 @@ export function ConfirmModal (props: ConfirmModalPros) {
     confirmText,
     loading = false,
     hideCancelText = false,
-    hideConfirmText = false
-  } = props
+    hideConfirmText = false,
+  } = props;
 
   return (
     <Modal
@@ -42,5 +42,5 @@ export function ConfirmModal (props: ConfirmModalPros) {
         <div className={styles.content}>{content}</div>
       </div>
     </Modal>
-  )
+  );
 }

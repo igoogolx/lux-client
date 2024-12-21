@@ -1,11 +1,11 @@
-import * as React from 'react'
-import { type TrafficItem } from 'lux-js-sdk'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { useTranslation } from 'react-i18next'
-import { Card } from '@fluentui/react-components'
-import FlowInfo from './FlowInfo'
-import styles from './index.module.css'
-import { SpeedGraph } from '../SpeedGraph'
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { Card } from "@fluentui/react-components";
+import { type TrafficItem } from "lux-js-sdk";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { SpeedGraph } from "../SpeedGraph";
+import FlowInfo from "./FlowInfo";
+import styles from "./index.module.css";
 
 export enum TrafficCardTypeEnum {
   Proxy,
@@ -13,19 +13,21 @@ export enum TrafficCardTypeEnum {
 }
 
 interface TrafficCardProps {
-  speed: { proxy: TrafficItem[], direct: TrafficItem[] }
-  total: { proxy: TrafficItem, direct: TrafficItem }
+  speed: { proxy: TrafficItem[]; direct: TrafficItem[] };
+  total: { proxy: TrafficItem; direct: TrafficItem };
 }
 
-function getCurrent (items: TrafficItem[]) {
-  return (items.length > 0) ? items[items.length - 1] : { upload: 0, download: 0 }
+function getCurrent(items: TrafficItem[]) {
+  return items.length > 0
+    ? items[items.length - 1]
+    : { upload: 0, download: 0 };
 }
 
-export function TrafficCard (props: TrafficCardProps): React.ReactNode {
-  const { speed, total } = props
-  const currentProxy = getCurrent(speed.proxy)
-  const currentDirect = getCurrent(speed.direct)
-  const { t } = useTranslation()
+export function TrafficCard(props: TrafficCardProps): React.ReactNode {
+  const { speed, total } = props;
+  const currentProxy = getCurrent(speed.proxy);
+  const currentDirect = getCurrent(speed.direct);
+  const { t } = useTranslation();
 
   return (
     <div className={styles.wrapper}>
@@ -51,5 +53,5 @@ export function TrafficCard (props: TrafficCardProps): React.ReactNode {
         </Card>
       </div>
     </div>
-  )
+  );
 }

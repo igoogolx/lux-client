@@ -1,14 +1,14 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export const managerSlice = createSlice({
-  name: 'manager',
+  name: "manager",
   initialState: { isStared: false, isLoading: false },
   reducers: {
-    setIsStarted (state, action: PayloadAction<{ isStarted: boolean }>) {
-      state.isStared = action.payload.isStarted
+    setIsStarted(state, action: PayloadAction<{ isStarted: boolean }>) {
+      state.isStared = action.payload.isStarted;
     },
-    setIsLoading (state, action: PayloadAction<{ isLoading: boolean }>) {
-      state.isLoading = action.payload.isLoading
-    }
-  }
-})
+    setIsLoading(state, action: PayloadAction<{ isLoading: boolean }>) {
+      state.isLoading = action.payload.isLoading;
+    },
+  },
+});

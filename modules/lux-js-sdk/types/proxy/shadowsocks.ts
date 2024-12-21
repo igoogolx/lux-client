@@ -1,5 +1,4 @@
-import { type IProxyShadowsocksConfig } from 'proxy-uri-parser/src'
-import { type CommonProxy } from './base'
+import { type IProxyShadowsocksConfig } from "proxy-uri-parser/src";
+import { type CommonProxy } from "./base";
 
-export interface Shadowsocks extends IProxyShadowsocksConfig, CommonProxy {
-}
+export interface Shadowsocks extends IProxyShadowsocksConfig, CommonProxy {}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
   Button,
   Dialog,
@@ -10,31 +10,31 @@ import {
   DialogTrigger,
   Dropdown,
   Input,
-  Option
-} from '@fluentui/react-components'
-import { useTranslation } from 'react-i18next'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { type MenuItemProps } from '../index'
-import styles from './index.module.css'
+  Option,
+} from "@fluentui/react-components";
+import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { type MenuItemProps } from "../index";
+import styles from "./index.module.css";
 
 interface EditItemWithSelectDialogProps {
-  title: string
-  open: boolean
-  setOpen: (open: boolean) => void
-  onSubmit: (data: { value: string, type: DnsTypeEnum }) => void
-  value: string
-  disabled?: boolean
-  selectorItems: MenuItemProps[]
-  type: DnsTypeEnum
+  title: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  onSubmit: (data: { value: string; type: DnsTypeEnum }) => void;
+  value: string;
+  disabled?: boolean;
+  selectorItems: MenuItemProps[];
+  type: DnsTypeEnum;
 }
 
 export enum DnsTypeEnum {
-  Custom = 'custom',
-  BuiltIn = 'builtIn',
+  Custom = "custom",
+  BuiltIn = "builtIn",
 }
 
-export default function EditItemWithSelectDialog (
-  props: EditItemWithSelectDialogProps
+export default function EditItemWithSelectDialog(
+  props: EditItemWithSelectDialogProps,
 ) {
   const {
     title,
@@ -44,30 +44,30 @@ export default function EditItemWithSelectDialog (
     onSubmit,
     disabled = false,
     selectorItems,
-    type
-  } = props
+    type,
+  } = props;
 
-  const { t } = useTranslation()
-  const [editedValue, setEditedValue] = useState(value)
-  const [curType, setCurType] = useState(type)
+  const { t } = useTranslation();
+  const [editedValue, setEditedValue] = useState(value);
+  const [curType, setCurType] = useState(type);
 
   const typeOptions = useRef([
     { id: DnsTypeEnum.BuiltIn, content: DnsTypeEnum.BuiltIn },
-    { id: DnsTypeEnum.Custom, content: DnsTypeEnum.Custom }
-  ])
+    { id: DnsTypeEnum.Custom, content: DnsTypeEnum.Custom },
+  ]);
 
   useEffect(() => {
-    setEditedValue(value)
-  }, [value])
+    setEditedValue(value);
+  }, [value]);
 
   return (
     <Dialog
       modalType="alert"
       open={open}
       onOpenChange={(e, data) => {
-        setEditedValue(value)
-        setCurType(type)
-        setOpen(data.open)
+        setEditedValue(value);
+        setCurType(type);
+        setOpen(data.open);
       }}
     >
       <DialogTrigger disableButtonEnhancement>
@@ -86,8 +86,8 @@ export default function EditItemWithSelectDialog (
               <Dropdown
                 value={curType}
                 onOptionSelect={(e, data) => {
-                  setEditedValue('')
-                  setCurType(data.optionValue as DnsTypeEnum)
+                  setEditedValue("");
+                  setCurType(data.optionValue as DnsTypeEnum);
                 }}
                 className={styles.select}
               >
@@ -98,13 +98,12 @@ export default function EditItemWithSelectDialog (
                 ))}
               </Dropdown>
             </div>
-            {curType === DnsTypeEnum.BuiltIn
-              ? (
+            {curType === DnsTypeEnum.BuiltIn ? (
               <div className={styles.selectContainer}>
                 <Dropdown
                   value={editedValue}
                   onOptionSelect={(e, data) => {
-                    setEditedValue(data.optionValue as string)
+                    setEditedValue(data.optionValue as string);
                   }}
                   className={styles.select}
                 >
@@ -115,17 +114,16 @@ export default function EditItemWithSelectDialog (
                   ))}
                 </Dropdown>
               </div>
-                )
-              : (
+            ) : (
               <Input
                 required
                 value={editedValue}
                 onChange={(e) => {
-                  setEditedValue(e.target.value.trim())
+                  setEditedValue(e.target.value.trim());
                 }}
                 className={styles.input}
               />
-                )}
+            )}
           </DialogContent>
           <DialogActions>
             <DialogTrigger disableButtonEnhancement>
@@ -135,8 +133,8 @@ export default function EditItemWithSelectDialog (
               disabled={!editedValue.length}
               appearance="primary"
               onClick={() => {
-                onSubmit({ value: editedValue, type: curType })
-                setOpen(false)
+                onSubmit({ value: editedValue, type: curType });
+                setOpen(false);
               }}
             >
               {t(TRANSLATION_KEY.FORM_SAVE)}
@@ -145,5 +143,5 @@ export default function EditItemWithSelectDialog (
         </DialogBody>
       </DialogSurface>
     </Dialog>
-  )
+  );
 }

@@ -1,61 +1,61 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { Caption1, Card, Subtitle2 } from '@fluentui/react-components'
-import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { type RootState, settingSlice } from "@/reducers";
+import { Caption1, Card, Subtitle2 } from "@fluentui/react-components";
 import {
   getRuntimeOS,
   getSettingInterfaces,
   setSetting,
-  type SettingRes
-} from 'lux-js-sdk'
-import { type RootState, settingSlice } from '@/reducers'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import styles from '../index.module.css'
-import { type MenuItemProps, notifier } from '../../../Core'
-import EditItemWithDialog from '../../../Core/EditItemWithDialog'
+  type SettingRes,
+} from "lux-js-sdk";
+import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { type MenuItemProps, notifier } from "../../../Core";
+import EditItemWithDialog from "../../../Core/EditItemWithDialog";
+import styles from "../index.module.css";
 
-export default function DefaultInterface () {
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const [openModal, setOpenModal] = useState(false)
+export default function DefaultInterface() {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [openModal, setOpenModal] = useState(false);
 
   const isStarted = useSelector<RootState, boolean>(
-    (state) => state.manager.isStared || state.manager.isLoading
-  )
+    (state) => state.manager.isStared || state.manager.isLoading,
+  );
 
-  const setting = useSelector<RootState, SettingRes>((state) => state.setting)
+  const setting = useSelector<RootState, SettingRes>((state) => state.setting);
 
   const onSubmit = async (value: string) => {
-    const newSetting = { ...setting, defaultInterface: value }
-    await setSetting(newSetting)
-    dispatch(settingSlice.actions.setSetting(newSetting))
-    setOpenModal(false)
-    notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS))
-  }
+    const newSetting = { ...setting, defaultInterface: value };
+    await setSetting(newSetting);
+    dispatch(settingSlice.actions.setSetting(newSetting));
+    setOpenModal(false);
+    notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
+  };
 
   const [networkInterfaces, setNetworkInterfaces] = useState<MenuItemProps[]>(
-    []
-  )
+    [],
+  );
 
   const init = useCallback(async () => {
-    const { os } = await getRuntimeOS()
+    const { os } = await getRuntimeOS();
     // TODO: optimize
     getSettingInterfaces().then((items) => {
       const filteredItems = items.filter((item) => {
-        if (os === 'darwin') return item.Name.startsWith('en')
-        return true
-      })
+        if (os === "darwin") return item.Name.startsWith("en");
+        return true;
+      });
       const newInterfaces = [...filteredItems].map((item) => ({
         id: item.Name,
-        content: item.Name
-      }))
-      setNetworkInterfaces(newInterfaces)
-    })
-  }, [])
+        content: item.Name,
+      }));
+      setNetworkInterfaces(newInterfaces);
+    });
+  }, []);
 
   useEffect(() => {
-    init()
-  }, [init])
+    init();
+  }, [init]);
 
   return (
     <Card className={styles.card}>
@@ -69,7 +69,7 @@ export default function DefaultInterface () {
           open={openModal}
           setOpen={setOpenModal}
           onSubmit={(value) => {
-            onSubmit(value)
+            onSubmit(value);
           }}
           value={setting.defaultInterface}
           disabled={isStarted}
@@ -78,5 +78,5 @@ export default function DefaultInterface () {
         />
       </div>
     </Card>
-  )
+  );
 }

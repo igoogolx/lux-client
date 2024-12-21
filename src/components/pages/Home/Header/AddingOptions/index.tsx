@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import { addProxy, ProxyTypeEnum } from 'lux-js-sdk'
-import { useDispatch } from 'react-redux'
-import { useTranslation } from 'react-i18next'
+import { notifier } from "@/components/Core";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { proxiesSlice } from "@/reducers";
+import { decode } from "@/utils/url";
 import {
   Button,
   Menu,
   MenuItem,
   MenuList,
   MenuPopover,
-  MenuTrigger
-} from '@fluentui/react-components'
-import { AddFilled } from '@fluentui/react-icons'
-import { proxiesSlice } from '@/reducers'
-import { decode } from '@/utils/url'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { EditModal } from '../../../../Modal/Proxy'
-import SubscriptionUrlModal from '../../../../Modal/SubscriptionUrlModal'
-import { notifier } from '@/components/Core'
+  MenuTrigger,
+} from "@fluentui/react-components";
+import { AddFilled } from "@fluentui/react-icons";
+import { addProxy, ProxyTypeEnum } from "lux-js-sdk";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { EditModal } from "../../../../Modal/Proxy";
+import SubscriptionUrlModal from "../../../../Modal/SubscriptionUrlModal";
 
 enum OperationTypeEnum {
   Shadowsocks,
@@ -27,91 +27,94 @@ enum OperationTypeEnum {
 }
 
 interface AddingOptionsProps {
-  className?: string
+  className?: string;
 }
 
-export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
-  const { className } = props
-  const { t } = useTranslation()
+export function AddingOptions(props: AddingOptionsProps): React.ReactNode {
+  const { className } = props;
+  const { t } = useTranslation();
   const [currentAddingType, setCurrentAddingType] =
-    useState<ProxyTypeEnum | null>(null)
-  const dispatch = useDispatch()
+    useState<ProxyTypeEnum | null>(null);
+  const dispatch = useDispatch();
 
-  const [isOpenSubscriptionUrlModal, setIsOpenSubscriptionUrlModal] = useState(false)
+  const [isOpenSubscriptionUrlModal, setIsOpenSubscriptionUrlModal] =
+    useState(false);
 
   const closeAddingModal = () => {
-    setCurrentAddingType(null)
-  }
+    setCurrentAddingType(null);
+  };
 
   const items = [
     {
       id: OperationTypeEnum.Shadowsocks,
-      content: t(TRANSLATION_KEY.SHADOWSOCKS)
+      content: t(TRANSLATION_KEY.SHADOWSOCKS),
     },
     { id: OperationTypeEnum.Socks5, content: t(TRANSLATION_KEY.SOCKS5) },
     {
       id: OperationTypeEnum.Http,
-      content: t(TRANSLATION_KEY.HTTP)
+      content: t(TRANSLATION_KEY.HTTP),
     },
     {
       id: OperationTypeEnum.Clipboard,
-      content: t(TRANSLATION_KEY.CLIPBOARD_IMPORT)
+      content: t(TRANSLATION_KEY.CLIPBOARD_IMPORT),
     },
     {
       id: OperationTypeEnum.SubscriptionUrl,
-      content: t(TRANSLATION_KEY.SUBSCRIPTION_URL_IMPORT)
-    }
-  ]
+      content: t(TRANSLATION_KEY.SUBSCRIPTION_URL_IMPORT),
+    },
+  ];
 
   const onSelect = async (id: OperationTypeEnum) => {
     switch (id) {
       case OperationTypeEnum.Shadowsocks:
-        setCurrentAddingType(ProxyTypeEnum.Shadowsocks)
-        break
+        setCurrentAddingType(ProxyTypeEnum.Shadowsocks);
+        break;
       case OperationTypeEnum.Socks5:
-        setCurrentAddingType(ProxyTypeEnum.Socks5)
-        break
+        setCurrentAddingType(ProxyTypeEnum.Socks5);
+        break;
       case OperationTypeEnum.Http:
-        setCurrentAddingType(ProxyTypeEnum.Http)
-        break
+        setCurrentAddingType(ProxyTypeEnum.Http);
+        break;
       case OperationTypeEnum.Clipboard: {
         try {
-          const url = await navigator.clipboard.readText()
-          const proxyConfigs = decode(url)
+          const url = await navigator.clipboard.readText();
+          const proxyConfigs = decode(url);
           await Promise.all(
             proxyConfigs.map(async (proxyConfig) => {
-              const proxy = { ...proxyConfig }
-              const res = await addProxy({ proxy })
+              const proxy = { ...proxyConfig };
+              const res = await addProxy({ proxy });
               dispatch(
-                proxiesSlice.actions.addOne({ proxy: { ...proxy, id: res.id } })
-              )
-            })
-          )
+                proxiesSlice.actions.addOne({
+                  proxy: { ...proxy, id: res.id },
+                }),
+              );
+            }),
+          );
         } catch (e) {
-          notifier.error(`fail to parse url, error:${e}`)
+          notifier.error(`fail to parse url, error:${e}`);
         }
-        break
+        break;
       }
       case OperationTypeEnum.SubscriptionUrl: {
-        setIsOpenSubscriptionUrlModal(true)
-        break
+        setIsOpenSubscriptionUrlModal(true);
+        break;
       }
       default: {
-        throw new Error('invalid id')
+        throw new Error("invalid id");
       }
     }
-  }
+  };
 
   return (
     <div className={className}>
       {isOpenSubscriptionUrlModal && (
         <SubscriptionUrlModal
           close={() => {
-            setIsOpenSubscriptionUrlModal(false)
+            setIsOpenSubscriptionUrlModal(false);
           }}
         />
       )}
-      {(currentAddingType != null) && (
+      {currentAddingType != null && (
         <EditModal close={closeAddingModal} type={currentAddingType} />
       )}
       <Menu>
@@ -124,7 +127,7 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
               <MenuItem
                 key={item.id}
                 onClick={() => {
-                  onSelect(item.id as OperationTypeEnum)
+                  onSelect(item.id as OperationTypeEnum);
                 }}
               >
                 {item.content}
@@ -134,5 +137,5 @@ export function AddingOptions (props: AddingOptionsProps): React.ReactNode {
         </MenuPopover>
       </Menu>
     </div>
-  )
+  );
 }

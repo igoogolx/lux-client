@@ -1,30 +1,32 @@
-import React from 'react'
+import { useLockBodyScroll } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogBody,
   DialogContent,
-  DialogSurface, DialogTitle, DialogTrigger,
-  Spinner
-} from '@fluentui/react-components'
-import { useTranslation } from 'react-i18next'
-import { useLockBodyScroll } from '@/hooks'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import styles from './index.module.css'
-import { DismissRegular } from '@fluentui/react-icons'
+  DialogSurface,
+  DialogTitle,
+  DialogTrigger,
+  Spinner,
+} from "@fluentui/react-components";
+import { DismissRegular } from "@fluentui/react-icons";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import styles from "./index.module.css";
 
 interface ModalProps {
-  children: React.ReactNode
-  close?: () => void
-  onOk?: () => void
-  disabledOk?: boolean
-  loadingOk?: boolean
-  hideCloseButton?: boolean
-  hideOkButton?: boolean
-  closeText?: string
-  okText?: string
-  title?: string
+  children: React.ReactNode;
+  close?: () => void;
+  onOk?: () => void;
+  disabledOk?: boolean;
+  loadingOk?: boolean;
+  hideCloseButton?: boolean;
+  hideOkButton?: boolean;
+  closeText?: string;
+  okText?: string;
+  title?: string;
 }
 
 export const Modal = React.memo((props: ModalProps) => {
@@ -38,18 +40,17 @@ export const Modal = React.memo((props: ModalProps) => {
     hideCloseButton = false,
     closeText,
     okText,
-    title = ''
-  } = props
+    title = "",
+  } = props;
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  useLockBodyScroll()
+  useLockBodyScroll();
   return (
     <Dialog open modalType="alert">
-
       <DialogSurface>
         <DialogBody>
-          {close &&
+          {close && (
             <DialogTitle
               action={
                 <DialogTrigger action="close">
@@ -62,9 +63,9 @@ export const Modal = React.memo((props: ModalProps) => {
                 </DialogTrigger>
               }
             >
-              { title }
+              {title}
             </DialogTitle>
-          }
+          )}
 
           <DialogContent>{children}</DialogContent>
           <DialogActions>
@@ -90,7 +91,7 @@ export const Modal = React.memo((props: ModalProps) => {
         </DialogBody>
       </DialogSurface>
     </Dialog>
-  )
-})
+  );
+});
 
-Modal.displayName = 'Modal'
+Modal.displayName = "Modal";

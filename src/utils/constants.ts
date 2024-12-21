@@ -1,26 +1,26 @@
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 
-export const REPOSITORY_URL = 'https://github.com/igoogolx/lux'
+export const REPOSITORY_URL = "https://github.com/igoogolx/lux";
 
-export const DOCS_URL = 'https://igoogolx.github.io/lux-docs/docs/intro'
+export const DOCS_URL = "https://igoogolx.github.io/lux-docs/docs/intro";
 
-export const REPOSITORY_ISSUE_URL = 'https://github.com/igoogolx/lux/issues'
+export const REPOSITORY_ISSUE_URL = "https://github.com/igoogolx/lux/issues";
 
-export const LATEST_RELEASE_URL = `${REPOSITORY_URL}/releases/latest`
+export const LATEST_RELEASE_URL = `${REPOSITORY_URL}/releases/latest`;
 
-export const APP_CONTAINER_ID = 'app-content'
+export const APP_CONTAINER_ID = "app-content";
 
-export const LAST_CHECK_UPDATE_DATE = 'LAST_CHECK_UPDATE_DATE'
+export const LAST_CHECK_UPDATE_DATE = "LAST_CHECK_UPDATE_DATE";
 
-export const CUSTOMIZED_RULE_ID = 'customized'
+export const CUSTOMIZED_RULE_ID = "customized";
 
 export enum ROUTER_PATH {
-  Home = '/',
-  Dashboard = '/dashboard',
-  Logger = '/logs',
-  Setting = '/setting',
-  About = '/about',
-  Rules = '/rules'
+  Home = "/",
+  Dashboard = "/dashboard",
+  Logger = "/logs",
+  Setting = "/setting",
+  About = "/about",
+  Rules = "/rules",
 }
 
 export const ROUTER_NAME = {
@@ -29,5 +29,5 @@ export const ROUTER_NAME = {
   [ROUTER_PATH.Dashboard]: TRANSLATION_KEY.NAV_DATA,
   [ROUTER_PATH.Logger]: TRANSLATION_KEY.LOG,
   [ROUTER_PATH.Setting]: TRANSLATION_KEY.NAV_SETTING,
-  [ROUTER_PATH.About]: TRANSLATION_KEY.NAV_ABOUT
-}
+  [ROUTER_PATH.About]: TRANSLATION_KEY.NAV_ABOUT,
+};

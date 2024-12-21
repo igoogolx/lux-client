@@ -1,6 +1,6 @@
-import React from 'react'
-import { convertByte } from '@/utils/traffic'
-import styles from './index.module.css'
+import { convertByte } from "@/utils/traffic";
+import React from "react";
+import styles from "./index.module.css";
 
 export enum FlowTextTypeEnum {
   Speed,
@@ -8,13 +8,13 @@ export enum FlowTextTypeEnum {
 }
 
 interface FlowTextProps {
-  value: number
-  type?: FlowTextTypeEnum
+  value: number;
+  type?: FlowTextTypeEnum;
 }
 
-export function FlowText (props: FlowTextProps): React.ReactNode {
-  const { value, type = FlowTextTypeEnum.Speed } = props
-  const { value: convertedValue, unit } = convertByte(value)
+export function FlowText(props: FlowTextProps): React.ReactNode {
+  const { value, type = FlowTextTypeEnum.Speed } = props;
+  const { value: convertedValue, unit } = convertByte(value);
   return (
     <span className={styles.wrapper}>
       <span className={styles.value}>{convertedValue}</span>
@@ -22,5 +22,5 @@ export function FlowText (props: FlowTextProps): React.ReactNode {
         {type === FlowTextTypeEnum.Speed ? `${unit}/S` : unit}
       </span>
     </span>
-  )
+  );
 }

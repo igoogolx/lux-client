@@ -1,5 +1,5 @@
 .container {
-  & .item{
+  & .item {
     @apply mb-2;
   }
 }

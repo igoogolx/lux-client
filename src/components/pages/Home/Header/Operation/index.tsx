@@ -1,109 +1,107 @@
-import React, { useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
-import { type BaseProxy } from 'lux-js-sdk'
+import { useTestDelay } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { proxiesSelectors, proxiesSlice, type RootState } from "@/reducers";
 import {
   Button,
   Menu,
   MenuItem,
   MenuList,
   MenuPopover,
-  MenuTrigger
-} from '@fluentui/react-components'
-import { MoreHorizontalFilled } from '@fluentui/react-icons'
-import {
-  proxiesSelectors,
-  proxiesSlice,
-  type RootState
-} from '@/reducers'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { useTestDelay } from '@/hooks'
-import { type MenuItemProps } from '../../../../Core'
-import { RuntimeDetailModal } from '../../../../Modal/RuntimeDetailModal'
-import splitArrayIntoChunks from '../../../../../utils/splitArrayIntoChunks'
+  MenuTrigger,
+} from "@fluentui/react-components";
+import { MoreHorizontalFilled } from "@fluentui/react-icons";
+import { type BaseProxy } from "lux-js-sdk";
+import React, { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import splitArrayIntoChunks from "../../../../../utils/splitArrayIntoChunks";
+import { type MenuItemProps } from "../../../../Core";
+import { RuntimeDetailModal } from "../../../../Modal/RuntimeDetailModal";
 
 enum OperationTypeEnum {
-  RuntimeDetail = '0',
-  TestDelay = '1',
-  DeleteAllProxies = '2',
+  RuntimeDetail = "0",
+  TestDelay = "1",
+  DeleteAllProxies = "2",
 }
 
-export function Operation (): React.ReactNode {
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const [isRuntimeDetailOpen, setIsRuntimeDetailOpen] = useState(false)
+export function Operation(): React.ReactNode {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [isRuntimeDetailOpen, setIsRuntimeDetailOpen] = useState(false);
 
   const isStarted = useSelector<RootState, boolean>(
-    (state) => state.manager.isStared
-  )
+    (state) => state.manager.isStared,
+  );
 
-  const testDelay = useTestDelay()
+  const testDelay = useTestDelay();
   const proxies = useSelector<RootState, BaseProxy[]>(
-    proxiesSelectors.selectAll
-  )
+    proxiesSelectors.selectAll,
+  );
 
-  const [isTestingDealy, setIsTestingDealy] = useState(false)
+  const [isTestingDealy, setIsTestingDealy] = useState(false);
 
   const testDelays = async () => {
-    setIsTestingDealy(true)
+    setIsTestingDealy(true);
     try {
       proxies.forEach((item) => {
         dispatch(
           proxiesSlice.actions.updateOne({
-            proxy: { id: item.id, delay: undefined }
-          })
-        )
-      })
-      const subProxies = splitArrayIntoChunks(proxies)
+            proxy: { id: item.id, delay: undefined },
+          }),
+        );
+      });
+      const subProxies = splitArrayIntoChunks(proxies);
       for (let i = 0; i < subProxies.length; i += 1) {
-        // eslint-disable-next-line no-await-in-loop
-        await Promise.all(subProxies[i].map(async (proxy) => { await testDelay(proxy.id) }))
+        await Promise.all(
+          subProxies[i].map(async (proxy) => {
+            await testDelay(proxy.id);
+          }),
+        );
       }
     } finally {
-      setIsTestingDealy(false)
+      setIsTestingDealy(false);
     }
-  }
+  };
 
   const openRuntimeDetail = () => {
-    setIsRuntimeDetailOpen(true)
-  }
+    setIsRuntimeDetailOpen(true);
+  };
 
   const closeRuntimeDetail = () => {
-    setIsRuntimeDetailOpen(false)
-  }
+    setIsRuntimeDetailOpen(false);
+  };
 
   const menuItems: MenuItemProps[] = useMemo(() => {
     return [
       {
         id: OperationTypeEnum.TestDelay,
         content: t(TRANSLATION_KEY.CONNECTIVITY_TEST),
-        disabled: isTestingDealy
+        disabled: isTestingDealy,
       },
       {
         id: OperationTypeEnum.RuntimeDetail,
         content: t(TRANSLATION_KEY.COMMON_RUNTIME_DETAIL),
-        disabled: !isStarted
-      }
-    ]
-  }, [isStarted, t, isTestingDealy])
+        disabled: !isStarted,
+      },
+    ];
+  }, [isStarted, t, isTestingDealy]);
   const onSelect = (id: string) => {
     switch (id) {
       case OperationTypeEnum.TestDelay:
-        testDelays()
-        return
+        testDelays();
+        return;
       case OperationTypeEnum.RuntimeDetail: {
-        openRuntimeDetail()
-        return
+        openRuntimeDetail();
+        return;
       }
       default: {
-        throw new Error(`invalid ${id}`)
+        throw new Error(`invalid ${id}`);
       }
     }
-  }
+  };
 
   return (
     <>
-
       {isRuntimeDetailOpen && <RuntimeDetailModal close={closeRuntimeDetail} />}
       <Menu>
         <MenuTrigger disableButtonEnhancement>
@@ -115,7 +113,7 @@ export function Operation (): React.ReactNode {
               <MenuItem
                 key={item.id}
                 onClick={() => {
-                  onSelect(item.id as string)
+                  onSelect(item.id as string);
                 }}
                 disabled={item.disabled}
               >
@@ -126,5 +124,5 @@ export function Operation (): React.ReactNode {
         </MenuPopover>
       </Menu>
     </>
-  )
+  );
 }

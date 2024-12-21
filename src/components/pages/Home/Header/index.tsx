@@ -1,17 +1,17 @@
-import * as React from 'react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useMedia } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
-  getCurProxy,
-  type GetCurProxyRes,
-  getRules,
-  start,
-  stop, subscribeRuntimeStatus,
-  updateSelectedRuleId
-} from 'lux-js-sdk'
-import { useDispatch, useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
+  managerSlice,
+  type RootState,
+  rulesSelectors,
+  rulesSlice,
+  selectedSlice,
+} from "@/reducers";
+import { isLocalAddr } from "@/utils/validator";
 import {
   Caption1,
+  InteractionTag,
+  InteractionTagPrimary,
   Menu,
   MenuButton,
   MenuItem,
@@ -19,129 +19,138 @@ import {
   MenuPopover,
   MenuTrigger,
   Switch,
-  Tooltip
-} from '@fluentui/react-components'
+  Tooltip,
+} from "@fluentui/react-components";
 import {
-  selectedSlice,
-  type RootState,
-  rulesSelectors,
-  rulesSlice,
-  managerSlice
-} from '@/reducers'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { isLocalAddr } from '@/utils/validator'
-import { type MenuItemProps, notifier } from '../../../Core'
-import { Operation } from './Operation'
-import { AddingOptions } from './AddingOptions'
-import styles from './index.module.css'
-import { useMedia } from '@/hooks'
+  getCurProxy,
+  type GetCurProxyRes,
+  getRules,
+  type SettingRes,
+  start,
+  stop,
+  subscribeRuntimeStatus,
+  updateSelectedRuleId,
+} from "lux-js-sdk";
+import * as React from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { type MenuItemProps, notifier } from "../../../Core";
+import { AddingOptions } from "./AddingOptions";
+import styles from "./index.module.css";
+import { Operation } from "./Operation";
 
-export function Header (): React.ReactNode {
-  const { t } = useTranslation()
+export function Header(): React.ReactNode {
+  const { t } = useTranslation();
   const [curProxy, setCurProxy] = useState<GetCurProxyRes>({
-    name: '',
-    addr: ''
-  })
+    name: "",
+    addr: "",
+  });
 
-  const isWideScreen = useMedia('(min-width: 640px)')
+  const isWideScreen = useMedia("(min-width: 640px)");
 
   const isStarted = useSelector<RootState, boolean>(
-    (state) => state.manager.isStared
-  )
+    (state) => state.manager.isStared,
+  );
   const isSwitchLoading = useSelector<RootState, boolean>(
-    (state) => state.manager.isLoading
-  )
-  const [isSettingRule, setIsSettingRule] = useState(false)
+    (state) => state.manager.isLoading,
+  );
+  const [isSettingRule, setIsSettingRule] = useState(false);
   const isProxyValid = useSelector<RootState, boolean>((state) => {
     if (state.setting.autoMode.enabled) {
-      return true
+      return true;
     }
     if (state.selected.proxy) {
       if (state.proxies.ids.includes(state.selected.proxy)) {
-        return true
+        return true;
       }
     }
-    return false
-  })
+    return false;
+  });
   const isDnsSettingValid = useSelector<RootState, boolean>((state) => {
-    return state.setting.dns.server.remote.length <= 2 && state.setting.dns.server.local.length <= 2
-  })
-  const dispatch = useDispatch()
-  const rules = useSelector(rulesSelectors.selectAll)
+    return (
+      state.setting.dns.server.remote.length <= 2 &&
+      state.setting.dns.server.local.length <= 2
+    );
+  });
+  const dispatch = useDispatch();
+  const rules = useSelector(rulesSelectors.selectAll);
   const selectedRuleId = useSelector<RootState, string>(
-    (state) => state.selected.rule
-  )
+    (state) => state.selected.rule,
+  );
 
-  const [tooltipVisible, setTooltipVisible] = useState(false)
+  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   useEffect(() => {
     getRules().then((res) => {
-      dispatch(rulesSlice.actions.received(res))
-      dispatch(selectedSlice.actions.setRule({ id: res.selectedId }))
-    })
+      dispatch(rulesSlice.actions.received(res));
+      dispatch(selectedSlice.actions.setRule({ id: res.selectedId }));
+    });
 
     const runtimeStatusSubscriber = subscribeRuntimeStatus({
       onMessage: (msg) => {
         setCurProxy({
           name: msg.name,
-          addr: msg.addr
-        })
+          addr: msg.addr,
+        });
         dispatch(
-          managerSlice.actions.setIsStarted({ isStarted: msg.isStarted })
-        )
+          managerSlice.actions.setIsStarted({ isStarted: msg.isStarted }),
+        );
       },
       onError: () => {
-        runtimeStatusSubscriber.close()
-      }
-    })
-  }, [dispatch, isSwitchLoading])
+        runtimeStatusSubscriber.close();
+      },
+    });
+  }, [dispatch, isSwitchLoading]);
 
   const selectRule = useCallback(
     async (id: string) => {
       try {
-        setIsSettingRule(true)
-        await updateSelectedRuleId({ id })
-        dispatch(selectedSlice.actions.setRule({ id }))
+        setIsSettingRule(true);
+        await updateSelectedRuleId({ id });
+        dispatch(selectedSlice.actions.setRule({ id }));
       } finally {
-        setIsSettingRule(false)
+        setIsSettingRule(false);
       }
     },
-    [dispatch]
-  )
+    [dispatch],
+  );
 
   const ruleItems = useMemo<MenuItemProps[]>(() => {
     return rules.map((rule) => ({
       id: rule.id,
-      content: t(rule.id)
-    }))
-  }, [rules, t])
+      content: t(rule.id),
+    }));
+  }, [rules, t]);
 
   const onSwitch = async () => {
     try {
-      dispatch(managerSlice.actions.setIsLoading({ isLoading: true }))
+      dispatch(managerSlice.actions.setIsLoading({ isLoading: true }));
       if (isStarted) {
-        await stop()
+        await stop();
       } else {
-        await start()
+        await start();
       }
-      dispatch(managerSlice.actions.setIsStarted({ isStarted: !isStarted }))
+      dispatch(managerSlice.actions.setIsStarted({ isStarted: !isStarted }));
       if (!isStarted) {
-        const latestProxy = await getCurProxy()
+        const latestProxy = await getCurProxy();
         if (isLocalAddr(latestProxy.addr)) {
-          notifier.warn(t(TRANSLATION_KEY.PROXY_SERVER_MSG))
+          notifier.warn(t(TRANSLATION_KEY.PROXY_SERVER_MSG));
         }
         if (!isDnsSettingValid) {
-          notifier.warn(t(TRANSLATION_KEY.DNS_SERVER_NUM_MSG))
+          notifier.warn(t(TRANSLATION_KEY.DNS_SERVER_NUM_MSG));
         }
       }
     } catch (e) {
-      notifier.error((e as { message?: string }).message ?? 'unknown error')
+      notifier.error((e as { message?: string }).message ?? "unknown error");
     } finally {
-      dispatch(managerSlice.actions.setIsLoading({ isLoading: false }))
+      dispatch(managerSlice.actions.setIsLoading({ isLoading: false }));
     }
-  }
+  };
 
-  const isSwitchDisabled = isSwitchLoading || !isProxyValid || isSettingRule
+  const isSwitchDisabled = isSwitchLoading || !isProxyValid || isSettingRule;
+
+  const setting = useSelector<RootState, SettingRes>((state) => state.setting);
 
   return (
     <div className={styles.wrapper}>
@@ -165,7 +174,7 @@ export function Header (): React.ReactNode {
                   key={item.id}
                   icon={item.icon}
                   onClick={() => {
-                    selectRule(item.id as string)
+                    selectRule(item.id as string);
                   }}
                 >
                   {item.content}
@@ -174,6 +183,29 @@ export function Header (): React.ReactNode {
             </MenuList>
           </MenuPopover>
         </Menu>
+
+        <Tooltip
+          content={t(TRANSLATION_KEY.PROXY_MODE_TOOLTIP)}
+          relationship="label"
+        >
+          <InteractionTag appearance="brand" className={styles.tag}>
+            <InteractionTagPrimary>{`${
+              setting.mode === "tun" ? "Tun" : "System"
+            }`}</InteractionTagPrimary>
+          </InteractionTag>
+        </Tooltip>
+        {setting.autoMode.enabled && (
+          <Tooltip
+            content={t(TRANSLATION_KEY.MODE_SELECT_TIP)}
+            relationship="label"
+          >
+            <InteractionTag appearance="brand" className={styles.tag}>
+              <InteractionTagPrimary>
+                {t(TRANSLATION_KEY.MODE_SWITCH_LABEL)}
+              </InteractionTagPrimary>
+            </InteractionTag>
+          </Tooltip>
+        )}
       </div>
       <div>
         {isStarted && curProxy && isWideScreen && (
@@ -183,7 +215,9 @@ export function Header (): React.ReactNode {
           content={t(TRANSLATION_KEY.SWITCH_DISABLE_TIP)}
           relationship="description"
           visible={tooltipVisible && isSwitchDisabled}
-          onVisibleChange={(_ev, data) => { setTooltipVisible(data.visible) }}
+          onVisibleChange={(_ev, data) => {
+            setTooltipVisible(data.visible);
+          }}
         >
           <Switch
             checked={isStarted}
@@ -193,5 +227,5 @@ export function Header (): React.ReactNode {
         </Tooltip>
       </div>
     </div>
-  )
+  );
 }

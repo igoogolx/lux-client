@@ -1,25 +1,25 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { Button } from '@fluentui/react-components'
-import { type V2rayObfs } from 'lux-js-sdk'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { Field, FieldSwitch, Form } from '../../../../Core'
-import { V2rayPluginSchema } from '../../EditShadowsocksModal/validate'
-import styles from './index.module.css'
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { Button } from "@fluentui/react-components";
+import { type V2rayObfs } from "lux-js-sdk";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { Field, FieldSwitch, Form } from "../../../../Core";
+import { V2rayPluginSchema } from "../../EditShadowsocksModal/validate";
+import styles from "./index.module.css";
 
 interface EditV2rayProps {
-  close: () => void
-  initialValue: NonNullable<V2rayObfs>
-  onChange: (data: V2rayObfs) => void
+  close: () => void;
+  initialValue: NonNullable<V2rayObfs>;
+  onChange: (data: V2rayObfs) => void;
 }
 
-export function EditV2rayPlugin (props: EditV2rayProps) {
-  const { t } = useTranslation()
-  const { close, initialValue, onChange } = props
+export function EditV2rayPlugin(props: EditV2rayProps) {
+  const { t } = useTranslation();
+  const { close, initialValue, onChange } = props;
   const onSubmit = async (data: V2rayObfs) => {
-    onChange(data)
-    close()
-  }
+    onChange(data);
+    close();
+  };
 
   return (
     <Form
@@ -52,8 +52,8 @@ export function EditV2rayPlugin (props: EditV2rayProps) {
               </Button>
             </div>
           </>
-        )
+        );
       }}
     </Form>
-  )
+  );
 }

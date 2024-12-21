@@ -1,25 +1,26 @@
-import axios from 'axios'
-import { urtConfig } from './url'
-import { type GetLogsDir, type SubscribeLog, Level } from './types'
+import axios from "axios";
+import { type GetLogsDir, type SubscribeLog, Level } from "./types";
+import { urtConfig } from "./url";
 
-import { createWebsocket } from './websocket'
+import { getToken } from "@/utils/auth";
+import { createWebsocket } from "./websocket";
 
 export const subscribeLog: SubscribeLog = (config) => {
-  const { onError, onClose, onMessage, level = Level.Info } = config
-  const url = `${urtConfig.log}?${level}`
+  const { onError, onClose, onMessage, level = Level.Info } = config;
+  const url = `${urtConfig.log}?token=${getToken()}&${level}`;
   return createWebsocket(url, {
     onError,
     onMessage: (data) => {
-      if (typeof data === 'string') {
-        const logs = JSON.parse(data.trim())
-        onMessage(logs)
+      if (typeof data === "string") {
+        const logs = JSON.parse(data.trim());
+        onMessage(logs);
       }
     },
-    onClose
-  })
-}
+    onClose,
+  });
+};
 
 export const getLogsDir: GetLogsDir = async () => {
-  const res = await axios.get(`${urtConfig.logHttp}/dir`)
-  return res.data.path
-}
+  const res = await axios.get(`${urtConfig.logHttp}/dir`);
+  return res.data.path;
+};

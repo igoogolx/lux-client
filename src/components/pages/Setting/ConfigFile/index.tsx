@@ -1,40 +1,40 @@
-import React, { useState } from 'react'
+import { ResetConfigModal } from "@/components/Modal/ResetConfigModal";
+import { useDangerStyles } from "@/hooks";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { type RootState } from "@/reducers";
 import {
   Button,
   Caption1,
   Card,
   mergeClasses,
-  Subtitle2
-} from '@fluentui/react-components'
-import { useTranslation } from 'react-i18next'
-import { openConfigFileDir, resetConfigFile } from 'lux-js-sdk'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import { ResetConfigModal } from '@/components/Modal/ResetConfigModal'
-import { useDangerStyles } from '@/hooks'
-import { useSelector } from 'react-redux'
-import { type RootState } from '@/reducers'
-import styles from '../index.module.css'
+  Subtitle2,
+} from "@fluentui/react-components";
+import { openConfigFileDir, resetConfigFile } from "lux-js-sdk";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import styles from "../index.module.css";
 
-export default function ConfigFile () {
-  const { t } = useTranslation()
-  const [isOpenConfigModal, setIsOpenConfigModal] = useState(false)
+export default function ConfigFile() {
+  const { t } = useTranslation();
+  const [isOpenConfigModal, setIsOpenConfigModal] = useState(false);
 
   const handleReset = async () => {
-    await resetConfigFile()
-    window.location.reload()
-  }
+    await resetConfigFile();
+    window.location.reload();
+  };
 
-  const inlineStyles = useDangerStyles()
+  const inlineStyles = useDangerStyles();
   const isStarted = useSelector<RootState, boolean>(
-    (state) => state.manager.isStared
-  )
+    (state) => state.manager.isStared,
+  );
 
   return (
     <Card className={styles.card}>
       {isOpenConfigModal && (
         <ResetConfigModal
           onCancel={() => {
-            setIsOpenConfigModal(false)
+            setIsOpenConfigModal(false);
           }}
           onConfirm={handleReset}
         />
@@ -48,11 +48,11 @@ export default function ConfigFile () {
         <div>
           <Button
             onClick={() => {
-              setIsOpenConfigModal(true)
+              setIsOpenConfigModal(true);
             }}
             className={mergeClasses(
               styles.actionBtn,
-              isStarted ? '' : inlineStyles.danger
+              isStarted ? "" : inlineStyles.danger,
             )}
             disabled={isStarted}
           >
@@ -60,7 +60,7 @@ export default function ConfigFile () {
           </Button>
           <Button
             onClick={() => {
-              openConfigFileDir()
+              openConfigFileDir();
             }}
             className={styles.actionBtn}
           >
@@ -69,5 +69,5 @@ export default function ConfigFile () {
         </div>
       </div>
     </Card>
-  )
+  );
 }

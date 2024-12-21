@@ -7,7 +7,6 @@
   pb-4
   align-baseline;
 
-
   .desc {
     @apply flex flex-col overflow-ellipsis;
 
