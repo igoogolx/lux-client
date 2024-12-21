@@ -3,7 +3,7 @@ type UpdateSelectedRuleIdReq = {
 };
 
 export type UpdateSelectedRuleId = (
-  req: UpdateSelectedRuleIdReq
+  req: UpdateSelectedRuleIdReq,
 ) => Promise<void>;
 
 type UpdateSelectedProxyIdReq = {
@@ -11,5 +11,5 @@ type UpdateSelectedProxyIdReq = {
 };
 
 export type UpdateProxyRuleId = (
-  req: UpdateSelectedProxyIdReq
+  req: UpdateSelectedProxyIdReq,
 ) => Promise<void>;
