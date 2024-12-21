@@ -51,6 +51,7 @@ export function RuntimeDetailModal(
         notifier.success(t(TRANSLATION_KEY.COPIED));
       }}
       okText={t(TRANSLATION_KEY.COPY)}
+      title={t(TRANSLATION_KEY.COMMON_RUNTIME_DETAIL)}
     >
       {(Object.keys(runtimeDetail) as Array<keyof typeof runtimeDetail>).map(
         (key) => {
