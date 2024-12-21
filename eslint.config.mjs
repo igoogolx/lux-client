@@ -25,4 +25,5 @@ export default [
     ignores:['dist','build'],
   },
   ...compat.extends('plugin:react-hooks/recommended'),
+  ...compat.extends('plugin:prettier/recommended'),
 ];
