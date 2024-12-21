@@ -1,14 +1,14 @@
-import { type MessageType } from '../Message'
+import { type MessageType } from "../Message";
 
 export interface NotificationAddActionItem {
-  text: string
-  onClick: () => void
+  text: string;
+  onClick: () => void;
 }
 
 interface AddAction {
-  title: string
-  type: MessageType
-  actions?: NotificationAddActionItem[]
+  title: string;
+  type: MessageType;
+  actions?: NotificationAddActionItem[];
 }
 
-export type NotificationAction = AddAction
+export type NotificationAction = AddAction;

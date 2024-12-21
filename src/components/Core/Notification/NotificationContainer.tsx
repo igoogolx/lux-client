@@ -1,24 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 import {
   Link,
   Toast,
-  Toaster, ToastFooter,
-  ToastTitle, ToastTrigger,
+  Toaster,
+  ToastFooter,
+  ToastTitle,
+  ToastTrigger,
   useId,
-  useToastController
-} from '@fluentui/react-components'
-import { type NotificationAction } from './reducer'
-import { createEventManager } from './util'
-import { useTranslation } from 'react-i18next'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
+  useToastController,
+} from "@fluentui/react-components";
+import { type NotificationAction } from "./reducer";
+import { createEventManager } from "./util";
+import { useTranslation } from "react-i18next";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 
 export const notificationEventManager =
-  createEventManager<NotificationAction>()
+  createEventManager<NotificationAction>();
 
-export function NotificationContainer () {
-  const toasterId = useId('toaster')
-  const { dispatchToast } = useToastController(toasterId)
-  const { t } = useTranslation()
+export function NotificationContainer() {
+  const toasterId = useId("toaster");
+  const { dispatchToast } = useToastController(toasterId);
+  const { t } = useTranslation();
 
   useEffect(() => {
     notificationEventManager.on((data) => {
@@ -30,24 +32,28 @@ export function NotificationContainer () {
                 <Link>{t(TRANSLATION_KEY.DISMISS)}</Link>
               </ToastTrigger>
             }
-          >{data.title}</ToastTitle>
-          {
-            data.actions &&
+          >
+            {data.title}
+          </ToastTitle>
+          {data.actions && (
             <ToastFooter>
               {data.actions.map((action) => {
-                return <Link key={action.text} onClick={action.onClick}>{action.text}</Link>
+                return (
+                  <Link key={action.text} onClick={action.onClick}>
+                    {action.text}
+                  </Link>
+                );
               })}
             </ToastFooter>
-          }
-
+          )}
         </Toast>,
-        { intent: data.type, position: 'top', pauseOnHover: true }
-      )
-    })
+        { intent: data.type, position: "top", pauseOnHover: true },
+      );
+    });
     return () => {
-      notificationEventManager.remove()
-    }
-  }, [dispatchToast, t])
+      notificationEventManager.remove();
+    };
+  }, [dispatchToast, t]);
 
-  return <Toaster toasterId={toasterId} />
+  return <Toaster toasterId={toasterId} />;
 }

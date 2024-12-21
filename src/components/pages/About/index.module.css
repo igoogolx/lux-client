@@ -1,29 +1,27 @@
 .container {
-    @apply flex h-full flex-col py-8 w-full;
+  @apply flex h-full flex-col py-8 w-full;
 
-    & .appHeader {
-        @apply flex justify-between flex-row items-center;
+  & .appHeader {
+    @apply flex justify-between flex-row items-center;
 
-        & .appDesc{
-            @apply flex flex-row pt-2 items-center;
+    & .appDesc {
+      @apply flex flex-row pt-2 items-center;
 
-            & .desc {
-                @apply flex flex-col ml-2 justify-between h-full py-2;
-            }
-        }
-
-
+      & .desc {
+        @apply flex flex-col ml-2 justify-between h-full py-2;
+      }
     }
+  }
 
-    & .links{
-        @apply mt-4;
-    }
+  & .links {
+    @apply mt-4;
+  }
 
-    & .divider{
-        @apply flex-grow-0;
-    }
+  & .divider {
+    @apply flex-grow-0;
+  }
 
-    & .btn {
-        @apply mt-4 block;
-    }
+  & .btn {
+    @apply mt-4 block;
+  }
 }

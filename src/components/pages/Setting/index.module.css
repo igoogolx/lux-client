@@ -11,14 +11,13 @@
         @apply flex flex-col;
       }
 
-      & .actionBtn{
+      & .actionBtn {
         @apply ml-2 mb-2 sm:mb-0;
       }
     }
   }
 
-
-  & .selector{
+  & .selector {
     @apply min-w-[120px];
   }
 }
@@ -26,5 +25,3 @@
 .dialogBody {
   @apply flex flex-col;
 }
-
-

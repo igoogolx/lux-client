@@ -1,84 +1,86 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { type TableColumnDefinition } from '@fluentui/react-table'
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { type TableColumnDefinition } from "@fluentui/react-table";
 import {
   Button,
   createTableColumn,
   SearchBox,
   TableCellLayout,
-  Tooltip
-} from '@fluentui/react-components'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
+  Tooltip,
+} from "@fluentui/react-components";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
   addCustomizedRules,
   deleteCustomizedRules,
   getRuleDetail,
-  type RuleDetailItem
-} from 'lux-js-sdk'
-import { t } from 'i18next'
-import { Table } from '@/components/Core'
-import RuleCell from '@/components/pages/Data/Connections/RuleTag'
-import styles from './index.module.css'
-import { AddFilled, DeleteRegular } from '@fluentui/react-icons'
-import { AddRuleModal } from '@/components/Modal/AddRuleModal'
-import { CUSTOMIZED_RULE_ID } from '@/utils/constants'
-import { useSelector } from 'react-redux'
-import type { RootState } from '@/reducers'
-import { useDangerStyles } from '@/hooks'
+  type RuleDetailItem,
+} from "lux-js-sdk";
+import { t } from "i18next";
+import { Table } from "@/components/Core";
+import RuleCell from "@/components/pages/Data/Connections/RuleTag";
+import styles from "./index.module.css";
+import { AddFilled, DeleteRegular } from "@fluentui/react-icons";
+import { AddRuleModal } from "@/components/Modal/AddRuleModal";
+import { CUSTOMIZED_RULE_ID } from "@/utils/constants";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/reducers";
+import { useDangerStyles } from "@/hooks";
 
 interface RuleTableProps {
-  id: string
+  id: string;
 }
 
-function calcTableHeight () {
-  return document.documentElement.clientHeight - 48 - 68 - 44 - 32 - 32 - 32 - 32
+function calcTableHeight() {
+  return (
+    document.documentElement.clientHeight - 48 - 68 - 44 - 32 - 32 - 32 - 32
+  );
 }
 
-export default function RuleTable (props: RuleTableProps) {
-  const { id } = props
+export default function RuleTable(props: RuleTableProps) {
+  const { id } = props;
 
   const isStarted = useSelector<RootState, boolean>(
-    (state) => state.manager.isStared
-  )
+    (state) => state.manager.isStared,
+  );
 
-  const [rules, setRules] = useState<RuleDetailItem[]>([])
+  const [rules, setRules] = useState<RuleDetailItem[]>([]);
 
-  const [searchedValue, setSearchedValue] = useState('')
+  const [searchedValue, setSearchedValue] = useState("");
 
-  const [isAddingRule, setIsAddingRule] = useState(false)
+  const [isAddingRule, setIsAddingRule] = useState(false);
 
-  const inlineStyles = useDangerStyles()
+  const inlineStyles = useDangerStyles();
 
   const refresh = useCallback(async () => {
     if (id) {
       getRuleDetail(id).then((res) => {
-        setRules(res.items || [])
-      })
+        setRules(res.items || []);
+      });
     }
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
-    refresh()
-  }, [refresh])
+    refresh();
+  }, [refresh]);
 
   const handleDeleteCustomizedRule = useCallback(
     async (rule: RuleDetailItem) => {
       await deleteCustomizedRules([
-        `${rule.ruleType},${rule.payload},${rule.policy}`
-      ])
-      await refresh()
+        `${rule.ruleType},${rule.payload},${rule.policy}`,
+      ]);
+      await refresh();
     },
-    [refresh]
-  )
+    [refresh],
+  );
 
   const handleAddRule = useCallback(
     async (newRule: RuleDetailItem) => {
       await addCustomizedRules([
-        `${newRule.ruleType},${newRule.payload},${newRule.policy}`
-      ])
-      await refresh()
+        `${newRule.ruleType},${newRule.payload},${newRule.policy}`,
+      ]);
+      await refresh();
     },
-    [refresh]
-  )
+    [refresh],
+  );
 
   const data = useMemo(() => {
     return rules.filter((conn) => {
@@ -86,92 +88,92 @@ export default function RuleTable (props: RuleTableProps) {
         return [conn.payload, conn.policy, conn.ruleType].some((value) => {
           return value
             .toLocaleLowerCase()
-            .includes(searchedValue.toLocaleLowerCase())
-        })
+            .includes(searchedValue.toLocaleLowerCase());
+        });
       }
-      return true
-    })
-  }, [rules, searchedValue])
+      return true;
+    });
+  }, [rules, searchedValue]);
 
   const columns = useMemo<Array<TableColumnDefinition<RuleDetailItem>>>(() => {
     return [
       createTableColumn<RuleDetailItem>({
-        columnId: 'ruleType',
+        columnId: "ruleType",
         renderHeaderCell: () => {
-          return t(TRANSLATION_KEY.TYPE)
+          return t(TRANSLATION_KEY.TYPE);
         },
         renderCell: (item) => {
-          return <TableCellLayout truncate>{item.ruleType}</TableCellLayout>
-        }
+          return <TableCellLayout truncate>{item.ruleType}</TableCellLayout>;
+        },
       }),
       createTableColumn<RuleDetailItem>({
-        columnId: 'payload',
+        columnId: "payload",
         renderHeaderCell: () => {
-          return t(TRANSLATION_KEY.PAYLOAD)
+          return t(TRANSLATION_KEY.PAYLOAD);
         },
         renderCell: (item) => {
-          return <TableCellLayout truncate>{item.payload}</TableCellLayout>
-        }
+          return <TableCellLayout truncate>{item.payload}</TableCellLayout>;
+        },
       }),
       createTableColumn<RuleDetailItem>({
-        columnId: 'policy',
+        columnId: "policy",
         renderHeaderCell: () => {
-          return t(TRANSLATION_KEY.POLICY)
+          return t(TRANSLATION_KEY.POLICY);
         },
         renderCell: (item) => {
-          return <RuleCell value={item} />
-        }
+          return <RuleCell value={item} />;
+        },
       }),
       id === CUSTOMIZED_RULE_ID
         ? createTableColumn<RuleDetailItem>({
-          columnId: 'action',
-          renderHeaderCell: () => {
-            return ''
-          },
-          renderCell: (item) => {
-            return (
+            columnId: "action",
+            renderHeaderCell: () => {
+              return "";
+            },
+            renderCell: (item) => {
+              return (
                 <TableCellLayout truncate>
                   <div
                     onClick={(e) => {
-                      e.preventDefault()
-                      e.stopPropagation()
+                      e.preventDefault();
+                      e.stopPropagation();
                     }}
                   >
                     <Button
-                      icon={<DeleteRegular className={inlineStyles.danger}/>}
+                      icon={<DeleteRegular className={inlineStyles.danger} />}
                       disabled={isStarted}
                       onClick={() => {
-                        handleDeleteCustomizedRule(item)
+                        handleDeleteCustomizedRule(item);
                       }}
                     />
                   </div>
                 </TableCellLayout>
-            )
-          }
-        })
-        : null
-    ].filter(Boolean) as Array<TableColumnDefinition<RuleDetailItem>>
-  }, [handleDeleteCustomizedRule, id, inlineStyles.danger, isStarted])
+              );
+            },
+          })
+        : null,
+    ].filter(Boolean) as Array<TableColumnDefinition<RuleDetailItem>>;
+  }, [handleDeleteCustomizedRule, id, inlineStyles.danger, isStarted]);
 
-  const [tableHeight, setTableHeight] = useState(calcTableHeight())
+  const [tableHeight, setTableHeight] = useState(calcTableHeight());
 
   const onResize = useCallback(() => {
-    setTableHeight(calcTableHeight())
-  }, [])
+    setTableHeight(calcTableHeight());
+  }, []);
 
   useEffect(() => {
-    window.addEventListener('resize', onResize)
+    window.addEventListener("resize", onResize);
     return () => {
-      window.removeEventListener('resize', onResize)
-    }
-  }, [onResize])
+      window.removeEventListener("resize", onResize);
+    };
+  }, [onResize]);
 
   return (
     <div className={styles.wrapper}>
       {isAddingRule && (
         <AddRuleModal
           close={() => {
-            setIsAddingRule(false)
+            setIsAddingRule(false);
           }}
           onSave={handleAddRule}
         />
@@ -180,7 +182,7 @@ export default function RuleTable (props: RuleTableProps) {
         <SearchBox
           value={searchedValue}
           onChange={(e, data) => {
-            setSearchedValue(data.value)
+            setSearchedValue(data.value);
           }}
           placeholder={t(TRANSLATION_KEY.SEARCH_RULE_TIP)}
           className={styles.input}
@@ -193,7 +195,7 @@ export default function RuleTable (props: RuleTableProps) {
             >
               <Button
                 onClick={() => {
-                  setIsAddingRule(true)
+                  setIsAddingRule(true);
                 }}
                 className={styles.closeAll}
                 icon={<AddFilled />}
@@ -205,5 +207,5 @@ export default function RuleTable (props: RuleTableProps) {
       </div>
       <Table columns={columns} data={data} sortable height={tableHeight} />
     </div>
-  )
+  );
 }

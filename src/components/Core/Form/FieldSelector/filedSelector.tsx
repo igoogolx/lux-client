@@ -1,25 +1,25 @@
-import * as React from 'react'
-import { useMemo } from 'react'
-import { useField } from 'formik'
-import { Button, Dropdown, Field, Option } from '@fluentui/react-components'
-import { EditRegular } from '@fluentui/react-icons'
-import { type MenuItemProps } from '../../Menu'
-import styles from './index.module.css'
+import * as React from "react";
+import { useMemo } from "react";
+import { useField } from "formik";
+import { Button, Dropdown, Field, Option } from "@fluentui/react-components";
+import { EditRegular } from "@fluentui/react-icons";
+import { type MenuItemProps } from "../../Menu";
+import styles from "./index.module.css";
 
 interface FieldSelectorProps<T extends string> {
-  name: T
-  className?: string
-  label: string
-  items: MenuItemProps[]
-  clearable?: boolean
-  editable?: boolean
-  onEditClick?: () => void
+  name: T;
+  className?: string;
+  label: string;
+  items: MenuItemProps[];
+  clearable?: boolean;
+  editable?: boolean;
+  onEditClick?: () => void;
   // TODO: remove
-  value?: string
+  value?: string;
 }
 
-export function FiledSelector<T extends string> (
-  props: FieldSelectorProps<T>
+export function FiledSelector<T extends string>(
+  props: FieldSelectorProps<T>,
 ): React.ReactNode {
   const {
     name,
@@ -29,16 +29,16 @@ export function FiledSelector<T extends string> (
     editable = false,
     onEditClick,
     value,
-    className
-  } = props
-  const [field, meta, helpers] = useField({ name })
-  const { setValue } = helpers
+    className,
+  } = props;
+  const [field, meta, helpers] = useField({ name });
+  const { setValue } = helpers;
 
   const currentSelectedOption = useMemo(() => {
     return items.find((item) =>
-      value ? item.id === value : item.id === field.value
-    )
-  }, [field.value, items, value])
+      value ? item.id === value : item.id === field.value,
+    );
+  }, [field.value, items, value]);
 
   return (
     <Field
@@ -48,13 +48,13 @@ export function FiledSelector<T extends string> (
     >
       <div className={styles.container}>
         <Dropdown
-          value={(currentSelectedOption?.content as string) || ''}
+          value={(currentSelectedOption?.content as string) || ""}
           onOptionSelect={(e, data) => {
             if (clearable && data.optionValue === field.value) {
-              setValue('')
-              return
+              setValue("");
+              return;
             }
-            setValue(data.optionValue)
+            setValue(data.optionValue);
           }}
           disabled={editable}
           className={styles.left}
@@ -69,8 +69,14 @@ export function FiledSelector<T extends string> (
             </Option>
           ))}
         </Dropdown>
-        {editable && <Button icon={<EditRegular />} onClick={onEditClick} className={styles.right} />}
+        {editable && (
+          <Button
+            icon={<EditRegular />}
+            onClick={onEditClick}
+            className={styles.right}
+          />
+        )}
       </div>
     </Field>
-  )
+  );
 }

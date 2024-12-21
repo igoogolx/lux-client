@@ -1,40 +1,46 @@
-import React from 'react'
-import { Caption1, Card, Dropdown, Option, Subtitle2 } from '@fluentui/react-components'
-import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
-import { setSetting, type SettingRes } from 'lux-js-sdk'
-import { type RootState, settingSlice } from '@/reducers'
-import { TRANSLATION_KEY } from '@/i18n/locales/key'
-import styles from '../index.module.css'
-import { notifier } from '../../../Core'
+import React from "react";
+import {
+  Caption1,
+  Card,
+  Dropdown,
+  Option,
+  Subtitle2,
+} from "@fluentui/react-components";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { setSetting, type SettingRes } from "lux-js-sdk";
+import { type RootState, settingSlice } from "@/reducers";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import styles from "../index.module.css";
+import { notifier } from "../../../Core";
 
 const OPTIONS = [
   {
-    id: 'system',
-    content: 'system'
+    id: "system",
+    content: "system",
   },
   {
-    id: 'gvisor',
-    content: 'gvisor'
-  }
-]
+    id: "gvisor",
+    content: "gvisor",
+  },
+];
 
-export default function Stack () {
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
+export default function Stack() {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const isStarted = useSelector<RootState, boolean>(
-    (state) => state.manager.isStared || state.manager.isLoading
-  )
+    (state) => state.manager.isStared || state.manager.isLoading,
+  );
 
-  const setting = useSelector<RootState, SettingRes>((state) => state.setting)
+  const setting = useSelector<RootState, SettingRes>((state) => state.setting);
 
   const onSubmit = async (value: string) => {
-    const newSetting = { ...setting, stack: value }
-    await setSetting(newSetting)
-    dispatch(settingSlice.actions.setSetting(newSetting))
-    notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS))
-  }
+    const newSetting = { ...setting, stack: value };
+    await setSetting(newSetting);
+    dispatch(settingSlice.actions.setSetting(newSetting));
+    notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
+  };
 
   return (
     <Card className={styles.card}>
@@ -49,15 +55,14 @@ export default function Stack () {
           disabled={isStarted}
           value={setting.stack}
           onOptionSelect={(e, data) => {
-            onSubmit(data.optionValue as SettingRes['stack'])
+            onSubmit(data.optionValue as SettingRes["stack"]);
           }}
         >
           {OPTIONS.map((option) => (
             <Option key={option.id}>{option.content}</Option>
           ))}
         </Dropdown>
-
       </div>
     </Card>
-  )
+  );
 }

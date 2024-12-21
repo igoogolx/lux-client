@@ -1,8 +1,8 @@
 export enum MessageTypeEnum {
-  Error = 'error',
-  Success = 'success',
-  Warning = 'warning',
-  Info = 'info',
+  Error = "error",
+  Success = "success",
+  Warning = "warning",
+  Info = "info",
 }
 
-export type MessageType = MessageTypeEnum
+export type MessageType = MessageTypeEnum;

@@ -12,5 +12,4 @@
     @apply absolute top-0 left-0 w-full h-full pointer-events-none;
     background-color: rgba(0, 0, 0, 0.5);
   }
-
 }

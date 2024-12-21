@@ -1,27 +1,27 @@
-import { initI18n } from '@/i18n'
-import * as React from 'react'
-import { StrictMode, useMemo, useState } from 'react'
-import './index.css'
-import { HashRouter as Router } from 'react-router-dom'
-import { init } from 'lux-js-sdk'
-import { Provider } from 'react-redux'
-import { createRoot } from 'react-dom/client'
+import { initI18n } from "@/i18n";
+import * as React from "react";
+import { StrictMode, useMemo, useState } from "react";
+import "./index.css";
+import { HashRouter as Router } from "react-router-dom";
+import { init } from "lux-js-sdk";
+import { Provider } from "react-redux";
+import { createRoot } from "react-dom/client";
 import {
   FluentProvider,
   webDarkTheme,
-  webLightTheme
-} from '@fluentui/react-components'
-import { getHubAddress, stringAddress } from './utils/hubAddress'
-import { ThemeContext, ThemeEnum } from './utils/theme'
-import { App } from './App'
-import { store } from './reducers'
+  webLightTheme,
+} from "@fluentui/react-components";
+import { getHubAddress, stringAddress } from "./utils/hubAddress";
+import { ThemeContext, ThemeEnum } from "./utils/theme";
+import { App } from "./App";
+import { store } from "./reducers";
 
-const hubAddress = getHubAddress()
-init(stringAddress(hubAddress))
+const hubAddress = getHubAddress();
+init(stringAddress(hubAddress));
 
-function Root () {
-  const [theme, setTheme] = useState(ThemeEnum.Light)
-  const themeContextValue = useMemo(() => ({ setTheme, theme }), [theme])
+function Root() {
+  const [theme, setTheme] = useState(ThemeEnum.Light);
+  const themeContextValue = useMemo(() => ({ setTheme, theme }), [theme]);
   return (
     <StrictMode>
       <Provider store={store}>
@@ -29,7 +29,7 @@ function Root () {
           <ThemeContext.Provider value={themeContextValue}>
             <FluentProvider
               theme={theme === ThemeEnum.Light ? webLightTheme : webDarkTheme}
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
             >
               <App />
             </FluentProvider>
@@ -37,11 +37,11 @@ function Root () {
         </Router>
       </Provider>
     </StrictMode>
-  )
+  );
 }
 
 initI18n().then(() => {
-  const container = document.getElementById('app')
-  const root = createRoot(container as HTMLElement) // createRoot(container!) if you use TypeScript
-  root.render(<Root />)
-})
+  const container = document.getElementById("app");
+  const root = createRoot(container as HTMLElement); // createRoot(container!) if you use TypeScript
+  root.render(<Root />);
+});

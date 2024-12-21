@@ -1,103 +1,104 @@
-import * as React from 'react'
-import { useEffect, useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { getIsAdmin, getStatus, subscribeLog, subscribePing } from 'lux-js-sdk'
-import axios from 'axios'
-import { makeStyles } from '@fluentui/react-components'
-import { tokens } from '@fluentui/react-theme'
-import classNames from 'classnames'
-import { Nav } from '@/components/Nav'
-import { NotificationContainer, notifier } from '@/components/Core'
-import { generalSlice, loggerSlice, managerSlice, type RootState } from '@/reducers'
-import { ElevateModal } from '@/components/Modal/ElevateModal'
-import { Header } from '@/components/Header'
-import { APP_CONTAINER_ID, ROUTER_PATH } from '@/utils/constants'
-import Splash from '@/components/Splash'
-import ThemeSwitch from '../components/ThemeSwitch'
-import CheckHubAddressModal from '../components/Modal/EditHubAddressModal'
-import styles from './index.module.css'
-import About from '../components/pages/About'
-import Setting from '../components/pages/Setting'
-import Logger from '../components/pages/Logger'
-import Home from '../components/pages/Home'
-import Data from '@/components/pages/Data'
-import Rules from '@/components/pages/Rules'
-import { useCheckForUpdate } from '@/hooks'
-import { formatError } from '@/utils/error'
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsAdmin, getStatus, subscribeLog, subscribePing } from "lux-js-sdk";
+import axios from "axios";
+import { makeStyles } from "@fluentui/react-components";
+import { tokens } from "@fluentui/react-theme";
+import classNames from "classnames";
+import { Nav } from "@/components/Nav";
+import { NotificationContainer, notifier } from "@/components/Core";
+import {
+  generalSlice,
+  loggerSlice,
+  managerSlice,
+  type RootState,
+} from "@/reducers";
+import { ElevateModal } from "@/components/Modal/ElevateModal";
+import { Header } from "@/components/Header";
+import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
+import Splash from "@/components/Splash";
+import ThemeSwitch from "../components/ThemeSwitch";
+import CheckHubAddressModal from "../components/Modal/EditHubAddressModal";
+import styles from "./index.module.css";
+import About from "../components/pages/About";
+import Setting from "../components/pages/Setting";
+import Logger from "../components/pages/Logger";
+import Home from "../components/pages/Home";
+import Data from "@/components/pages/Data";
+import Rules from "@/components/pages/Rules";
+import { useCheckForUpdate } from "@/hooks";
+import { formatError } from "@/utils/error";
 
 axios.interceptors.response.use(
   (res) => res,
   async (error) => {
-    notifier.error(
-      formatError(error)
-    )
-    return await Promise.reject(error)
-  }
-)
+    notifier.error(formatError(error));
+    return await Promise.reject(error);
+  },
+);
 
 const useStyles = makeStyles({
   nav: {
-    backgroundColor: tokens.colorNeutralBackground1
+    backgroundColor: tokens.colorNeutralBackground1,
   },
   expandedNav: {
-    backgroundColor: tokens.colorNeutralBackground2
-  }
-})
+    backgroundColor: tokens.colorNeutralBackground2,
+  },
+});
 
-export function App (): React.ReactNode {
-  const dispatch = useDispatch()
-  const [connected, setConnected] = useState(true)
+export function App(): React.ReactNode {
+  const dispatch = useDispatch();
+  const [connected, setConnected] = useState(true);
 
   const loading = useSelector<RootState, boolean>(
-    (state) => state.general.loading
-  )
+    (state) => state.general.loading,
+  );
 
-  const [isNavOpen, setIsNavOpen] = useState(false)
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
-  const inlineStyles = useStyles()
+  const inlineStyles = useStyles();
 
-  const checkForUpdate = useCheckForUpdate()
+  const checkForUpdate = useCheckForUpdate();
 
   getStatus().then((status) => {
     dispatch(
-      managerSlice.actions.setIsStarted({ isStarted: status.isStarted })
-    )
-  })
+      managerSlice.actions.setIsStarted({ isStarted: status.isStarted }),
+    );
+  });
 
   useEffect(() => {
-    console.log('init!')
-    checkForUpdate()
+    console.log("init!");
+    checkForUpdate();
     const logSubscriber = subscribeLog({
       onMessage: (logs) => {
-        logs.forEach(log => {
-          dispatch(loggerSlice.actions.pushLog(log))
-        })
+        logs.forEach((log) => {
+          dispatch(loggerSlice.actions.pushLog(log));
+        });
       },
       onError: () => {
-        logSubscriber.close()
-      }
-    })
+        logSubscriber.close();
+      },
+    });
     const pingSubscriber = subscribePing({
       onMessage: (item) => {
-        if (item === 'pong') {
-          setConnected(true)
+        if (item === "pong") {
+          setConnected(true);
         }
       },
       onError: () => {
-        pingSubscriber.close()
-        setConnected(false)
-      }
-    })
+        pingSubscriber.close();
+        setConnected(false);
+      },
+    });
     getIsAdmin().then((res) => {
-      dispatch(generalSlice.actions.setIsAdmin({ isAdmin: res.isAdmin }))
-    })
-  }, [dispatch, checkForUpdate])
-  return !connected
-    ? (
+      dispatch(generalSlice.actions.setIsAdmin({ isAdmin: res.isAdmin }));
+    });
+  }, [dispatch, checkForUpdate]);
+  return !connected ? (
     <CheckHubAddressModal />
-      )
-    : (
+  ) : (
     <div className={styles.wrapper} id={APP_CONTAINER_ID}>
       <NotificationContainer />
       <ElevateModal />
@@ -107,13 +108,13 @@ export function App (): React.ReactNode {
           className={classNames(
             { [styles.expandedNav]: isNavOpen },
             styles.nav,
-            isNavOpen ? inlineStyles.expandedNav : inlineStyles.nav
+            isNavOpen ? inlineStyles.expandedNav : inlineStyles.nav,
           )}
         >
           <Nav
             onClick={() => {
               if (isNavOpen) {
-                setIsNavOpen(false)
+                setIsNavOpen(false);
               }
             }}
           />
@@ -134,5 +135,5 @@ export function App (): React.ReactNode {
         </div>
       </div>
     </div>
-      )
+  );
 }
