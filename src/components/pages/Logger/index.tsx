@@ -19,7 +19,7 @@ import { Table, Tag, type TagTypeEnum } from "../../Core";
 import styles from "./index.module.css";
 
 function calcTableHeight() {
-  return document.documentElement.clientHeight - 48 - 68 - 44 - 32 - 32;
+  return document.documentElement.clientHeight - 48 - 64 - 64 - 16;
 }
 
 function TimeCell(props: { value: number }) {

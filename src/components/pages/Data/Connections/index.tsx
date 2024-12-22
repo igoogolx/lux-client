@@ -44,7 +44,7 @@ interface Connection {
 }
 
 function calcTableHeight() {
-  return document.documentElement.clientHeight - 48 - 68 - 44 - 40 - 32 - 48;
+  return document.documentElement.clientHeight - 48 - 68 - 44 - 40 - 48;
 }
 
 function convertDuration(duration: number) {
