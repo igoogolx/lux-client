@@ -166,7 +166,6 @@ export default function ProxyCard<T extends { id: string }>(
                       onClick={handleUpdateSubscriptionProxies}
                       icon={<ArrowSyncRegular />}
                       className={styles.btn}
-                      disabled={isStarted}
                     />
                   </Tooltip>
                 )}
