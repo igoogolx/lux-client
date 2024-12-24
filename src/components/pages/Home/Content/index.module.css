@@ -4,7 +4,7 @@
   flex-col
   content-start
   overflow-auto
-  pb-4
+  pr-4
   align-baseline;
 
   .desc {
