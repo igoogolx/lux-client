@@ -1,4 +1,3 @@
-import { useMedia } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
   managerSlice,
@@ -46,8 +45,6 @@ export function Header(): React.ReactNode {
     name: "",
     addr: "",
   });
-
-  const isWideScreen = useMedia("(min-width: 640px)");
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared,
@@ -174,7 +171,9 @@ export function Header(): React.ReactNode {
                   key={item.id}
                   icon={item.icon}
                   onClick={() => {
-                    selectRule(item.id as string);
+                    selectRule(item.id as string).catch((e) => {
+                      console.log(e);
+                    });
                   }}
                 >
                   {item.content}
@@ -207,9 +206,18 @@ export function Header(): React.ReactNode {
           </Tooltip>
         )}
       </div>
-      <div>
-        {isStarted && curProxy && isWideScreen && (
-          <Caption1>{curProxy.name || curProxy.addr}</Caption1>
+      <div className={"flex items-center justify-center"}>
+        {curProxy && (
+          <Caption1 className={"h-4"}>
+            <span
+              className={
+                "max-w-32 overflow-auto text-ellipsis inline-block whitespace-nowrap"
+              }
+              title={curProxy.name || curProxy.addr}
+            >
+              {curProxy.name || curProxy.addr}
+            </span>
+          </Caption1>
         )}
         <Tooltip
           content={t(TRANSLATION_KEY.SWITCH_DISABLE_TIP)}
