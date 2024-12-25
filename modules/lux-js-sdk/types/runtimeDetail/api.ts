@@ -6,7 +6,7 @@ export type RuntimeDetail = {
   boostDns: string[];
 };
 
-export type GetRuntimeDetail = () => Promise<RuntimeDetail>;
+export type GetRuntimeDetail = () => Promise<RuntimeDetail | null>;
 
 export type RuntimeOS = {
   os: string;

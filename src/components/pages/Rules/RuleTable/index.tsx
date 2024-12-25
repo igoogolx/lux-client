@@ -30,9 +30,7 @@ interface RuleTableProps {
 }
 
 function calcTableHeight() {
-  return (
-    document.documentElement.clientHeight - 48 - 68 - 44 - 32 - 32 - 32 - 32
-  );
+  return document.documentElement.clientHeight - 48 - 68 - 44 - 32 - 16;
 }
 
 export default function RuleTable(props: RuleTableProps) {

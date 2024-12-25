@@ -27,15 +27,15 @@ export function RuntimeDetailModal(
 ): React.ReactNode {
   const { close } = props;
   const { t } = useTranslation();
-  const [runtimeDetail, setRuntimeDetail] = useState<
-    (RuntimeDetail & { hubAddress: string }) | null
-  >(null);
+  const [runtimeDetail, setRuntimeDetail] = useState<Partial<
+    RuntimeDetail & { hubAddress: string }
+  > | null>(null);
 
   useEffect(() => {
     getRuntimeDetail().then((detail) => {
       const hubAddress = getHubAddress();
       setRuntimeDetail({
-        ...detail,
+        ...(detail || {}),
         hubAddress: `http://${stringAddress(hubAddress)}?token=${hubAddress.token}`,
       });
     });
@@ -43,6 +43,7 @@ export function RuntimeDetailModal(
 
   return runtimeDetail ? (
     <Modal
+      hideCloseButton={true}
       close={close}
       onOk={async () => {
         await navigator.clipboard.writeText(

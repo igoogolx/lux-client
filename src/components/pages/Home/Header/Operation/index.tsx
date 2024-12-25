@@ -29,10 +29,6 @@ export function Operation(): React.ReactNode {
   const dispatch = useDispatch();
   const [isRuntimeDetailOpen, setIsRuntimeDetailOpen] = useState(false);
 
-  const isStarted = useSelector<RootState, boolean>(
-    (state) => state.manager.isStared,
-  );
-
   const testDelay = useTestDelay();
   const proxies = useSelector<RootState, BaseProxy[]>(
     proxiesSelectors.selectAll,
@@ -81,10 +77,9 @@ export function Operation(): React.ReactNode {
       {
         id: OperationTypeEnum.RuntimeDetail,
         content: t(TRANSLATION_KEY.COMMON_RUNTIME_DETAIL),
-        disabled: !isStarted,
       },
     ];
-  }, [isStarted, t, isTestingDealy]);
+  }, [t, isTestingDealy]);
   const onSelect = (id: string) => {
     switch (id) {
       case OperationTypeEnum.TestDelay:
