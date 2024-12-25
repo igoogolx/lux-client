@@ -160,7 +160,7 @@ export function Header(): React.ReactNode {
         <Menu>
           <MenuTrigger disableButtonEnhancement>
             <MenuButton
-              disabled={isStarted || isSettingRule}
+              disabled={isSettingRule}
               className={styles.rulesDropdown}
             >
               {t(selectedRuleId)}
