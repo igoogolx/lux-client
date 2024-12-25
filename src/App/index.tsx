@@ -95,6 +95,10 @@ export function App(): React.ReactNode {
     getIsAdmin().then((res) => {
       dispatch(generalSlice.actions.setIsAdmin({ isAdmin: res.isAdmin }));
     });
+    return () => {
+      //TODO: clean ping
+      logSubscriber.close();
+    };
   }, [dispatch, checkForUpdate]);
   return !connected ? (
     <CheckHubAddressModal />
