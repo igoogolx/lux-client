@@ -12,7 +12,6 @@ import {
   Badge,
   Button,
   Card,
-  CardHeader,
   type DataGridProps,
   mergeClasses,
   type TableColumnDefinition,
@@ -24,7 +23,7 @@ import {
   DeleteRegular,
 } from "@fluentui/react-icons";
 import { addProxiesFromSubscriptionUrl, deleteProxies } from "lux-js-sdk";
-import React, { useState } from "react";
+import React, { MouseEventHandler, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./index.module.css";
@@ -41,7 +40,7 @@ export interface ProxyCardProps<T> {
 export const LOCAL_SERVERS = "local_servers";
 
 export default function ProxyCard<T extends { id: string }>(
-  props: ProxyCardProps<T>,
+  props: Readonly<ProxyCardProps<T>>,
 ): React.ReactNode {
   const {
     url,
@@ -61,8 +60,9 @@ export default function ProxyCard<T extends { id: string }>(
     useState(false);
 
   const dispatch = useDispatch();
-  const handleUpdateSubscriptionProxies = async () => {
+  const handleUpdateSubscriptionProxies: MouseEventHandler = async (e) => {
     try {
+      e.stopPropagation();
       dispatch(generalSlice.actions.setLoading({ loading: true }));
       const decodedProxies = await decodeFromUrl(url);
       const res = await addProxiesFromSubscriptionUrl({
@@ -89,7 +89,8 @@ export default function ProxyCard<T extends { id: string }>(
     }
   };
 
-  const handleCopyUrl = async () => {
+  const handleCopyUrl: MouseEventHandler = async (e) => {
+    e.stopPropagation();
     await navigator.clipboard.writeText(url);
     notifier.success(t(TRANSLATION_KEY.COPIED));
   };
@@ -100,7 +101,8 @@ export default function ProxyCard<T extends { id: string }>(
     setIsDeleteAllProxiesModalOpen(false);
   };
 
-  const openDeleteAllProxiesModal = () => {
+  const openDeleteAllProxiesModal: MouseEventHandler = (e) => {
+    e.stopPropagation();
     setIsDeleteAllProxiesModalOpen(true);
   };
 
@@ -120,22 +122,18 @@ export default function ProxyCard<T extends { id: string }>(
       )}
       <Accordion collapsible defaultOpenItems={["1"]}>
         <AccordionItem value="1">
-          <CardHeader
-            header={
-              <AccordionHeader>
-                <Badge appearance="outline" size="large">
-                  {title}
-                </Badge>
-              </AccordionHeader>
-            }
-            className={styles.header}
-            action={
+          <AccordionHeader>
+            <div className={styles.header}>
+              <Badge appearance="outline" size="large">
+                {title}
+              </Badge>
               <div className={styles.action}>
                 <Tooltip
                   content={t(TRANSLATION_KEY.COMMON_DELETE)}
                   relationship="description"
                 >
                   <Button
+                    as={"a"}
                     onClick={openDeleteAllProxiesModal}
                     icon={<DeleteRegular />}
                     className={mergeClasses(
@@ -151,6 +149,7 @@ export default function ProxyCard<T extends { id: string }>(
                     relationship="description"
                   >
                     <Button
+                      as={"a"}
                       onClick={handleCopyUrl}
                       icon={<ClipboardRegular />}
                       className={styles.btn}
@@ -163,6 +162,7 @@ export default function ProxyCard<T extends { id: string }>(
                     relationship="description"
                   >
                     <Button
+                      as={"a"}
                       onClick={handleUpdateSubscriptionProxies}
                       icon={<ArrowSyncRegular />}
                       className={styles.btn}
@@ -170,8 +170,8 @@ export default function ProxyCard<T extends { id: string }>(
                   </Tooltip>
                 )}
               </div>
-            }
-          />
+            </div>
+          </AccordionHeader>
           <AccordionPanel>
             <Table
               columns={columns}

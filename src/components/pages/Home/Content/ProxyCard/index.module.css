@@ -10,6 +10,6 @@
   @apply mx-2 my-2 flex-shrink-0;
 
   & .header {
-    @apply flex items-center justify-between;
+    @apply flex items-center justify-between flex-1;
   }
 }
