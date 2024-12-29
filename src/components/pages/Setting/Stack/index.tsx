@@ -14,17 +14,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { notifier } from "../../../Core";
 import styles from "../index.module.css";
 
-const OPTIONS = [
-  {
-    id: "system",
-    content: "system",
-  },
-  {
-    id: "gvisor",
-    content: "gvisor",
-  },
-];
-
 export default function Stack() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -42,6 +31,22 @@ export default function Stack() {
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
   };
 
+  const translationMap = {
+    system: t(TRANSLATION_KEY.SYSTEM),
+    gvisor: t(TRANSLATION_KEY.GVISOR),
+  };
+
+  const options = [
+    {
+      id: "system",
+      content: translationMap.system,
+    },
+    {
+      id: "gvisor",
+      content: translationMap.gvisor,
+    },
+  ];
+
   return (
     <Card className={styles.card}>
       <div className={styles.cardItem}>
@@ -53,13 +58,15 @@ export default function Stack() {
         <Dropdown
           className={styles.selector}
           disabled={isStarted}
-          value={setting.stack}
+          value={translationMap[setting.stack as keyof typeof translationMap]}
           onOptionSelect={(e, data) => {
             onSubmit(data.optionValue as SettingRes["stack"]);
           }}
         >
-          {OPTIONS.map((option) => (
-            <Option key={option.id}>{option.content}</Option>
+          {options.map((option) => (
+            <Option key={option.id} value={option.id}>
+              {option.content}
+            </Option>
           ))}
         </Dropdown>
       </div>

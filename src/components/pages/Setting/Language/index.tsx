@@ -16,13 +16,13 @@ export default function Language() {
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
 
   const LANGUAGE_OPTIONS = [
-    { content: t(TRANSLATION_KEY.SYSTEM), id: LANGUAGE_ENUM.SYSTEM },
+    { content: t(TRANSLATION_KEY.SYSTEM_SETTING), id: LANGUAGE_ENUM.SYSTEM },
     { content: t(TRANSLATION_KEY.EN_US), id: LANGUAGE_ENUM.EN_US },
     { content: t(TRANSLATION_KEY.ZH_CN), id: LANGUAGE_ENUM.ZH_CN },
   ];
 
   const TRANSLATION_MAP = {
-    [LANGUAGE_ENUM.SYSTEM]: t(TRANSLATION_KEY.SYSTEM),
+    [LANGUAGE_ENUM.SYSTEM]: t(TRANSLATION_KEY.SYSTEM_SETTING),
     [LANGUAGE_ENUM.EN_US]: t(TRANSLATION_KEY.EN_US),
     [LANGUAGE_ENUM.ZH_CN]: t(TRANSLATION_KEY.ZH_CN),
   };
@@ -44,7 +44,6 @@ export default function Language() {
         <div>
           <Dropdown
             value={TRANSLATION_MAP[setting.language as LANGUAGE_ENUM]}
-            selectedOptions={[setting.language]}
             onOptionSelect={(e, data) => {
               onChange(data.optionValue as string);
               i18n.changeLanguage(getLang(data.optionValue));
