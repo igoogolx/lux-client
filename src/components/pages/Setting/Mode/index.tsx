@@ -14,17 +14,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { notifier } from "../../../Core";
 import styles from "../index.module.css";
 
-const OPTIONS = [
-  {
-    id: "tun",
-    content: "tun",
-  },
-  {
-    id: "system",
-    content: "system",
-  },
-];
-
 export default function Mode() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -42,6 +31,22 @@ export default function Mode() {
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
   };
 
+  const translationMap = {
+    tun: t(TRANSLATION_KEY.TUN),
+    system: t(TRANSLATION_KEY.SYSTEM),
+  };
+
+  const options = [
+    {
+      id: "tun",
+      content: translationMap.tun,
+    },
+    {
+      id: "system",
+      content: translationMap.system,
+    },
+  ];
+
   return (
     <Card className={styles.card}>
       <div className={styles.cardItem}>
@@ -53,13 +58,15 @@ export default function Mode() {
         <Dropdown
           className={styles.selector}
           disabled={isStarted}
-          value={setting.mode}
+          value={translationMap[setting.mode as keyof typeof translationMap]}
           onOptionSelect={(e, data) => {
             onSubmit(data.optionValue as SettingRes["mode"]);
           }}
         >
-          {OPTIONS.map((option) => (
-            <Option key={option.id}>{option.content}</Option>
+          {options.map((option) => (
+            <Option key={option.id} value={option.id}>
+              {option.content}
+            </Option>
           ))}
         </Dropdown>
       </div>

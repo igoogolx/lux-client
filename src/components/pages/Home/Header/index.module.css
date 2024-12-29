@@ -1,5 +1,5 @@
 .wrapper {
-  @apply flex h-full w-full items-center justify-between pb-4;
+  @apply flex h-full w-full items-center justify-between pb-4 pr-4 pl-2;
 
   & .actions {
     @apply flex h-full items-center justify-end;
