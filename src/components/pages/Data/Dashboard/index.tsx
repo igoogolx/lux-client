@@ -1,14 +1,5 @@
 import { type RootState, trafficsSlice } from "@/reducers";
 import {
-  CategoryScale,
-  Chart,
-  LinearScale,
-  LineController,
-  LineElement,
-  PointElement,
-  Title,
-} from "chart.js";
-import {
   subscribeNowTraffic,
   subscribeTotalTraffic,
   type Traffic,
@@ -25,16 +16,17 @@ interface Speed {
   direct: TrafficItem[];
 }
 
-Chart.register(
-  LineController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-  CategoryScale,
-);
+interface DashboardProps {
+  connectionsAmount: {
+    tcp: number;
+    udp: number;
+  };
+}
 
-export default function Dashboard(): React.ReactNode {
+export default function Dashboard(
+  props: Readonly<DashboardProps>,
+): React.ReactNode {
+  const { connectionsAmount } = props;
   const traffics = useSelector<RootState, Traffic[]>((state) => {
     return state.traffics.now;
   });
@@ -50,8 +42,12 @@ export default function Dashboard(): React.ReactNode {
     });
     return result;
   }, [traffics]);
-  const total = useSelector<RootState, Traffic | null>(
-    (state) => state.traffics.total,
+  const total = useSelector<RootState, Traffic>(
+    (state) =>
+      state.traffics.total || {
+        proxy: { upload: 0, download: 0 },
+        direct: { upload: 0, download: 0 },
+      },
   );
   const dispatch = useDispatch();
   useEffect(() => {
@@ -77,11 +73,13 @@ export default function Dashboard(): React.ReactNode {
     };
   }, [dispatch]);
 
-  return speed && total ? (
+  return (
     <div className={styles.wrapper}>
-      <TrafficCard speed={speed} total={total} />
+      <TrafficCard
+        speed={speed}
+        total={total}
+        connectionsAmount={connectionsAmount}
+      />
     </div>
-  ) : (
-    ""
   );
 }

@@ -5,15 +5,33 @@
     flex-col;
 
   & .data {
-    @apply my-2 flex flex-row justify-between border-solid rounded-sm border;
+    @apply my-2 flex flex-row justify-between border-solid rounded border;
 
     & .info {
-      @apply flex-1;
+      @apply flex-1 py-2;
 
 
-      &:first-child{
+      &:not(:last-child) {
         @apply border-r;
       }
+
+      & .connectionsAmount{
+       @apply flex flex-col items-center justify-between h-full w-24;
+
+        & .connectionItem{
+          @apply mb-2 h-7 flex items-center justify-center;
+        }
+      }
+
+      & .proxyTitle{
+
+        @apply text-green-600;
+      }
+
+      & .directTitle{
+        @apply text-yellow-600;
+      }
+
     }
 
     & .content {
@@ -21,7 +39,4 @@
     }
   }
 
-  & .graph {
-    @apply basis-full h-[200px];
-  }
 }

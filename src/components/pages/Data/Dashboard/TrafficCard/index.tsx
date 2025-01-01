@@ -11,6 +11,10 @@ export enum TrafficCardTypeEnum {
 interface TrafficCardProps {
   speed: { proxy: TrafficItem[]; direct: TrafficItem[] };
   total: { proxy: TrafficItem; direct: TrafficItem };
+  connectionsAmount: {
+    tcp: number;
+    udp: number;
+  };
 }
 
 function getCurrent(items: TrafficItem[]) {
@@ -22,7 +26,7 @@ function getCurrent(items: TrafficItem[]) {
 export function TrafficCard(
   props: Readonly<TrafficCardProps>,
 ): React.ReactNode {
-  const { speed, total } = props;
+  const { speed, total, connectionsAmount } = props;
   const currentProxy = getCurrent(speed.proxy);
   const currentDirect = getCurrent(speed.direct);
 
@@ -30,13 +34,31 @@ export function TrafficCard(
     <div className={styles.wrapper}>
       <div className={styles.data}>
         <div className={styles.info}>
-          <div className={styles.content}>
-            <FlowInfo current={currentProxy} total={total.proxy} />
+          <div className={styles.connectionsAmount}>
+            <div
+              className={styles.connectionItem}
+            >{`TCP:  ${connectionsAmount.tcp}`}</div>
+            <div
+              className={styles.connectionItem}
+            >{`UDP:  ${connectionsAmount.udp}`}</div>
           </div>
         </div>
         <div className={styles.info}>
           <div className={styles.content}>
-            <FlowInfo current={currentDirect} total={total.direct} />
+            <FlowInfo
+              current={currentProxy}
+              total={total.proxy}
+              titleClassName={styles.proxyTitle}
+            />
+          </div>
+        </div>
+        <div className={styles.info}>
+          <div className={styles.content}>
+            <FlowInfo
+              current={currentDirect}
+              total={total.direct}
+              titleClassName={styles.directTitle}
+            />
           </div>
         </div>
       </div>
