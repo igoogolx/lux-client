@@ -1,6 +1,7 @@
 import { ClickToCopy } from "@/components/Core";
 import { ProcessCell } from "@/components/pages/Data/Connections/ProcessCell";
 import RuleCell from "@/components/pages/Data/Connections/RuleTag";
+import Dashboard from "@/components/pages/Data/Dashboard";
 import { useMedia } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import type { RootState } from "@/reducers";
@@ -379,8 +380,7 @@ export default function Connections(): React.ReactNode {
       </div>
 
       <div className={styles.footer}>
-        <div>{`TCP:  ${total.tcp}`}</div>
-        <div>{`UDP:  ${total.udp}`}</div>
+        <Dashboard connectionsAmount={total} />
       </div>
     </div>
   );

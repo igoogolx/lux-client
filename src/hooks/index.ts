@@ -5,9 +5,7 @@ import checkForUpdate from "@/utils/checkForUpdate";
 import { LAST_CHECK_UPDATE_DATE, LATEST_RELEASE_URL } from "@/utils/constants";
 import { makeStyles } from "@fluentui/react-components";
 import { tokens } from "@fluentui/react-theme";
-import { Chart, type ChartConfiguration } from "chart.js";
 import { getProxyDelay } from "lux-js-sdk";
-import type * as React from "react";
 import {
   useCallback,
   useEffect,
@@ -17,25 +15,6 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-
-export const useChartJs = (
-  initialConfiguration: ChartConfiguration,
-): [React.RefObject<HTMLCanvasElement>, Chart | undefined] => {
-  const chartRef = useRef<HTMLCanvasElement>(null);
-
-  const chart = useRef<Chart>();
-
-  useEffect(() => {
-    if (chartRef.current && !chart.current) {
-      const ctx = chartRef.current;
-      if (ctx) {
-        chart.current = new Chart(ctx, initialConfiguration);
-      }
-    }
-  }, [initialConfiguration]);
-
-  return [chartRef, chart.current];
-};
 
 export const useTestDelay = () => {
   const dispatch = useDispatch();

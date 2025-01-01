@@ -1,9 +1,5 @@
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Card } from "@fluentui/react-components";
 import { type TrafficItem } from "lux-js-sdk";
 import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { SpeedGraph } from "../SpeedGraph";
 import FlowInfo from "./FlowInfo";
 import styles from "./index.module.css";
 
@@ -15,6 +11,10 @@ export enum TrafficCardTypeEnum {
 interface TrafficCardProps {
   speed: { proxy: TrafficItem[]; direct: TrafficItem[] };
   total: { proxy: TrafficItem; direct: TrafficItem };
+  connectionsAmount: {
+    tcp: number;
+    udp: number;
+  };
 }
 
 function getCurrent(items: TrafficItem[]) {
@@ -23,34 +23,44 @@ function getCurrent(items: TrafficItem[]) {
     : { upload: 0, download: 0 };
 }
 
-export function TrafficCard(props: TrafficCardProps): React.ReactNode {
-  const { speed, total } = props;
+export function TrafficCard(
+  props: Readonly<TrafficCardProps>,
+): React.ReactNode {
+  const { speed, total, connectionsAmount } = props;
   const currentProxy = getCurrent(speed.proxy);
   const currentDirect = getCurrent(speed.direct);
-  const { t } = useTranslation();
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.data}>
-        <Card className={styles.info}>
-          <div className={styles.header}>
-            <div className={styles.avatar}>{t(TRANSLATION_KEY.PROXY)}</div>
+        <div className={styles.info}>
+          <div className={styles.connectionsAmount}>
+            <div
+              className={styles.connectionItem}
+            >{`TCP:  ${connectionsAmount.tcp}`}</div>
+            <div
+              className={styles.connectionItem}
+            >{`UDP:  ${connectionsAmount.udp}`}</div>
           </div>
+        </div>
+        <div className={styles.info}>
           <div className={styles.content}>
-            <FlowInfo current={currentProxy} total={total.proxy} />
+            <FlowInfo
+              current={currentProxy}
+              total={total.proxy}
+              titleClassName={styles.proxyTitle}
+            />
           </div>
-        </Card>
-        <Card className={styles.info}>
-          <div className={styles.header}>
-            <div className={styles.avatar}>{t(TRANSLATION_KEY.DIRECT)}</div>
-          </div>
+        </div>
+        <div className={styles.info}>
           <div className={styles.content}>
-            <FlowInfo current={currentDirect} total={total.direct} />
+            <FlowInfo
+              current={currentDirect}
+              total={total.direct}
+              titleClassName={styles.directTitle}
+            />
           </div>
-        </Card>
-        <Card className={styles.graph}>
-          <SpeedGraph data={speed} />
-        </Card>
+        </div>
       </div>
     </div>
   );

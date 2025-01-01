@@ -5,18 +5,33 @@
     flex-col;
 
   & .data {
-    @apply my-2 flex flex-wrap flex-row justify-between;
+    @apply my-2 flex flex-row justify-between border-solid rounded border;
 
     & .info {
-      @apply mb-2 basis-full sm:basis-[49%] h-[160px];
+      @apply flex-1 py-2;
 
-      & .header {
-        @apply mb-2 flex items-center text-lg;
 
-        & .avatar {
-          @apply font-bold;
+      &:not(:last-child) {
+        @apply border-r;
+      }
+
+      & .connectionsAmount{
+       @apply flex flex-col items-center justify-between h-full w-24;
+
+        & .connectionItem{
+          @apply mb-2 h-7 flex items-center justify-center;
         }
       }
+
+      & .proxyTitle{
+
+        @apply text-green-600;
+      }
+
+      & .directTitle{
+        @apply text-yellow-600;
+      }
+
     }
 
     & .content {
@@ -24,7 +39,4 @@
     }
   }
 
-  & .graph {
-    @apply basis-full h-[200px];
-  }
 }

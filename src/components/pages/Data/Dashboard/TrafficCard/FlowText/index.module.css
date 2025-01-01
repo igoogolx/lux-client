@@ -1,8 +1,9 @@
 .wrapper {
+  @apply flex-1 whitespace-nowrap w-16 flex items-center;
   & .value {
-    @apply inline-block min-w-[32px] text-2xl;
+    @apply inline-block;
   }
   & .unit {
-    @apply ml-1 text-sm;
+    @apply ml-1 text-xs;
   }
 }
