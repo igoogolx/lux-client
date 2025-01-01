@@ -1,15 +1,15 @@
 .flowInfo {
-  @apply flex flex-1 justify-between pl-4 pr-4;
+  @apply flex flex-1 flex-col justify-between pl-4 pr-4;
 
   & .item {
-    @apply flex flex-1 flex-col justify-between;
+    @apply flex flex-1 justify-between items-center;
 
     & .title {
-      @apply mb-2 flex justify-between text-gray-400;
+      @apply flex justify-between text-gray-400;
     }
 
     & .details {
-      @apply flex flex-col justify-between text-xl;
+      @apply flex justify-between text-xl;
 
       & .detail {
         @apply flex flex-1 items-center;

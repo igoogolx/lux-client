@@ -1,4 +1,5 @@
 .wrapper {
+  @apply flex-1 whitespace-nowrap w-24;
   & .value {
     @apply inline-block min-w-[32px] text-2xl;
   }

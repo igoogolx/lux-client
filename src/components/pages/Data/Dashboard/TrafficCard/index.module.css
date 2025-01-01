@@ -5,17 +5,14 @@
     flex-col;
 
   & .data {
-    @apply my-2 flex flex-wrap flex-row justify-between;
+    @apply my-2 flex flex-row justify-between border-solid rounded-sm border;
 
     & .info {
-      @apply mb-2 basis-full sm:basis-[49%] h-[160px];
+      @apply flex-1;
 
-      & .header {
-        @apply mb-2 flex items-center text-lg;
 
-        & .avatar {
-          @apply font-bold;
-        }
+      &:first-child{
+        @apply border-r;
       }
     }
 

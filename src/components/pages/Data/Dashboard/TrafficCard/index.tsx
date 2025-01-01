@@ -1,9 +1,5 @@
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Card } from "@fluentui/react-components";
 import { type TrafficItem } from "lux-js-sdk";
 import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { SpeedGraph } from "../SpeedGraph";
 import FlowInfo from "./FlowInfo";
 import styles from "./index.module.css";
 
@@ -23,34 +19,26 @@ function getCurrent(items: TrafficItem[]) {
     : { upload: 0, download: 0 };
 }
 
-export function TrafficCard(props: TrafficCardProps): React.ReactNode {
+export function TrafficCard(
+  props: Readonly<TrafficCardProps>,
+): React.ReactNode {
   const { speed, total } = props;
   const currentProxy = getCurrent(speed.proxy);
   const currentDirect = getCurrent(speed.direct);
-  const { t } = useTranslation();
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.data}>
-        <Card className={styles.info}>
-          <div className={styles.header}>
-            <div className={styles.avatar}>{t(TRANSLATION_KEY.PROXY)}</div>
-          </div>
+        <div className={styles.info}>
           <div className={styles.content}>
             <FlowInfo current={currentProxy} total={total.proxy} />
           </div>
-        </Card>
-        <Card className={styles.info}>
-          <div className={styles.header}>
-            <div className={styles.avatar}>{t(TRANSLATION_KEY.DIRECT)}</div>
-          </div>
+        </div>
+        <div className={styles.info}>
           <div className={styles.content}>
             <FlowInfo current={currentDirect} total={total.direct} />
           </div>
-        </Card>
-        <Card className={styles.graph}>
-          <SpeedGraph data={speed} />
-        </Card>
+        </div>
       </div>
     </div>
   );
