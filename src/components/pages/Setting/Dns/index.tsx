@@ -40,7 +40,12 @@ const VALID_REMOTE_DNS_PREFIXES = ["tcp://", "https://"];
 const VALID_LOCAL_DNS_PREFIXES = ["tcp://", "https://", "dhcp://", "udp://"];
 const VALID_BOOST_DNS_PREFIXES = ["tcp://", "dhcp://", "udp://"];
 
-export default function Dns() {
+interface DnsProps {
+  isDarwin: boolean;
+}
+
+export default function Dns(props: Readonly<DnsProps>): React.ReactElement {
+  const { isDarwin } = props;
   const { t } = useTranslation();
 
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
@@ -176,23 +181,25 @@ export default function Dns() {
         title={t(TRANSLATION_KEY.BOOST_DNS_LABEL)}
         desc={t(TRANSLATION_KEY.BOOST_DNS_DESC)}
       />
-      <div className={styles.cardItem}>
-        <div className={styles.desc}>
-          <Subtitle2>
-            {t(TRANSLATION_KEY.DISABLE_DNS_CACHE_SWITCH_LABEL)}
-          </Subtitle2>
-          <Caption1>
-            {t(TRANSLATION_KEY.DISABLE_DNS_CACHE_SWITCH_TOOLTIP)}
-          </Caption1>
+      {!isDarwin && (
+        <div className={styles.cardItem}>
+          <div className={styles.desc}>
+            <Subtitle2>
+              {t(TRANSLATION_KEY.DISABLE_DNS_CACHE_SWITCH_LABEL)}
+            </Subtitle2>
+            <Caption1>
+              {t(TRANSLATION_KEY.DISABLE_DNS_CACHE_SWITCH_TOOLTIP)}
+            </Caption1>
+          </div>
+          <Switch
+            checked={setting.dns.disableCache}
+            onChange={(e, data) => {
+              setDisableCache(data.checked);
+            }}
+            disabled={isStarted}
+          />
         </div>
-        <Switch
-          checked={setting.dns.disableCache}
-          onChange={(e, data) => {
-            setDisableCache(data.checked);
-          }}
-          disabled={isStarted}
-        />
-      </div>
+      )}
     </Card>
   );
 }

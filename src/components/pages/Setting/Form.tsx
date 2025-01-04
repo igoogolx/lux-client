@@ -34,7 +34,7 @@ export function SettingForm() {
         <Language />
         <Mode />
         {isTun && <Stack />}
-        {isTun && <Dns />}
+        {isTun && <Dns isDarwin={isDarwin} />}
         {isTun && <BlockQuic />}
         {isDarwin && isTun && <HijackDns />}
         {isTun && <DefaultInterface />}
