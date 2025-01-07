@@ -34,7 +34,7 @@ const Socks5Schema = Yup.object().shape({
   password: Yup.string(),
 });
 
-export function EditSocks5Modal(props: EditSocks5ModalProps) {
+export function EditSocks5Modal(props: Readonly<EditSocks5ModalProps>) {
   const { t } = useTranslation();
   const { close, initialValue, isSelected } = props;
   const dispatch = useDispatch();

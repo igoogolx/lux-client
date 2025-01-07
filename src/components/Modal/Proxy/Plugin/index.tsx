@@ -34,7 +34,7 @@ const INIT_OBFS_DATA: Obfs = {
   mode: ObfsModeEnum.Http,
 };
 
-export function EditPlugin(props: EditPluginProps) {
+export function EditPlugin(props: Readonly<EditPluginProps>) {
   const { type = PluginTypeEnum.Obfs, close, initialValue, onSave } = props;
   let content = null;
 

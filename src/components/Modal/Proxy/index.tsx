@@ -23,7 +23,7 @@ interface EditModalProps {
   isSelected?: boolean;
 }
 
-export function EditModal(props: EditModalProps) {
+export function EditModal(props: Readonly<EditModalProps>) {
   const { type, close, initialValue, isSelected = false } = props;
   let content = null;
 

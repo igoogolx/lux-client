@@ -13,7 +13,7 @@ interface EditV2rayProps {
   onChange: (data: V2rayObfs) => void;
 }
 
-export function EditV2rayPlugin(props: EditV2rayProps) {
+export function EditV2rayPlugin(props: Readonly<EditV2rayProps>) {
   const { t } = useTranslation();
   const { close, initialValue, onChange } = props;
   const onSubmit = async (data: V2rayObfs) => {

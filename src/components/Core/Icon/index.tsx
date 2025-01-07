@@ -17,7 +17,7 @@ export enum IconSizeEnum {
   Medium = "medium",
 }
 
-export function Icon(props: IconProps): React.ReactNode {
+export function Icon(props: Readonly<IconProps>): React.ReactNode {
   const { name, className, size = IconSizeEnum.Normal } = props;
   return (
     <div className={classNames(className, styles[size])}>

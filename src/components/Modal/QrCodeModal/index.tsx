@@ -11,7 +11,9 @@ interface QrCodeModalProps {
 }
 
 const ELEMENT_ID = "qr-code";
-export function QrCodeModal(props: QrCodeModalProps): React.ReactNode {
+export function QrCodeModal(
+  props: Readonly<QrCodeModalProps>,
+): React.ReactNode {
   const { url, close } = props;
   const { t } = useTranslation();
   useEffect(() => {

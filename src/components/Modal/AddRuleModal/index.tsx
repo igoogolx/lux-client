@@ -62,7 +62,7 @@ const POLICY_OPTIONS = [
   },
 ];
 
-export function AddRuleModal(props: AddRuleModalProps) {
+export function AddRuleModal(props: Readonly<AddRuleModalProps>) {
   const { t } = useTranslation();
   const { close, onSave } = props;
   const onSubmit = async (data: RuleDetailItem) => {

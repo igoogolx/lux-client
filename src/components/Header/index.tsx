@@ -11,7 +11,7 @@ interface HeaderProps {
   setIsNavOpen: (isOpen: boolean) => void;
 }
 
-export function Header(props: HeaderProps) {
+export function Header(props: Readonly<HeaderProps>) {
   const { setIsNavOpen, isNavOpen } = props;
 
   const dispatch = useDispatch();

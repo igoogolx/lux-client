@@ -16,7 +16,7 @@ export interface FieldProps<T extends string> {
   className?: string;
 }
 
-export function Field<T extends string>(props: FieldProps<T>) {
+export function Field<T extends string>(props: Readonly<FieldProps<T>>) {
   const {
     name,
     label,

@@ -30,7 +30,9 @@ interface EditItemWithDialogProps {
   type?: "input" | "selector";
 }
 
-export default function EditItemWithDialog(props: EditItemWithDialogProps) {
+export default function EditItemWithDialog(
+  props: Readonly<EditItemWithDialogProps>,
+) {
   const {
     title,
     open,

@@ -13,7 +13,7 @@ interface SubscriptionUrlModalProps {
   close: () => void;
 }
 
-function SubscriptionUrlModal(props: SubscriptionUrlModalProps) {
+function SubscriptionUrlModal(props: Readonly<SubscriptionUrlModalProps>) {
   const { close } = props;
   const { t } = useTranslation();
   const [destination, setDestination] = useState("");

@@ -11,7 +11,7 @@ interface FieldSwitchProps {
   disabled?: boolean;
 }
 
-export function FieldSwitch(props: FieldSwitchProps) {
+export function FieldSwitch(props: Readonly<FieldSwitchProps>) {
   const { name, label, disabled = false, className } = props;
 
   const [field, , helpers] = useField({ name });

@@ -32,7 +32,7 @@ const DNS_LABEL: Record<string, string> = {
   "dhcp://auto": "auto(Dhcp)",
 };
 
-export default function EditDnsItem(props: EditDnsItemProps) {
+export default function EditDnsItem(props: Readonly<EditDnsItemProps>) {
   const { items, title, desc, selectedOptions, onOptionSelect } = props;
 
   const isStarted = useSelector<RootState, boolean>(

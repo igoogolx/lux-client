@@ -47,7 +47,7 @@ enum OperationTypeEnum {
   TestUdp = "testUdp",
 }
 
-export function Operation(props: OperationProps): React.ReactNode {
+export function Operation(props: Readonly<OperationProps>): React.ReactNode {
   const { t } = useTranslation();
   const { proxy } = props;
   const { id: proxyId } = proxy;

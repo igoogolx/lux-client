@@ -5,7 +5,9 @@ import { Field, type FieldProps } from "./Field";
 
 type PasswordFiledProps<T extends string> = Omit<FieldProps<T>, "type">;
 
-export function PasswordFiled<T extends string>(props: PasswordFiledProps<T>) {
+export function PasswordFiled<T extends string>(
+  props: Readonly<PasswordFiledProps<T>>,
+) {
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   return (
