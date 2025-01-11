@@ -11,7 +11,7 @@ interface DotProps {
   type?: DotTypeEnum;
 }
 
-export function Dot(props: DotProps): React.ReactNode {
+export function Dot(props: Readonly<DotProps>): React.ReactNode {
   const { className, type = DotTypeEnum.Disabled } = props;
   return <div className={classNames(className, styles[type])} />;
 }

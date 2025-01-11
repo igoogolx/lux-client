@@ -14,7 +14,7 @@ export interface ConfirmModalPros {
   loading?: boolean;
 }
 
-export function ConfirmModal(props: ConfirmModalPros) {
+export function ConfirmModal(props: Readonly<ConfirmModalPros>) {
   const {
     title,
     content,

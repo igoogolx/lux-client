@@ -5,7 +5,9 @@ import { ConfirmModal, type ConfirmModalPros } from "../../Core";
 
 type ResetConfigModalProps = Pick<ConfirmModalPros, "onConfirm" | "onCancel">;
 
-export function ResetConfigModal(props: ResetConfigModalProps): ReactNode {
+export function ResetConfigModal(
+  props: Readonly<ResetConfigModalProps>,
+): ReactNode {
   const { onCancel, onConfirm } = props;
   const { t } = useTranslation();
 

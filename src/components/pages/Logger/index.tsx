@@ -22,18 +22,20 @@ function calcTableHeight() {
   return document.documentElement.clientHeight - 48 - 64 - 64 - 16;
 }
 
-function TimeCell(props: { value: number }) {
+function TimeCell(props: Readonly<{ value: number }>) {
   const { value } = props;
   const date = new Date(value);
   return <div>{dayjs(date).format("HH:mm:ss")}</div>;
 }
 
-function TypeCell(props: { value: string }) {
+function TypeCell(props: Readonly<{ value: string }>) {
   const { value } = props;
   return <Tag type={value as TagTypeEnum} value={value} />;
 }
 
-function PayloadCell(props: { value: string; searchedWords: string[] }) {
+function PayloadCell(
+  props: Readonly<{ value: string; searchedWords: string[] }>,
+) {
   const { value, searchedWords } = props;
   return (
     <Tooltip content={value} relationship={"description"}>

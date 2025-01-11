@@ -1,0 +1,14 @@
+.container{
+    @apply w-48 flex flex-col items-center justify-center flex-1;
+    & .body{
+        @apply flex gap-y-0.5 flex-col;
+        & .item{
+            @apply flex;
+            & .value{
+                @apply ml-1;
+            }
+        }
+    }
+}
+
+

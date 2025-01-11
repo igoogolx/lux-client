@@ -8,7 +8,7 @@ interface ProcessCellProps {
   os: string;
   searchedValue: string;
 }
-export function ProcessCell(props: ProcessCellProps) {
+export function ProcessCell(props: Readonly<ProcessCellProps>) {
   const { process, os, searchedValue } = props;
   const separator = os === "darwin" ? "/" : "\\";
   const chunks = process.split(separator);

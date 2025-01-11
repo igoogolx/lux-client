@@ -34,7 +34,7 @@ export enum DnsTypeEnum {
 }
 
 export default function EditItemWithSelectDialog(
-  props: EditItemWithSelectDialogProps,
+  props: Readonly<EditItemWithSelectDialogProps>,
 ) {
   const {
     title,

@@ -68,6 +68,9 @@ class UrlConfig {
   get runtimeDetail() {
     return `${this.httpPrefix}${this.baseUrl}/runtime-detail`;
   }
+  get dns() {
+    return `${this.httpPrefix}${this.baseUrl}/dns`;
+  }
 }
 
 export const urtConfig = new UrlConfig();

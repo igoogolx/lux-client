@@ -1,17 +1,17 @@
 import { getToken } from "@/utils/auth";
-import { type SubscribeTraffic } from "./types";
+import { SubscribeDnsStatistic } from "./types";
 import { urtConfig } from "./url";
 import { createWebsocket } from "./websocket";
 
-export const subscribeTraffic: SubscribeTraffic = (config) => {
+export const subscribeDnsStatistic: SubscribeDnsStatistic = (config) => {
   const { onError, onClose, onMessage } = config;
-  const url = `${urtConfig.traffic}?token=${getToken()}`;
+  const url = `${urtConfig.dns}/statistic?token=${getToken()}`;
   return createWebsocket(url, {
     onError,
     onMessage: (data) => {
       if (typeof data === "string") {
-        const traffic = JSON.parse(data);
-        onMessage(traffic);
+        const statistic = JSON.parse(data);
+        onMessage(statistic);
       }
     },
     onClose,

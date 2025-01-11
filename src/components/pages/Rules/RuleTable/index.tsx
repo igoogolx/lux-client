@@ -33,7 +33,7 @@ function calcTableHeight() {
   return document.documentElement.clientHeight - 48 - 68 - 44 - 32 - 16;
 }
 
-export default function RuleTable(props: RuleTableProps) {
+export default function RuleTable(props: Readonly<RuleTableProps>) {
   const { id } = props;
 
   const isStarted = useSelector<RootState, boolean>(

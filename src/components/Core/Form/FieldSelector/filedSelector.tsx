@@ -19,7 +19,7 @@ interface FieldSelectorProps<T extends string> {
 }
 
 export function FiledSelector<T extends string>(
-  props: FieldSelectorProps<T>,
+  props: Readonly<FieldSelectorProps<T>>,
 ): React.ReactNode {
   const {
     name,

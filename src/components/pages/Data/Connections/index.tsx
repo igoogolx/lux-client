@@ -76,7 +76,7 @@ function LoadTag(props: { value: number }): string {
   return `${convertedValue} ${unit}`;
 }
 
-function StartTag(props: { value: number }): React.ReactNode {
+function StartTag(props: Readonly<{ value: number }>): React.ReactNode {
   const { value } = props;
   const duration = new Date().getTime() - value;
   return <>{convertDuration(duration)}</>;

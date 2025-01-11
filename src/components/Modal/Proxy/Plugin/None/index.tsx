@@ -9,7 +9,7 @@ interface NoneProps {
   onChange: () => void;
 }
 
-export function NonePlugin(props: NoneProps) {
+export function NonePlugin(props: Readonly<NoneProps>) {
   const { t } = useTranslation();
   const { close, onChange } = props;
   const onSubmit = async () => {

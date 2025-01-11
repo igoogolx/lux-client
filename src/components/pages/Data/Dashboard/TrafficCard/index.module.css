@@ -5,10 +5,10 @@
     flex-col;
 
   & .data {
-    @apply my-2 flex flex-row justify-between border-solid rounded border;
+    @apply my-1 flex flex-row justify-between border-solid rounded border;
 
     & .info {
-      @apply flex-1 py-2;
+      @apply flex-1 py-1 flex;
 
 
       &:not(:last-child) {
@@ -16,10 +16,10 @@
       }
 
       & .connectionsAmount{
-       @apply flex flex-col items-center justify-between h-full w-24;
+       @apply flex flex-col items-center justify-center h-full w-24;
 
         & .connectionItem{
-          @apply mb-2 h-7 flex items-center justify-center;
+          @apply mb-0.5 flex items-center;
         }
       }
 
@@ -35,7 +35,7 @@
     }
 
     & .content {
-      @apply flex w-full justify-between;
+      @apply flex flex-col w-full justify-between flex-1;
     }
   }
 

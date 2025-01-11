@@ -6,7 +6,7 @@ interface ClickToCopyProps {
   children: ReactNode;
 }
 
-export default function ClickToCopy(props: ClickToCopyProps) {
+export default function ClickToCopy(props: Readonly<ClickToCopyProps>) {
   const { children, value } = props;
   const { copy } = useClipboard();
 

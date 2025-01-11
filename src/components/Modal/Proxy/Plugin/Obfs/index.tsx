@@ -13,7 +13,7 @@ interface EditObfsProps {
   onChange: (data: Obfs) => void;
 }
 
-export function EditObfsPlugin(props: EditObfsProps) {
+export function EditObfsPlugin(props: Readonly<EditObfsProps>) {
   const { t } = useTranslation();
   const { close, initialValue, onChange } = props;
   const onSubmit = async (data: Obfs) => {

@@ -1,61 +1,53 @@
-import { type TrafficItem } from "lux-js-sdk";
+import { DnsStatistic, type TrafficItem } from "lux-js-sdk";
 import * as React from "react";
+import DnsStatics from "./DnsStatics";
 import FlowInfo from "./FlowInfo";
 import styles from "./index.module.css";
 
-export enum TrafficCardTypeEnum {
-  Proxy,
-  Direct,
-}
-
 interface TrafficCardProps {
-  speed: { proxy: TrafficItem[]; direct: TrafficItem[] };
+  speed: { proxy: TrafficItem; direct: TrafficItem };
   total: { proxy: TrafficItem; direct: TrafficItem };
   connectionsAmount: {
     tcp: number;
     udp: number;
   };
-}
-
-function getCurrent(items: TrafficItem[]) {
-  return items.length > 0
-    ? items[items.length - 1]
-    : { upload: 0, download: 0 };
+  dnsStatics: DnsStatistic;
 }
 
 export function TrafficCard(
   props: Readonly<TrafficCardProps>,
 ): React.ReactNode {
-  const { speed, total, connectionsAmount } = props;
-  const currentProxy = getCurrent(speed.proxy);
-  const currentDirect = getCurrent(speed.direct);
+  const { speed, total, connectionsAmount, dnsStatics } = props;
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.data}>
         <div className={styles.info}>
           <div className={styles.connectionsAmount}>
-            <div
-              className={styles.connectionItem}
-            >{`TCP:  ${connectionsAmount.tcp}`}</div>
-            <div
-              className={styles.connectionItem}
-            >{`UDP:  ${connectionsAmount.udp}`}</div>
+            <div>
+              <div
+                className={styles.connectionItem}
+              >{`TCP:  ${connectionsAmount.tcp}`}</div>
+              <div
+                className={styles.connectionItem}
+              >{`UDP:  ${connectionsAmount.udp}`}</div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.info}>
+          <div className={styles.content}>
+            <DnsStatics value={dnsStatics} />
           </div>
         </div>
         <div className={styles.info}>
           <div className={styles.content}>
             <FlowInfo
-              current={currentProxy}
+              current={speed.proxy}
               total={total.proxy}
               titleClassName={styles.proxyTitle}
             />
-          </div>
-        </div>
-        <div className={styles.info}>
-          <div className={styles.content}>
             <FlowInfo
-              current={currentDirect}
+              current={speed.direct}
               total={total.direct}
               titleClassName={styles.directTitle}
             />

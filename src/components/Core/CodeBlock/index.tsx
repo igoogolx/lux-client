@@ -8,7 +8,7 @@ interface CodeBlockProps {
   text: string;
 }
 
-export default function CodeBlock(props: CodeBlockProps) {
+export default function CodeBlock(props: Readonly<CodeBlockProps>) {
   const { text } = props;
 
   const { copy } = useClipboard();

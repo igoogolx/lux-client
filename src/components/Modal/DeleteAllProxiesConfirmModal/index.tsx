@@ -10,7 +10,7 @@ interface DeleteAllProxiesConfirmModalProps {
 }
 
 export function DeleteAllProxiesConfirmModal(
-  props: DeleteAllProxiesConfirmModalProps,
+  props: Readonly<DeleteAllProxiesConfirmModalProps>,
 ): React.ReactNode {
   const { onConfirm, onClose, title } = props;
   const { t } = useTranslation();

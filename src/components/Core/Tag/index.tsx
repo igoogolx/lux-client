@@ -14,7 +14,7 @@ interface TagProps {
   value: string;
 }
 
-function Tag(props: TagProps): React.ReactNode {
+function Tag(props: Readonly<TagProps>): React.ReactNode {
   const { type, value } = props;
   return (
     <div className={classNames(styles.base, styles[type])}>

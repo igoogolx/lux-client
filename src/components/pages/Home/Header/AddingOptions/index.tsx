@@ -30,7 +30,9 @@ interface AddingOptionsProps {
   className?: string;
 }
 
-export function AddingOptions(props: AddingOptionsProps): React.ReactNode {
+export function AddingOptions(
+  props: Readonly<AddingOptionsProps>,
+): React.ReactNode {
   const { className } = props;
   const { t } = useTranslation();
   const [currentAddingType, setCurrentAddingType] =

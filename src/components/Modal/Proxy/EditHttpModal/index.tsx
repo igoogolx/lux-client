@@ -34,7 +34,7 @@ const HttpSchema = Yup.object().shape({
   password: Yup.string(),
 });
 
-export function EditHttpModal(props: EditHttpModalProps) {
+export function EditHttpModal(props: Readonly<EditHttpModalProps>) {
   const { t } = useTranslation();
   const { close, initialValue, isSelected } = props;
   const dispatch = useDispatch();
