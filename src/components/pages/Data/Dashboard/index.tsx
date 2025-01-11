@@ -1,10 +1,5 @@
 import { type RootState, trafficsSlice } from "@/reducers";
-import {
-  subscribeNowTraffic,
-  subscribeTotalTraffic,
-  type Traffic,
-  type TrafficItem,
-} from "lux-js-sdk";
+import { subscribeTraffic, type Traffic, type TrafficItem } from "lux-js-sdk";
 import * as React from "react";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,7 +22,7 @@ export default function Dashboard(
   props: Readonly<DashboardProps>,
 ): React.ReactNode {
   const { connectionsAmount } = props;
-  const traffics = useSelector<RootState, Traffic[]>((state) => {
+  const traffics = useSelector<RootState, Traffic["speed"][]>((state) => {
     return state.traffics.now;
   });
 
@@ -42,7 +37,8 @@ export default function Dashboard(
     });
     return result;
   }, [traffics]);
-  const total = useSelector<RootState, Traffic>(
+
+  const total = useSelector<RootState, Traffic["total"]>(
     (state) =>
       state.traffics.total || {
         proxy: { upload: 0, download: 0 },
@@ -51,25 +47,17 @@ export default function Dashboard(
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    const speedClient = subscribeNowTraffic({
+    const speedClient = subscribeTraffic({
       onMessage: (item) => {
-        dispatch(trafficsSlice.actions.addNow({ traffic: item }));
+        dispatch(trafficsSlice.actions.addNow({ traffic: item.speed }));
+        dispatch(trafficsSlice.actions.setTotal({ traffic: item.total }));
       },
       onError: () => {
         speedClient.close();
       },
     });
-    const totalClient = subscribeTotalTraffic({
-      onMessage: (item) => {
-        dispatch(trafficsSlice.actions.setTotal({ traffic: item }));
-      },
-      onError: () => {
-        totalClient.close();
-      },
-    });
     return () => {
       speedClient.close();
-      totalClient.close();
     };
   }, [dispatch]);
 

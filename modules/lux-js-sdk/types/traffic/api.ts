@@ -6,8 +6,14 @@ export interface TrafficItem {
 }
 
 export interface Traffic {
-  proxy: TrafficItem;
-  direct: TrafficItem;
+  speed: {
+    proxy: TrafficItem;
+    direct: TrafficItem;
+  };
+  total: {
+    proxy: TrafficItem;
+    direct: TrafficItem;
+  };
 }
 
 interface BaseParams {
@@ -16,6 +22,4 @@ interface BaseParams {
   onClose?: () => void;
 }
 
-export type SubscribeNowTraffic = (params: BaseParams) => WsClient;
-
-export type SubscribeTotalTraffic = (params: BaseParams) => WsClient;
+export type SubscribeTraffic = (params: BaseParams) => WsClient;
