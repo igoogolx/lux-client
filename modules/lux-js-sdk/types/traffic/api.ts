@@ -5,15 +5,14 @@ export interface TrafficItem {
   upload: number;
 }
 
+export interface TrafficData {
+  proxy: TrafficItem;
+  direct: TrafficItem;
+}
+
 export interface Traffic {
-  speed: {
-    proxy: TrafficItem;
-    direct: TrafficItem;
-  };
-  total: {
-    proxy: TrafficItem;
-    direct: TrafficItem;
-  };
+  speed: TrafficData;
+  total: TrafficData;
 }
 
 interface BaseParams {

@@ -8,7 +8,6 @@ import { rulesSlice } from "./rule";
 import { selectedSlice } from "./selected";
 import { settingSlice } from "./setting";
 import { testUdpSlice } from "./testUdp";
-import { trafficsSlice } from "./traffics";
 
 export const store = configureStore({
   reducer: {
@@ -16,7 +15,6 @@ export const store = configureStore({
     selected: selectedSlice.reducer,
     rules: rulesSlice.reducer,
     delays: delaysSlice.reducer,
-    traffics: trafficsSlice.reducer,
     manager: managerSlice.reducer,
     setting: settingSlice.reducer,
     logger: loggerSlice.reducer,
