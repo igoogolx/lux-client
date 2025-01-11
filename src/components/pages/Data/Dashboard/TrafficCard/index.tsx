@@ -1,5 +1,6 @@
-import { type TrafficItem } from "lux-js-sdk";
+import { DnsStatistic, type TrafficItem } from "lux-js-sdk";
 import * as React from "react";
+import DnsStatics from "./DnsStatics";
 import FlowInfo from "./FlowInfo";
 import styles from "./index.module.css";
 
@@ -10,24 +11,32 @@ interface TrafficCardProps {
     tcp: number;
     udp: number;
   };
+  dnsStatics: DnsStatistic;
 }
 
 export function TrafficCard(
   props: Readonly<TrafficCardProps>,
 ): React.ReactNode {
-  const { speed, total, connectionsAmount } = props;
+  const { speed, total, connectionsAmount, dnsStatics } = props;
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.data}>
         <div className={styles.info}>
           <div className={styles.connectionsAmount}>
-            <div
-              className={styles.connectionItem}
-            >{`TCP:  ${connectionsAmount.tcp}`}</div>
-            <div
-              className={styles.connectionItem}
-            >{`UDP:  ${connectionsAmount.udp}`}</div>
+            <div>
+              <div
+                className={styles.connectionItem}
+              >{`TCP:  ${connectionsAmount.tcp}`}</div>
+              <div
+                className={styles.connectionItem}
+              >{`UDP:  ${connectionsAmount.udp}`}</div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.info}>
+          <div className={styles.content}>
+            <DnsStatics value={dnsStatics} />
           </div>
         </div>
         <div className={styles.info}>
@@ -37,10 +46,6 @@ export function TrafficCard(
               total={total.proxy}
               titleClassName={styles.proxyTitle}
             />
-          </div>
-        </div>
-        <div className={styles.info}>
-          <div className={styles.content}>
             <FlowInfo
               current={speed.direct}
               total={total.direct}

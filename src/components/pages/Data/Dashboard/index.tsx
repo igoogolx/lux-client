@@ -1,4 +1,9 @@
-import { subscribeTraffic, Traffic } from "lux-js-sdk";
+import {
+  DnsStatistic,
+  subscribeDnsStatistic,
+  subscribeTraffic,
+  Traffic,
+} from "lux-js-sdk";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -26,6 +31,17 @@ export default function Dashboard(
     total: INIT_TRAFFIC_ITEM,
   });
 
+  const [dnsStatistic, setDnsStatistic] = useState<DnsStatistic>({
+    proxy: {
+      success: 0,
+      fail: 0,
+    },
+    direct: {
+      success: 0,
+      fail: 0,
+    },
+  });
+
   const dispatch = useDispatch();
   useEffect(() => {
     const speedClient = subscribeTraffic({
@@ -41,12 +57,27 @@ export default function Dashboard(
     };
   }, [dispatch]);
 
+  useEffect(() => {
+    const dnsStatisticClient = subscribeDnsStatistic({
+      onMessage: (item) => {
+        setDnsStatistic(item);
+      },
+      onError: () => {
+        dnsStatisticClient.close();
+      },
+    });
+    return () => {
+      dnsStatisticClient.close();
+    };
+  }, [dispatch]);
+
   return (
     <div className={styles.wrapper}>
       <TrafficCard
         speed={traffic.speed}
         total={traffic.total}
         connectionsAmount={connectionsAmount}
+        dnsStatics={dnsStatistic}
       />
     </div>
   );

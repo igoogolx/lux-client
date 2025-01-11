@@ -2,14 +2,14 @@
   @apply flex flex-1 flex-col justify-between px-2;
 
   & .item {
-    @apply flex flex-1 mb-2 justify-between items-center;
+    @apply flex flex-1 mb-0.5 justify-between items-center;
 
     & .title {
       @apply flex justify-between mr-2 shrink-0;
     }
 
     & .details {
-      @apply flex justify-between text-lg;
+      @apply flex justify-between;
 
       & .detail {
         @apply flex flex-1 items-center;

@@ -1,4 +1,5 @@
 export * from "./connection";
+export * from "./dns";
 export * from "./heartbeat";
 export * from "./init";
 export * from "./isAdmin";
