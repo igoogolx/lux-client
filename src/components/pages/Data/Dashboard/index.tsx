@@ -7,14 +7,11 @@ import {
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { TrafficCard } from "./TrafficCard";
+import { ConnectionsAmount, TrafficCard } from "./TrafficCard";
 import styles from "./index.module.css";
 
 interface DashboardProps {
-  connectionsAmount: {
-    tcp: number;
-    udp: number;
-  };
+  connectionsAmount: ConnectionsAmount;
 }
 
 const INIT_TRAFFIC_ITEM = {

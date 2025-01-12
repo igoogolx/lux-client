@@ -1,16 +1,23 @@
+import ConnStatics, {
+  ConnStaticsProps,
+} from "@/components/pages/Data/Dashboard/TrafficCard/ConnStatics";
+import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { DnsStatistic, type TrafficItem } from "lux-js-sdk";
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import DnsStatics from "./DnsStatics";
 import FlowInfo from "./FlowInfo";
 import styles from "./index.module.css";
 
+export interface ConnectionsAmount {
+  proxy: ConnStaticsProps["value"];
+  direct: ConnStaticsProps["value"];
+}
+
 interface TrafficCardProps {
   speed: { proxy: TrafficItem; direct: TrafficItem };
   total: { proxy: TrafficItem; direct: TrafficItem };
-  connectionsAmount: {
-    tcp: number;
-    udp: number;
-  };
+  connectionsAmount: ConnectionsAmount;
   dnsStatics: DnsStatistic;
 }
 
@@ -18,40 +25,36 @@ export function TrafficCard(
   props: Readonly<TrafficCardProps>,
 ): React.ReactNode {
   const { speed, total, connectionsAmount, dnsStatics } = props;
+  const { t } = useTranslation();
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.data}>
         <div className={styles.info}>
-          <div className={styles.connectionsAmount}>
-            <div>
-              <div
-                className={styles.connectionItem}
-              >{`TCP:  ${connectionsAmount.tcp}`}</div>
-              <div
-                className={styles.connectionItem}
-              >{`UDP:  ${connectionsAmount.udp}`}</div>
-            </div>
-          </div>
+          <div className={styles.title}>{t(TRANSLATION_KEY.PROXY)}</div>
         </div>
         <div className={styles.info}>
-          <div className={styles.content}>
-            <DnsStatics value={dnsStatics} />
-          </div>
+          <ConnStatics value={connectionsAmount.proxy} />
         </div>
         <div className={styles.info}>
-          <div className={styles.content}>
-            <FlowInfo
-              current={speed.proxy}
-              total={total.proxy}
-              titleClassName={styles.proxyTitle}
-            />
-            <FlowInfo
-              current={speed.direct}
-              total={total.direct}
-              titleClassName={styles.directTitle}
-            />
-          </div>
+          <DnsStatics value={dnsStatics.proxy} />
+        </div>
+        <div className={styles.info}>
+          <FlowInfo current={speed.proxy} total={total.proxy} />
+        </div>
+      </div>
+      <div className={styles.data}>
+        <div className={styles.info}>
+          <div className={styles.title}>{t(TRANSLATION_KEY.DIRECT)}</div>
+        </div>
+        <div className={styles.info}>
+          <ConnStatics value={connectionsAmount.direct} />
+        </div>
+        <div className={styles.info}>
+          <DnsStatics value={dnsStatics.direct} />
+        </div>
+        <div className={styles.info}>
+          <FlowInfo current={speed.direct} total={total.direct} />
         </div>
       </div>
     </div>
