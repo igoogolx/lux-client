@@ -5,7 +5,7 @@ import { Nav } from "@/components/Nav";
 import Data from "@/components/pages/Data";
 import Rules from "@/components/pages/Rules";
 import Splash from "@/components/Splash";
-import { useCheckForUpdate } from "@/hooks";
+import { useCheckForUpdate, useMedia } from "@/hooks";
 import {
   generalSlice,
   loggerSlice,
@@ -14,10 +14,7 @@ import {
 } from "@/reducers";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
 import { formatError } from "@/utils/error";
-import { makeStyles } from "@fluentui/react-components";
-import { tokens } from "@fluentui/react-theme";
 import axios from "axios";
-import classNames from "classnames";
 import { getIsAdmin, getStatus, subscribeLog, subscribePing } from "lux-js-sdk";
 import * as React from "react";
 import { useEffect, useState } from "react";
@@ -35,30 +32,19 @@ axios.interceptors.response.use(
   (res) => res,
   async (error) => {
     notifier.error(formatError(error));
-    return await Promise.reject(error);
+    throw error;
   },
 );
-
-const useStyles = makeStyles({
-  nav: {
-    backgroundColor: tokens.colorNeutralBackground1,
-  },
-  expandedNav: {
-    backgroundColor: tokens.colorNeutralBackground2,
-  },
-});
 
 export function App(): React.ReactNode {
   const dispatch = useDispatch();
   const [connected, setConnected] = useState(true);
 
+  const isWideScreen = useMedia("(min-width: 640px)");
+
   const loading = useSelector<RootState, boolean>(
     (state) => state.general.loading,
   );
-
-  const [isNavOpen, setIsNavOpen] = useState(false);
-
-  const inlineStyles = useStyles();
 
   const checkForUpdate = useCheckForUpdate();
 
@@ -70,7 +56,9 @@ export function App(): React.ReactNode {
 
   useEffect(() => {
     console.log("init!");
-    checkForUpdate();
+    checkForUpdate().catch((e) => {
+      console.error(e);
+    });
     const logSubscriber = subscribeLog({
       onMessage: (logs) => {
         logs.forEach((log) => {
@@ -108,26 +96,16 @@ export function App(): React.ReactNode {
       <ElevateModal />
       {loading && <Splash />}
       <div className={styles.body}>
-        <div
-          className={classNames(
-            { [styles.expandedNav]: isNavOpen },
-            styles.nav,
-            isNavOpen ? inlineStyles.expandedNav : inlineStyles.nav,
-          )}
-        >
-          <Nav
-            onClick={() => {
-              if (isNavOpen) {
-                setIsNavOpen(false);
-              }
-            }}
-          />
-          <div className={styles.themeSwitch}>
-            <ThemeSwitch />
+        {isWideScreen && (
+          <div className={styles.nav}>
+            <Nav />
+            <div className={styles.themeSwitch}>
+              <ThemeSwitch />
+            </div>
           </div>
-        </div>
+        )}
         <div className={styles.content}>
-          <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+          <Header />
           <Routes>
             <Route path={ROUTER_PATH.Home} element={<Home />} />
             <Route path={ROUTER_PATH.Rules} element={<Rules />} />
