@@ -59,8 +59,10 @@ export default function Stack() {
           className={styles.selector}
           disabled={isStarted}
           value={translationMap[setting.stack as keyof typeof translationMap]}
-          onOptionSelect={(e, data) => {
-            onSubmit(data.optionValue as SettingRes["stack"]);
+          onOptionSelect={(_, data) => {
+            onSubmit(data.optionValue as SettingRes["stack"]).catch((e) => {
+              console.error(e);
+            });
           }}
         >
           {options.map((option) => (

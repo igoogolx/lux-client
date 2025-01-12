@@ -371,7 +371,7 @@ export default function Connections(): React.ReactNode {
       <div className={styles.toolbar}>
         <SearchBox
           value={searchedValue}
-          onChange={(e, data) => {
+          onChange={(_, data) => {
             setSearchedValue(data.value);
           }}
           placeholder={t(TRANSLATION_KEY.SEARCH_CONNECTION_TIP)}

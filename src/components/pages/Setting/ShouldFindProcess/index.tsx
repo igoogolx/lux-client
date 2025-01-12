@@ -44,8 +44,10 @@ export default function ShouldFindProcess() {
         </div>
         <Switch
           checked={setting.shouldFindProcess}
-          onChange={(e, data) => {
-            onSubmit(data.checked);
+          onChange={(_, data) => {
+            onSubmit(data.checked).catch((e) => {
+              console.error(e);
+            });
           }}
           disabled={isStarted}
         />

@@ -56,10 +56,12 @@ export default function AutoMode() {
         <Switch
           disabled={isStarted}
           checked={setting.autoMode.enabled}
-          onChange={(e, data) => {
+          onChange={(_, data) => {
             onSubmit({
               ...setting.autoMode,
               enabled: data.checked,
+            }).catch((e) => {
+              console.error(e);
             });
           }}
         />
@@ -76,10 +78,12 @@ export default function AutoMode() {
               className={styles.selector}
               disabled={isStarted}
               value={setting.autoMode.type}
-              onOptionSelect={(e, data) => {
+              onOptionSelect={(_, data) => {
                 onSubmit({
                   ...setting.autoMode,
                   type: data.optionValue as SettingRes["autoMode"]["type"],
+                }).catch((e) => {
+                  console.error(e);
                 });
               }}
             >
@@ -102,6 +106,8 @@ export default function AutoMode() {
                 onSubmit({
                   ...setting.autoMode,
                   url: value,
+                }).catch((e) => {
+                  console.error(e);
                 });
               }}
               value={setting.autoMode.url}

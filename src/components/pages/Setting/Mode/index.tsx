@@ -59,8 +59,10 @@ export default function Mode() {
           className={styles.selector}
           disabled={isStarted}
           value={translationMap[setting.mode as keyof typeof translationMap]}
-          onOptionSelect={(e, data) => {
-            onSubmit(data.optionValue as SettingRes["mode"]);
+          onOptionSelect={(_, data) => {
+            onSubmit(data.optionValue as SettingRes["mode"]).catch((e) => {
+              console.error(e);
+            });
           }}
         >
           {options.map((option) => (
