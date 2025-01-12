@@ -26,6 +26,7 @@ const initialState: SettingRes = {
   hijackDns: {
     enabled: true,
     networkService: "",
+    alwaysReset: false,
   },
   blockQuic: false,
   stack: "gvisor",

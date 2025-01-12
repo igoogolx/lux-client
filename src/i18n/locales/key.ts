@@ -175,4 +175,7 @@ export const TRANSLATION_KEY = {
   TUN: "tun",
   GVISOR: "gvisor",
   SYSTEM_SETTING: "system_setting",
+  HIJACK_DNS_ALWAYS_RESET_SWITCH_LABEL: "hijack_dns_always_reset_switch_label",
+  HIJACK_DNS_ALWAYS_RESET_SWITCH_TOOLTIP:
+    "hijack_dns_always_reset_switch_tooltip",
 };
