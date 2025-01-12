@@ -196,4 +196,7 @@ export default {
     "关闭 lux 时，重置系统 Dns 为空",
   [TRANSLATION_KEY.SUCCESS_DNS]: "成功的 Dns",
   [TRANSLATION_KEY.FAIL_DNS]: "失败的 Dns",
+  [TRANSLATION_KEY.EDIT_SHADOWSOCKS]: "编辑 Shadowsocks",
+  [TRANSLATION_KEY.EDIT_SOCKS5]: "编辑 Socks5",
+  [TRANSLATION_KEY.EDIT_HTTP]: "编辑 Http",
 };

@@ -205,4 +205,7 @@ export default {
     "Reset system Dns to empty when closing lux",
   [TRANSLATION_KEY.SUCCESS_DNS]: "Success Dns",
   [TRANSLATION_KEY.FAIL_DNS]: "Fail Dns",
+  [TRANSLATION_KEY.EDIT_SHADOWSOCKS]: "Edit Shadowsocks",
+  [TRANSLATION_KEY.EDIT_SOCKS5]: "Edit Socks5",
+  [TRANSLATION_KEY.EDIT_HTTP]: "Edit Http",
 };
