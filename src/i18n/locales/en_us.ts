@@ -203,4 +203,6 @@ export default {
     "Always Reset System Dns",
   [TRANSLATION_KEY.HIJACK_DNS_ALWAYS_RESET_SWITCH_TOOLTIP]:
     "Reset system Dns to empty when closing lux",
+  [TRANSLATION_KEY.SUCCESS_DNS]: "Success Dns",
+  [TRANSLATION_KEY.FAIL_DNS]: "Fail Dns",
 };

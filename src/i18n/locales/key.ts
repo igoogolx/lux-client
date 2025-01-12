@@ -178,4 +178,6 @@ export const TRANSLATION_KEY = {
   HIJACK_DNS_ALWAYS_RESET_SWITCH_LABEL: "hijack_dns_always_reset_switch_label",
   HIJACK_DNS_ALWAYS_RESET_SWITCH_TOOLTIP:
     "hijack_dns_always_reset_switch_tooltip",
+  SUCCESS_DNS: "success_dns",
+  FAIL_DNS: "fail_dns",
 };
