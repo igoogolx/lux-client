@@ -11,11 +11,11 @@ function ConnStatics(props: Readonly<ConnStaticsProps>) {
     <div className={styles.container}>
       <div className={styles.body}>
         <div className={styles.item}>
-          <span className={styles.label}>Tcp:</span>
+          <span className={styles.label}>TCP:</span>
           <span className={styles.value}>{value.tcp}</span>
         </div>
         <div className={styles.item}>
-          <span className={styles.label}>Udp:</span>
+          <span className={styles.label}>UDP:</span>
           <span className={styles.value}>{value.udp}</span>
         </div>
       </div>
