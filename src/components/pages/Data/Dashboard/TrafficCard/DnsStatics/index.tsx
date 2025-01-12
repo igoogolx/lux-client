@@ -1,12 +1,11 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { DnsStatistic } from "lux-js-sdk";
+import { DnsStatisticItem } from "lux-js-sdk";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./index.module.css";
-import DnsStaticItem from "./Item";
 
 interface DnsStaticsProps {
-  value: DnsStatistic;
+  value: DnsStatisticItem;
 }
 
 function DnsStatics(props: Readonly<DnsStaticsProps>) {
@@ -16,20 +15,14 @@ function DnsStatics(props: Readonly<DnsStaticsProps>) {
     <div className={styles.container}>
       <div className={styles.body}>
         <div className={styles.item}>
-          {t(TRANSLATION_KEY.REMOTE_DNS_LABEL)}:
-          <DnsStaticItem
-            className={styles.value}
-            successCount={value.proxy.success}
-            failCount={value.proxy.fail}
-          />
+          <span className={styles.label}>
+            {t(TRANSLATION_KEY.SUCCESS_DNS)}:
+          </span>
+          <span className={styles.value}>{value.success}</span>
         </div>
         <div className={styles.item}>
-          {t(TRANSLATION_KEY.LOCAL_DNS_LABEL)}:
-          <DnsStaticItem
-            className={styles.value}
-            successCount={value.direct.success}
-            failCount={value.direct.fail}
-          />
+          <span className={styles.label}>{t(TRANSLATION_KEY.FAIL_DNS)}:</span>
+          <span className={styles.value}>{value.fail}</span>
         </div>
       </div>
     </div>

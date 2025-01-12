@@ -199,4 +199,13 @@ export default {
   [TRANSLATION_KEY.TUN]: "Tun",
   [TRANSLATION_KEY.GVISOR]: "Gvisor",
   [TRANSLATION_KEY.SYSTEM_SETTING]: "System Setting",
+  [TRANSLATION_KEY.HIJACK_DNS_ALWAYS_RESET_SWITCH_LABEL]:
+    "Always Reset System Dns",
+  [TRANSLATION_KEY.HIJACK_DNS_ALWAYS_RESET_SWITCH_TOOLTIP]:
+    "Reset system Dns to empty when closing lux",
+  [TRANSLATION_KEY.SUCCESS_DNS]: "Success Dns",
+  [TRANSLATION_KEY.FAIL_DNS]: "Fail Dns",
+  [TRANSLATION_KEY.EDIT_SHADOWSOCKS]: "Edit Shadowsocks",
+  [TRANSLATION_KEY.EDIT_SOCKS5]: "Edit Socks5",
+  [TRANSLATION_KEY.EDIT_HTTP]: "Edit Http",
 };

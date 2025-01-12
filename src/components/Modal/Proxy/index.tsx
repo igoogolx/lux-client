@@ -33,6 +33,8 @@ export function EditModal(props: Readonly<EditModalProps>) {
     [ProxyTypeEnum.Socks5]: "Socks5",
   };
 
+  const isEdit = !!initialValue;
+
   let titleI18nKey = "";
 
   const [currentType, setCurrentType] = useState(type);
@@ -43,7 +45,9 @@ export function EditModal(props: Readonly<EditModalProps>) {
 
   switch (currentType) {
     case ProxyTypeEnum.Shadowsocks:
-      titleI18nKey = TRANSLATION_KEY.NEW_SHADOWSOCKS;
+      titleI18nKey = isEdit
+        ? TRANSLATION_KEY.EDIT_SHADOWSOCKS
+        : TRANSLATION_KEY.NEW_SHADOWSOCKS;
       content = (
         <EditShadowsocksModal
           close={close}
@@ -54,7 +58,9 @@ export function EditModal(props: Readonly<EditModalProps>) {
       );
       break;
     case ProxyTypeEnum.Socks5:
-      titleI18nKey = TRANSLATION_KEY.NEW_SOCKS5;
+      titleI18nKey = isEdit
+        ? TRANSLATION_KEY.EDIT_SOCKS5
+        : TRANSLATION_KEY.NEW_SOCKS5;
       content = (
         <EditSocks5Modal
           close={close}
@@ -64,7 +70,9 @@ export function EditModal(props: Readonly<EditModalProps>) {
       );
       break;
     case ProxyTypeEnum.Http:
-      titleI18nKey = TRANSLATION_KEY.NEW_HTTP;
+      titleI18nKey = isEdit
+        ? TRANSLATION_KEY.EDIT_HTTP
+        : TRANSLATION_KEY.NEW_HTTP;
       content = (
         <EditHttpModal
           close={close}
@@ -83,9 +91,9 @@ export function EditModal(props: Readonly<EditModalProps>) {
         <div className={styles.type}>
           <Text>{t(TRANSLATION_KEY.TYPE)}</Text>
           <Dropdown
-            disabled={!!initialValue}
+            disabled={isEdit}
             defaultValue={typeOption[currentType]}
-            onOptionSelect={(e, data) => {
+            onOptionSelect={(_, data) => {
               setCurrentType(data.optionValue as ProxyTypeEnum);
             }}
           >

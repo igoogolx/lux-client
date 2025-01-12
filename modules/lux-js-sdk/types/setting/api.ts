@@ -23,6 +23,7 @@ export interface SettingRes {
   hijackDns: {
     enabled: boolean;
     networkService: string;
+    alwaysReset: boolean;
   };
   blockQuic: boolean;
   stack: string;

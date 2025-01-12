@@ -45,8 +45,10 @@ export default function LocalHttpServer() {
         </div>
         <Switch
           checked={setting.localServer.allowLan}
-          onChange={(e, data) => {
-            onSubmit({ allowLan: data.checked });
+          onChange={(_, data) => {
+            onSubmit({ allowLan: data.checked }).catch((e) => {
+              console.error(e);
+            });
           }}
           disabled={isStarted}
         />
@@ -62,7 +64,9 @@ export default function LocalHttpServer() {
           open={openModal}
           setOpen={setOpenModal}
           onSubmit={(value) => {
-            onSubmit({ port: +value });
+            onSubmit({ port: +value }).catch((e) => {
+              console.error(e);
+            });
           }}
           value={setting.localServer.port.toString()}
           disabled={isStarted}

@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 });
 
 interface NavProps {
-  onClick: () => void;
+  onClick?: () => void;
 }
 export function Nav(props: Readonly<NavProps>): React.ReactNode {
   const { onClick } = props;

@@ -11,5 +11,5 @@
 }
 
 .navigationBtn {
-  @apply md:hidden;
+  @apply sm:hidden;
 }

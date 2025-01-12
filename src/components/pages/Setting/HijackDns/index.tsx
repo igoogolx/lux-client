@@ -47,8 +47,10 @@ export default function HijackDns() {
         </div>
         <Switch
           checked={setting.hijackDns.enabled}
-          onChange={(e, data) => {
-            onSubmit({ enabled: data.checked });
+          onChange={(_, data) => {
+            onSubmit({ enabled: data.checked }).catch((e) => {
+              console.error(e);
+            });
           }}
           disabled={isStarted}
         />
@@ -64,9 +66,32 @@ export default function HijackDns() {
             open={openModal}
             setOpen={setOpenModal}
             onSubmit={(value) => {
-              onSubmit({ networkService: value });
+              onSubmit({ networkService: value }).catch((e) => {
+                console.error(e);
+              });
             }}
             value={setting.hijackDns.networkService}
+            disabled={isStarted}
+          />
+        </div>
+      )}
+      {setting.hijackDns.enabled && (
+        <div className={styles.cardItem}>
+          <div className={styles.desc}>
+            <Subtitle2>
+              {t(TRANSLATION_KEY.HIJACK_DNS_ALWAYS_RESET_SWITCH_LABEL)}
+            </Subtitle2>
+            <Caption1>
+              {t(TRANSLATION_KEY.HIJACK_DNS_ALWAYS_RESET_SWITCH_TOOLTIP)}
+            </Caption1>
+          </div>
+          <Switch
+            checked={setting.hijackDns.alwaysReset}
+            onChange={(_, data) => {
+              onSubmit({ alwaysReset: data.checked }).catch((e) => {
+                console.error(e);
+              });
+            }}
             disabled={isStarted}
           />
         </div>

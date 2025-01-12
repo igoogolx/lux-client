@@ -2,6 +2,7 @@ import { ClickToCopy } from "@/components/Core";
 import { ProcessCell } from "@/components/pages/Data/Connections/ProcessCell";
 import RuleCell from "@/components/pages/Data/Connections/RuleTag";
 import Dashboard from "@/components/pages/Data/Dashboard";
+import { ConnectionsAmount } from "@/components/pages/Data/Dashboard/TrafficCard";
 import { useMedia } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import type { RootState } from "@/reducers";
@@ -21,6 +22,7 @@ import {
   type Conn,
   ConnNetworkMetaEnum,
   getRuntimeOS,
+  RULE_POLICY,
   type RuleDetailItem,
   type SettingRes,
   subscribeConnections,
@@ -69,7 +71,6 @@ function convertDuration(duration: number) {
   return `${hours}:${minutes}:${seconds}`;
 }
 
-// TODO: move
 function LoadTag(props: { value: number }): string {
   const { value } = props;
   const { value: convertedValue, unit } = convertByte(value);
@@ -93,11 +94,16 @@ export default function Connections(): React.ReactNode {
 
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
   const [conns, setConns] = useState<Conn[]>([]);
-  const [total, setTotal] = useState<{
-    tcp: number;
-    udp: number;
-    history: number[];
-  }>({ tcp: 0, udp: 0, history: [] });
+  const [total, setTotal] = useState<ConnectionsAmount>({
+    proxy: {
+      tcp: 0,
+      udp: 0,
+    },
+    direct: {
+      tcp: 0,
+      udp: 0,
+    },
+  });
   const [searchedValue, setSearchedValue] = useState("");
 
   const isWideScreen = useMedia("(min-width: 640px)");
@@ -108,17 +114,35 @@ export default function Connections(): React.ReactNode {
     const subscriber = subscribeConnections({
       onMessage: (m) => {
         setConns(m);
-        setTotal((prev) => {
-          return {
-            tcp: m.filter(
-              (conn) => conn.metadata.network === ConnNetworkMetaEnum.Tcp,
-            ).length,
-            udp: m.filter(
-              (conn) => conn.metadata.network === ConnNetworkMetaEnum.Udp,
-            ).length,
-            history: [...prev.history, m.length],
-          };
+        const total = {
+          proxy: {
+            tcp: 0,
+            udp: 0,
+          },
+          direct: {
+            tcp: 0,
+            udp: 0,
+          },
+        };
+        m.forEach((conn) => {
+          if (conn.metadata.network === ConnNetworkMetaEnum.Tcp) {
+            if (conn.rule.policy === RULE_POLICY.Proxy) {
+              total.proxy.tcp++;
+            }
+            if (conn.rule.policy === RULE_POLICY.Direct) {
+              total.direct.tcp++;
+            }
+          }
+          if (conn.metadata.network === ConnNetworkMetaEnum.Udp) {
+            if (conn.rule.policy === RULE_POLICY.Proxy) {
+              total.proxy.udp++;
+            }
+            if (conn.rule.policy === RULE_POLICY.Direct) {
+              total.direct.udp++;
+            }
+          }
         });
+        setTotal(total);
       },
     });
     return () => {
@@ -347,7 +371,7 @@ export default function Connections(): React.ReactNode {
       <div className={styles.toolbar}>
         <SearchBox
           value={searchedValue}
-          onChange={(e, data) => {
+          onChange={(_, data) => {
             setSearchedValue(data.value);
           }}
           placeholder={t(TRANSLATION_KEY.SEARCH_CONNECTION_TIP)}

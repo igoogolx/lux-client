@@ -1,19 +1,11 @@
+import MobileNav from "@/components/Nav/Mobile";
 import { settingSlice } from "@/reducers";
-import { Button } from "@fluentui/react-components";
-import { NavigationFilled } from "@fluentui/react-icons";
 import { getSetting } from "lux-js-sdk";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./index.module.css";
 
-interface HeaderProps {
-  isNavOpen: boolean;
-  setIsNavOpen: (isOpen: boolean) => void;
-}
-
-export function Header(props: Readonly<HeaderProps>) {
-  const { setIsNavOpen, isNavOpen } = props;
-
+export function Header() {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,12 +17,7 @@ export function Header(props: Readonly<HeaderProps>) {
   return (
     <div className={styles.container}>
       <div className={styles.navigationBtn}>
-        <Button
-          icon={<NavigationFilled />}
-          onClick={() => {
-            setIsNavOpen(!isNavOpen);
-          }}
-        />
+        <MobileNav />
       </div>
     </div>
   );

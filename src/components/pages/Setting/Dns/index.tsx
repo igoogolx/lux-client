@@ -151,8 +151,10 @@ export default function Dns() {
       <AddDnsOption />
       <EditDnsItem
         items={remoteDnsOptions}
-        onOptionSelect={(e, data) => {
-          onSubmit(data.selectedOptions, DNS_TYPE.REMOTE);
+        onOptionSelect={(_, data) => {
+          onSubmit(data.selectedOptions, DNS_TYPE.REMOTE).catch((e) => {
+            console.error(e);
+          });
         }}
         selectedOptions={setting.dns.server.remote}
         title={t(TRANSLATION_KEY.REMOTE_DNS_LABEL)}
@@ -160,8 +162,10 @@ export default function Dns() {
       />
       <EditDnsItem
         items={localDnsOptions}
-        onOptionSelect={(e, data) => {
-          onSubmit(data.selectedOptions, DNS_TYPE.LOCAL);
+        onOptionSelect={(_, data) => {
+          onSubmit(data.selectedOptions, DNS_TYPE.LOCAL).catch((e) => {
+            console.error(e);
+          });
         }}
         selectedOptions={setting.dns.server.local}
         title={t(TRANSLATION_KEY.LOCAL_DNS_LABEL)}
@@ -169,8 +173,10 @@ export default function Dns() {
       />
       <EditDnsItem
         items={boostDnsOptions}
-        onOptionSelect={(e, data) => {
-          onSubmit(data.selectedOptions, DNS_TYPE.BOOST);
+        onOptionSelect={(_, data) => {
+          onSubmit(data.selectedOptions, DNS_TYPE.BOOST).catch((e) => {
+            console.error(e);
+          });
         }}
         selectedOptions={setting.dns.server.boost}
         title={t(TRANSLATION_KEY.BOOST_DNS_LABEL)}
@@ -187,8 +193,10 @@ export default function Dns() {
         </div>
         <Switch
           checked={setting.dns.disableCache}
-          onChange={(e, data) => {
-            setDisableCache(data.checked);
+          onChange={(_, data) => {
+            setDisableCache(data.checked).catch((e) => {
+              console.error(e);
+            });
           }}
           disabled={isStarted}
         />

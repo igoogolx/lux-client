@@ -2,41 +2,29 @@
   @apply flex
     w-full
     flex-1
+    mt-1
+    rounded
+    border-solid
+    border
     flex-col;
 
   & .data {
-    @apply my-1 flex flex-row justify-between border-solid rounded border;
+    @apply flex flex-row justify-between;
+
+    &:not(:last-child) {
+      @apply border-b;
+    }
 
     & .info {
       @apply flex-1 py-1 flex;
-
 
       &:not(:last-child) {
         @apply border-r;
       }
 
-      & .connectionsAmount{
-       @apply flex flex-col items-center justify-center h-full w-24;
-
-        & .connectionItem{
-          @apply mb-0.5 flex items-center;
-        }
+      & .title {
+        @apply flex items-center justify-center px-2;
       }
-
-      & .proxyTitle{
-
-        @apply text-green-600;
-      }
-
-      & .directTitle{
-        @apply text-yellow-600;
-      }
-
-    }
-
-    & .content {
-      @apply flex flex-col w-full justify-between flex-1;
     }
   }
-
 }

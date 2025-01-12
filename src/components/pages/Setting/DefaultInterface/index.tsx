@@ -54,7 +54,9 @@ export default function DefaultInterface() {
   }, []);
 
   useEffect(() => {
-    init();
+    init().catch((e) => {
+      console.error(e);
+    });
   }, [init]);
 
   return (
@@ -69,7 +71,9 @@ export default function DefaultInterface() {
           open={openModal}
           setOpen={setOpenModal}
           onSubmit={(value) => {
-            onSubmit(value);
+            onSubmit(value).catch((e) => {
+              console.error(e);
+            });
           }}
           value={setting.defaultInterface}
           disabled={isStarted}

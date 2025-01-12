@@ -44,9 +44,13 @@ export default function Language() {
         <div>
           <Dropdown
             value={TRANSLATION_MAP[setting.language as LANGUAGE_ENUM]}
-            onOptionSelect={(e, data) => {
-              onChange(data.optionValue as string);
-              i18n.changeLanguage(getLang(data.optionValue));
+            onOptionSelect={(_, data) => {
+              onChange(data.optionValue as string).catch((e) => {
+                console.error(e);
+              });
+              i18n.changeLanguage(getLang(data.optionValue)).catch((e) => {
+                console.error(e);
+              });
             }}
           >
             {LANGUAGE_OPTIONS.map((option) => (
