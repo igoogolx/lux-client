@@ -1,5 +1,5 @@
 .wrapper {
-  @apply flex h-full flex-1 flex-col items-center overflow-auto  py-4 text-sm pr-4;
+  @apply flex h-full flex-1 flex-col items-center overflow-auto pt-2  text-sm;
 
   & .toolbar {
     @apply mb-2 flex w-full justify-between;
@@ -12,7 +12,7 @@
       @apply flex items-center;
 
       & .closeAll {
-        @apply ml-4 mr-4;
+        @apply mr-2;
       }
     }
   }

@@ -17,5 +17,5 @@
 }
 
 .content {
-  @apply flex flex-1 flex-col overflow-auto py-2 pl-2 sm:py-4 sm:pl-4;
+  @apply flex flex-1 flex-col overflow-auto;
 }

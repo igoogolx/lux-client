@@ -1,3 +1,7 @@
+.container {
+  @apply p-2;
+}
+
 .nav {
   @apply relative flex flex-1 flex-col h-full pb-4;
 }
