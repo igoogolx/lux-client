@@ -1,13 +1,6 @@
 .container {
   @apply fixed bottom-0 left-0 right-0 top-0 z-30 flex items-center justify-center;
 
-  & .icon {
-    @apply h-10 w-10 animate-spin opacity-40;
-    & svg {
-      @apply h-10 w-10;
-    }
-  }
-
   & .overlay {
     @apply absolute top-0 left-0 w-full h-full pointer-events-none;
     background-color: rgba(0, 0, 0, 0.5);
