@@ -1,5 +1,5 @@
 .container {
-  @apply flex h-full flex-col py-8 w-full pr-4;
+  @apply flex h-full flex-col w-full py-4 px-2;
 
   & .appHeader {
     @apply flex justify-between flex-row items-center;

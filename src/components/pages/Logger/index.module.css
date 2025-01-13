@@ -1,5 +1,5 @@
 .wrapper {
-  @apply flex h-full w-full flex-col items-center justify-items-center overflow-auto py-4 text-sm pr-4;
+  @apply flex h-full w-full flex-col items-center justify-items-center overflow-auto py-4 px-2 text-sm;
   & .toolbar {
     @apply mb-2 flex w-full;
     & .logBtn {

@@ -4,6 +4,7 @@ import { Tab, TabList } from "@fluentui/react-components";
 import { getRules } from "lux-js-sdk";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import styles from "./index.module.css";
 
 export default function Rules() {
   const [selectedValue, setSelectedValue] =
@@ -19,7 +20,7 @@ export default function Rules() {
   }, []);
 
   return (
-    <>
+    <div className={styles.container}>
       <TabList
         selectedValue={selectedValue}
         onTabSelect={(event, data) => {
@@ -33,6 +34,6 @@ export default function Rules() {
         ))}
       </TabList>
       <RuleTable id={selectedValue} />
-    </>
+    </div>
   );
 }

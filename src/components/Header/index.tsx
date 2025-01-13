@@ -1,5 +1,6 @@
 import MobileNav from "@/components/Nav/Mobile";
 import { settingSlice } from "@/reducers";
+import { Divider } from "@fluentui/react-components";
 import { getSetting } from "lux-js-sdk";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -16,9 +17,8 @@ export function Header() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.navigationBtn}>
-        <MobileNav />
-      </div>
+      <MobileNav />
+      <Divider />
     </div>
   );
 }

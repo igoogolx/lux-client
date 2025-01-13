@@ -1,5 +1,5 @@
 .wrapper {
-  @apply h-full w-full flex-col pt-8;
+  @apply h-full w-full flex-col pt-4;
   & .navItem {
     @apply mb-1 flex items-center py-2 pl-6;
 

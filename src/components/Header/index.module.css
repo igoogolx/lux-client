@@ -1,15 +1,3 @@
 .container {
-  @apply flex items-center justify-between;
-
-  & .main {
-    @apply flex items-center;
-
-    .alert {
-      @apply ml-4;
-    }
-  }
-}
-
-.navigationBtn {
   @apply sm:hidden;
 }

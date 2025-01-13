@@ -5,7 +5,7 @@
     @apply flex flex-1 mb-0.5 justify-between items-center;
 
     & .title {
-      @apply flex basis-8 justify-end shrink-0;
+      @apply flex basis-12 justify-end shrink-0;
     }
 
     & .details {

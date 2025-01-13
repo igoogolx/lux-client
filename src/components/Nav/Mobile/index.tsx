@@ -21,7 +21,7 @@ export const MobileNav = () => {
   const restoreFocusSourceAttributes = useRestoreFocusSource();
 
   return (
-    <div>
+    <div className={styles.container}>
       <Drawer
         {...restoreFocusSourceAttributes}
         type={"overlay"}
@@ -56,15 +56,14 @@ export const MobileNav = () => {
         </DrawerBody>
       </Drawer>
 
-      <div>
-        <Button
-          {...restoreFocusTargetAttributes}
-          icon={<NavigationFilled />}
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        />
-      </div>
+      <Button
+        appearance="transparent"
+        {...restoreFocusTargetAttributes}
+        icon={<NavigationFilled />}
+        onClick={() => {
+          setIsOpen(!isOpen);
+        }}
+      />
     </div>
   );
 };
