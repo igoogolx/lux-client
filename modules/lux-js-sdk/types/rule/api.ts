@@ -39,3 +39,8 @@ export type GetRuleDetail = (id: string) => Promise<GetRuleDetailRes>;
 export type AddCustomizedRules = (rules: string[]) => Promise<void>;
 
 export type DeleteCustomizedRules = (rules: string[]) => Promise<void>;
+
+export type EditCustomizedRule = (
+  oldRule: string,
+  newRule: string,
+) => Promise<void>;

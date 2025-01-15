@@ -30,7 +30,7 @@ export function Field<T extends string>(props: Readonly<FieldProps<T>>) {
   return (
     <FluentInput
       label={label}
-      validationMessage={meta.error ? meta.error : null}
+      validationMessage={meta.error && meta.touched ? meta.error : null}
       className={className}
     >
       <Input

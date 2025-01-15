@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import styles from "./index.module.css";
 
 interface AddRuleModalProps {
+  initValue?: RuleDetailItem;
   close: () => void;
   onSave: (data: RuleDetailItem) => Promise<void>;
 }
@@ -64,7 +65,8 @@ const POLICY_OPTIONS = [
 
 export function AddRuleModal(props: Readonly<AddRuleModalProps>) {
   const { t } = useTranslation();
-  const { close, onSave } = props;
+  const { close, onSave, initValue } = props;
+  const isEdit = !!initValue;
   const onSubmit = async (data: RuleDetailItem) => {
     await onSave(data);
     close();
@@ -83,7 +85,7 @@ export function AddRuleModal(props: Readonly<AddRuleModalProps>) {
   return (
     <Form
       onSubmit={onSubmit}
-      initialValues={INITIAL_VALUES}
+      initialValues={isEdit ? initValue : INITIAL_VALUES}
       validationSchema={RuleSchema}
     >
       {({ submitForm }) => {
