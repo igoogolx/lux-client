@@ -208,4 +208,5 @@ export default {
   [TRANSLATION_KEY.EDIT_SHADOWSOCKS]: "Edit Shadowsocks",
   [TRANSLATION_KEY.EDIT_SOCKS5]: "Edit Socks5",
   [TRANSLATION_KEY.EDIT_HTTP]: "Edit Http",
+  [TRANSLATION_KEY.EDIT_CUSTOMIZED_RULE]: "Edit Customized Rule",
 };

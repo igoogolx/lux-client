@@ -93,7 +93,11 @@ export function AddRuleModal(props: Readonly<AddRuleModalProps>) {
           <Modal
             close={close}
             onOk={submitForm}
-            title={t(TRANSLATION_KEY.NEW_CUSTOMIZED_RULE)}
+            title={t(
+              isEdit
+                ? TRANSLATION_KEY.EDIT_CUSTOMIZED_RULE
+                : TRANSLATION_KEY.NEW_CUSTOMIZED_RULE,
+            )}
             okText={t(TRANSLATION_KEY.FORM_SAVE)}
           >
             <div className={styles.container}>
