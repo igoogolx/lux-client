@@ -215,6 +215,7 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
           }}
           placeholder={t(TRANSLATION_KEY.SEARCH_RULE_TIP)}
           className={styles.input}
+          spellCheck={false}
         />
         <div className={styles.actions}>
           {id === CUSTOMIZED_RULE_ID && (

@@ -376,6 +376,7 @@ export default function Connections(): React.ReactNode {
           }}
           placeholder={t(TRANSLATION_KEY.SEARCH_CONNECTION_TIP)}
           className={styles.input}
+          spellCheck={false}
         />
         <div className={styles.actions}>
           <Tooltip
