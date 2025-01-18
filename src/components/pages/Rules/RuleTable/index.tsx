@@ -151,24 +151,26 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
             renderCell: (item) => {
               return (
                 <TableCellLayout truncate>
-                  <Button
-                    icon={<DeleteRegular className={inlineStyles.danger} />}
-                    disabled={isStarted}
-                    onClick={() => {
-                      handleDeleteCustomizedRule(item).catch((e) => {
-                        console.log(e);
-                      });
-                    }}
-                  />
-                  <Button
-                    icon={<EditRegular />}
-                    disabled={isStarted}
-                    onClick={() => {
-                      handleEditCustomizedRule(item).catch((e) => {
-                        console.log(e);
-                      });
-                    }}
-                  />
+                  <div className={styles.actionBtns}>
+                    <Button
+                      icon={<DeleteRegular className={inlineStyles.danger} />}
+                      disabled={isStarted}
+                      onClick={() => {
+                        handleDeleteCustomizedRule(item).catch((e) => {
+                          console.log(e);
+                        });
+                      }}
+                    />
+                    <Button
+                      icon={<EditRegular />}
+                      disabled={isStarted}
+                      onClick={() => {
+                        handleEditCustomizedRule(item).catch((e) => {
+                          console.log(e);
+                        });
+                      }}
+                    />
+                  </div>
                 </TableCellLayout>
               );
             },

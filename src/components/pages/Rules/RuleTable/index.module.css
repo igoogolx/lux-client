@@ -17,6 +17,10 @@
     }
   }
 
+  & .actionBtns {
+    @apply flex items-center gap-x-4;
+  }
+
   & .footer {
     @apply mt-2 flex flex-col rounded border border-solid border-gray-400 px-8;
   }
