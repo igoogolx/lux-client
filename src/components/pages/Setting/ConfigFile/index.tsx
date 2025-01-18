@@ -2,6 +2,7 @@ import { ResetConfigModal } from "@/components/Modal/ResetConfigModal";
 import { useDangerStyles } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState } from "@/reducers";
+import webviewContext from "@/utils/webviewContext";
 import {
   Button,
   Caption1,
@@ -9,8 +10,12 @@ import {
   mergeClasses,
   Subtitle2,
 } from "@fluentui/react-components";
-import { openConfigFileDir, resetConfigFile } from "lux-js-sdk";
-import React, { useState } from "react";
+import {
+  getConfigFileDir,
+  openConfigFileDir,
+  resetConfigFile,
+} from "lux-js-sdk";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import styles from "../index.module.css";
@@ -18,6 +23,8 @@ import styles from "../index.module.css";
 export default function ConfigFile() {
   const { t } = useTranslation();
   const [isOpenConfigModal, setIsOpenConfigModal] = useState(false);
+
+  const [configFileDir, setConfigFileDir] = useState("");
 
   const handleReset = async () => {
     await resetConfigFile();
@@ -28,6 +35,12 @@ export default function ConfigFile() {
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared,
   );
+
+  useEffect(() => {
+    getConfigFileDir().then((res) => {
+      setConfigFileDir(res);
+    });
+  }, []);
 
   return (
     <Card className={styles.card}>
@@ -60,7 +73,13 @@ export default function ConfigFile() {
           </Button>
           <Button
             onClick={() => {
-              openConfigFileDir();
+              if (webviewContext.isInWebview) {
+                webviewContext.open(configFileDir);
+              } else {
+                openConfigFileDir().catch((e) => {
+                  console.error(e);
+                });
+              }
             }}
             className={styles.actionBtn}
           >
