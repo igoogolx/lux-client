@@ -7,3 +7,9 @@ declare module "*.svg" {
   const classes: string;
   export default classes;
 }
+
+interface Window {
+  flutter_inappwebview?: {
+    callHandler: (eventName: string, ...args: string[]) => Promise<void>;
+  };
+}
