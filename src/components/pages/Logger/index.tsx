@@ -150,6 +150,7 @@ export default function Logger(): React.ReactNode {
           }}
           placeholder={t(TRANSLATION_KEY.SEARCH_LOG_TIP)}
           className={styles.input}
+          spellCheck={false}
         />
       </div>
       <Table

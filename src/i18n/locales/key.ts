@@ -183,4 +183,5 @@ export const TRANSLATION_KEY = {
   EDIT_SHADOWSOCKS: "edit_shadowsocks",
   EDIT_HTTP: "edit_http",
   EDIT_SOCKS5: "edit_socks5",
+  EDIT_CUSTOMIZED_RULE: "edit_customized_rule",
 };

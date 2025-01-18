@@ -12,12 +12,13 @@ import {
   TableCellLayout,
   Tooltip,
 } from "@fluentui/react-components";
-import { AddFilled, DeleteRegular } from "@fluentui/react-icons";
+import { AddFilled, DeleteRegular, EditRegular } from "@fluentui/react-icons";
 import { type TableColumnDefinition } from "@fluentui/react-table";
 import { t } from "i18next";
 import {
   addCustomizedRules,
   deleteCustomizedRules,
+  editCustomizedRule,
   getRuleDetail,
   type RuleDetailItem,
 } from "lux-js-sdk";
@@ -33,6 +34,10 @@ function calcTableHeight() {
   return document.documentElement.clientHeight - 48 - 68 - 44 - 32 - 16;
 }
 
+function formatRule(rule: RuleDetailItem) {
+  return `${rule.ruleType.trim()},${rule.payload.trim()},${rule.policy.trim()}`;
+}
+
 export default function RuleTable(props: Readonly<RuleTableProps>) {
   const { id } = props;
 
@@ -43,6 +48,8 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
   const [rules, setRules] = useState<RuleDetailItem[]>([]);
 
   const [searchedValue, setSearchedValue] = useState("");
+
+  const [editingRule, setEditingRule] = useState<RuleDetailItem | undefined>();
 
   const [isAddingRule, setIsAddingRule] = useState(false);
 
@@ -57,27 +64,40 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
   }, [id]);
 
   useEffect(() => {
-    refresh();
+    refresh().catch((e) => {
+      console.log(e);
+    });
   }, [refresh]);
 
   const handleDeleteCustomizedRule = useCallback(
     async (rule: RuleDetailItem) => {
-      await deleteCustomizedRules([
-        `${rule.ruleType},${rule.payload},${rule.policy}`,
-      ]);
+      await deleteCustomizedRules([formatRule(rule)]);
+      await refresh();
+    },
+    [refresh],
+  );
+
+  const handleEditCustomizedRule = useCallback(
+    async (rule: RuleDetailItem) => {
+      setEditingRule(rule);
+      setIsAddingRule(true);
       await refresh();
     },
     [refresh],
   );
 
   const handleAddRule = useCallback(
-    async (newRule: RuleDetailItem) => {
-      await addCustomizedRules([
-        `${newRule.ruleType},${newRule.payload},${newRule.policy}`,
-      ]);
+    async (value: RuleDetailItem) => {
+      const newRule = formatRule(value);
+      if (editingRule) {
+        const oldRule = formatRule(editingRule);
+        await editCustomizedRule(oldRule, newRule);
+      } else {
+        await addCustomizedRules([newRule]);
+      }
       await refresh();
     },
-    [refresh],
+    [editingRule, refresh],
   );
 
   const data = useMemo(() => {
@@ -131,17 +151,23 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
             renderCell: (item) => {
               return (
                 <TableCellLayout truncate>
-                  <div
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }}
-                  >
+                  <div className={styles.actionBtns}>
                     <Button
                       icon={<DeleteRegular className={inlineStyles.danger} />}
                       disabled={isStarted}
                       onClick={() => {
-                        handleDeleteCustomizedRule(item);
+                        handleDeleteCustomizedRule(item).catch((e) => {
+                          console.log(e);
+                        });
+                      }}
+                    />
+                    <Button
+                      icon={<EditRegular />}
+                      disabled={isStarted}
+                      onClick={() => {
+                        handleEditCustomizedRule(item).catch((e) => {
+                          console.log(e);
+                        });
                       }}
                     />
                   </div>
@@ -151,7 +177,13 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
           })
         : null,
     ].filter(Boolean) as Array<TableColumnDefinition<RuleDetailItem>>;
-  }, [handleDeleteCustomizedRule, id, inlineStyles.danger, isStarted]);
+  }, [
+    handleDeleteCustomizedRule,
+    handleEditCustomizedRule,
+    id,
+    inlineStyles.danger,
+    isStarted,
+  ]);
 
   const [tableHeight, setTableHeight] = useState(calcTableHeight());
 
@@ -170,6 +202,7 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
     <div className={styles.wrapper}>
       {isAddingRule && (
         <AddRuleModal
+          initValue={editingRule}
           close={() => {
             setIsAddingRule(false);
           }}
@@ -179,11 +212,12 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
       <div className={styles.toolbar}>
         <SearchBox
           value={searchedValue}
-          onChange={(e, data) => {
+          onChange={(_, data) => {
             setSearchedValue(data.value);
           }}
           placeholder={t(TRANSLATION_KEY.SEARCH_RULE_TIP)}
           className={styles.input}
+          spellCheck={false}
         />
         <div className={styles.actions}>
           {id === CUSTOMIZED_RULE_ID && (
@@ -194,6 +228,7 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
               <Button
                 onClick={() => {
                   setIsAddingRule(true);
+                  setEditingRule(undefined);
                 }}
                 className={styles.closeAll}
                 icon={<AddFilled />}

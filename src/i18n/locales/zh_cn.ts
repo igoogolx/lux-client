@@ -199,4 +199,5 @@ export default {
   [TRANSLATION_KEY.EDIT_SHADOWSOCKS]: "编辑 Shadowsocks",
   [TRANSLATION_KEY.EDIT_SOCKS5]: "编辑 Socks5",
   [TRANSLATION_KEY.EDIT_HTTP]: "编辑 Http",
+  [TRANSLATION_KEY.EDIT_CUSTOMIZED_RULE]: "编辑自定义规则",
 };

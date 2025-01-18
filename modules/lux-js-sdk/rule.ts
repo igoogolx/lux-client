@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   type AddCustomizedRules,
   type DeleteCustomizedRules,
+  EditCustomizedRule,
   type GetRuleDetail,
   type GetRules,
 } from "./types";
@@ -25,10 +26,18 @@ export const getRuleDetail: GetRuleDetail = async (id: string) => {
 
 export const addCustomizedRules: AddCustomizedRules = async (rules) => {
   const url = `${urtConfig.rule}/customized`;
-  await axios.post(url, { rules });
+  await axios.put(url, { rules });
 };
 
 export const deleteCustomizedRules: DeleteCustomizedRules = async (rules) => {
   const url = `${urtConfig.rule}/customized`;
   await axios.delete(url, { data: { rules } });
+};
+
+export const editCustomizedRule: EditCustomizedRule = async (
+  oldRule,
+  newRule,
+) => {
+  const url = `${urtConfig.rule}/customized`;
+  await axios.post(url, { oldRule, newRule });
 };
