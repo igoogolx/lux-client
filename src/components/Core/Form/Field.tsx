@@ -32,6 +32,7 @@ export function Field<T extends string>(props: Readonly<FieldProps<T>>) {
       label={label}
       validationMessage={meta.error && meta.touched ? meta.error : null}
       className={className}
+      spellCheck={false}
     >
       <Input
         {...field}
