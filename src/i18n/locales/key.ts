@@ -184,4 +184,5 @@ export const TRANSLATION_KEY = {
   EDIT_HTTP: "edit_http",
   EDIT_SOCKS5: "edit_socks5",
   EDIT_CUSTOMIZED_RULE: "edit_customized_rule",
+  CONFIG_FILE_DIR_MODAL_TITLE: "config_file_dir_modal_title",
 };
