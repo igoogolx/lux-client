@@ -8,11 +8,23 @@ interface ProcessCellProps {
   os: string;
   searchedValue: string;
 }
+
+const getProcessName = (process: string, os: string) => {
+  const isDarwin = os === "darwin";
+  const separator = isDarwin ? "/" : "\\";
+  const chunks = process.split(separator);
+  if (isDarwin) {
+    const appName = chunks.find((a) => a.endsWith(".app"));
+    if (appName) {
+      return appName;
+    }
+  }
+  return chunks.pop() ?? "";
+};
+
 export function ProcessCell(props: Readonly<ProcessCellProps>) {
   const { process, os, searchedValue } = props;
-  const separator = os === "darwin" ? "/" : "\\";
-  const chunks = process.split(separator);
-  const value = chunks.pop() ?? "";
+  const value = getProcessName(process, os);
   return (
     <TableCellLayout truncate>
       <ClickToCopy value={process}>
