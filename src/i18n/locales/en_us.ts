@@ -209,4 +209,5 @@ export default {
   [TRANSLATION_KEY.EDIT_SOCKS5]: "Edit Socks5",
   [TRANSLATION_KEY.EDIT_HTTP]: "Edit Http",
   [TRANSLATION_KEY.EDIT_CUSTOMIZED_RULE]: "Edit Customized Rule",
+  [TRANSLATION_KEY.CONFIG_FILE_DIR_MODAL_TITLE]: "Path Of Config File Dir",
 };

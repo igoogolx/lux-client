@@ -3,7 +3,6 @@ import {
   type GetConfigFileDir,
   type GetSetting,
   type GetSettingInterfaces,
-  type OpenConfigFileDir,
   type ResetConfig,
   type SetSetting,
 } from "./types";
@@ -34,10 +33,6 @@ export const getConfigFileDir: GetConfigFileDir = async () => {
 export const getExecutablePath: GetConfigFileDir = async () => {
   const res = await axios.get(`${urtConfig.setting}/executable-path`);
   return res.data.path;
-};
-
-export const openConfigFileDir: OpenConfigFileDir = async () => {
-  await axios.get(`${urtConfig.setting}/open-config-file-dir`);
 };
 
 export const resetConfigFile: ResetConfig = async () => {

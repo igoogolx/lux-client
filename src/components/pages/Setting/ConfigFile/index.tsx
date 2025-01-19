@@ -1,3 +1,4 @@
+import { ConfigFileDirModal } from "@/components/Modal/ConfigFileDirModal";
 import { ResetConfigModal } from "@/components/Modal/ResetConfigModal";
 import { useDangerStyles } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
@@ -10,11 +11,7 @@ import {
   mergeClasses,
   Subtitle2,
 } from "@fluentui/react-components";
-import {
-  getConfigFileDir,
-  openConfigFileDir,
-  resetConfigFile,
-} from "lux-js-sdk";
+import { getConfigFileDir, resetConfigFile } from "lux-js-sdk";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -23,6 +20,8 @@ import styles from "../index.module.css";
 export default function ConfigFile() {
   const { t } = useTranslation();
   const [isOpenConfigModal, setIsOpenConfigModal] = useState(false);
+  const [isOpenConfigFileDirModal, setIsOpenConfigFileDirModal] =
+    useState(false);
 
   const [configFileDir, setConfigFileDir] = useState("");
 
@@ -44,6 +43,12 @@ export default function ConfigFile() {
 
   return (
     <Card className={styles.card}>
+      {isOpenConfigFileDirModal && (
+        <ConfigFileDirModal
+          value={configFileDir}
+          onCancel={() => setIsOpenConfigFileDirModal(false)}
+        />
+      )}
       {isOpenConfigModal && (
         <ResetConfigModal
           onCancel={() => {
@@ -76,9 +81,7 @@ export default function ConfigFile() {
               if (webviewContext.isInWebview) {
                 webviewContext.open(configFileDir);
               } else {
-                openConfigFileDir().catch((e) => {
-                  console.error(e);
-                });
+                setIsOpenConfigFileDirModal(true);
               }
             }}
             className={styles.actionBtn}
