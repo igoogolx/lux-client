@@ -3,7 +3,6 @@ import { AddRuleModal } from "@/components/Modal/AddRuleModal";
 import RuleCell from "@/components/pages/Data/Connections/RuleTag";
 import { useDangerStyles } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import type { RootState } from "@/reducers";
 import { CUSTOMIZED_RULE_ID } from "@/utils/constants";
 import {
   Button,
@@ -23,7 +22,6 @@ import {
   type RuleDetailItem,
 } from "lux-js-sdk";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
 import styles from "./index.module.css";
 
 interface RuleTableProps {
@@ -40,10 +38,6 @@ function formatRule(rule: RuleDetailItem) {
 
 export default function RuleTable(props: Readonly<RuleTableProps>) {
   const { id } = props;
-
-  const isStarted = useSelector<RootState, boolean>(
-    (state) => state.manager.isStared,
-  );
 
   const [rules, setRules] = useState<RuleDetailItem[]>([]);
 
@@ -154,7 +148,6 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
                   <div className={styles.actionBtns}>
                     <Button
                       icon={<DeleteRegular className={inlineStyles.danger} />}
-                      disabled={isStarted}
                       onClick={() => {
                         handleDeleteCustomizedRule(item).catch((e) => {
                           console.log(e);
@@ -163,7 +156,6 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
                     />
                     <Button
                       icon={<EditRegular />}
-                      disabled={isStarted}
                       onClick={() => {
                         handleEditCustomizedRule(item).catch((e) => {
                           console.log(e);
@@ -182,7 +174,6 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
     handleEditCustomizedRule,
     id,
     inlineStyles.danger,
-    isStarted,
   ]);
 
   const [tableHeight, setTableHeight] = useState(calcTableHeight());
@@ -232,7 +223,6 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
                 }}
                 className={styles.closeAll}
                 icon={<AddFilled />}
-                disabled={isStarted}
               />
             </Tooltip>
           )}
