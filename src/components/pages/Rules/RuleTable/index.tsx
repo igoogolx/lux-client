@@ -107,6 +107,24 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
     });
   }, [rules, searchedValue]);
 
+  const handleEdit = useCallback(
+    (item: RuleDetailItem) => {
+      handleEditCustomizedRule(item).catch((e) => {
+        console.log(e);
+      });
+    },
+    [handleEditCustomizedRule],
+  );
+
+  const handleDelete = useCallback(
+    (item: RuleDetailItem) => {
+      handleDeleteCustomizedRule(item).catch((e) => {
+        console.log(e);
+      });
+    },
+    [handleDeleteCustomizedRule],
+  );
+
   const columns = useMemo<Array<TableColumnDefinition<RuleDetailItem>>>(() => {
     return [
       createTableColumn<RuleDetailItem>({
@@ -148,19 +166,11 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
                   <div className={styles.actionBtns}>
                     <Button
                       icon={<DeleteRegular className={inlineStyles.danger} />}
-                      onClick={() => {
-                        handleDeleteCustomizedRule(item).catch((e) => {
-                          console.log(e);
-                        });
-                      }}
+                      onClick={() => handleDelete(item)}
                     />
                     <Button
                       icon={<EditRegular />}
-                      onClick={() => {
-                        handleEditCustomizedRule(item).catch((e) => {
-                          console.log(e);
-                        });
-                      }}
+                      onClick={() => handleEdit(item)}
                     />
                   </div>
                 </TableCellLayout>
@@ -169,12 +179,7 @@ export default function RuleTable(props: Readonly<RuleTableProps>) {
           })
         : null,
     ].filter(Boolean) as Array<TableColumnDefinition<RuleDetailItem>>;
-  }, [
-    handleDeleteCustomizedRule,
-    handleEditCustomizedRule,
-    id,
-    inlineStyles.danger,
-  ]);
+  }, [handleDelete, handleEdit, id, inlineStyles.danger]);
 
   const [tableHeight, setTableHeight] = useState(calcTableHeight());
 
