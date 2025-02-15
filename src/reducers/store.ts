@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { delaysSlice } from "./delay";
 import { generalSlice } from "./general";
-import { loggerSlice } from "./logger";
 import { managerSlice } from "./manager";
 import { proxiesSlice } from "./proxy";
 import { rulesSlice } from "./rule";
@@ -17,7 +16,6 @@ export const store = configureStore({
     delays: delaysSlice.reducer,
     manager: managerSlice.reducer,
     setting: settingSlice.reducer,
-    logger: loggerSlice.reducer,
     general: generalSlice.reducer,
     testUdp: testUdpSlice.reducer,
   },

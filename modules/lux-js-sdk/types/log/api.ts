@@ -1,25 +1,22 @@
 import type WsClient from "isomorphic-ws";
 
 export interface Log {
-  id: string;
-  type: string;
+  level: string;
   time: number;
-  payload: string;
+  msg: string;
 }
 
-export enum Level {
-  Info = "info",
-  Warning = "warning",
-  Error = "error",
-  Debug = "debug",
-  Silent = "silent",
-}
+export const LogLevel = {
+  error: "3",
+  warning: "2",
+  info: "1",
+  debug: "0",
+};
 
 export interface LogParams {
   onError?: (e: unknown) => void;
   onMessage: (message: Log[]) => void;
   onClose?: () => void;
-  level?: Level;
 }
 
 export type SubscribeLog = (params: LogParams) => WsClient;

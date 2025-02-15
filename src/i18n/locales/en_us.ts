@@ -80,7 +80,11 @@ export default {
   [TRANSLATION_KEY.SOCKS5]: "Socks5",
   [TRANSLATION_KEY.CLIPBOARD_IMPORT]: "Import Proxies From Clipboard",
   [TRANSLATION_KEY.SUBSCRIPTION_URL_IMPORT]: "Import Proxies From Url",
+  [TRANSLATION_KEY.SUBSCRIPTION_URL_IMPORT]: "Import Proxies From Url",
+  [TRANSLATION_KEY.ERROR]: "Error",
   [TRANSLATION_KEY.WARNING]: "Warning",
+  [TRANSLATION_KEY.INFO]: "Info",
+  [TRANSLATION_KEY.DEBUG]: "Debug",
   [TRANSLATION_KEY.SUBSCRIPTION_URL]: "Subscription URL",
   [TRANSLATION_KEY.DISCONNECTED_WARN_TIP]:
     "The core is disconnected. Trying to reconnect...",

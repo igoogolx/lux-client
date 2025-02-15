@@ -6,16 +6,11 @@ import Data from "@/components/pages/Data";
 import Rules from "@/components/pages/Rules";
 import Splash from "@/components/Splash";
 import { useCheckForUpdate, useMedia } from "@/hooks";
-import {
-  generalSlice,
-  loggerSlice,
-  managerSlice,
-  type RootState,
-} from "@/reducers";
+import { generalSlice, managerSlice, type RootState } from "@/reducers";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
 import { formatError } from "@/utils/error";
 import axios from "axios";
-import { getIsAdmin, getStatus, subscribeLog, subscribePing } from "lux-js-sdk";
+import { getIsAdmin, getStatus, subscribePing } from "lux-js-sdk";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,16 +54,7 @@ export function App(): React.ReactNode {
     checkForUpdate().catch((e) => {
       console.error(e);
     });
-    const logSubscriber = subscribeLog({
-      onMessage: (logs) => {
-        logs.forEach((log) => {
-          dispatch(loggerSlice.actions.pushLog(log));
-        });
-      },
-      onError: () => {
-        logSubscriber.close();
-      },
-    });
+
     const pingSubscriber = subscribePing({
       onMessage: (item) => {
         if (item === "pong") {
@@ -85,7 +71,6 @@ export function App(): React.ReactNode {
     });
     return () => {
       //TODO: clean ping
-      logSubscriber.close();
     };
   }, [dispatch, checkForUpdate]);
   return !connected ? (
