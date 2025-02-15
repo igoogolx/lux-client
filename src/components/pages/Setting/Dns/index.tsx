@@ -39,8 +39,14 @@ const LOCAL_DNS = [
 ];
 
 const VALID_REMOTE_DNS_PREFIXES = ["tcp://", "https://"];
-const VALID_LOCAL_DNS_PREFIXES = ["tcp://", "https://", "dhcp://", "udp://"];
-const VALID_BOOST_DNS_PREFIXES = ["tcp://", "dhcp://", "udp://"];
+const VALID_LOCAL_DNS_PREFIXES = [
+  "tcp://",
+  "https://",
+  "dhcp://",
+  "udp://",
+  "system://",
+];
+const VALID_BOOST_DNS_PREFIXES = ["tcp://", "dhcp://", "udp://", "system://"];
 
 export default function Dns() {
   const { t } = useTranslation();
