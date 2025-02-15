@@ -1,6 +1,5 @@
 export * from "./delay";
 export * from "./general";
-export * from "./logger";
 export * from "./manager";
 export * from "./proxy";
 export * from "./rule";

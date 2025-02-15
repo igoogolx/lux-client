@@ -1,12 +1,19 @@
 .wrapper {
   @apply flex h-full w-full flex-col items-center justify-items-center overflow-auto py-4 px-2 text-sm;
   & .toolbar {
-    @apply mb-2 flex w-full;
+    @apply mb-2 flex w-full justify-between;
     & .logBtn {
       display: none;
     }
     & .input {
       @apply w-96;
+    }
+
+    & .actions {
+      @apply flex items-center;
+      & .clearBtn {
+        @apply mx-1;
+      }
     }
   }
   & .payload {
