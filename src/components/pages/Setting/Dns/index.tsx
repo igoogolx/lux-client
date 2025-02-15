@@ -20,6 +20,7 @@ const BOOST_DNS = [
   "tcp://114.114.114.114:53",
   "tcp://119.29.29.29:53",
   "dhcp://auto",
+  "system://auto",
 ];
 
 const REMOTE_DNS = [
@@ -34,6 +35,7 @@ const LOCAL_DNS = [
   "tcp://119.29.29.29:53",
   "https://doh.pub/dns-query",
   "dhcp://auto",
+  "system://auto",
 ];
 
 const VALID_REMOTE_DNS_PREFIXES = ["tcp://", "https://"];

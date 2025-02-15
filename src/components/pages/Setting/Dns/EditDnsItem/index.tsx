@@ -30,6 +30,7 @@ const DNS_LABEL: Record<string, string> = {
   "https://cloudflare-dns.com/dns-query": "https(Cloudflare)",
   "https://doh.pub/dns-query": "https(China)",
   "dhcp://auto": "auto(Dhcp)",
+  "system://auto": "auto(System)",
 };
 
 export default function EditDnsItem(props: Readonly<EditDnsItemProps>) {
