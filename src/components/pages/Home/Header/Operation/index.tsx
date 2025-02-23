@@ -1,6 +1,9 @@
+import { type MenuItemProps } from "@/components/Core";
+import { DiagnosticsModal } from "@/components/Modal/DiagnosticsModal";
 import { useTestDelay } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSelectors, proxiesSlice, type RootState } from "@/reducers";
+import splitArrayIntoChunks from "@/utils/splitArrayIntoChunks";
 import {
   Button,
   Menu,
@@ -14,30 +17,26 @@ import { type BaseProxy } from "lux-js-sdk";
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import splitArrayIntoChunks from "../../../../../utils/splitArrayIntoChunks";
-import { type MenuItemProps } from "../../../../Core";
-import { RuntimeDetailModal } from "../../../../Modal/RuntimeDetailModal";
 
 enum OperationTypeEnum {
-  RuntimeDetail = "0",
+  Diagnostics = "0",
   TestDelay = "1",
-  DeleteAllProxies = "2",
 }
 
 export function Operation(): React.ReactNode {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [isRuntimeDetailOpen, setIsRuntimeDetailOpen] = useState(false);
+  const [isDiagnosticsOpen, setIsDiagnosticsOpen] = useState(false);
 
   const testDelay = useTestDelay();
   const proxies = useSelector<RootState, BaseProxy[]>(
     proxiesSelectors.selectAll,
   );
 
-  const [isTestingDealy, setIsTestingDealy] = useState(false);
+  const [isTestingDelay, setIsTestingDelay] = useState(false);
 
   const testDelays = async () => {
-    setIsTestingDealy(true);
+    setIsTestingDelay(true);
     try {
       proxies.forEach((item) => {
         dispatch(
@@ -47,24 +46,24 @@ export function Operation(): React.ReactNode {
         );
       });
       const subProxies = splitArrayIntoChunks(proxies);
-      for (let i = 0; i < subProxies.length; i += 1) {
+      for (const element of subProxies) {
         await Promise.all(
-          subProxies[i].map(async (proxy) => {
+          element.map(async (proxy) => {
             await testDelay(proxy.id);
           }),
         );
       }
     } finally {
-      setIsTestingDealy(false);
+      setIsTestingDelay(false);
     }
   };
 
-  const openRuntimeDetail = () => {
-    setIsRuntimeDetailOpen(true);
+  const openDiagnosticsDetail = () => {
+    setIsDiagnosticsOpen(true);
   };
 
-  const closeRuntimeDetail = () => {
-    setIsRuntimeDetailOpen(false);
+  const closeDiagnosticsModal = () => {
+    setIsDiagnosticsOpen(false);
   };
 
   const menuItems: MenuItemProps[] = useMemo(() => {
@@ -72,21 +71,23 @@ export function Operation(): React.ReactNode {
       {
         id: OperationTypeEnum.TestDelay,
         content: t(TRANSLATION_KEY.CONNECTIVITY_TEST),
-        disabled: isTestingDealy,
+        disabled: isTestingDelay,
       },
       {
-        id: OperationTypeEnum.RuntimeDetail,
-        content: t(TRANSLATION_KEY.COMMON_RUNTIME_DETAIL),
+        id: OperationTypeEnum.Diagnostics,
+        content: t(TRANSLATION_KEY.DIAGNOSTICS),
       },
     ];
-  }, [t, isTestingDealy]);
+  }, [t, isTestingDelay]);
   const onSelect = (id: string) => {
     switch (id) {
       case OperationTypeEnum.TestDelay:
-        testDelays();
+        testDelays().catch((e) => {
+          console.error(e);
+        });
         return;
-      case OperationTypeEnum.RuntimeDetail: {
-        openRuntimeDetail();
+      case OperationTypeEnum.Diagnostics: {
+        openDiagnosticsDetail();
         return;
       }
       default: {
@@ -97,7 +98,7 @@ export function Operation(): React.ReactNode {
 
   return (
     <>
-      {isRuntimeDetailOpen && <RuntimeDetailModal close={closeRuntimeDetail} />}
+      {isDiagnosticsOpen && <DiagnosticsModal close={closeDiagnosticsModal} />}
       <Menu>
         <MenuTrigger disableButtonEnhancement>
           <Button icon={<MoreHorizontalFilled />} />

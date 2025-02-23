@@ -1,9 +1,15 @@
+export type RuntimeDnsDetail = {
+  addresses: string[];
+  servers: string[];
+};
+
 export type RuntimeDetail = {
   directedInterfaceName: string;
   tunInterfaceName: string;
-  localDns: string[];
-  remoteDns: string[];
-  boostDns: string[];
+  localDns: RuntimeDnsDetail;
+  remoteDns: RuntimeDnsDetail;
+  boostDns: RuntimeDnsDetail;
+  hubAddress: string;
 };
 
 export type GetRuntimeDetail = () => Promise<RuntimeDetail | null>;
