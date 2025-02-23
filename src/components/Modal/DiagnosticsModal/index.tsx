@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { Modal, notifier } from "../../Core";
 import styles from "./index.module.css";
 
-interface RuntimeDetailModalProps {
+interface DiagnosticsModalProps {
   close: () => void;
 }
 
@@ -25,8 +25,8 @@ const TRANSLATION_KEY_MAP = {
   proxyServer: TRANSLATION_KEY.PROXY_SERVER,
 };
 
-export function RuntimeDetailModal(
-  props: RuntimeDetailModalProps,
+export function DiagnosticsModal(
+  props: DiagnosticsModalProps,
 ): React.ReactNode {
   const { close } = props;
   const { t } = useTranslation();
@@ -90,7 +90,7 @@ export function RuntimeDetailModal(
         notifier.success(t(TRANSLATION_KEY.COPIED));
       }}
       okText={t(TRANSLATION_KEY.COPY)}
-      title={t(TRANSLATION_KEY.COMMON_RUNTIME_DETAIL)}
+      title={t(TRANSLATION_KEY.DIAGNOSTICS)}
     >
       {renderContent(runtimeDetail)}
     </Modal>
