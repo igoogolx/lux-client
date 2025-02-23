@@ -1,7 +1,10 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { getHubAddress, stringAddress } from "@/utils/hubAddress";
 import { Subtitle2 } from "@fluentui/react-components";
-import { getRuntimeDetail, type RuntimeDetail } from "lux-js-sdk";
+import {
+  getRuntimeDetail,
+  type RuntimeDetail,
+  RuntimeDnsDetail,
+} from "lux-js-sdk";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal, notifier } from "../../Core";
@@ -27,19 +30,54 @@ export function RuntimeDetailModal(
 ): React.ReactNode {
   const { close } = props;
   const { t } = useTranslation();
-  const [runtimeDetail, setRuntimeDetail] = useState<Partial<
-    RuntimeDetail & { hubAddress: string }
-  > | null>(null);
+  const [runtimeDetail, setRuntimeDetail] =
+    useState<Partial<RuntimeDetail> | null>(null);
 
   useEffect(() => {
     getRuntimeDetail().then((detail) => {
-      const hubAddress = getHubAddress();
       setRuntimeDetail({
         ...(detail || {}),
-        hubAddress: `http://${stringAddress(hubAddress)}?token=${hubAddress.token}`,
       });
     });
   }, []);
+
+  function renderDefaultItem(
+    key: keyof Partial<RuntimeDetail>,
+    content: string,
+  ) {
+    return (
+      <div className={styles.item}>
+        <Subtitle2>{`${t(TRANSLATION_KEY_MAP[key])}:`}</Subtitle2>
+        <div className={styles.content}>{content}</div>
+      </div>
+    );
+  }
+
+  function renderDnsItem(
+    key: keyof Partial<RuntimeDetail>,
+    detail: RuntimeDnsDetail,
+  ) {
+    return (
+      <div className={styles.item}>
+        <Subtitle2>{`${t(TRANSLATION_KEY_MAP[key])}:`}</Subtitle2>
+        <div className={styles.content}>{detail.addresses.join(",")}</div>
+        <div className={styles.content}>{detail.servers.join(",")}</div>
+      </div>
+    );
+  }
+
+  function renderContent(detail: Partial<RuntimeDetail>) {
+    return (Object.keys(detail) as Array<keyof Partial<RuntimeDetail>>)
+      .map((key) => {
+        const value = detail[key];
+        if (!value) return null;
+        if (typeof value === "string") {
+          return <div key={key}>{renderDefaultItem(key, value)}</div>;
+        }
+        return <div key={key}>{renderDnsItem(key, value)}</div>;
+      })
+      .filter(Boolean);
+  }
 
   return runtimeDetail ? (
     <Modal
@@ -54,19 +92,7 @@ export function RuntimeDetailModal(
       okText={t(TRANSLATION_KEY.COPY)}
       title={t(TRANSLATION_KEY.COMMON_RUNTIME_DETAIL)}
     >
-      {(Object.keys(runtimeDetail) as Array<keyof typeof runtimeDetail>).map(
-        (key) => {
-          const content = Array.isArray(runtimeDetail[key])
-            ? (runtimeDetail[key] as string[]).join(",")
-            : runtimeDetail[key];
-          return (
-            <div className={styles.item} key={key}>
-              <Subtitle2>{`${t(TRANSLATION_KEY_MAP[key])}:`}</Subtitle2>
-              <div className={styles.content}>{content}</div>
-            </div>
-          );
-        },
-      )}
+      {renderContent(runtimeDetail)}
     </Modal>
   ) : (
     ""
