@@ -163,6 +163,12 @@ export default {
   [TRANSLATION_KEY.SHOULD_FIND_PROCESS_SWITCH_LABEL]: "Process Rule",
   [TRANSLATION_KEY.SHOULD_FIND_PROCESS_SWITCH_TOOLTIP]:
     "You can add process rules and check the process of connections",
+  [TRANSLATION_KEY.AUTO_LAUNCH_SWITCH_LABEL]: "Launch On Startup",
+  [TRANSLATION_KEY.AUTO_LAUNCH_SWITCH_TOOLTIP]:
+    "Lux will open automatically when you login",
+  [TRANSLATION_KEY.AUTO_CONNECT_SWITCH_LABEL]: "Connect On Open",
+  [TRANSLATION_KEY.AUTO_CONNECT_SWITCH_TOOLTIP]:
+    "Lux will try to connect to proxy when it's opened",
   [TRANSLATION_KEY.HIJACK_DNS_SWITCH_TOOLTIP]:
     "Modify the system dns to hijack or you must do it manually",
   [TRANSLATION_KEY.HIJACK_DNS_SERVICE_LABEL]: "Network Service",

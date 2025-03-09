@@ -1,3 +1,5 @@
+import AutoConnect from "@/components/pages/Setting/AutoConnect";
+import AutoLaunch from "@/components/pages/Setting/AutoLaunch";
 import BlockQuic from "@/components/pages/Setting/BlockQuic";
 import HijackDns from "@/components/pages/Setting/HijackDns";
 import Language from "@/components/pages/Setting/Language";
@@ -34,6 +36,8 @@ export function SettingForm() {
       <div>
         <Language />
         <Theme />
+        {isDarwin && <AutoLaunch />}
+        <AutoConnect />
         <Mode />
         {isTun && <Stack />}
         {isTun && <Dns />}

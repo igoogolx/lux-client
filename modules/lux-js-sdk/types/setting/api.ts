@@ -31,6 +31,8 @@ export interface SettingRes {
   stack: string;
   shouldFindProcess: boolean;
   theme: ThemeEnum;
+  autoLaunch: boolean;
+  autoConnect: boolean;
 }
 
 export type GetSetting = () => Promise<SettingRes>;

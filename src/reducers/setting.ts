@@ -33,6 +33,8 @@ const initialState: SettingRes = {
   stack: "gvisor",
   shouldFindProcess: false,
   theme: ThemeEnum.Light,
+  autoLaunch: false,
+  autoConnect: false,
 };
 
 export const settingSlice = createSlice({
