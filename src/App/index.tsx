@@ -43,16 +43,16 @@ export function App(): React.ReactNode {
 
   const checkForUpdate = useCheckForUpdate();
 
-  getStatus().then((status) => {
-    dispatch(
-      managerSlice.actions.setIsStarted({ isStarted: status.isStarted }),
-    );
-  });
-
   useEffect(() => {
     console.log("init!");
     checkForUpdate().catch((e) => {
       console.error(e);
+    });
+
+    getStatus().then((status) => {
+      dispatch(
+        managerSlice.actions.setIsStarted({ isStarted: status.isStarted }),
+      );
     });
 
     const pingSubscriber = subscribePing({

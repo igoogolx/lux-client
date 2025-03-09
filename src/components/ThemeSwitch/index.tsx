@@ -1,5 +1,5 @@
 import {
-  getTheme,
+  getInitTheme,
   setTheme,
   ThemeContext,
   type ThemeContextType,
@@ -26,9 +26,8 @@ export default function ThemeSwitch(): React.ReactNode {
   const inStyles = useStyles();
 
   useEffect(() => {
-    const theme = getTheme();
+    const theme = getInitTheme();
     setCurrentTheme(theme);
-    setTheme(theme);
   }, [setCurrentTheme]);
 
   const onClick = () => {
