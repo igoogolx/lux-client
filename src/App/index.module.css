@@ -19,3 +19,7 @@
 .content {
   @apply flex flex-1 flex-col overflow-auto;
 }
+
+.hidePage {
+  @apply hidden;
+}
