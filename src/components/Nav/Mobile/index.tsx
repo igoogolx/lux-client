@@ -1,5 +1,4 @@
 import { Nav } from "@/components/Nav";
-import ThemeSwitch from "@/components/ThemeSwitch";
 import {
   Button,
   Drawer,
@@ -51,7 +50,6 @@ export const MobileNav = () => {
                 }
               }}
             />
-            <ThemeSwitch />
           </div>
         </DrawerBody>
       </Drawer>

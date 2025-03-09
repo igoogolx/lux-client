@@ -24,7 +24,6 @@ import About from "../components/pages/About";
 import Home from "../components/pages/Home";
 import Logger from "../components/pages/Logger";
 import Setting from "../components/pages/Setting";
-import ThemeSwitch from "../components/ThemeSwitch";
 import styles from "./index.module.css";
 
 axios.interceptors.response.use(
@@ -129,9 +128,6 @@ export function App(): React.ReactNode {
         {isWideScreen && (
           <div className={styles.nav}>
             <Nav />
-            <div className={styles.themeSwitch}>
-              <ThemeSwitch />
-            </div>
           </div>
         )}
         <div className={styles.content}>

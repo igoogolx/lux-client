@@ -12,10 +12,6 @@
   @apply relative w-40 flex-shrink-0 flex-col md:flex lg:w-60;
 }
 
-.themeSwitch {
-  @apply mx-2  py-8;
-}
-
 .content {
   @apply flex flex-1 flex-col overflow-auto;
 }

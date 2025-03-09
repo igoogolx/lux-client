@@ -1,9 +1,0 @@
-.container {
-  @apply flex w-full rounded-xl border border-solid;
-  & .item {
-    @apply flex w-1/2 flex-1 rounded px-2 py-1;
-  }
-  & .auto {
-    @apply scale-75;
-  }
-}
