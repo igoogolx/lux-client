@@ -15,10 +15,6 @@ export default function AutoLaunch() {
 
   const dispatch = useDispatch();
 
-  const isStarted = useSelector<RootState, boolean>(
-    (state) => state.manager.isStared || state.manager.isLoading,
-  );
-
   const onSubmit = async (autoLaunch: SettingRes["autoLaunch"]) => {
     const newSetting = {
       ...setting,
@@ -43,7 +39,6 @@ export default function AutoLaunch() {
               console.error(e);
             });
           }}
-          disabled={isStarted}
         />
       </div>
     </Card>
