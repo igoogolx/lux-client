@@ -70,7 +70,9 @@ export function App(): React.ReactNode {
       dispatch(generalSlice.actions.setIsAdmin({ isAdmin: res.isAdmin }));
     });
     return () => {
-      //TODO: clean ping
+      //clean ping because of React will run effect twice on development
+      pingSubscriber.onerror = null;
+      pingSubscriber.close();
     };
   }, [dispatch, checkForUpdate]);
   return !connected ? (
