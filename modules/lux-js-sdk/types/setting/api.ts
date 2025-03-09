@@ -1,3 +1,5 @@
+import { ThemeEnum } from "@/utils/theme";
+
 export interface SettingRes {
   mode: string;
   language: string;
@@ -28,6 +30,9 @@ export interface SettingRes {
   blockQuic: boolean;
   stack: string;
   shouldFindProcess: boolean;
+  theme: ThemeEnum;
+  autoLaunch: boolean;
+  autoConnect: boolean;
 }
 
 export type GetSetting = () => Promise<SettingRes>;

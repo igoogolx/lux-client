@@ -1,9 +1,12 @@
+import AutoConnect from "@/components/pages/Setting/AutoConnect";
+import AutoLaunch from "@/components/pages/Setting/AutoLaunch";
 import BlockQuic from "@/components/pages/Setting/BlockQuic";
 import HijackDns from "@/components/pages/Setting/HijackDns";
 import Language from "@/components/pages/Setting/Language";
 import Mode from "@/components/pages/Setting/Mode";
 import ShouldFindProcess from "@/components/pages/Setting/ShouldFindProcess";
 import Stack from "@/components/pages/Setting/Stack";
+import Theme from "@/components/pages/Setting/Theme";
 import { type RootState } from "@/reducers";
 import { getRuntimeOS, type SettingRes } from "lux-js-sdk";
 import React, { useEffect, useState } from "react";
@@ -32,6 +35,9 @@ export function SettingForm() {
     <div>
       <div>
         <Language />
+        <Theme />
+        {isDarwin && <AutoLaunch />}
+        <AutoConnect />
         <Mode />
         {isTun && <Stack />}
         {isTun && <Dns />}

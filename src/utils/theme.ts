@@ -12,10 +12,19 @@ export interface ThemeContextType {
 
 export const ThemeContext = createContext<ThemeContextType | null>(null);
 
+export const getInitTheme = (): ThemeEnum => {
+  const params = new URL(window.location.href).searchParams;
+  const themeFromParam = params.get("theme");
+  if ([ThemeEnum.Dark, ThemeEnum.Light].includes(themeFromParam as ThemeEnum)) {
+    return themeFromParam as ThemeEnum;
+  }
+  return ThemeEnum.Light;
+};
+
 export const getTheme = (): ThemeEnum => {
   return (localStorage.getItem("theme") as ThemeEnum | null) ?? ThemeEnum.Light;
 };
 
-export const setTheme = (theme: ThemeEnum) => {
+export const setTheme = async (theme: ThemeEnum) => {
   localStorage.setItem("theme", theme);
 };

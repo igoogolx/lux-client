@@ -1,3 +1,4 @@
+import { ThemeEnum } from "@/utils/theme";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { type SettingRes } from "lux-js-sdk";
 
@@ -31,13 +32,16 @@ const initialState: SettingRes = {
   blockQuic: false,
   stack: "gvisor",
   shouldFindProcess: false,
+  theme: ThemeEnum.Light,
+  autoLaunch: false,
+  autoConnect: false,
 };
 
 export const settingSlice = createSlice({
   name: "setting",
   initialState,
   reducers: {
-    setSetting(state, action: PayloadAction<SettingRes>) {
+    setSetting(_state, action: PayloadAction<SettingRes>) {
       return action.payload;
     },
   },

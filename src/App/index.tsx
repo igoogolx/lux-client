@@ -6,13 +6,17 @@ import Data from "@/components/pages/Data";
 import Rules from "@/components/pages/Rules";
 import Splash from "@/components/Splash";
 import { useCheckForUpdate, useMedia } from "@/hooks";
+import { getLang } from "@/i18n";
 import { generalSlice, managerSlice, type RootState } from "@/reducers";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
 import { formatError } from "@/utils/error";
+import { ThemeContext, type ThemeContextType } from "@/utils/theme";
 import axios from "axios";
-import { getIsAdmin, getStatus, subscribePing } from "lux-js-sdk";
+import clsx from "classnames";
+import i18n from "i18next";
+import { getIsAdmin, getSetting, getStatus, subscribePing } from "lux-js-sdk";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import CheckHubAddressModal from "../components/Modal/EditHubAddressModal";
@@ -20,7 +24,6 @@ import About from "../components/pages/About";
 import Home from "../components/pages/Home";
 import Logger from "../components/pages/Logger";
 import Setting from "../components/pages/Setting";
-import ThemeSwitch from "../components/ThemeSwitch";
 import styles from "./index.module.css";
 
 axios.interceptors.response.use(
@@ -34,6 +37,7 @@ axios.interceptors.response.use(
 export function App(): React.ReactNode {
   const dispatch = useDispatch();
   const [connected, setConnected] = useState(true);
+  const [isReady, setIsReady] = useState(false);
 
   const isWideScreen = useMedia("(min-width: 640px)");
 
@@ -43,18 +47,54 @@ export function App(): React.ReactNode {
 
   const checkForUpdate = useCheckForUpdate();
 
-  getStatus().then((status) => {
+  const { setTheme: setCurrentTheme } = useContext(
+    ThemeContext,
+  ) as ThemeContextType;
+
+  const updateStatus = useCallback(async () => {
+    const status = await getStatus();
     dispatch(
       managerSlice.actions.setIsStarted({ isStarted: status.isStarted }),
     );
-  });
+  }, [dispatch]);
+
+  const updateIsAdmin = useCallback(async () => {
+    const isAdminRes = await getIsAdmin();
+    dispatch(generalSlice.actions.setIsAdmin({ isAdmin: isAdminRes.isAdmin }));
+  }, [dispatch]);
+
+  const updateI18n = useCallback(async (language: string) => {
+    await i18n.changeLanguage(getLang(language));
+  }, []);
+
+  const init = useCallback(async () => {
+    console.log("init!");
+
+    try {
+      setIsReady(false);
+      const setting = await getSetting();
+      setCurrentTheme(setting.theme);
+      await Promise.all([
+        updateStatus(),
+        updateIsAdmin(),
+        updateI18n(setting.language),
+      ]);
+    } finally {
+      setIsReady(true);
+      dispatch(generalSlice.actions.setLoading({ loading: false }));
+    }
+  }, [dispatch, setCurrentTheme, updateI18n, updateIsAdmin, updateStatus]);
 
   useEffect(() => {
-    console.log("init!");
     checkForUpdate().catch((e) => {
       console.error(e);
     });
+  }, [checkForUpdate]);
 
+  useEffect(() => {
+    init().catch((e) => {
+      console.error(e);
+    });
     const pingSubscriber = subscribePing({
       onMessage: (item) => {
         if (item === "pong") {
@@ -66,17 +106,21 @@ export function App(): React.ReactNode {
         setConnected(false);
       },
     });
-    getIsAdmin().then((res) => {
-      dispatch(generalSlice.actions.setIsAdmin({ isAdmin: res.isAdmin }));
-    });
+
     return () => {
-      //TODO: clean ping
+      //clean ping because of React will run effect twice on development
+      pingSubscriber.onerror = null;
+      pingSubscriber.close();
     };
-  }, [dispatch, checkForUpdate]);
+  }, [dispatch, init]);
+
   return !connected ? (
     <CheckHubAddressModal />
   ) : (
-    <div className={styles.wrapper} id={APP_CONTAINER_ID}>
+    <div
+      className={clsx(styles.wrapper, !isReady && styles.hidePage)}
+      id={APP_CONTAINER_ID}
+    >
       <NotificationContainer />
       <ElevateModal />
       {loading && <Splash />}
@@ -84,9 +128,6 @@ export function App(): React.ReactNode {
         {isWideScreen && (
           <div className={styles.nav}>
             <Nav />
-            <div className={styles.themeSwitch}>
-              <ThemeSwitch />
-            </div>
           </div>
         )}
         <div className={styles.content}>
