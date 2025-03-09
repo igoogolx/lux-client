@@ -39,7 +39,7 @@ export const settingSlice = createSlice({
   name: "setting",
   initialState,
   reducers: {
-    setSetting(state, action: PayloadAction<SettingRes>) {
+    setSetting(_state, action: PayloadAction<SettingRes>) {
       return action.payload;
     },
   },
