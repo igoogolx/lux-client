@@ -36,7 +36,7 @@ export function SettingForm() {
       <div>
         <Language />
         <Theme />
-        {isDarwin && <AutoLaunch />}
+        <AutoLaunch />
         <AutoConnect />
         <Mode />
         {isTun && <Stack />}
