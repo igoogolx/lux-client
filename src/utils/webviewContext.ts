@@ -1,13 +1,24 @@
-const isInWebview = !!window?.flutter_inappwebview;
-function open(filePath: string) {
+const isInWebview = !!ClientChannel;
+function openHomeDir() {
   if (isInWebview) {
-    const formatedPath = `file://${filePath}`;
-    return window.flutter_inappwebview?.callHandler("open", formatedPath);
+    return ClientChannel?.openHomeDir();
+  }
+  return Promise.resolve("not in webview");
+}
+
+function setAutoLaunch(isEnabled: boolean) {
+  if (isInWebview) {
+    if (isEnabled) {
+      return ClientChannel?.enableAutoLaunch();
+    } else {
+      return ClientChannel?.disableAutoLaunch();
+    }
   }
   return Promise.resolve("not in webview");
 }
 
 export default {
-  open,
+  openHomeDir,
   isInWebview,
+  setAutoLaunch,
 };

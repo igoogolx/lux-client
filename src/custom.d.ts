@@ -8,8 +8,10 @@ declare module "*.svg" {
   export default classes;
 }
 
-interface Window {
-  flutter_inappwebview?: {
-    callHandler: (eventName: string, ...args: string[]) => Promise<void>;
-  };
-}
+declare const ClientChannel:
+  | {
+      enableAutoLaunch: () => void;
+      disableAutoLaunch: () => void;
+      openHomeDir: () => void;
+    }
+  | undefined;
