@@ -10,9 +10,6 @@ declare module "*.svg" {
 
 declare const ClientChannel:
   | {
-      enableAutoLaunch: () => void;
-      disableAutoLaunch: () => void;
-      openHomeDir: () => void;
-      ready: () => void;
+      postMessage(message: string): void;
     }
   | undefined;
