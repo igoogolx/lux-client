@@ -13,5 +13,6 @@ declare const ClientChannel:
       enableAutoLaunch: () => void;
       disableAutoLaunch: () => void;
       openHomeDir: () => void;
+      ready: () => void;
     }
   | undefined;

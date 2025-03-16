@@ -11,6 +11,7 @@ import { generalSlice, managerSlice, type RootState } from "@/reducers";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
 import { formatError } from "@/utils/error";
 import { ThemeContext, type ThemeContextType } from "@/utils/theme";
+import webviewContext from "@/utils/webviewContext";
 import axios from "axios";
 import clsx from "classnames";
 import i18n from "i18next";
@@ -84,6 +85,12 @@ export function App(): React.ReactNode {
       dispatch(generalSlice.actions.setLoading({ loading: false }));
     }
   }, [dispatch, setCurrentTheme, updateI18n, updateIsAdmin, updateStatus]);
+
+  useEffect(() => {
+    if (webviewContext.isInWebview) {
+      webviewContext.ready();
+    }
+  }, []);
 
   useEffect(() => {
     checkForUpdate().catch((e) => {

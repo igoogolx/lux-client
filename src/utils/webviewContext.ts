@@ -17,8 +17,16 @@ function setAutoLaunch(isEnabled: boolean) {
   return Promise.resolve("not in webview");
 }
 
+function ready() {
+  if (isInWebview) {
+    return ClientChannel?.ready();
+  }
+  return Promise.resolve("not in webview");
+}
+
 export default {
   openHomeDir,
   isInWebview,
   setAutoLaunch,
+  ready,
 };
