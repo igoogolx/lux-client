@@ -1,4 +1,4 @@
-const isInWebview = !!ClientChannel;
+const isInWebview = typeof ClientChannel !== "undefined";
 function openHomeDir() {
   if (isInWebview) {
     return ClientChannel?.postMessage("openHomeDir");
