@@ -11,6 +11,7 @@ import { generalSlice, managerSlice, type RootState } from "@/reducers";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
 import { formatError } from "@/utils/error";
 import { ThemeContext, type ThemeContextType } from "@/utils/theme";
+import { onBodyContextMenu } from "@/utils/webview";
 import webviewContext from "@/utils/webviewContext";
 import axios from "axios";
 import clsx from "classnames";
@@ -89,7 +90,11 @@ export function App(): React.ReactNode {
   useEffect(() => {
     if (webviewContext.isInWebview) {
       webviewContext.ready();
+      document.body.addEventListener("contextmenu", onBodyContextMenu);
     }
+    return () => {
+      document.body.removeEventListener("contextmenu", onBodyContextMenu);
+    };
   }, []);
 
   useEffect(() => {
