@@ -7,6 +7,14 @@
     <meta name="description" content="Web site created using react" />
     <link rel="icon" href="public/logo.svg" />
     <title>Lux</title>
+    <script>
+      const params = new URL(window.location.href).searchParams;
+      if (params.get('theme')==='dark') {
+        const htmlElement = document.querySelector('html');
+        // background color of dark mode
+        htmlElement.style.backgroundColor = '#292929';
+      }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

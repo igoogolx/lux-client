@@ -8,8 +8,8 @@ declare module "*.svg" {
   export default classes;
 }
 
-interface Window {
-  flutter_inappwebview?: {
-    callHandler: (eventName: string, ...args: string[]) => Promise<void>;
-  };
-}
+declare const ClientChannel:
+  | {
+      postMessage(message: string): void;
+    }
+  | undefined;

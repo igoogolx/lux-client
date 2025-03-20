@@ -79,7 +79,7 @@ export default function ConfigFile() {
           <Button
             onClick={() => {
               if (webviewContext.isInWebview) {
-                webviewContext.open(configFileDir);
+                webviewContext.openHomeDir();
               } else {
                 setIsOpenConfigFileDirModal(true);
               }
