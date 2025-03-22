@@ -3,6 +3,7 @@ import { DeleteAllProxiesConfirmModal } from "@/components/Modal/DeleteAllProxie
 import { useDangerStyles } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { generalSlice, proxiesSlice, type RootState } from "@/reducers";
+import { formatError } from "@/utils/error";
 import { decodeFromUrl } from "@/utils/url";
 import {
   Accordion,
@@ -22,6 +23,7 @@ import {
   ClipboardRegular,
   DeleteRegular,
 } from "@fluentui/react-icons";
+import axios from "axios";
 import { addProxiesFromSubscriptionUrl, deleteProxies } from "lux-js-sdk";
 import React, { MouseEventHandler, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -72,7 +74,9 @@ export default function ProxyCard<T extends { id: string }>(
       dispatch(proxiesSlice.actions.received({ proxies: res.proxies }));
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
     } catch (e) {
-      notifier.error(`fail to update proxies, error:${e}`);
+      if (!axios.isAxiosError(e)) {
+        notifier.error(formatError(e));
+      }
     } finally {
       dispatch(generalSlice.actions.setLoading({ loading: false }));
     }
@@ -85,7 +89,9 @@ export default function ProxyCard<T extends { id: string }>(
       dispatch(proxiesSlice.actions.deleteMany({ ids }));
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
     } catch (e) {
-      notifier.error(`fail to delete proxies, error:${e}`);
+      if (!axios.isAxiosError(e)) {
+        notifier.error(formatError(e));
+      }
     }
   };
 

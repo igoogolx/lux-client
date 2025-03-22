@@ -1,7 +1,9 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSlice } from "@/reducers";
+import { formatError } from "@/utils/error";
 import { decodeFromUrl } from "@/utils/url";
 import { Textarea } from "@fluentui/react-components";
+import axios from "axios";
 import { addProxiesFromSubscriptionUrl } from "lux-js-sdk";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -33,7 +35,9 @@ function SubscriptionUrlModal(props: Readonly<SubscriptionUrlModalProps>) {
           close();
           notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
         } catch (e) {
-          notifier.error(`fail to parse url, error:${e}`);
+          if (!axios.isAxiosError(e)) {
+            notifier.error(formatError(e));
+          }
         }
       }
     } finally {
