@@ -73,9 +73,9 @@ export default {
   [TRANSLATION_KEY.CONTENT]: "Content",
   [TRANSLATION_KEY.ELEVATE_CORE]: "Elevate core",
   [TRANSLATION_KEY.ELEVATE_TIP_MACOS]:
-    "The core is not run as admin. Open terminal and copy following commands. Once it's finished, restart the app.",
+    "The core is not run as admin. Only System mode is available. Open terminal and copy following commands to enable Tun mode. Once it's finished, restart the app.",
   [TRANSLATION_KEY.ELEVATE_TIP_WINDOWS]:
-    "The core is not run as admin. Run it as admin.",
+    "The core is not run as admin. Only System mode is available. Run it as admin to enable Tun mode.",
   [TRANSLATION_KEY.DELETE_ALL_PROXIES_TIPS]:
     "Are you sure to delete all proxies from {{title}}?",
   [TRANSLATION_KEY.UNKNOWN_ERROR]: "Unknown Error",
