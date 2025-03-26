@@ -1,3 +1,4 @@
+import TunTag from "@/components/pages/Setting/TunTag";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState } from "@/reducers";
 import {
@@ -64,7 +65,10 @@ export default function EditDnsItem(props: Readonly<EditDnsItemProps>) {
   return (
     <div className={styles.cardItem}>
       <div className={styles.desc}>
-        <Subtitle2>{title}</Subtitle2>
+        <Subtitle2>
+          {title}
+          <TunTag />
+        </Subtitle2>
         <Caption1>{desc}</Caption1>
       </div>
       <Combobox

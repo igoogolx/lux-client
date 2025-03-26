@@ -1,3 +1,4 @@
+import TunTag from "@/components/pages/Setting/TunTag";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import {
@@ -51,7 +52,10 @@ export default function Stack() {
     <Card className={styles.card}>
       <div className={styles.cardItem}>
         <div className={styles.desc}>
-          <Subtitle2>{t(TRANSLATION_KEY.NETWORK_STACK)}</Subtitle2>
+          <Subtitle2>
+            {t(TRANSLATION_KEY.NETWORK_STACK)}
+            <TunTag />
+          </Subtitle2>
           <Caption1>{t(TRANSLATION_KEY.NETWORK_STACK_TIP)}</Caption1>
         </div>
 

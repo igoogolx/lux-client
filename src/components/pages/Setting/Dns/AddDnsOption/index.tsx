@@ -1,4 +1,5 @@
 import AddDnsOptionModal from "@/components/Modal/AddDnsOptionModal";
+import TunTag from "@/components/pages/Setting/TunTag";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState } from "@/reducers";
 import {
@@ -28,7 +29,12 @@ export default function AddDnsOption() {
         />
       )}
       <div className={styles.desc}>
-        {<Subtitle2>{t(TRANSLATION_KEY.DNS_OPTION_TITLE)}</Subtitle2>}
+        {
+          <Subtitle2>
+            {t(TRANSLATION_KEY.DNS_OPTION_TITLE)}
+            <TunTag />
+          </Subtitle2>
+        }
         <Caption1>{t(TRANSLATION_KEY.DNS_OPTION_DESC)}</Caption1>
       </div>
       <div>

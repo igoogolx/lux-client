@@ -1,3 +1,4 @@
+import TunTag from "@/components/pages/Setting/TunTag";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import { Caption1, Card, Subtitle2 } from "@fluentui/react-components";
@@ -63,7 +64,10 @@ export default function DefaultInterface() {
     <Card className={styles.card}>
       <div className={styles.cardItem}>
         <div className={styles.desc}>
-          <Subtitle2>{t(TRANSLATION_KEY.DEFAULT_INTERFACE)}</Subtitle2>
+          <Subtitle2>
+            {t(TRANSLATION_KEY.DEFAULT_INTERFACE)}
+            <TunTag />
+          </Subtitle2>
           <Caption1>{t(TRANSLATION_KEY.DEFAULT_INTERFACE_TOOLTIP)}</Caption1>
         </div>
         <EditItemWithDialog
