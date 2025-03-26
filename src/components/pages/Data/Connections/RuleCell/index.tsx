@@ -1,5 +1,5 @@
 import { useClipboard } from "@/utils/clipboard";
-import { Button, TableCellLayout } from "@fluentui/react-components";
+import { Button, TableCellLayout, Tooltip } from "@fluentui/react-components";
 import { CopyRegular } from "@fluentui/react-icons";
 import React, { useState } from "react";
 import Highlighter from "react-highlight-words";
@@ -18,26 +18,34 @@ export default function RuleCell(props: Readonly<RuleCellProps>) {
 
   return (
     <TableCellLayout truncate>
-      <div
-        onMouseEnter={() => setShouldShowCopyBtn(true)}
-        onMouseLeave={() => setShouldShowCopyBtn(false)}
+      <Tooltip
+        content={value}
+        relationship="description"
+        positioning={"above-start"}
       >
-        <Highlighter
-          searchWords={[searchedValue]}
-          autoEscape
-          textToHighlight={value}
-        />
-        <Button
-          className={shouldShowCopyBtn ? "" : styles.hidden}
-          appearance="transparent"
-          icon={<CopyRegular />}
-          onClick={async (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            await copy(value);
-          }}
-        />
-      </div>
+        <div
+          onMouseEnter={() => setShouldShowCopyBtn(true)}
+          onMouseLeave={() => setShouldShowCopyBtn(false)}
+          className={styles.container}
+        >
+          <Highlighter
+            searchWords={[searchedValue]}
+            autoEscape
+            textToHighlight={value}
+            className={styles.content}
+          />
+          <Button
+            className={shouldShowCopyBtn ? "" : styles.hidden}
+            appearance="transparent"
+            icon={<CopyRegular />}
+            onClick={async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              await copy(value);
+            }}
+          />
+        </div>
+      </Tooltip>
     </TableCellLayout>
   );
 }

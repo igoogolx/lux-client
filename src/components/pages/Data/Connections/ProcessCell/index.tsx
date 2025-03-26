@@ -40,11 +40,13 @@ export function ProcessCell(props: Readonly<ProcessCellProps>) {
         <div
           onMouseEnter={() => setShouldShowCopyBtn(true)}
           onMouseLeave={() => setShouldShowCopyBtn(false)}
+          className={styles.container}
         >
           <Highlighter
             searchWords={[searchedValue]}
             autoEscape
             textToHighlight={value}
+            className={styles.content}
           />
           <Button
             className={shouldShowCopyBtn ? "" : styles.hidden}
