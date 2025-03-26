@@ -1,9 +1,9 @@
-import { ClickToCopy } from "@/components/Core";
 import { useClipboard } from "@/utils/clipboard";
 import { Button, TableCellLayout, Tooltip } from "@fluentui/react-components";
 import { CopyRegular } from "@fluentui/react-icons";
-import React from "react";
+import React, { useState } from "react";
 import Highlighter from "react-highlight-words";
+import styles from "./index.module.css";
 
 interface ProcessCellProps {
   process: string;
@@ -27,34 +27,37 @@ const getProcessName = (process: string, os: string) => {
 export function ProcessCell(props: Readonly<ProcessCellProps>) {
   const { process, os, searchedValue } = props;
   const value = getProcessName(process, os);
+  const [shouldShowCopyBtn, setShouldShowCopyBtn] = useState(false);
 
   const { copy } = useClipboard();
   return (
     <TableCellLayout truncate>
-      <ClickToCopy value={process}>
-        <Tooltip
-          content={process}
-          relationship="description"
-          positioning={"above-start"}
+      <Tooltip
+        content={process}
+        relationship="description"
+        positioning={"above-start"}
+      >
+        <div
+          onMouseEnter={() => setShouldShowCopyBtn(true)}
+          onMouseLeave={() => setShouldShowCopyBtn(false)}
         >
-          <div>
-            <Button
-              appearance="transparent"
-              icon={<CopyRegular />}
-              onClick={async (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                await copy(value);
-              }}
-            />
-            <Highlighter
-              searchWords={[searchedValue]}
-              autoEscape
-              textToHighlight={value}
-            />
-          </div>
-        </Tooltip>
-      </ClickToCopy>
+          <Highlighter
+            searchWords={[searchedValue]}
+            autoEscape
+            textToHighlight={value}
+          />
+          <Button
+            className={shouldShowCopyBtn ? "" : styles.hidden}
+            appearance="transparent"
+            icon={<CopyRegular />}
+            onClick={async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              await copy(value);
+            }}
+          />
+        </div>
+      </Tooltip>
     </TableCellLayout>
   );
 }
