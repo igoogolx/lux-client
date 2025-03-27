@@ -5,13 +5,22 @@ import {
   type GetSettingInterfaces,
   type ResetConfig,
   type SetSetting,
+  SettingRes,
 } from "./types";
 import { urtConfig } from "./url";
 
 export const getSetting: GetSetting = async () => {
   const url = `${urtConfig.setting}`;
   const res = await axios.get(url);
-  return res.data.setting;
+  const newSetting = res.data.setting as SettingRes;
+
+  //TODO: remove in v2
+  newSetting.autoConnect = !!newSetting.autoConnect;
+  newSetting.blockQuic = !!newSetting.blockQuic;
+  newSetting.autoLaunch = !!newSetting.autoLaunch;
+  newSetting.shouldFindProcess = !!newSetting.shouldFindProcess;
+  newSetting.hijackDns.alwaysReset = !!newSetting.hijackDns.alwaysReset;
+  return newSetting;
 };
 
 export const getSettingInterfaces: GetSettingInterfaces = async () => {
