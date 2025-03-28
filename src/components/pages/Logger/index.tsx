@@ -201,6 +201,7 @@ export default function Logger(): React.ReactNode {
             onOptionSelect={(_, data) => {
               setLevel(data.optionValue as string);
             }}
+            className={styles.selector}
           >
             {LEVEL_OPTIONS.map((option) => (
               <Option key={option.id} value={option.id}>

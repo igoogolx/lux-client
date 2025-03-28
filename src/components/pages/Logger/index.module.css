@@ -11,6 +11,9 @@
 
     & .actions {
       @apply flex items-center;
+      & .selector {
+        @apply min-w-32 w-32;
+      }
       & .clearBtn {
         @apply mx-1;
       }
