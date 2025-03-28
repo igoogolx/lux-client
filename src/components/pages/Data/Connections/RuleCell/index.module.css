@@ -1,0 +1,11 @@
+.hidden {
+  @apply invisible;
+}
+
+.container {
+  @apply flex items-center;
+}
+
+.content {
+  @apply text-ellipsis overflow-hidden;
+}

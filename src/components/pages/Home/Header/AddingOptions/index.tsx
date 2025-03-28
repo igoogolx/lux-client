@@ -1,6 +1,7 @@
 import { notifier } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSlice } from "@/reducers";
+import { formatError } from "@/utils/error";
 import { decode } from "@/utils/url";
 import {
   Button,
@@ -11,6 +12,7 @@ import {
   MenuTrigger,
 } from "@fluentui/react-components";
 import { AddFilled } from "@fluentui/react-icons";
+import axios from "axios";
 import { addProxy, ProxyTypeEnum } from "lux-js-sdk";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -93,7 +95,9 @@ export function AddingOptions(
             }),
           );
         } catch (e) {
-          notifier.error(`fail to parse url, error:${e}`);
+          if (!axios.isAxiosError(e)) {
+            notifier.error(formatError(e));
+          }
         }
         break;
       }
@@ -129,7 +133,7 @@ export function AddingOptions(
               <MenuItem
                 key={item.id}
                 onClick={() => {
-                  onSelect(item.id as OperationTypeEnum);
+                  onSelect(item.id);
                 }}
               >
                 {item.content}

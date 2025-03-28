@@ -1,4 +1,5 @@
 import AddDnsOption from "@/components/pages/Setting/Dns/AddDnsOption";
+import TunTag from "@/components/pages/Setting/TunTag";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import { Caption1, Card, Subtitle2, Switch } from "@fluentui/react-components";
@@ -194,6 +195,7 @@ export default function Dns() {
         <div className={styles.desc}>
           <Subtitle2>
             {t(TRANSLATION_KEY.DISABLE_DNS_CACHE_SWITCH_LABEL)}
+            <TunTag />
           </Subtitle2>
           <Caption1>
             {t(TRANSLATION_KEY.DISABLE_DNS_CACHE_SWITCH_TOOLTIP)}

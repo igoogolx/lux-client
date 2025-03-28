@@ -12,12 +12,13 @@ export enum TagTypeEnum {
 interface TagProps {
   type: TagTypeEnum;
   value: string;
+  className?: string;
 }
 
 function Tag(props: Readonly<TagProps>): React.ReactNode {
-  const { type, value } = props;
+  const { type, value, className } = props;
   return (
-    <div className={classNames(styles.base, styles[type])}>
+    <div className={classNames(styles.base, styles[type], className)}>
       <div>{value}</div>
     </div>
   );

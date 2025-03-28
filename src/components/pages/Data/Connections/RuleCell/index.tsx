@@ -5,35 +5,21 @@ import React, { useState } from "react";
 import Highlighter from "react-highlight-words";
 import styles from "./index.module.css";
 
-interface ProcessCellProps {
-  process: string;
-  os: string;
+interface RuleCellProps {
   searchedValue: string;
+  value: string;
 }
 
-const getProcessName = (process: string, os: string) => {
-  const isDarwin = os === "darwin";
-  const separator = isDarwin ? "/" : "\\";
-  const chunks = process.split(separator);
-  if (isDarwin) {
-    const appName = chunks.find((a) => a.endsWith(".app"));
-    if (appName) {
-      return appName;
-    }
-  }
-  return chunks.pop() ?? "";
-};
-
-export function ProcessCell(props: Readonly<ProcessCellProps>) {
-  const { process, os, searchedValue } = props;
-  const value = getProcessName(process, os);
-  const [shouldShowCopyBtn, setShouldShowCopyBtn] = useState(false);
+export default function RuleCell(props: Readonly<RuleCellProps>) {
+  const { searchedValue, value } = props;
 
   const { copy } = useClipboard();
+  const [shouldShowCopyBtn, setShouldShowCopyBtn] = useState(false);
+
   return (
     <TableCellLayout truncate>
       <Tooltip
-        content={process}
+        content={value}
         relationship="description"
         positioning={"above-start"}
       >

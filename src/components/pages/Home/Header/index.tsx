@@ -138,8 +138,6 @@ export function Header(): React.ReactNode {
           notifier.warn(t(TRANSLATION_KEY.DNS_SERVER_NUM_MSG));
         }
       }
-    } catch (e) {
-      notifier.error((e as { message?: string }).message ?? "unknown error");
     } finally {
       dispatch(managerSlice.actions.setIsLoading({ isLoading: false }));
     }

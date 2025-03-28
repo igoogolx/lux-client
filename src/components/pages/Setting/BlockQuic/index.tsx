@@ -1,3 +1,4 @@
+import TunTag from "@/components/pages/Setting/TunTag";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import { Caption1, Card, Subtitle2, Switch } from "@fluentui/react-components";
@@ -33,7 +34,10 @@ export default function BlockQuic() {
     <Card className={styles.card}>
       <div className={styles.cardItem}>
         <div className={styles.desc}>
-          <Subtitle2>{t(TRANSLATION_KEY.BLOCK_QUIC_SWITCH_LABEL)}</Subtitle2>
+          <Subtitle2>
+            {t(TRANSLATION_KEY.BLOCK_QUIC_SWITCH_LABEL)}
+            <TunTag />
+          </Subtitle2>
           <Caption1>{t(TRANSLATION_KEY.BLOCK_QUIC_SWITCH_TOOLTIP)}</Caption1>
         </div>
         <Switch

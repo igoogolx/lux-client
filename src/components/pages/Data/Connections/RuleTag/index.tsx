@@ -5,7 +5,7 @@ import { type RuleDetailItem, RULE_POLICY } from "lux-js-sdk";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-function RuleCell({ value }: Readonly<{ value: RuleDetailItem }>) {
+function RuleTag({ value }: Readonly<{ value: RuleDetailItem }>) {
   const { t } = useTranslation();
 
   let content = (
@@ -24,4 +24,4 @@ function RuleCell({ value }: Readonly<{ value: RuleDetailItem }>) {
   return <TableCellLayout truncate>{content}</TableCellLayout>;
 }
 
-export default RuleCell;
+export default RuleTag;

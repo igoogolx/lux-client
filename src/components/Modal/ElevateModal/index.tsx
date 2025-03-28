@@ -24,6 +24,8 @@ export function ElevateModal(): ReactNode {
   );
   const [corePath, setCorePath] = useState("");
 
+  const [isOpen, setIsOpen] = useState(true);
+
   useEffect(() => {
     getExecutablePath().then((path) => {
       setCorePath(path);
@@ -32,9 +34,13 @@ export function ElevateModal(): ReactNode {
 
   const isDarwin = os === "darwin";
 
-  return !isAdmin ? (
+  return !isAdmin && isOpen ? (
     <ConfirmModal
       title={t(TRANSLATION_KEY.ELEVATE_CORE)}
+      onCancel={() => {
+        setIsOpen(false);
+      }}
+      hideCancelText
       content={
         <div>
           <div>

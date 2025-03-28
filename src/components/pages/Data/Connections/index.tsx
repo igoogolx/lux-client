@@ -1,6 +1,6 @@
-import { ClickToCopy } from "@/components/Core";
 import { ProcessCell } from "@/components/pages/Data/Connections/ProcessCell";
-import RuleCell from "@/components/pages/Data/Connections/RuleTag";
+import RuleCell from "@/components/pages/Data/Connections/RuleCell";
+import RuleTag from "@/components/pages/Data/Connections/RuleTag";
 import Dashboard from "@/components/pages/Data/Dashboard";
 import { ConnectionsAmount } from "@/components/pages/Data/Dashboard/TrafficCard";
 import { useMedia } from "@/hooks";
@@ -195,25 +195,7 @@ export default function Connections(): React.ReactNode {
         },
         renderCell: (item) => {
           const fullRule = `${item.rule.ruleType},${item.rule.payload},${item.rule.policy}`;
-          return (
-            <TableCellLayout truncate>
-              <ClickToCopy value={fullRule}>
-                <Tooltip
-                  content={fullRule}
-                  relationship="description"
-                  positioning={"above-start"}
-                >
-                  <span>
-                    <Highlighter
-                      searchWords={[searchedValue]}
-                      autoEscape
-                      textToHighlight={fullRule}
-                    />
-                  </span>
-                </Tooltip>
-              </ClickToCopy>
-            </TableCellLayout>
-          );
+          return <RuleCell value={fullRule} searchedValue={searchedValue} />;
         },
       }),
       createTableColumn<Connection>({
@@ -222,7 +204,7 @@ export default function Connections(): React.ReactNode {
           return "";
         },
         renderCell: (item) => {
-          return <RuleCell value={item.rule} />;
+          return <RuleTag value={item.rule} />;
         },
       }),
       shouldShowProcess
