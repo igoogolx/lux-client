@@ -1,5 +1,5 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { Subtitle2 } from "@fluentui/react-components";
+import { Link, Subtitle2 } from "@fluentui/react-components";
 import {
   getRuntimeDetail,
   type RuntimeDetail,
@@ -48,7 +48,13 @@ export function DiagnosticsModal(
     return (
       <div className={styles.item}>
         <Subtitle2>{`${t(TRANSLATION_KEY_MAP[key])}:`}</Subtitle2>
-        <div className={styles.content}>{content}</div>
+        <div className={styles.content}>
+          {key === "hubAddress" ? (
+            <Link href={content}>{content}</Link>
+          ) : (
+            content
+          )}
+        </div>
       </div>
     );
   }
