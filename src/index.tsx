@@ -1,3 +1,4 @@
+import { SensitiveInfoProvider } from "@/components/Core";
 import { initI18n } from "@/i18n";
 import {
   FluentProvider,
@@ -22,6 +23,7 @@ init(stringAddress(hubAddress));
 function Root() {
   const [theme, setTheme] = useState(ThemeEnum.Light);
   const themeContextValue = useMemo(() => ({ setTheme, theme }), [theme]);
+
   return (
     <StrictMode>
       <Provider store={store}>
@@ -31,7 +33,9 @@ function Root() {
               theme={theme === ThemeEnum.Light ? webLightTheme : webDarkTheme}
               style={{ width: "100%" }}
             >
-              <App />
+              <SensitiveInfoProvider>
+                <App />
+              </SensitiveInfoProvider>
             </FluentProvider>
           </ThemeContext.Provider>
         </Router>

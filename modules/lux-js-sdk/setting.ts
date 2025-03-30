@@ -20,6 +20,7 @@ export const getSetting: GetSetting = async () => {
   newSetting.autoLaunch = !!newSetting.autoLaunch;
   newSetting.shouldFindProcess = !!newSetting.shouldFindProcess;
   newSetting.hijackDns.alwaysReset = !!newSetting.hijackDns.alwaysReset;
+  newSetting.sensitiveInfoMode = !!newSetting.sensitiveInfoMode;
   return newSetting;
 };
 

@@ -1,3 +1,4 @@
+import SensitiveInfo from "@/components/Core/SensitiveInfo";
 import { ProcessCell } from "@/components/pages/Data/Connections/ProcessCell";
 import RuleCell from "@/components/pages/Data/Connections/RuleCell";
 import RuleTag from "@/components/pages/Data/Connections/RuleTag";
@@ -160,11 +161,13 @@ export default function Connections(): React.ReactNode {
             renderCell: (item) => {
               return (
                 <TableCellLayout truncate>
-                  <Highlighter
-                    searchWords={[searchedValue]}
-                    autoEscape
-                    textToHighlight={item.destination}
-                  />
+                  <SensitiveInfo value={item.destination}>
+                    <Highlighter
+                      searchWords={[searchedValue]}
+                      autoEscape
+                      textToHighlight={item.destination}
+                    />
+                  </SensitiveInfo>
                 </TableCellLayout>
               );
             },
@@ -177,13 +180,16 @@ export default function Connections(): React.ReactNode {
           return t(TRANSLATION_KEY.DOMAIN);
         },
         renderCell: (item) => {
+          const value = item.domain === "unknown" ? "" : item.domain;
           return (
             <TableCellLayout truncate>
-              <Highlighter
-                searchWords={[searchedValue]}
-                autoEscape
-                textToHighlight={item.domain === "unknown" ? "" : item.domain}
-              />
+              <SensitiveInfo value={value}>
+                <Highlighter
+                  searchWords={[searchedValue]}
+                  autoEscape
+                  textToHighlight={value}
+                />
+              </SensitiveInfo>
             </TableCellLayout>
           );
         },

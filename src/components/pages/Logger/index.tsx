@@ -1,3 +1,4 @@
+import SensitiveInfo from "@/components/Core/SensitiveInfo";
 import { useMedia } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
@@ -42,11 +43,13 @@ function PayloadCell(
   return (
     <Tooltip content={value} relationship={"description"}>
       <div className={styles.payload}>
-        <Highlighter
-          searchWords={searchedWords}
-          autoEscape
-          textToHighlight={value}
-        />
+        <SensitiveInfo value={value}>
+          <Highlighter
+            searchWords={searchedWords}
+            autoEscape
+            textToHighlight={value}
+          />
+        </SensitiveInfo>
       </div>
     </Tooltip>
   );
