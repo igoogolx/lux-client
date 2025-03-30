@@ -10,7 +10,7 @@ export default function SensitiveInfo(props: Readonly<SensitiveInfoProps>) {
 
   const { enabled } = useContext(SensitiveInfoModeContext);
 
-  return !enabled ? "*".repeat(value.length) : children || value;
+  return enabled ? "*".repeat(value.length) : children || value;
 }
 
 export { default as SensitiveInfoProvider } from "./provider";
