@@ -32,34 +32,36 @@ export function ProcessCell(props: Readonly<ProcessCellProps>) {
   const { copy } = useClipboard();
   return (
     <TableCellLayout truncate>
-      <Tooltip
-        content={process}
-        relationship="description"
-        positioning={"above-start"}
+      <div
+        onMouseEnter={() => setShouldShowCopyBtn(true)}
+        onMouseLeave={() => setShouldShowCopyBtn(false)}
+        className={styles.container}
       >
-        <div
-          onMouseEnter={() => setShouldShowCopyBtn(true)}
-          onMouseLeave={() => setShouldShowCopyBtn(false)}
-          className={styles.container}
+        <Tooltip
+          content={process}
+          relationship="description"
+          positioning={"above-start"}
         >
-          <Highlighter
-            searchWords={[searchedValue]}
-            autoEscape
-            textToHighlight={value}
-            className={styles.content}
-          />
-          <Button
-            className={shouldShowCopyBtn ? "" : styles.hidden}
-            appearance="transparent"
-            icon={<CopyRegular />}
-            onClick={async (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              await copy(value);
-            }}
-          />
-        </div>
-      </Tooltip>
+          <div>
+            <Highlighter
+              searchWords={[searchedValue]}
+              autoEscape
+              textToHighlight={value}
+              className={styles.content}
+            />
+          </div>
+        </Tooltip>
+        <Button
+          className={shouldShowCopyBtn ? "" : styles.hidden}
+          appearance="transparent"
+          icon={<CopyRegular />}
+          onClick={async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            await copy(value);
+          }}
+        />
+      </div>
     </TableCellLayout>
   );
 }
