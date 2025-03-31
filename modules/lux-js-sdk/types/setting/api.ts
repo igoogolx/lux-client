@@ -33,7 +33,7 @@ export interface SettingRes {
   theme: ThemeEnum;
   autoLaunch: boolean;
   autoConnect: boolean;
-  sensitiveInfoMode?: boolean;
+  sensitiveInfoMode: boolean;
 }
 
 export type GetSetting = () => Promise<SettingRes>;

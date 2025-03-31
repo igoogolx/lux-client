@@ -11,7 +11,7 @@ export default function SensitiveInfoProvider(
   const sensitiveInfoModeContextValue = useSelector<
     RootState,
     { enabled: boolean }
-  >((state) => ({ enabled: !!state.setting.sensitiveInfoMode }));
+  >((state) => ({ enabled: state.setting.sensitiveInfoMode }));
 
   return (
     <SensitiveInfoModeContext.Provider value={sensitiveInfoModeContextValue}>

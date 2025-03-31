@@ -35,6 +35,7 @@ const initialState: SettingRes = {
   theme: ThemeEnum.Light,
   autoLaunch: false,
   autoConnect: false,
+  sensitiveInfoMode: false,
 };
 
 export const settingSlice = createSlice({
