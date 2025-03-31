@@ -1,4 +1,4 @@
-import { PropsWithChildren, useContext } from "react";
+import { PropsWithChildren, useContext, useMemo } from "react";
 import SensitiveInfoModeContext from "./context";
 
 interface SensitiveInfoProps extends PropsWithChildren {
@@ -10,7 +10,9 @@ export default function SensitiveInfo(props: Readonly<SensitiveInfoProps>) {
 
   const { enabled } = useContext(SensitiveInfoModeContext);
 
-  return enabled ? "*".repeat(value.length) : children || value;
+  return useMemo(() => {
+    return enabled ? value.replace(/\S/g, "*") : children || value;
+  }, [children, enabled, value]);
 }
 
 export { default as SensitiveInfoProvider } from "./provider";
