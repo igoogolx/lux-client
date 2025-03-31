@@ -1,4 +1,5 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import webviewContext from "@/utils/webviewContext";
 import { Link, Subtitle2 } from "@fluentui/react-components";
 import {
   getRuntimeDetail,
@@ -45,12 +46,19 @@ export function DiagnosticsModal(
     key: keyof Partial<RuntimeDetail>,
     content: string,
   ) {
+    const handleOpenHub = () => {
+      if (webviewContext.isInWebview) {
+        webviewContext.openWebDashboard();
+      } else {
+        window.open(content);
+      }
+    };
     return (
       <div className={styles.item}>
         <Subtitle2>{`${t(TRANSLATION_KEY_MAP[key])}:`}</Subtitle2>
         <div className={styles.content}>
           {key === "hubAddress" ? (
-            <Link href={content}>{content}</Link>
+            <Link onClick={handleOpenHub}>{content}</Link>
           ) : (
             content
           )}
