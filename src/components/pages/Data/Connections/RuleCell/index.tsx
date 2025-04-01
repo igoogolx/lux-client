@@ -28,12 +28,11 @@ export default function RuleCell(props: Readonly<RuleCellProps>) {
           relationship="description"
           positioning={"above-start"}
         >
-          <div>
+          <div className={styles.content}>
             <Highlighter
               searchWords={[searchedValue]}
               autoEscape
               textToHighlight={value}
-              className={styles.content}
             />
           </div>
         </Tooltip>

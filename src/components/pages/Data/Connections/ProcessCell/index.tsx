@@ -42,12 +42,11 @@ export function ProcessCell(props: Readonly<ProcessCellProps>) {
           relationship="description"
           positioning={"above-start"}
         >
-          <div>
+          <div className={styles.content}>
             <Highlighter
               searchWords={[searchedValue]}
               autoEscape
               textToHighlight={value}
-              className={styles.content}
             />
           </div>
         </Tooltip>
