@@ -5,18 +5,29 @@ import { Nav } from "@/components/Nav";
 import Data from "@/components/pages/Data";
 import Rules from "@/components/pages/Rules";
 import Splash from "@/components/Splash";
-import { useCheckForUpdate, useMedia } from "@/hooks";
+import {
+  getCurrentTheme,
+  useCheckForUpdate,
+  useMedia,
+  useThemeDetector,
+} from "@/hooks";
 import { getLang } from "@/i18n";
 import { generalSlice, managerSlice, type RootState } from "@/reducers";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
 import { formatError } from "@/utils/error";
-import { ThemeContext, type ThemeContextType } from "@/utils/theme";
+import { ThemeContext, type ThemeContextType, ThemeEnum } from "@/utils/theme";
 import { onBodyContextMenu } from "@/utils/webview";
 import webviewContext from "@/utils/webviewContext";
 import axios from "axios";
 import clsx from "classnames";
 import i18n from "i18next";
-import { getIsAdmin, getSetting, getStatus, subscribePing } from "lux-js-sdk";
+import {
+  getIsAdmin,
+  getSetting,
+  getStatus,
+  type SettingRes,
+  subscribePing,
+} from "lux-js-sdk";
 import * as React from "react";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -69,17 +80,34 @@ export function App(): React.ReactNode {
     await i18n.changeLanguage(getLang(language));
   }, []);
 
+  const setting = useSelector<RootState, SettingRes>((state) => state.setting);
+
+  const onThemeChange = useCallback(
+    (isDark: boolean) => {
+      if (setting.theme === ThemeEnum.System) {
+        setCurrentTheme(isDark ? ThemeEnum.Dark : ThemeEnum.Light);
+      }
+    },
+    [setCurrentTheme, setting.theme],
+  );
+
+  useThemeDetector(onThemeChange);
+
   const init = useCallback(async () => {
     console.log("init!");
 
     try {
       setIsReady(false);
-      const setting = await getSetting();
-      setCurrentTheme(setting.theme);
+      const latestSetting = await getSetting();
+      if (latestSetting.theme === ThemeEnum.System) {
+        setCurrentTheme(getCurrentTheme() ? ThemeEnum.Dark : ThemeEnum.Light);
+      } else {
+        setCurrentTheme(latestSetting.theme);
+      }
       await Promise.all([
         updateStatus(),
         updateIsAdmin(),
-        updateI18n(setting.language),
+        updateI18n(latestSetting.language),
       ]);
     } finally {
       setIsReady(true);

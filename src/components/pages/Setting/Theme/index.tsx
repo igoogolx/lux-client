@@ -22,11 +22,13 @@ export default function Theme() {
   const options = [
     { content: t(TRANSLATION_KEY.DARK), id: ThemeEnum.Dark },
     { content: t(TRANSLATION_KEY.LIGHT), id: ThemeEnum.Light },
+    { content: t(TRANSLATION_KEY.SYSTEM), id: ThemeEnum.System },
   ];
 
   const TRANSLATION_MAP = {
     [ThemeEnum.Dark]: t(TRANSLATION_KEY.DARK),
     [ThemeEnum.Light]: t(TRANSLATION_KEY.LIGHT),
+    [ThemeEnum.System]: t(TRANSLATION_KEY.SYSTEM),
   };
 
   const onChange = async (value: ThemeEnum) => {

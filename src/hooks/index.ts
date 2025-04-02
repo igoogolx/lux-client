@@ -44,10 +44,6 @@ export const useTestDelay = () => {
   );
 };
 
-export const useOnMount = (fn: () => void) => {
-  useEffect(fn, []); // eslint-disable-line
-};
-
 // https://usehooks.com/useLockBodyScroll/
 export const useLockBodyScroll = () => {
   useLayoutEffect(() => {
@@ -134,10 +130,26 @@ export const useCheckForUpdate = (force = false) => {
           },
         },
       ]);
-    } else {
-      if (force) {
-        notifier.success(t(TRANSLATION_KEY.NO_NEW_VERSION));
-      }
+    } else if (force) {
+      notifier.success(t(TRANSLATION_KEY.NO_NEW_VERSION));
     }
   }, [force, t]);
+};
+
+export const getCurrentTheme = () =>
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+export const useThemeDetector = (onChange: (isDark: boolean) => void) => {
+  const mqListener = useCallback(
+    (e: MediaQueryListEvent) => {
+      onChange(e.matches);
+    },
+    [onChange],
+  );
+
+  useEffect(() => {
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    darkThemeMq.addEventListener("change", mqListener);
+    return () => darkThemeMq.removeEventListener("change", mqListener);
+  }, [mqListener]);
 };
