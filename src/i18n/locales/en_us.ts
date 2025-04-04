@@ -160,6 +160,9 @@ export default {
   [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_LABEL]: "Block Quic",
   [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_TOOLTIP]:
     "Some websites use http3 which is not supported well by proxy servers, like youtube. Block quic to disable http3.",
+  [TRANSLATION_KEY.SENSITIVE_INFO_MODE_SWITCH_LABEL]: "Sensitive Info Mode",
+  [TRANSLATION_KEY.SENSITIVE_INFO_MODE_SWITCH_TOOLTIP]:
+    "Hide sensitive info like ip when enabled",
   [TRANSLATION_KEY.SHOULD_FIND_PROCESS_SWITCH_LABEL]: "Process Rule",
   [TRANSLATION_KEY.SHOULD_FIND_PROCESS_SWITCH_TOOLTIP]:
     "You can add process rules and check the process of connections",

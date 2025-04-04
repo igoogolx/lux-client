@@ -39,8 +39,9 @@ jobs:
       - run: sha256sum dist-ui.tar.gz > dist-ui.tar.gz.sha256
 
       - name: GH Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
+          prerelease: ${{ contains(github.ref, '-beat.') }}
           files: |
             dist-ui.tar.gz
             dist-ui.tar.gz.sha256        

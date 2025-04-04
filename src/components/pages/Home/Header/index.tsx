@@ -1,3 +1,4 @@
+import SensitiveInfo from "@/components/Core/SensitiveInfo";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
   managerSlice,
@@ -213,7 +214,9 @@ export function Header(): React.ReactNode {
               }
               title={curProxy.name || curProxy.addr}
             >
-              {curProxy.name || curProxy.addr}
+              <SensitiveInfo
+                value={curProxy.name || curProxy.addr}
+              ></SensitiveInfo>
             </span>
           </Caption1>
         )}

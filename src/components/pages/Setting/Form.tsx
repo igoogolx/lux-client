@@ -4,6 +4,7 @@ import BlockQuic from "@/components/pages/Setting/BlockQuic";
 import HijackDns from "@/components/pages/Setting/HijackDns";
 import Language from "@/components/pages/Setting/Language";
 import Mode from "@/components/pages/Setting/Mode";
+import SensitiveInfoMode from "@/components/pages/Setting/SensitiveInfoMode";
 import ShouldFindProcess from "@/components/pages/Setting/ShouldFindProcess";
 import Stack from "@/components/pages/Setting/Stack";
 import Theme from "@/components/pages/Setting/Theme";
@@ -47,6 +48,7 @@ export function SettingForm() {
         <LocalHttpServer />
         <AutoMode />
         {isTun && <ShouldFindProcess />}
+        <SensitiveInfoMode />
         <ConfigFile />
       </div>
     </div>

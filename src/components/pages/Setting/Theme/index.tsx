@@ -1,4 +1,5 @@
 import { notifier } from "@/components/Core";
+import { getCurrentTheme } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import { ThemeContext, type ThemeContextType, ThemeEnum } from "@/utils/theme";
@@ -22,11 +23,13 @@ export default function Theme() {
   const options = [
     { content: t(TRANSLATION_KEY.DARK), id: ThemeEnum.Dark },
     { content: t(TRANSLATION_KEY.LIGHT), id: ThemeEnum.Light },
+    { content: t(TRANSLATION_KEY.SYSTEM), id: ThemeEnum.System },
   ];
 
   const TRANSLATION_MAP = {
     [ThemeEnum.Dark]: t(TRANSLATION_KEY.DARK),
     [ThemeEnum.Light]: t(TRANSLATION_KEY.LIGHT),
+    [ThemeEnum.System]: t(TRANSLATION_KEY.SYSTEM),
   };
 
   const onChange = async (value: ThemeEnum) => {
@@ -47,10 +50,17 @@ export default function Theme() {
           <Dropdown
             value={TRANSLATION_MAP[setting.theme]}
             onOptionSelect={(_, data) => {
-              onChange(data.optionValue as ThemeEnum).catch((e) => {
+              const newTheme = data.optionValue as ThemeEnum;
+              onChange(newTheme).catch((e) => {
                 console.error(e);
               });
-              setCurrentTheme(data.optionValue as ThemeEnum);
+              if (newTheme === ThemeEnum.System) {
+                setCurrentTheme(
+                  getCurrentTheme() ? ThemeEnum.Dark : ThemeEnum.Light,
+                );
+              } else {
+                setCurrentTheme(newTheme);
+              }
             }}
           >
             {options.map((option) => (

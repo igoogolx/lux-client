@@ -1,4 +1,5 @@
 import { notifier, Table } from "@/components/Core";
+import SensitiveInfo from "@/components/Core/SensitiveInfo";
 import { DeleteAllProxiesConfirmModal } from "@/components/Modal/DeleteAllProxiesConfirmModal";
 import { useDangerStyles } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
@@ -131,7 +132,7 @@ export default function ProxyCard<T extends { id: string }>(
           <AccordionHeader>
             <div className={styles.header}>
               <Badge appearance="outline" size="large">
-                {title}
+                <SensitiveInfo value={title} />
               </Badge>
               <div className={styles.action}>
                 <Tooltip

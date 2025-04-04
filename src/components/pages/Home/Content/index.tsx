@@ -1,3 +1,4 @@
+import SensitiveInfo from "@/components/Core/SensitiveInfo";
 import {
   proxiesSelectors,
   proxiesSlice,
@@ -64,7 +65,9 @@ export function Content(): React.ReactNode {
           <TableCellLayout truncate>
             <div className={styles.desc}>
               <span className={styles.name}>
-                {item.name || `${item.server}:${item.port}`}
+                <SensitiveInfo
+                  value={item.name || `${item.server}:${item.port}`}
+                ></SensitiveInfo>
               </span>
               <span className={styles.type}>{item.type}</span>
             </div>
@@ -80,15 +83,14 @@ export function Content(): React.ReactNode {
       renderCell: (item) => {
         return (
           <TableCellLayout truncate className={styles.action}>
-            <div
+            <button
               onClick={(e) => {
-                e.preventDefault();
                 e.stopPropagation();
               }}
             >
               <DelayTag id={item.id} value={item.delay} />
               <Operation proxy={item} />
-            </div>
+            </button>
           </TableCellLayout>
         );
       },

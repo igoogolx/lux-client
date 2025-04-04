@@ -6,5 +6,6 @@ export * from "./Icon";
 export * from "./Menu";
 export * from "./Modal";
 export * from "./Notification";
+export * from "./SensitiveInfo";
 export * from "./Table";
 export { default as Tag, TagTypeEnum } from "./Tag";

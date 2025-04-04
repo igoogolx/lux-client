@@ -151,6 +151,9 @@ export default {
   [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_LABEL]: "拦截 Quic",
   [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_TOOLTIP]:
     "一些网站会使用 http3, 比如 youtube, 但是代理服务器往往不能很好地支持 http3. 拦截 quic 为了禁用 http3.",
+  [TRANSLATION_KEY.SENSITIVE_INFO_MODE_SWITCH_LABEL]: "敏感信息模式",
+  [TRANSLATION_KEY.SENSITIVE_INFO_MODE_SWITCH_TOOLTIP]:
+    "开启后，自动隐藏敏感信息，例如 ip",
   [TRANSLATION_KEY.SHOULD_FIND_PROCESS_SWITCH_LABEL]: "进程规则",
   [TRANSLATION_KEY.SHOULD_FIND_PROCESS_SWITCH_TOOLTIP]:
     "现在你能够添加进程规则和在看到每个连接所属的进程",
