@@ -136,7 +136,7 @@ export const TRANSLATION_KEY = {
   BLOCK_QUIC_SWITCH_TOOLTIP: "block_quic_switch_tooltip",
   SENSITIVE_INFO_MODE_SWITCH_LABEL: "sensitive_info_mode_switch_label",
   SENSITIVE_INFO_MODE_SWITCH_TOOLTIP: "sensitive_info_mode_switch_tooltip",
-  SHOULD_FIND_PROCESS_SWITCH_LABEL: "sensitive_info_mode_switch_tooltip",
+  SHOULD_FIND_PROCESS_SWITCH_LABEL: "should_find_process_switch_label",
   SHOULD_FIND_PROCESS_SWITCH_TOOLTIP: "should_find_process_switch_tooltip",
   AUTO_LAUNCH_SWITCH_LABEL: "auto_launch_switch_label",
   AUTO_LAUNCH_SWITCH_TOOLTIP: "auto_launch_switch_tooltip",
