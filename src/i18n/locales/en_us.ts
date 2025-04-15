@@ -159,7 +159,7 @@ export default {
     "Always get the latest DNS response",
   [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_LABEL]: "Block Quic",
   [TRANSLATION_KEY.BLOCK_QUIC_SWITCH_TOOLTIP]:
-    "Some websites use Http3 which is not supported well by proxy servers, like Youtube. Block Quic to disable Http3.",
+    "Some websites use Http3 which is not supported well by proxy servers, like Youtube. Block Quic to disable Http3",
   [TRANSLATION_KEY.SENSITIVE_INFO_MODE_SWITCH_LABEL]: "Sensitive Info Mode",
   [TRANSLATION_KEY.SENSITIVE_INFO_MODE_SWITCH_TOOLTIP]:
     "Hide sensitive info like Ip when enabled",
@@ -186,7 +186,7 @@ export default {
   [TRANSLATION_KEY.MODE_TOOLTIP]: "Select proxy mode",
   [TRANSLATION_KEY.EDIT_MODE_TOOLTIP]: "Edit mode",
   [TRANSLATION_KEY.PROXY_MODE_TOOLTIP]:
-    "System proxy usually only supports TCP and is not accepted by all applications, but Tun can handle all traffic.",
+    "System proxy usually only supports TCP and is not accepted by all applications, but Tun can handle all traffic",
   [TRANSLATION_KEY.STATISTICS]: "Statistics",
   [TRANSLATION_KEY.PAYLOAD]: "Payload",
   [TRANSLATION_KEY.POLICY]: "Policy",
