@@ -2,32 +2,50 @@ import { MAX_PORT, MIN_PORT } from "@/utils/validator";
 import { ObfsModeEnum } from "lux-js-sdk";
 import * as Yup from "yup";
 
-export const ShadowsocksSchema = Yup.object().shape({
-  name: Yup.string(),
-  server: Yup.string().required("Required"),
-  port: Yup.number().min(MIN_PORT).max(MAX_PORT).required("Required"),
-  password: Yup.string().required("Required"),
-  method: Yup.string(),
-});
+export function getShadowsocksSchema(t: (key: string) => string) {
+  return Yup.object().shape({
+    name: Yup.string(),
+    server: Yup.string().required(t("required")),
+    port: Yup.number().min(MIN_PORT).max(MAX_PORT).required(t("required")),
+    password: Yup.string().required(t("required")),
+    method: Yup.string(),
+  });
+}
 
-export const ObfsPluginSchema = Yup.object().shape({
-  host: Yup.string().required("Required"),
-  mode: Yup.string()
-    .matches(new RegExp(`(${ObfsModeEnum.Tls}|${ObfsModeEnum.Http})`))
-    .required("Required"),
-});
+export function getObfsPluginSchema(t: (key: string) => string) {
+  return Yup.object().shape({
+    host: Yup.string().required(t("required")),
+    mode: Yup.string()
+      .matches(new RegExp(`(${ObfsModeEnum.Tls}|${ObfsModeEnum.Http})`))
+      .required(t("required")),
+  });
+}
 
-export const V2rayPluginSchema = Yup.object().shape({
-  host: Yup.string().required("Required"),
-  port: Yup.number().required("Required"),
-  path: Yup.string().required("Required"),
-  mode: Yup.string()
-    .matches(/websocket/)
-    .required("Required"),
-});
+export function getV2rayPluginSchema(t: (key: string) => string) {
+  return Yup.object().shape({
+    host: Yup.string().required(t("required")),
+    port: Yup.number().required(t("required")),
+    path: Yup.string().required(t("required")),
+    mode: Yup.string()
+      .matches(/websocket/)
+      .required(t("required")),
+  });
+}
 
-export const RuleSchema = Yup.object().shape({
-  ruleType: Yup.string().required("Required"),
-  policy: Yup.string().required("Required"),
-  payload: Yup.string().required("Required"),
-});
+export function getRuleSchema(t: (key: string) => string) {
+  return Yup.object().shape({
+    ruleType: Yup.string().required(t("required")),
+    policy: Yup.string().required(t("required")),
+    payload: Yup.string().required(t("required")),
+  });
+}
+
+export function getHttpSchema(t: (key: string) => string) {
+  return Yup.object().shape({
+    name: Yup.string(),
+    server: Yup.string().required(t("required")),
+    port: Yup.number().min(MIN_PORT).max(MAX_PORT).required(t("required")),
+    username: Yup.string(),
+    password: Yup.string(),
+  });
+}

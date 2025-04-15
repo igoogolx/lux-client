@@ -4,7 +4,7 @@ import { type Obfs, ObfsModeEnum } from "lux-js-sdk";
 import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Field, FiledSelector, Form } from "../../../../Core";
-import { ObfsPluginSchema } from "../../EditShadowsocksModal/validate";
+import { getObfsPluginSchema } from "../../EditShadowsocksModal/validate";
 import styles from "./index.module.css";
 
 interface EditObfsProps {
@@ -36,7 +36,7 @@ export function EditObfsPlugin(props: Readonly<EditObfsProps>) {
     <Form
       onSubmit={onSubmit}
       initialValues={initialValue}
-      validationSchema={ObfsPluginSchema}
+      validationSchema={getObfsPluginSchema(t)}
     >
       {({ submitForm }) => {
         return (

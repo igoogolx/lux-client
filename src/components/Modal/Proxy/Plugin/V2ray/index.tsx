@@ -4,7 +4,7 @@ import { type V2rayObfs } from "lux-js-sdk";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Field, FieldSwitch, Form } from "../../../../Core";
-import { V2rayPluginSchema } from "../../EditShadowsocksModal/validate";
+import { getV2rayPluginSchema } from "../../EditShadowsocksModal/validate";
 import styles from "./index.module.css";
 
 interface EditV2rayProps {
@@ -25,7 +25,7 @@ export function EditV2rayPlugin(props: Readonly<EditV2rayProps>) {
     <Form
       onSubmit={onSubmit}
       initialValues={initialValue}
-      validationSchema={V2rayPluginSchema}
+      validationSchema={getV2rayPluginSchema(t)}
     >
       {({ submitForm }) => {
         return (

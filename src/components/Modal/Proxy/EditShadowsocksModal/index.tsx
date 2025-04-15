@@ -19,7 +19,7 @@ import {
   SHADOWSOCKS_PLUINS,
 } from "./constant";
 import styles from "./index.module.css";
-import { ShadowsocksSchema } from "./validate";
+import { getShadowsocksSchema } from "./validate";
 
 interface EditShadowsocksModalProps {
   close: () => void;
@@ -114,7 +114,7 @@ export const EditShadowsocksModal = React.memo(
         ) : null}
         <div style={{ display: !editingPlugin ? "block" : "none" }}>
           <Form
-            validationSchema={ShadowsocksSchema}
+            validationSchema={getShadowsocksSchema(t)}
             initialValues={initData}
             onSubmit={onSubmit}
           >
