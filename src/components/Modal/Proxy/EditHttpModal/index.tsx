@@ -1,12 +1,11 @@
+import { getHttpSchema } from "@/components/Modal/Proxy/EditShadowsocksModal/validate";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSlice, type RootState } from "@/reducers";
-import { MAX_PORT, MIN_PORT } from "@/utils/validator";
 import { Button } from "@fluentui/react-components";
 import { addProxy, type Http, ProxyTypeEnum, updateProxy } from "lux-js-sdk";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import * as Yup from "yup";
 import { Field, Form, PasswordFiled } from "../../../Core";
 import styles from "./index.module.css";
 
@@ -25,14 +24,6 @@ const INIT_DATA: Http = {
   password: "",
   username: "",
 };
-
-const HttpSchema = Yup.object().shape({
-  name: Yup.string(),
-  server: Yup.string().required("Required"),
-  port: Yup.number().min(MIN_PORT).max(MAX_PORT).required("Required"),
-  username: Yup.string(),
-  password: Yup.string(),
-});
 
 export function EditHttpModal(props: Readonly<EditHttpModalProps>) {
   const { t } = useTranslation();
@@ -61,7 +52,7 @@ export function EditHttpModal(props: Readonly<EditHttpModalProps>) {
     <Form
       onSubmit={onSubmit}
       initialValues={initialValue ?? INIT_DATA}
-      validationSchema={HttpSchema}
+      validationSchema={getHttpSchema(t)}
     >
       {({ isValid, submitForm }) => {
         return (

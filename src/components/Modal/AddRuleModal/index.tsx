@@ -1,5 +1,5 @@
 import { Field, FiledSelector, Form, Modal } from "@/components/Core";
-import { RuleSchema } from "@/components/Modal/Proxy/EditShadowsocksModal/validate";
+import { getRuleSchema } from "@/components/Modal/Proxy/EditShadowsocksModal/validate";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import type { RootState } from "@/reducers";
 import {
@@ -86,7 +86,7 @@ export function AddRuleModal(props: Readonly<AddRuleModalProps>) {
     <Form
       onSubmit={onSubmit}
       initialValues={isEdit ? initValue : INITIAL_VALUES}
-      validationSchema={RuleSchema}
+      validationSchema={getRuleSchema(t)}
     >
       {({ submitForm }) => {
         return (

@@ -31,10 +31,18 @@ function openWebDashboard() {
   return Promise.resolve("not in webview");
 }
 
+function changeLanguage() {
+  if (isInWebview) {
+    return ClientChannel?.postMessage("changeLanguage");
+  }
+  return Promise.resolve("not in webview");
+}
+
 export default {
   openHomeDir,
   isInWebview,
   setAutoLaunch,
   openWebDashboard,
   ready,
+  changeLanguage,
 };

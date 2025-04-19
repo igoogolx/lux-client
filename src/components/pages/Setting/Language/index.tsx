@@ -2,6 +2,7 @@ import { notifier } from "@/components/Core";
 import { getLang, LANGUAGE_ENUM } from "@/i18n";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
+import webviewContext from "@/utils/webviewContext";
 import { Card, Dropdown, Option, Subtitle2 } from "@fluentui/react-components";
 import { setSetting, type SettingRes } from "lux-js-sdk";
 import React from "react";
@@ -32,6 +33,9 @@ export default function Language() {
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
+    if (webviewContext.isInWebview) {
+      webviewContext.changeLanguage();
+    }
   };
 
   return (
