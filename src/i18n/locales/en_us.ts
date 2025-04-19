@@ -219,8 +219,8 @@ export default {
     "Always Reset System DNS",
   [TRANSLATION_KEY.HIJACK_DNS_ALWAYS_RESET_SWITCH_TOOLTIP]:
     "Reset system DNS to empty when closing Lux",
-  [TRANSLATION_KEY.SUCCESS_DNS]: "Success DNS",
-  [TRANSLATION_KEY.FAIL_DNS]: "Fail DNS",
+  [TRANSLATION_KEY.SUCCESS_DNS]: "✅ DNS",
+  [TRANSLATION_KEY.FAIL_DNS]: "❌ DNS",
   [TRANSLATION_KEY.EDIT_SHADOWSOCKS]: "Edit Shadowsocks",
   [TRANSLATION_KEY.EDIT_SOCKS5]: "Edit Socks5",
   [TRANSLATION_KEY.EDIT_HTTP]: "Edit Http",
