@@ -6,7 +6,6 @@ import Language from "@/components/pages/Setting/Language";
 import Mode from "@/components/pages/Setting/Mode";
 import SensitiveInfoMode from "@/components/pages/Setting/SensitiveInfoMode";
 import ShouldFindProcess from "@/components/pages/Setting/ShouldFindProcess";
-import Stack from "@/components/pages/Setting/Stack";
 import Theme from "@/components/pages/Setting/Theme";
 import { type RootState } from "@/reducers";
 import { getRuntimeOS, type SettingRes } from "lux-js-sdk";
@@ -40,7 +39,6 @@ export function SettingForm() {
         <AutoLaunch />
         <AutoConnect />
         <Mode />
-        {isTun && <Stack />}
         {isTun && <Dns />}
         {isTun && <BlockQuic />}
         {isDarwin && isTun && <HijackDns />}

@@ -14,8 +14,6 @@ export const TRANSLATION_KEY = {
   COMMON_QR_CODE: "common.qr_code",
   FORM_NAME: "form.name",
   MODE: "common.mode",
-  NETWORK_STACK: "common.network_stack",
-  NETWORK_STACK_TIP: "common.network_stack_tip",
   HOST: "common.host",
   TLS: "common.tls",
   SKIP_CERT_VERIFY: "skip_cert_verify",
@@ -185,7 +183,6 @@ export const TRANSLATION_KEY = {
   NEW_IMPORT_SUBSCRIPTION_URL: "new_import_subscription_url",
   TOKEN: "token",
   TUN: "tun",
-  GVISOR: "gvisor",
   SYSTEM_SETTING: "system_setting",
   HIJACK_DNS_ALWAYS_RESET_SWITCH_LABEL: "hijack_dns_always_reset_switch_label",
   HIJACK_DNS_ALWAYS_RESET_SWITCH_TOOLTIP:
