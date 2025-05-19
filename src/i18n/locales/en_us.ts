@@ -25,9 +25,6 @@ export default {
   [TRANSLATION_KEY.CONNECTIVITY_TEST]: "Connectivity Test",
   [TRANSLATION_KEY.FORM_NAME]: "Name",
   [TRANSLATION_KEY.MODE]: "Mode",
-  [TRANSLATION_KEY.NETWORK_STACK]: "Network Stack",
-  [TRANSLATION_KEY.NETWORK_STACK_TIP]:
-    "System has better performance while Givior is more stable.",
   [TRANSLATION_KEY.HOST]: "Host",
   [TRANSLATION_KEY.PATH]: "Path",
   [TRANSLATION_KEY.SKIP_CERT_VERIFY]: "Skip cert verify",
@@ -213,7 +210,6 @@ export default {
   [TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL]: "Import Subscription Url",
   [TRANSLATION_KEY.TOKEN]: "Token",
   [TRANSLATION_KEY.TUN]: "Tun",
-  [TRANSLATION_KEY.GVISOR]: "Gvisor",
   [TRANSLATION_KEY.SYSTEM_SETTING]: "System Setting",
   [TRANSLATION_KEY.HIJACK_DNS_ALWAYS_RESET_SWITCH_LABEL]:
     "Always Reset System DNS",
