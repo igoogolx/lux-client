@@ -24,18 +24,18 @@ import {
   ProxyTypeEnum,
   type Shadowsocks,
 } from "lux-js-sdk";
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
-import { EditModal } from "@/components/Modal/Proxy";
-import { QrCodeModal } from "@/components/Modal/QrCodeModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { useTestUdp } from "@/utils/testUdp";
 import { encode } from "@/utils/url";
 
 interface OperationProps {
   proxy: BaseProxy;
+  onEdit: (proxy:BaseProxy) => void;
+  onShowQrCode: (proxy:BaseProxy) => void;
 }
 
 enum OperationTypeEnum {
@@ -49,13 +49,12 @@ enum OperationTypeEnum {
 
 export function Operation(props: Readonly<OperationProps>): React.ReactNode {
   const { t } = useTranslation();
-  const { proxy } = props;
+  const { proxy,onEdit,onShowQrCode } = props;
   const { id: proxyId } = proxy;
 
   const inlineStyles = useDangerStyles();
 
-  const [isEditingDialogOpen, setIsEditingDialogOpen] = useState(false);
-  const [isQrcodeModalOpen, setIsQrcodeModalOpen] = useState(false);
+
   const dispatch = useDispatch();
   const testDelay = useTestDelay();
   const testUdp = useTestUdp();
@@ -126,7 +125,7 @@ export function Operation(props: Readonly<OperationProps>): React.ReactNode {
   const onSelect = async (id: string) => {
     switch (id) {
       case OperationTypeEnum.Edit:
-        setIsEditingDialogOpen(true);
+        onEdit(proxy);
         return;
       case OperationTypeEnum.Delete: {
         await deleteProxies({ ids: [proxy.id] });
@@ -152,7 +151,7 @@ export function Operation(props: Readonly<OperationProps>): React.ReactNode {
         return;
       }
       case OperationTypeEnum.QrCode: {
-        setIsQrcodeModalOpen(true);
+        onShowQrCode(proxy);
         return;
       }
       default: {
@@ -162,56 +161,36 @@ export function Operation(props: Readonly<OperationProps>): React.ReactNode {
   };
 
   return (
-    <>
-      {isQrcodeModalOpen && (
-        <QrCodeModal
-          url={encode(proxy as Shadowsocks)}
-          close={() => {
-            setIsQrcodeModalOpen(false);
-          }}
-        />
-      )}
-      {isEditingDialogOpen && (
-        <EditModal
-          close={() => {
-            setIsEditingDialogOpen(false);
-          }}
-          initialValue={proxy}
-          type={proxy.type as ProxyTypeEnum}
-          isSelected={isSelected}
-        />
-      )}
       <Menu>
         <MenuTrigger disableButtonEnhancement>
           <Button
-            appearance="transparent"
-            icon={<InfoRegular />}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-            }}
+              appearance="transparent"
+              icon={<InfoRegular />}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+              }}
           />
         </MenuTrigger>
         <MenuPopover>
           <MenuList>
             {menuItems.map((item) => (
-              <MenuItem
-                className={item.isDanger ? inlineStyles.danger : ""}
-                disabled={item.disabled}
-                key={item.id}
-                icon={item.icon}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  onSelect(item.id as string);
-                }}
-              >
-                {item.content}
-              </MenuItem>
+                <MenuItem
+                    className={item.isDanger ? inlineStyles.danger : ""}
+                    disabled={item.disabled}
+                    key={item.id}
+                    icon={item.icon}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      onSelect(item.id as string);
+                    }}
+                >
+                  {item.content}
+                </MenuItem>
             ))}
           </MenuList>
         </MenuPopover>
       </Menu>
-    </>
   );
 }

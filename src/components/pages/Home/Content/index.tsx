@@ -13,17 +13,20 @@ import {
 } from "@fluentui/react-components";
 import {
   type BaseProxy,
-  getProxies,
-  type SettingRes,
+  getProxies, ProxyTypeEnum,
+  type SettingRes, type Shadowsocks,
   updateSelectedProxyId,
 } from "lux-js-sdk";
 import * as React from "react";
-import { useEffect, useMemo, useRef } from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProxyCard, { LOCAL_SERVERS } from "./ProxyCard";
 import { DelayTag } from "./ProxyCard/DelayTag";
 import { Operation } from "./ProxyCard/Operation";
 import styles from "./index.module.css";
+import {QrCodeModal} from "@/components/Modal/QrCodeModal";
+import {encode} from "@/utils/url";
+import {EditModal} from "@/components/Modal/Proxy";
 
 export function Content(): React.ReactNode {
   const proxies = useSelector(proxiesSelectors.selectAll);
@@ -53,6 +56,16 @@ export function Content(): React.ReactNode {
       dispatch(selectedSlice.actions.setProxy({ id: data.selectedId }));
     });
   }, [dispatch]);
+
+  const onEdit = (proxy: BaseProxy) => {
+    setOperatingProxy(proxy);
+    setIsEditingDialogOpen(true);
+  }
+
+  const onShowQrCode = (proxy: BaseProxy) => {
+    setOperatingProxy(proxy);
+    setIsQrcodeModalOpen(true);
+  }
 
   const columns: Array<TableColumnDefinition<BaseProxy>> = [
     createTableColumn<BaseProxy>({
@@ -89,7 +102,7 @@ export function Content(): React.ReactNode {
               }}
             >
               <DelayTag id={item.id} value={item.delay} />
-              <Operation proxy={item} />
+              <Operation proxy={item} onEdit={onEdit} onShowQrCode={onShowQrCode}/>
             </button>
           </TableCellLayout>
         );
@@ -120,6 +133,15 @@ export function Content(): React.ReactNode {
   const preProxiesLength = useRef(proxies.length);
   const listRef = useRef<HTMLDivElement>(null);
 
+  const [isEditingDialogOpen, setIsEditingDialogOpen] = useState(false);
+  const [isQrcodeModalOpen, setIsQrcodeModalOpen] = useState(false);
+
+  const [operatingProxy, setOperatingProxy] = useState<BaseProxy | null>(null);
+
+  const isOperatingProxySelected = useSelector<RootState, boolean>(
+      (state) => state.selected.proxy === operatingProxy?.id,
+  );
+
   useEffect(() => {
     if (
       listRef.current &&
@@ -132,20 +154,41 @@ export function Content(): React.ReactNode {
   }, [proxies.length]);
 
   return (
-    <div className={styles.wrapper} ref={listRef}>
-      {Object.keys(proxyMap).map((key) => {
-        return (
-          <ProxyCard
-            key={key}
-            columns={columns}
-            data={proxyMap[key]}
-            selectionMode={isAutoMode ? undefined : "single"}
-            onSelectionChange={handleSelect}
-            selectedItems={defaultSelectedItems}
-            url={key}
-          />
-        );
-      })}
-    </div>
+      <>
+        {isQrcodeModalOpen && operatingProxy && (
+            <QrCodeModal
+                url={encode(operatingProxy as Shadowsocks)}
+                close={() => {
+                  setIsQrcodeModalOpen(false);
+                }}
+            />
+        )}
+        {isEditingDialogOpen && operatingProxy && (
+            <EditModal
+                close={() => {
+                  setIsEditingDialogOpen(false);
+                }}
+                initialValue={operatingProxy}
+                type={operatingProxy.type as ProxyTypeEnum}
+                isSelected={isOperatingProxySelected}
+            />
+        )}
+        <div className={styles.wrapper} ref={listRef}>
+          {Object.keys(proxyMap).map((key) => {
+            return (
+                <ProxyCard
+                    key={key}
+                    columns={columns}
+                    data={proxyMap[key]}
+                    selectionMode={isAutoMode ? undefined : "single"}
+                    onSelectionChange={handleSelect}
+                    selectedItems={defaultSelectedItems}
+                    url={key}
+                />
+            );
+          })}
+        </div>
+      </>
+
   );
 }
