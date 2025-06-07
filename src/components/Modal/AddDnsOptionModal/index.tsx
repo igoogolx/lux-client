@@ -26,7 +26,7 @@ interface DnsOption {
   value: string;
 }
 
-const VALID_DNS_PREFIXES = ["dhcp://", "https://", "udp://", "tcp://"];
+const VALID_DNS_PREFIXES = ["https://", "udp://", "tcp://"];
 
 export default function AddDnsOptionModal(
   props: Readonly<AddDnsOptionModalProps>,
