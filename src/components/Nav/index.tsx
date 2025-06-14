@@ -23,7 +23,7 @@ import {
 import * as React from "react";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -85,9 +85,11 @@ export function Nav(props: Readonly<NavProps>): React.ReactNode {
 
   const navigate = useNavigate();
 
+  const location = useLocation();
+
   return (
     <NavDrawer
-      defaultSelectedValue={ROUTER_PATH.Home}
+      defaultSelectedValue={location.pathname}
       open
       type={"inline"}
       className={inStyles.root}
