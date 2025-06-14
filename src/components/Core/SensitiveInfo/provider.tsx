@@ -1,5 +1,5 @@
 import type { RootState } from "@/reducers";
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useMemo } from "react";
 import { useSelector } from "react-redux";
 import SensitiveInfoModeContext from "./context";
 
@@ -8,13 +8,16 @@ export default function SensitiveInfoProvider(
 ) {
   const { children } = props;
 
-  const sensitiveInfoModeContextValue = useSelector<
-    RootState,
-    { enabled: boolean }
-  >((state) => ({ enabled: state.setting.sensitiveInfoMode }));
+  const sensitiveInfoMode = useSelector<RootState, boolean>(
+    (state) => state.setting.sensitiveInfoMode,
+  );
+
+  const contextValue = useMemo(() => {
+    return { enabled: sensitiveInfoMode };
+  }, [sensitiveInfoMode]);
 
   return (
-    <SensitiveInfoModeContext.Provider value={sensitiveInfoModeContextValue}>
+    <SensitiveInfoModeContext.Provider value={contextValue}>
       {children}
     </SensitiveInfoModeContext.Provider>
   );
