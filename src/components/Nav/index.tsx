@@ -27,6 +27,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
+    paddingTop: "16px",
     width: "100%",
     height: "100%",
   },
