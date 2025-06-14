@@ -34,8 +34,8 @@ import { encode } from "@/utils/url";
 
 interface OperationProps {
   proxy: BaseProxy;
-  onEdit: (proxy:BaseProxy) => void;
-  onShowQrCode: (proxy:BaseProxy) => void;
+  onEdit: (proxy: BaseProxy) => void;
+  onShowQrCode: (proxy: BaseProxy) => void;
 }
 
 enum OperationTypeEnum {
@@ -49,11 +49,10 @@ enum OperationTypeEnum {
 
 export function Operation(props: Readonly<OperationProps>): React.ReactNode {
   const { t } = useTranslation();
-  const { proxy,onEdit,onShowQrCode } = props;
+  const { proxy, onEdit, onShowQrCode } = props;
   const { id: proxyId } = proxy;
 
   const inlineStyles = useDangerStyles();
-
 
   const dispatch = useDispatch();
   const testDelay = useTestDelay();
@@ -161,36 +160,37 @@ export function Operation(props: Readonly<OperationProps>): React.ReactNode {
   };
 
   return (
-      <Menu>
-        <MenuTrigger disableButtonEnhancement>
-          <Button
-              appearance="transparent"
-              icon={<InfoRegular />}
+    <Menu>
+      <MenuTrigger disableButtonEnhancement>
+        <Button
+          as={"a"}
+          appearance="transparent"
+          icon={<InfoRegular />}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+        />
+      </MenuTrigger>
+      <MenuPopover>
+        <MenuList>
+          {menuItems.map((item) => (
+            <MenuItem
+              className={item.isDanger ? inlineStyles.danger : ""}
+              disabled={item.disabled}
+              key={item.id}
+              icon={item.icon}
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
+                onSelect(item.id as string);
               }}
-          />
-        </MenuTrigger>
-        <MenuPopover>
-          <MenuList>
-            {menuItems.map((item) => (
-                <MenuItem
-                    className={item.isDanger ? inlineStyles.danger : ""}
-                    disabled={item.disabled}
-                    key={item.id}
-                    icon={item.icon}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      onSelect(item.id as string);
-                    }}
-                >
-                  {item.content}
-                </MenuItem>
-            ))}
-          </MenuList>
-        </MenuPopover>
-      </Menu>
+            >
+              {item.content}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </MenuPopover>
+    </Menu>
   );
 }

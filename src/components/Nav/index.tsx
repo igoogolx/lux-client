@@ -1,35 +1,34 @@
 import { ROUTER_NAME, ROUTER_PATH } from "@/utils/constants";
 import {
   makeStyles,
-  mergeClasses,
-  shorthands,
-  Text,
+  NavDrawer,
+  NavDrawerBody,
+  NavItem,
 } from "@fluentui/react-components";
 import {
+  bundleIcon,
+  HomeFilled,
   HomeRegular,
+  InfoFilled,
   InfoRegular,
+  NoteFilled,
   NoteRegular,
+  RowTripleFilled,
   RowTripleRegular,
+  SettingsFilled,
   SettingsRegular,
+  TopSpeedFilled,
   TopSpeedRegular,
 } from "@fluentui/react-icons";
-import { tokens } from "@fluentui/react-theme";
-import classNames from "classnames";
 import * as React from "react";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
-import styles from "./index.module.css";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
-  nav: {
-    ...shorthands.borderColor(tokens.colorPaletteSteelBorderActive),
-    ":hover": {
-      backgroundColor: tokens.colorNeutralBackground1Selected,
-    },
-  },
-  activeNav: {
-    backgroundColor: tokens.colorNeutralBackground1Selected,
+  root: {
+    width: "100%",
+    height: "100%",
   },
 });
 
@@ -41,35 +40,42 @@ export function Nav(props: Readonly<NavProps>): React.ReactNode {
 
   const { t } = useTranslation();
   const items = useMemo(() => {
+    const HomeIcon = bundleIcon(HomeFilled, HomeRegular);
+    const RulesIcon = bundleIcon(RowTripleFilled, RowTripleRegular);
+    const DataIcon = bundleIcon(TopSpeedFilled, TopSpeedRegular);
+    const LogIcon = bundleIcon(NoteFilled, NoteRegular);
+    const SettingIcon = bundleIcon(SettingsFilled, SettingsRegular);
+    const AboutIcon = bundleIcon(InfoFilled, InfoRegular);
+
     return [
       {
         to: ROUTER_PATH.Home,
-        icon: <HomeRegular />,
+        icon: <HomeIcon />,
         name: ROUTER_NAME[ROUTER_PATH.Home],
       },
       {
         to: ROUTER_PATH.Rules,
-        icon: <RowTripleRegular />,
+        icon: <RulesIcon />,
         name: ROUTER_NAME[ROUTER_PATH.Rules],
       },
       {
         to: ROUTER_PATH.Dashboard,
-        icon: <TopSpeedRegular />,
+        icon: <DataIcon />,
         name: ROUTER_NAME[ROUTER_PATH.Dashboard],
       },
       {
         to: ROUTER_PATH.Logger,
-        icon: <NoteRegular />,
+        icon: <LogIcon />,
         name: ROUTER_NAME[ROUTER_PATH.Logger],
       },
       {
         to: ROUTER_PATH.Setting,
-        icon: <SettingsRegular />,
+        icon: <SettingIcon />,
         name: ROUTER_NAME[ROUTER_PATH.Setting],
       },
       {
         to: ROUTER_PATH.About,
-        icon: <InfoRegular />,
+        icon: <AboutIcon />,
         name: ROUTER_NAME[ROUTER_PATH.About],
       },
     ];
@@ -77,36 +83,30 @@ export function Nav(props: Readonly<NavProps>): React.ReactNode {
 
   const inStyles = useStyles();
 
+  const navigate = useNavigate();
+
   return (
-    <div className={styles.wrapper}>
-      {items.map((item) => {
-        return (
-          <NavLink
-            to={item.to}
-            className={({ isActive }) => {
-              return mergeClasses(
-                inStyles.nav,
-                classNames(styles.navItem, {
-                  [styles.activeNavItem]: isActive,
-                  [inStyles.activeNav]: isActive,
-                }),
-              );
-            }}
-            end
+    <NavDrawer
+      defaultSelectedValue={ROUTER_PATH.Home}
+      open
+      type={"inline"}
+      className={inStyles.root}
+    >
+      <NavDrawerBody>
+        {items.map((item) => (
+          <NavItem
+            icon={item.icon}
+            value={item.to}
             key={item.to}
-            onClick={onClick}
-          >
-            {() => {
-              return (
-                <>
-                  {item.icon}
-                  <Text className={styles.text}>{t(item.name)}</Text>
-                </>
-              );
+            onClick={() => {
+              navigate(item.to);
+              onClick?.();
             }}
-          </NavLink>
-        );
-      })}
-    </div>
+          >
+            {t(item.name)}
+          </NavItem>
+        ))}
+      </NavDrawerBody>
+    </NavDrawer>
   );
 }
