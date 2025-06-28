@@ -5,12 +5,20 @@ import {
   DrawerBody,
   DrawerHeader,
   DrawerHeaderTitle,
+  makeStyles,
   useRestoreFocusSource,
   useRestoreFocusTarget,
 } from "@fluentui/react-components";
 import { Dismiss24Regular, NavigationFilled } from "@fluentui/react-icons";
+import { tokens } from "@fluentui/react-theme";
 import * as React from "react";
 import styles from "./index.module.css";
+
+const useStyles = makeStyles({
+  root: {
+    background: tokens.colorNeutralBackground4,
+  },
+});
 
 export const MobileNav = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -18,6 +26,8 @@ export const MobileNav = () => {
   // Overlay Drawer will handle focus by default, but inline Drawers need manual focus restoration attributes, if applicable
   const restoreFocusTargetAttributes = useRestoreFocusTarget();
   const restoreFocusSourceAttributes = useRestoreFocusSource();
+
+  const inlineStyles = useStyles();
 
   return (
     <div className={styles.container}>
@@ -27,6 +37,7 @@ export const MobileNav = () => {
         separator
         open={isOpen}
         onOpenChange={(_, { open }) => setIsOpen(open)}
+        className={inlineStyles.root}
       >
         <DrawerHeader>
           <DrawerHeaderTitle
