@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { notifier } from "../../../Core";
 import styles from "../index.module.css";
+import {MODE_TRANSLATION_KEY} from "@/utils/constants";
 
 export default function Mode() {
   const { t } = useTranslation();
@@ -31,19 +32,20 @@ export default function Mode() {
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
   };
 
-  const translationMap = {
-    tun: t(TRANSLATION_KEY.TUN),
-    system: t(TRANSLATION_KEY.SYSTEM),
-  };
+
 
   const options = [
     {
+      id: "mixed",
+      content: t(MODE_TRANSLATION_KEY.mixed),
+    },
+    {
       id: "tun",
-      content: translationMap.tun,
+      content: t(MODE_TRANSLATION_KEY.tun),
     },
     {
       id: "system",
-      content: translationMap.system,
+      content: t(MODE_TRANSLATION_KEY.system),
     },
   ];
 
@@ -58,7 +60,7 @@ export default function Mode() {
         <Dropdown
           className={styles.selector}
           disabled={isStarted}
-          value={translationMap[setting.mode as keyof typeof translationMap]}
+          value={t(MODE_TRANSLATION_KEY[setting.mode as keyof typeof MODE_TRANSLATION_KEY])}
           onOptionSelect={(_, data) => {
             onSubmit(data.optionValue as SettingRes["mode"]).catch((e) => {
               console.error(e);

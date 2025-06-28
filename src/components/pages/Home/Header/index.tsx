@@ -39,6 +39,7 @@ import { type MenuItemProps, notifier } from "../../../Core";
 import { AddingOptions } from "./AddingOptions";
 import styles from "./index.module.css";
 import { Operation } from "./Operation";
+import {MODE_TRANSLATION_KEY} from "@/utils/constants";
 
 export function Header(): React.ReactNode {
   const { t } = useTranslation();
@@ -188,7 +189,7 @@ export function Header(): React.ReactNode {
         >
           <InteractionTag appearance="brand" className={styles.tag}>
             <InteractionTagPrimary>{`${
-              setting.mode === "tun" ? "Tun" : "System"
+              t(MODE_TRANSLATION_KEY[setting.mode as keyof typeof MODE_TRANSLATION_KEY])
             }`}</InteractionTagPrimary>
           </InteractionTag>
         </Tooltip>
