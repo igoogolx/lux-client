@@ -7,6 +7,7 @@ import { ConnectionsAmount } from "@/components/pages/Data/Dashboard/TrafficCard
 import { useMedia } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import type { RootState } from "@/reducers";
+import { PROXY_MODE_ENUM } from "@/utils/constants";
 import { convertByte } from "@/utils/traffic";
 import {
   Button,
@@ -109,7 +110,10 @@ export default function Connections(): React.ReactNode {
 
   const isWideScreen = useMedia("(min-width: 640px)");
 
-  const shouldShowProcess = setting.shouldFindProcess && setting.mode === "tun";
+  const shouldShowProcess =
+    setting.shouldFindProcess &&
+    (setting.mode === PROXY_MODE_ENUM.TUN ||
+      setting.mode === PROXY_MODE_ENUM.MIXED);
 
   useEffect(() => {
     const subscriber = subscribeConnections({
