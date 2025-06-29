@@ -1,7 +1,8 @@
 import { ThemeEnum } from "@/utils/theme";
+import {PROXY_MODE_ENUM} from "@/utils/constants";
 
 export interface SettingRes {
-  mode: string;
+  mode: PROXY_MODE_ENUM;
   language: string;
   dns: {
     disableCache: boolean;

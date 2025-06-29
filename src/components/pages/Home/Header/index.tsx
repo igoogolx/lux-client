@@ -189,7 +189,7 @@ export function Header(): React.ReactNode {
         >
           <InteractionTag appearance="brand" className={styles.tag}>
             <InteractionTagPrimary>{`${
-              t(MODE_TRANSLATION_KEY[setting.mode as keyof typeof MODE_TRANSLATION_KEY])
+              t(MODE_TRANSLATION_KEY[setting.mode])
             }`}</InteractionTagPrimary>
           </InteractionTag>
         </Tooltip>

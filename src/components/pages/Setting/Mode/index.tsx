@@ -1,19 +1,13 @@
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { type RootState, settingSlice } from "@/reducers";
-import {
-  Caption1,
-  Card,
-  Dropdown,
-  Option,
-  Subtitle2,
-} from "@fluentui/react-components";
-import { setSetting, type SettingRes } from "lux-js-sdk";
+import {TRANSLATION_KEY} from "@/i18n/locales/key";
+import {type RootState, settingSlice} from "@/reducers";
+import {Caption1, Card, Dropdown, Option, Subtitle2,} from "@fluentui/react-components";
+import {setSetting, type SettingRes} from "lux-js-sdk";
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { notifier } from "../../../Core";
+import {useTranslation} from "react-i18next";
+import {useDispatch, useSelector} from "react-redux";
+import {notifier} from "../../../Core";
 import styles from "../index.module.css";
-import {MODE_TRANSLATION_KEY} from "@/utils/constants";
+import {MODE_TRANSLATION_KEY, PROXY_MODE_ENUM} from "@/utils/constants";
 
 export default function Mode() {
   const { t } = useTranslation();
@@ -25,7 +19,7 @@ export default function Mode() {
 
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
 
-  const onSubmit = async (value: string) => {
+  const onSubmit = async (value: PROXY_MODE_ENUM) => {
     const newSetting = { ...setting, mode: value };
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
@@ -36,15 +30,15 @@ export default function Mode() {
 
   const options = [
     {
-      id: "mixed",
+      id: PROXY_MODE_ENUM.MIXED,
       content: t(MODE_TRANSLATION_KEY.mixed),
     },
     {
-      id: "tun",
+      id: PROXY_MODE_ENUM.TUN,
       content: t(MODE_TRANSLATION_KEY.tun),
     },
     {
-      id: "system",
+      id: PROXY_MODE_ENUM.SYSTEM,
       content: t(MODE_TRANSLATION_KEY.system),
     },
   ];
@@ -60,7 +54,7 @@ export default function Mode() {
         <Dropdown
           className={styles.selector}
           disabled={isStarted}
-          value={t(MODE_TRANSLATION_KEY[setting.mode as keyof typeof MODE_TRANSLATION_KEY])}
+          value={t(MODE_TRANSLATION_KEY[setting.mode])}
           onOptionSelect={(_, data) => {
             onSubmit(data.optionValue as SettingRes["mode"]).catch((e) => {
               console.error(e);
