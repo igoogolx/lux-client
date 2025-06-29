@@ -196,4 +196,5 @@ export const TRANSLATION_KEY = {
   CONFIG_FILE_DIR_MODAL_TITLE: "config_file_dir_modal_title",
   DIAGNOSTICS: "diagnostics",
   REQUIRED: "required",
+  MIXED_MODE: "mixed_mode",
 };

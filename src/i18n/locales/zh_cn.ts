@@ -174,7 +174,7 @@ export default {
   [TRANSLATION_KEY.MODE_TOOLTIP]: "选择代理模式",
   [TRANSLATION_KEY.EDIT_MODE_TOOLTIP]: "编辑代理模式",
   [TRANSLATION_KEY.PROXY_MODE_TOOLTIP]:
-    "System proxy 通常只支持 TCP 而且不是全部应用都支持, 但是 Tun 能够代理全部流量",
+    "System proxy 通常只支持 TCP 而且不是全部应用都支持, 但是 Tun 能够代理全部流量。混合模式同时开启 Tun 和 System。",
   [TRANSLATION_KEY.STATISTICS]: "统计数据",
   [TRANSLATION_KEY.PAYLOAD]: "值",
   [TRANSLATION_KEY.POLICY]: "政策",
@@ -214,4 +214,5 @@ export default {
   [TRANSLATION_KEY.CONFIG_FILE_DIR_MODAL_TITLE]: "配置文件路径",
   [TRANSLATION_KEY.DIAGNOSTICS]: "诊断",
   [TRANSLATION_KEY.REQUIRED]: "必填",
+  [TRANSLATION_KEY.MIXED_MODE]: "混合",
 };

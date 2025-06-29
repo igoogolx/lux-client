@@ -1,18 +1,13 @@
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { type RootState, settingSlice } from "@/reducers";
-import {
-  Caption1,
-  Card,
-  Dropdown,
-  Option,
-  Subtitle2,
-} from "@fluentui/react-components";
-import { setSetting, type SettingRes } from "lux-js-sdk";
+import {TRANSLATION_KEY} from "@/i18n/locales/key";
+import {type RootState, settingSlice} from "@/reducers";
+import {Caption1, Card, Dropdown, Option, Subtitle2,} from "@fluentui/react-components";
+import {setSetting, type SettingRes} from "lux-js-sdk";
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { notifier } from "../../../Core";
+import {useTranslation} from "react-i18next";
+import {useDispatch, useSelector} from "react-redux";
+import {notifier} from "../../../Core";
 import styles from "../index.module.css";
+import {MODE_TRANSLATION_KEY, PROXY_MODE_ENUM} from "@/utils/constants";
 
 export default function Mode() {
   const { t } = useTranslation();
@@ -24,26 +19,27 @@ export default function Mode() {
 
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
 
-  const onSubmit = async (value: string) => {
+  const onSubmit = async (value: PROXY_MODE_ENUM) => {
     const newSetting = { ...setting, mode: value };
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
   };
 
-  const translationMap = {
-    tun: t(TRANSLATION_KEY.TUN),
-    system: t(TRANSLATION_KEY.SYSTEM),
-  };
+
 
   const options = [
     {
-      id: "tun",
-      content: translationMap.tun,
+      id: PROXY_MODE_ENUM.MIXED,
+      content: t(MODE_TRANSLATION_KEY.mixed),
     },
     {
-      id: "system",
-      content: translationMap.system,
+      id: PROXY_MODE_ENUM.TUN,
+      content: t(MODE_TRANSLATION_KEY.tun),
+    },
+    {
+      id: PROXY_MODE_ENUM.SYSTEM,
+      content: t(MODE_TRANSLATION_KEY.system),
     },
   ];
 
@@ -58,7 +54,7 @@ export default function Mode() {
         <Dropdown
           className={styles.selector}
           disabled={isStarted}
-          value={translationMap[setting.mode as keyof typeof translationMap]}
+          value={t(MODE_TRANSLATION_KEY[setting.mode])}
           onOptionSelect={(_, data) => {
             onSubmit(data.optionValue as SettingRes["mode"]).catch((e) => {
               console.error(e);

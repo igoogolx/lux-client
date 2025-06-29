@@ -1,9 +1,10 @@
-import { ThemeEnum } from "@/utils/theme";
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { type SettingRes } from "lux-js-sdk";
+import {ThemeEnum} from "@/utils/theme";
+import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
+import {type SettingRes} from "lux-js-sdk";
+import {PROXY_MODE_ENUM} from "@/utils/constants";
 
 const initialState: SettingRes = {
-  mode: "tun",
+  mode: PROXY_MODE_ENUM.TUN,
   language: "en-US",
   defaultInterface: "",
   localServer: {

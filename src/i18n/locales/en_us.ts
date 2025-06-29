@@ -183,7 +183,7 @@ export default {
   [TRANSLATION_KEY.MODE_TOOLTIP]: "Select proxy mode",
   [TRANSLATION_KEY.EDIT_MODE_TOOLTIP]: "Edit mode",
   [TRANSLATION_KEY.PROXY_MODE_TOOLTIP]:
-    "System proxy usually only supports TCP and is not accepted by all applications, but Tun can handle all traffic",
+    "System proxy usually only supports TCP and is not accepted by all applications, but Tun can handle all traffic. Mixed enable Tun and System at the same time.",
   [TRANSLATION_KEY.STATISTICS]: "Statistics",
   [TRANSLATION_KEY.PAYLOAD]: "Payload",
   [TRANSLATION_KEY.POLICY]: "Policy",
@@ -224,4 +224,5 @@ export default {
   [TRANSLATION_KEY.CONFIG_FILE_DIR_MODAL_TITLE]: "Path Of Config File Dir",
   [TRANSLATION_KEY.DIAGNOSTICS]: "Diagnostics",
   [TRANSLATION_KEY.REQUIRED]: "Required",
+  [TRANSLATION_KEY.MIXED_MODE]: "Mixed",
 };
