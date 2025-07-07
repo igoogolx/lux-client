@@ -215,8 +215,6 @@ export default {
   [TRANSLATION_KEY.DIAGNOSTICS]: "诊断",
   [TRANSLATION_KEY.REQUIRED]: "必填",
   [TRANSLATION_KEY.MIXED_MODE]: "混合",
-  [TRANSLATION_KEY.FAKE_IP_SWITCH_LABEL]: "Fake Ip",
-  //TODO: update
-  [TRANSLATION_KEY.FAKE_IP_SWITCH_TOOLTIP]:
-    "Once enabled, remote dns will be forwarded to proxy",
+  [TRANSLATION_KEY.FAKE_IP_SWITCH_LABEL]: "Fake Ip (实验性)",
+  [TRANSLATION_KEY.FAKE_IP_SWITCH_TOOLTIP]: "开启以后，远程 DNS 会被转发给代理",
 };
