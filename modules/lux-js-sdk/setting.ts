@@ -21,6 +21,7 @@ export const getSetting: GetSetting = async () => {
   newSetting.shouldFindProcess = !!newSetting.shouldFindProcess;
   newSetting.hijackDns.alwaysReset = !!newSetting.hijackDns.alwaysReset;
   newSetting.sensitiveInfoMode = !!newSetting.sensitiveInfoMode;
+  newSetting.dns.fakeIp = !!newSetting.dns.fakeIp;
   return newSetting;
 };
 

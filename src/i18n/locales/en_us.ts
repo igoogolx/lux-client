@@ -225,4 +225,7 @@ export default {
   [TRANSLATION_KEY.DIAGNOSTICS]: "Diagnostics",
   [TRANSLATION_KEY.REQUIRED]: "Required",
   [TRANSLATION_KEY.MIXED_MODE]: "Mixed",
+  [TRANSLATION_KEY.FAKE_IP_SWITCH_LABEL]: "Fake Ip",
+  [TRANSLATION_KEY.FAKE_IP_SWITCH_TOOLTIP]:
+    "Once enabled, remote dns will be forwarded to proxy",
 };

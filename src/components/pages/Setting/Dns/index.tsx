@@ -155,20 +155,54 @@ export default function Dns() {
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
   };
 
+  const onSubmitFakeIp = async (fakeIp: SettingRes["dns"]["fakeIp"]) => {
+    const newSetting = {
+      ...setting,
+      dns: {
+        ...setting.dns,
+        fakeIp,
+      },
+    };
+    await setSetting(newSetting);
+    dispatch(settingSlice.actions.setSetting(newSetting));
+    notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
+  };
+
   return (
     <Card className={styles.card}>
       <AddDnsOption />
-      <EditDnsItem
-        items={remoteDnsOptions}
-        onOptionSelect={(_, data) => {
-          onSubmit(data.selectedOptions, DNS_TYPE.REMOTE).catch((e) => {
-            console.error(e);
-          });
-        }}
-        selectedOptions={setting.dns.server.remote}
-        title={t(TRANSLATION_KEY.REMOTE_DNS_LABEL)}
-        desc={t(TRANSLATION_KEY.REMOTE_DNS_DESC)}
-      />
+      <div className={styles.cardItem}>
+        <div className={styles.desc}>
+          <Subtitle2>
+            {t(TRANSLATION_KEY.FAKE_IP_SWITCH_LABEL)}
+            <TunTag />
+          </Subtitle2>
+          <Caption1>{t(TRANSLATION_KEY.FAKE_IP_SWITCH_TOOLTIP)}</Caption1>
+        </div>
+        <Switch
+          checked={setting.dns.fakeIp}
+          onChange={(_, data) => {
+            onSubmitFakeIp(data.checked).catch((e) => {
+              console.error(e);
+            });
+          }}
+          disabled={isStarted}
+        />
+      </div>
+
+      {!setting.dns.fakeIp && (
+        <EditDnsItem
+          items={remoteDnsOptions}
+          onOptionSelect={(_, data) => {
+            onSubmit(data.selectedOptions, DNS_TYPE.REMOTE).catch((e) => {
+              console.error(e);
+            });
+          }}
+          selectedOptions={setting.dns.server.remote}
+          title={t(TRANSLATION_KEY.REMOTE_DNS_LABEL)}
+          desc={t(TRANSLATION_KEY.REMOTE_DNS_DESC)}
+        />
+      )}
       <EditDnsItem
         items={localDnsOptions}
         onOptionSelect={(_, data) => {

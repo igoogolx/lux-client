@@ -1,7 +1,7 @@
-import {ThemeEnum} from "@/utils/theme";
-import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
-import {type SettingRes} from "lux-js-sdk";
-import {PROXY_MODE_ENUM} from "@/utils/constants";
+import { PROXY_MODE_ENUM } from "@/utils/constants";
+import { ThemeEnum } from "@/utils/theme";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { type SettingRes } from "lux-js-sdk";
 
 const initialState: SettingRes = {
   mode: PROXY_MODE_ENUM.TUN,
@@ -19,6 +19,7 @@ const initialState: SettingRes = {
       remote: [],
     },
     customizedOptions: [],
+    fakeIp: false,
   },
   autoMode: {
     enabled: false,
