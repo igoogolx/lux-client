@@ -1,5 +1,5 @@
+import { PROXY_MODE_ENUM } from "@/utils/constants";
 import { ThemeEnum } from "@/utils/theme";
-import {PROXY_MODE_ENUM} from "@/utils/constants";
 
 export interface SettingRes {
   mode: PROXY_MODE_ENUM;
@@ -12,6 +12,7 @@ export interface SettingRes {
       remote: string[];
     };
     customizedOptions: string[];
+    fakeIp: boolean;
   };
   defaultInterface: string;
   localServer: {
@@ -50,5 +51,3 @@ export type GetSettingInterfaces = () => Promise<NetworkInterface[]>;
 export type GetConfigFileDir = () => Promise<string>;
 
 export type ResetConfig = () => Promise<void>;
-
-export type GetExecutablePath = () => Promise<string>;

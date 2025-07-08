@@ -197,4 +197,6 @@ export const TRANSLATION_KEY = {
   DIAGNOSTICS: "diagnostics",
   REQUIRED: "required",
   MIXED_MODE: "mixed_mode",
+  FAKE_IP_SWITCH_LABEL: "fake_ip_switch_label",
+  FAKE_IP_SWITCH_TOOLTIP: "fake_ip_switch_tooltip",
 };

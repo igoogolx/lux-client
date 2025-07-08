@@ -1,9 +1,17 @@
 import axios from "axios";
-import { compare } from "semver";
+import { coerce, compare } from "semver";
 import { getVersion } from "./version";
 
 function compareVersion(current: string, latest: string): boolean {
-  return compare(latest, current) === 1;
+  const coercedCurrent = coerce(current);
+  const coercedLatest = coerce(latest);
+  if (!coercedCurrent || !coercedLatest) return false;
+  const isCurBeat = current.includes("beat");
+  const result = compare(coercedCurrent, coercedLatest);
+  if (isCurBeat && result === 0) {
+    return true;
+  }
+  return result === 1;
 }
 
 function getVersionFromTag(tag: string) {

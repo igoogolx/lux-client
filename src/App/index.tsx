@@ -58,7 +58,7 @@ export function App(): React.ReactNode {
     (state) => state.general.loading,
   );
 
-  const checkForUpdate = useCheckForUpdate();
+  const checkForUpdate = useCheckForUpdate(true);
 
   const { setTheme: setCurrentTheme } = useContext(
     ThemeContext,
