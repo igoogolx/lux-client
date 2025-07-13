@@ -21,7 +21,7 @@ import {
   TopSpeedRegular,
 } from "@fluentui/react-icons";
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -88,12 +88,14 @@ export function Nav(props: Readonly<NavProps>): React.ReactNode {
 
   const location = useLocation();
 
+  const [selectedValue, setSelectedValue] = useState<string>(location.pathname);
+
   return (
     <NavDrawer
-      defaultSelectedValue={location.pathname}
       open
       type={"inline"}
       className={inStyles.root}
+      selectedValue={selectedValue}
     >
       <NavDrawerBody>
         {items.map((item) => (
@@ -102,6 +104,7 @@ export function Nav(props: Readonly<NavProps>): React.ReactNode {
             value={item.to}
             key={item.to}
             onClick={() => {
+              setSelectedValue(item.to);
               navigate(item.to);
               onClick?.();
             }}

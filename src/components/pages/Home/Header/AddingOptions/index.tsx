@@ -1,8 +1,5 @@
-import { notifier } from "@/components/Core";
+import ProxyTextModal from "@/components/Modal/ProxyTextModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { proxiesSlice } from "@/reducers";
-import { formatError } from "@/utils/error";
-import { decode } from "@/utils/url";
 import {
   Button,
   Menu,
@@ -12,11 +9,9 @@ import {
   MenuTrigger,
 } from "@fluentui/react-components";
 import { AddFilled } from "@fluentui/react-icons";
-import axios from "axios";
-import { addProxy, ProxyTypeEnum } from "lux-js-sdk";
+import { ProxyTypeEnum } from "lux-js-sdk";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { EditModal } from "../../../../Modal/Proxy";
 import SubscriptionUrlModal from "../../../../Modal/SubscriptionUrlModal";
 
@@ -39,10 +34,11 @@ export function AddingOptions(
   const { t } = useTranslation();
   const [currentAddingType, setCurrentAddingType] =
     useState<ProxyTypeEnum | null>(null);
-  const dispatch = useDispatch();
 
   const [isOpenSubscriptionUrlModal, setIsOpenSubscriptionUrlModal] =
     useState(false);
+
+  const [isOpenProxyTextModal, setIsOpenProxyTextModal] = useState(false);
 
   const closeAddingModal = () => {
     setCurrentAddingType(null);
@@ -60,7 +56,7 @@ export function AddingOptions(
     },
     {
       id: OperationTypeEnum.Clipboard,
-      content: t(TRANSLATION_KEY.CLIPBOARD_IMPORT),
+      content: t(TRANSLATION_KEY.PROXY_TEXT_IMPORT),
     },
     {
       id: OperationTypeEnum.SubscriptionUrl,
@@ -80,25 +76,7 @@ export function AddingOptions(
         setCurrentAddingType(ProxyTypeEnum.Http);
         break;
       case OperationTypeEnum.Clipboard: {
-        try {
-          const url = await navigator.clipboard.readText();
-          const proxyConfigs = decode(url);
-          await Promise.all(
-            proxyConfigs.map(async (proxyConfig) => {
-              const proxy = { ...proxyConfig };
-              const res = await addProxy({ proxy });
-              dispatch(
-                proxiesSlice.actions.addOne({
-                  proxy: { ...proxy, id: res.id },
-                }),
-              );
-            }),
-          );
-        } catch (e) {
-          if (!axios.isAxiosError(e)) {
-            notifier.error(formatError(e));
-          }
-        }
+        setIsOpenProxyTextModal(true);
         break;
       }
       case OperationTypeEnum.SubscriptionUrl: {
@@ -122,6 +100,14 @@ export function AddingOptions(
       )}
       {currentAddingType != null && (
         <EditModal close={closeAddingModal} type={currentAddingType} />
+      )}
+
+      {isOpenProxyTextModal && (
+        <ProxyTextModal
+          close={() => {
+            setIsOpenProxyTextModal(false);
+          }}
+        />
       )}
       <Menu>
         <MenuTrigger disableButtonEnhancement>
