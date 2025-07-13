@@ -46,6 +46,11 @@ export const decode = (text: string) => {
       .split("\n")
       .map((uri) => {
         const proxy = parseUri(uri.trim());
+        if (proxy.name === "undefined") {
+          const newProxy = { ...proxy };
+          proxy.name = "";
+          return newProxy;
+        }
         if (!names.includes(proxy.name)) {
           names.push(proxy.name);
           return proxy;
