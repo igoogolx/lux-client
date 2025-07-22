@@ -7,7 +7,7 @@ function compareVersion(current: string, latest: string): boolean {
   const coercedLatest = coerce(latest);
   if (!coercedCurrent || !coercedLatest) return false;
   const isCurBeat = current.includes("beat");
-  const result = compare(coercedCurrent, coercedLatest);
+  const result = compare(coercedLatest, coercedCurrent);
   if (isCurBeat && result === 0) {
     return true;
   }
