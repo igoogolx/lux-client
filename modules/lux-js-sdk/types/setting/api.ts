@@ -36,6 +36,7 @@ export interface SettingRes {
   autoLaunch: boolean;
   autoConnect: boolean;
   sensitiveInfoMode: boolean;
+  lightClientMode: boolean;
 }
 
 export type GetSetting = () => Promise<SettingRes>;
