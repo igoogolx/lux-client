@@ -168,7 +168,7 @@ export default {
     "Lux will open automatically when you login",
   [TRANSLATION_KEY.LIGHT_CLINT_MODE_SWITCH_LABEL]: "Light Client Mode",
   [TRANSLATION_KEY.LIGHT_CLINT_MODE_SWITCH_TOOLTIP]:
-    "Restart the app to take effect. Lux will use native ui and disable webview",
+    "Restart the app to take effect. Lux will use native UI and disable webview",
   [TRANSLATION_KEY.AUTO_CONNECT_SWITCH_LABEL]: "Connect On Open",
   [TRANSLATION_KEY.AUTO_CONNECT_SWITCH_TOOLTIP]:
     "Lux will try to connect to proxy when it's opened",
