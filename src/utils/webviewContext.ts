@@ -38,6 +38,13 @@ function changeLanguage() {
   return Promise.resolve("not in webview");
 }
 
+function exitApp() {
+  if (isInWebview) {
+    return ClientChannel?.postMessage("exitApp");
+  }
+  return Promise.resolve("not in webview");
+}
+
 export default {
   openHomeDir,
   isInWebview,
@@ -45,4 +52,5 @@ export default {
   openWebDashboard,
   ready,
   changeLanguage,
+  exitApp,
 };

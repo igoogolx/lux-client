@@ -232,4 +232,8 @@ export default {
   [TRANSLATION_KEY.FAKE_IP_SWITCH_LABEL]: "Fake Ip",
   [TRANSLATION_KEY.FAKE_IP_SWITCH_TOOLTIP]:
     "Once enabled, remote DNS will be forwarded to proxy",
+  [TRANSLATION_KEY.RESTART_APP]: "Restart App",
+  [TRANSLATION_KEY.RESTART_APP_ALERT]:
+    "Please restart the app manually to take effect.",
+  [TRANSLATION_KEY.EXIT_APP]: "Exit App",
 };
