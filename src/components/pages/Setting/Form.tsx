@@ -43,7 +43,7 @@ export function SettingForm() {
         <Theme />
         <AutoLaunch />
         <AutoConnect />
-        <Mode />
+        <Mode os={os} />
         {isTun && <Dns />}
         {isTun && <BlockQuic />}
         {isDarwin && isTun && <HijackDns />}
