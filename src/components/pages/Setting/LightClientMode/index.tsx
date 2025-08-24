@@ -1,9 +1,10 @@
+import { RestartAlertModal } from "@/components/Modal/RestartAlertModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import webviewContext from "@/utils/webviewContext";
 import { Caption1, Card, Subtitle2, Switch } from "@fluentui/react-components";
 import { setSetting, type SettingRes } from "lux-js-sdk";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { notifier } from "../../../Core";
@@ -16,6 +17,8 @@ export default function LightClientMode() {
 
   const dispatch = useDispatch();
 
+  const [isRestartAlertModalOpen, setIsRestartAlertModalOpen] = useState(false);
+
   const onSubmit = async (lightClientMode: SettingRes["lightClientMode"]) => {
     const newSetting = {
       ...setting,
@@ -25,28 +28,38 @@ export default function LightClientMode() {
     dispatch(settingSlice.actions.setSetting(newSetting));
     webviewContext.setAutoLaunch(lightClientMode);
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
+    setIsRestartAlertModalOpen(true);
   };
 
   return (
-    <Card className={styles.card}>
-      <div className={styles.cardItem}>
-        <div className={styles.desc}>
-          <Subtitle2>
-            {t(TRANSLATION_KEY.LIGHT_CLINT_MODE_SWITCH_LABEL)}
-          </Subtitle2>
-          <Caption1>
-            {t(TRANSLATION_KEY.LIGHT_CLINT_MODE_SWITCH_TOOLTIP)}
-          </Caption1>
-        </div>
-        <Switch
-          checked={setting.lightClientMode}
-          onChange={(_, data) => {
-            onSubmit(data.checked).catch((e) => {
-              console.error(e);
-            });
+    <>
+      {isRestartAlertModalOpen && (
+        <RestartAlertModal
+          onCancel={() => {
+            setIsRestartAlertModalOpen(false);
           }}
         />
-      </div>
-    </Card>
+      )}
+      <Card className={styles.card}>
+        <div className={styles.cardItem}>
+          <div className={styles.desc}>
+            <Subtitle2>
+              {t(TRANSLATION_KEY.LIGHT_CLINT_MODE_SWITCH_LABEL)}
+            </Subtitle2>
+            <Caption1>
+              {t(TRANSLATION_KEY.LIGHT_CLINT_MODE_SWITCH_TOOLTIP)}
+            </Caption1>
+          </div>
+          <Switch
+            checked={setting.lightClientMode}
+            onChange={(_, data) => {
+              onSubmit(data.checked).catch((e) => {
+                console.error(e);
+              });
+            }}
+          />
+        </div>
+      </Card>
+    </>
   );
 }

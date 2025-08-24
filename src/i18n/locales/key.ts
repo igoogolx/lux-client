@@ -203,4 +203,7 @@ export const TRANSLATION_KEY = {
   MIXED_MODE: "mixed_mode",
   FAKE_IP_SWITCH_LABEL: "fake_ip_switch_label",
   FAKE_IP_SWITCH_TOOLTIP: "fake_ip_switch_tooltip",
+  RESTART_APP: "restart_app",
+  RESTART_APP_ALERT: "restart_app_alert",
+  EXIT_APP: "exit_app",
 };
