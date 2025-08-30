@@ -10,7 +10,12 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../index.module.css";
 
-export default function Language() {
+interface LanguageProps {
+  onChange: () => void;
+}
+
+export default function Language(props: LanguageProps) {
+  const { onChange: handleChange } = props;
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
@@ -36,6 +41,7 @@ export default function Language() {
     if (webviewContext.isInWebview) {
       webviewContext.changeLanguage();
     }
+    handleChange();
   };
 
   return (

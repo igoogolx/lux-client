@@ -10,7 +10,12 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../index.module.css";
 
-export default function Theme() {
+interface ThemeProps {
+  onChange: () => void;
+}
+
+export default function Theme(props: ThemeProps) {
+  const { onChange: handleChange } = props;
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -37,6 +42,7 @@ export default function Theme() {
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
+    handleChange();
   };
 
   return (

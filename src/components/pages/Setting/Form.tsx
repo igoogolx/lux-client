@@ -10,8 +10,14 @@ import ShouldFindProcess from "@/components/pages/Setting/ShouldFindProcess";
 import Theme from "@/components/pages/Setting/Theme";
 import { type RootState } from "@/reducers";
 import { PROXY_MODE_ENUM } from "@/utils/constants";
-import { getRuntimeOS, type SettingRes } from "lux-js-sdk";
-import React, { useEffect, useState } from "react";
+import WsClient from "isomorphic-ws";
+import {
+  EVENT_TYPE,
+  getRuntimeOS,
+  type SettingRes,
+  subscribeEvent,
+} from "lux-js-sdk";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import AutoMode from "./AutoMode";
 import ConfigFile from "./ConfigFile";
@@ -21,9 +27,23 @@ import LocalHttpServer from "./LocalHttpServer";
 
 export function SettingForm() {
   const [os, setOs] = useState("");
+
+  const eventClient = useRef<WsClient | null>(null);
+
   useEffect(() => {
     getRuntimeOS().then((res) => {
       setOs(res.os);
+    });
+  }, []);
+
+  useEffect(() => {
+    eventClient.current = subscribeEvent({
+      onMessage: (item) => {
+        console.log(item);
+      },
+      onError: () => {
+        eventClient.current?.close();
+      },
     });
   }, []);
 
@@ -35,12 +55,16 @@ export function SettingForm() {
 
   const isDarwin = os === "darwin";
 
+  const onChange = () => {
+    eventClient.current?.send(EVENT_TYPE.UPDATE_SETTING);
+  };
+
   return (
     <div>
       <div>
         <LightClientMode />
-        <Language />
-        <Theme />
+        <Language onChange={onChange} />
+        <Theme onChange={onChange} />
         <AutoLaunch />
         <AutoConnect />
         <Mode os={os} />
