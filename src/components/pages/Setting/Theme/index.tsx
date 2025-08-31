@@ -1,4 +1,5 @@
 import { notifier } from "@/components/Core";
+import { EventContext } from "@/components/Core/Event";
 import { getCurrentTheme } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
@@ -10,12 +11,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../index.module.css";
 
-interface ThemeProps {
-  onChange: () => void;
-}
-
-export default function Theme(props: ThemeProps) {
-  const { onChange: handleChange } = props;
+export default function Theme() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -24,6 +20,8 @@ export default function Theme(props: ThemeProps) {
   const { setTheme: setCurrentTheme } = useContext(
     ThemeContext,
   ) as ThemeContextType;
+
+  const eventHub = useContext(EventContext);
 
   const options = [
     { content: t(TRANSLATION_KEY.DARK), id: ThemeEnum.Dark },
@@ -42,7 +40,7 @@ export default function Theme(props: ThemeProps) {
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
-    handleChange();
+    eventHub?.setTheme(value);
   };
 
   return (

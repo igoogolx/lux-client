@@ -1,3 +1,4 @@
+import { EventContext } from "@/components/Core/Event";
 import { ConfigFileDirModal } from "@/components/Modal/ConfigFileDirModal";
 import { ResetConfigModal } from "@/components/Modal/ResetConfigModal";
 import { useDangerStyles } from "@/hooks";
@@ -12,7 +13,7 @@ import {
   Subtitle2,
 } from "@fluentui/react-components";
 import { getConfigFileDir, resetConfigFile } from "lux-js-sdk";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import styles from "../index.module.css";
@@ -24,6 +25,8 @@ export default function ConfigFile() {
     useState(false);
 
   const [configFileDir, setConfigFileDir] = useState("");
+
+  const eventHub = useContext(EventContext);
 
   const handleReset = async () => {
     await resetConfigFile();
@@ -79,7 +82,7 @@ export default function ConfigFile() {
           <Button
             onClick={() => {
               if (webviewContext.isInWebview) {
-                webviewContext.openHomeDir();
+                eventHub?.openHomeDir();
               } else {
                 setIsOpenConfigFileDirModal(true);
               }

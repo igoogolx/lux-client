@@ -1,6 +1,7 @@
+import { EventContext } from "@/components/Core/Event";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import webviewContext from "@/utils/webviewContext";
-import React, { type ReactNode } from "react";
+import React, { type ReactNode, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { ConfirmModal, type ConfirmModalPros } from "../../Core";
 
@@ -12,10 +13,10 @@ export function RestartAlertModal(
   const { onCancel } = props;
   const { t } = useTranslation();
 
+  const eventHub = useContext(EventContext);
+
   const handleConfirm = () => {
-    if (webviewContext.isInWebview) {
-      webviewContext.exitApp();
-    }
+    eventHub?.exitApp();
     onCancel?.();
   };
 

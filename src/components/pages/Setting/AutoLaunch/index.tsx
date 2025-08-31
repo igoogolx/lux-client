@@ -1,9 +1,9 @@
+import { EventContext } from "@/components/Core/Event";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
-import webviewContext from "@/utils/webviewContext";
 import { Caption1, Card, Subtitle2, Switch } from "@fluentui/react-components";
 import { setSetting, type SettingRes } from "lux-js-sdk";
-import React from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { notifier } from "../../../Core";
@@ -14,6 +14,8 @@ export default function AutoLaunch() {
 
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
 
+  const eventHub = useContext(EventContext);
+
   const dispatch = useDispatch();
 
   const onSubmit = async (autoLaunch: SettingRes["autoLaunch"]) => {
@@ -23,7 +25,7 @@ export default function AutoLaunch() {
     };
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
-    webviewContext.setAutoLaunch(autoLaunch);
+    eventHub?.setAutoLaunch(autoLaunch);
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
   };
 

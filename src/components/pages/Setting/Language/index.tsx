@@ -1,25 +1,22 @@
 import { notifier } from "@/components/Core";
+import { EventContext } from "@/components/Core/Event";
 import { getLang, LANGUAGE_ENUM } from "@/i18n";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
-import webviewContext from "@/utils/webviewContext";
 import { Card, Dropdown, Option, Subtitle2 } from "@fluentui/react-components";
 import { setSetting, type SettingRes } from "lux-js-sdk";
-import React from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../index.module.css";
 
-interface LanguageProps {
-  onChange: () => void;
-}
-
-export default function Language(props: LanguageProps) {
-  const { onChange: handleChange } = props;
+export default function Language() {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
+
+  const eventHub = useContext(EventContext);
 
   const LANGUAGE_OPTIONS = [
     { content: t(TRANSLATION_KEY.SYSTEM_SETTING), id: LANGUAGE_ENUM.SYSTEM },
@@ -38,10 +35,7 @@ export default function Language(props: LanguageProps) {
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
-    if (webviewContext.isInWebview) {
-      webviewContext.changeLanguage();
-    }
-    handleChange();
+    eventHub?.setLanguage(value);
   };
 
   return (
