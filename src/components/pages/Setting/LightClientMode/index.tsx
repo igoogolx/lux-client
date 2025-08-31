@@ -1,7 +1,6 @@
 import { RestartAlertModal } from "@/components/Modal/RestartAlertModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
-import webviewContext from "@/utils/webviewContext";
 import { Caption1, Card, Subtitle2, Switch } from "@fluentui/react-components";
 import { setSetting, type SettingRes } from "lux-js-sdk";
 import React, { useState } from "react";
@@ -26,7 +25,6 @@ export default function LightClientMode() {
     };
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
-    webviewContext.setAutoLaunch(lightClientMode);
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
     setIsRestartAlertModalOpen(true);
   };

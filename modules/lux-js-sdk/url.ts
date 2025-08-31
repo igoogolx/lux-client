@@ -71,6 +71,9 @@ class UrlConfig {
   get dns() {
     return `${this.httpPrefix}${this.baseUrl}/dns`;
   }
+  get event() {
+    return `${this.wsPrefix}${this.baseUrl}/event`;
+  }
 }
 
 export const urtConfig = new UrlConfig();

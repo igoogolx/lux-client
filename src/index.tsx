@@ -1,4 +1,5 @@
 import { SensitiveInfoProvider } from "@/components/Core";
+import { EventProvider } from "@/components/Core/Event";
 import { initI18n } from "@/i18n";
 import {
   FluentProvider,
@@ -33,9 +34,11 @@ function Root() {
               theme={theme === ThemeEnum.Light ? webLightTheme : webDarkTheme}
               style={{ width: "100%" }}
             >
-              <SensitiveInfoProvider>
-                <App />
-              </SensitiveInfoProvider>
+              <EventProvider>
+                <SensitiveInfoProvider>
+                  <App />
+                </SensitiveInfoProvider>
+              </EventProvider>
             </FluentProvider>
           </ThemeContext.Provider>
         </Router>

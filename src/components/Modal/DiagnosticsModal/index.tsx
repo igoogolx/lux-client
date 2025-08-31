@@ -1,12 +1,12 @@
+import { EventContext } from "@/components/Core/Event";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import webviewContext from "@/utils/webviewContext";
 import { Link, Subtitle2 } from "@fluentui/react-components";
 import {
   getRuntimeDetail,
   type RuntimeDetail,
   RuntimeDnsDetail,
 } from "lux-js-sdk";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal, notifier } from "../../Core";
 import styles from "./index.module.css";
@@ -42,16 +42,14 @@ export function DiagnosticsModal(
     });
   }, []);
 
+  const eventHub = useContext(EventContext);
+
   function renderDefaultItem(
     key: keyof Partial<RuntimeDetail>,
     content: string,
   ) {
     const handleOpenHub = () => {
-      if (webviewContext.isInWebview) {
-        webviewContext.openWebDashboard();
-      } else {
-        window.open(content);
-      }
+      eventHub?.openWebDashboard();
     };
     return (
       <div className={styles.item}>

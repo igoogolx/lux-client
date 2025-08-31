@@ -21,6 +21,7 @@ import LocalHttpServer from "./LocalHttpServer";
 
 export function SettingForm() {
   const [os, setOs] = useState("");
+
   useEffect(() => {
     getRuntimeOS().then((res) => {
       setOs(res.os);

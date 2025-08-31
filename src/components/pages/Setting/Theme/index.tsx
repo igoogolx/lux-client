@@ -1,4 +1,5 @@
 import { notifier } from "@/components/Core";
+import { EventContext } from "@/components/Core/Event";
 import { getCurrentTheme } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
@@ -20,6 +21,8 @@ export default function Theme() {
     ThemeContext,
   ) as ThemeContextType;
 
+  const eventHub = useContext(EventContext);
+
   const options = [
     { content: t(TRANSLATION_KEY.DARK), id: ThemeEnum.Dark },
     { content: t(TRANSLATION_KEY.LIGHT), id: ThemeEnum.Light },
@@ -37,6 +40,7 @@ export default function Theme() {
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
+    eventHub?.setTheme(value);
   };
 
   return (

@@ -1,21 +1,4 @@
 const isInWebview = typeof ClientChannel !== "undefined";
-function openHomeDir() {
-  if (isInWebview) {
-    return ClientChannel?.postMessage("openHomeDir");
-  }
-  return Promise.resolve("not in webview");
-}
-
-function setAutoLaunch(isEnabled: boolean) {
-  if (isInWebview) {
-    if (isEnabled) {
-      return ClientChannel?.postMessage("enableAutoLaunch");
-    } else {
-      return ClientChannel?.postMessage("disableAutoLaunch");
-    }
-  }
-  return Promise.resolve("not in webview");
-}
 
 function ready() {
   if (isInWebview) {
@@ -24,33 +7,7 @@ function ready() {
   return Promise.resolve("not in webview");
 }
 
-function openWebDashboard() {
-  if (isInWebview) {
-    return ClientChannel?.postMessage("openWebDashboard");
-  }
-  return Promise.resolve("not in webview");
-}
-
-function changeLanguage() {
-  if (isInWebview) {
-    return ClientChannel?.postMessage("changeLanguage");
-  }
-  return Promise.resolve("not in webview");
-}
-
-function exitApp() {
-  if (isInWebview) {
-    return ClientChannel?.postMessage("exitApp");
-  }
-  return Promise.resolve("not in webview");
-}
-
 export default {
-  openHomeDir,
   isInWebview,
-  setAutoLaunch,
-  openWebDashboard,
   ready,
-  changeLanguage,
-  exitApp,
 };
