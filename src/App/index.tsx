@@ -1,5 +1,4 @@
 import { NotificationContainer, notifier } from "@/components/Core";
-import { EventContext } from "@/components/Core/Event";
 import { Header } from "@/components/Header";
 import { ElevateModal } from "@/components/Modal/ElevateModal";
 import { Nav } from "@/components/Nav";
@@ -17,8 +16,6 @@ import { generalSlice, managerSlice, type RootState } from "@/reducers";
 import { APP_CONTAINER_ID, ROUTER_PATH } from "@/utils/constants";
 import { formatError } from "@/utils/error";
 import { ThemeContext, type ThemeContextType, ThemeEnum } from "@/utils/theme";
-import { onBodyContextMenu } from "@/utils/webview";
-import webviewContext from "@/utils/webviewContext";
 import axios from "axios";
 import clsx from "classnames";
 import i18n from "i18next";
@@ -54,8 +51,6 @@ export function App(): React.ReactNode {
   const [isReady, setIsReady] = useState(false);
 
   const isWideScreen = useMedia("(min-width: 640px)");
-
-  const eventHub = useContext(EventContext);
 
   const loading = useSelector<RootState, boolean>(
     (state) => state.general.loading,
@@ -117,17 +112,6 @@ export function App(): React.ReactNode {
       dispatch(generalSlice.actions.setLoading({ loading: false }));
     }
   }, [dispatch, setCurrentTheme, updateI18n, updateIsAdmin, updateStatus]);
-
-  useEffect(() => {
-    eventHub?.setWebDashboardIsReady();
-    if (webviewContext.isInWebview) {
-      webviewContext.ready();
-      document.body.addEventListener("contextmenu", onBodyContextMenu);
-    }
-    return () => {
-      document.body.removeEventListener("contextmenu", onBodyContextMenu);
-    };
-  }, [eventHub]);
 
   useEffect(() => {
     checkForUpdate().catch((e) => {

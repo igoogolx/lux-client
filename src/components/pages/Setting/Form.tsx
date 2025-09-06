@@ -3,7 +3,6 @@ import AutoLaunch from "@/components/pages/Setting/AutoLaunch";
 import BlockQuic from "@/components/pages/Setting/BlockQuic";
 import HijackDns from "@/components/pages/Setting/HijackDns";
 import Language from "@/components/pages/Setting/Language";
-import LightClientMode from "@/components/pages/Setting/LightClientMode";
 import Mode from "@/components/pages/Setting/Mode";
 import SensitiveInfoMode from "@/components/pages/Setting/SensitiveInfoMode";
 import ShouldFindProcess from "@/components/pages/Setting/ShouldFindProcess";
@@ -39,7 +38,6 @@ export function SettingForm() {
   return (
     <div>
       <div>
-        <LightClientMode />
         <Language />
         <Theme />
         <AutoLaunch />

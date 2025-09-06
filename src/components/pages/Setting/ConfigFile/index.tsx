@@ -4,7 +4,6 @@ import { ResetConfigModal } from "@/components/Modal/ResetConfigModal";
 import { useDangerStyles } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState } from "@/reducers";
-import webviewContext from "@/utils/webviewContext";
 import {
   Button,
   Caption1,
@@ -81,11 +80,8 @@ export default function ConfigFile() {
           </Button>
           <Button
             onClick={() => {
-              if (webviewContext.isInWebview) {
-                eventHub?.openHomeDir();
-              } else {
-                setIsOpenConfigFileDirModal(true);
-              }
+              eventHub?.openHomeDir();
+              setIsOpenConfigFileDirModal(true);
             }}
             className={styles.actionBtn}
           >
