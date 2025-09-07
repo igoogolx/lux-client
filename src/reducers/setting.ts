@@ -38,6 +38,7 @@ const initialState: SettingRes = {
   autoLaunch: false,
   autoConnect: false,
   sensitiveInfoMode: false,
+  keepConnectedWhenSlept: false,
 };
 
 export const settingSlice = createSlice({

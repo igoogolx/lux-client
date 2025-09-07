@@ -139,8 +139,10 @@ export const TRANSLATION_KEY = {
   SHOULD_FIND_PROCESS_SWITCH_TOOLTIP: "should_find_process_switch_tooltip",
   AUTO_LAUNCH_SWITCH_LABEL: "auto_launch_switch_label",
   AUTO_LAUNCH_SWITCH_TOOLTIP: "auto_launch_switch_tooltip",
-  LIGHT_CLINT_MODE_SWITCH_LABEL: "light_client_mode_switch_label",
-  LIGHT_CLINT_MODE_SWITCH_TOOLTIP: "light_client_mode_switch_tooltip",
+  KEEP_CONNECTED_WHEN_SLEPT_SWITCH_LABEL:
+    "keep_connected_when_slept_switch_label",
+  KEEP_CONNECTED_WHEN_SLEPT_SWITCH_TOOLTIP:
+    "keep_connected_when_slept_switch_tooltip",
   AUTO_CONNECT_SWITCH_LABEL: "auto_connect_switch_label",
   AUTO_CONNECT_SWITCH_TOOLTIP: "auto_connect_switch_tooltip",
   COPY: "common.copy",
