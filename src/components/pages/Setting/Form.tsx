@@ -2,7 +2,6 @@ import AutoConnect from "@/components/pages/Setting/AutoConnect";
 import AutoLaunch from "@/components/pages/Setting/AutoLaunch";
 import BlockQuic from "@/components/pages/Setting/BlockQuic";
 import HijackDns from "@/components/pages/Setting/HijackDns";
-import KeepConnectedWhenSlept from "@/components/pages/Setting/KeepConnectedWhenSlept";
 import Language from "@/components/pages/Setting/Language";
 import Mode from "@/components/pages/Setting/Mode";
 import SensitiveInfoMode from "@/components/pages/Setting/SensitiveInfoMode";
@@ -48,7 +47,6 @@ export function SettingForm() {
         {isTun && <BlockQuic />}
         {isDarwin && isTun && <HijackDns />}
         {isTun && <DefaultInterface />}
-        {isTun && <KeepConnectedWhenSlept />}
         <LocalHttpServer />
         <AutoMode />
         {isTun && <ShouldFindProcess />}

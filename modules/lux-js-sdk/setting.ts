@@ -22,7 +22,6 @@ export const getSetting: GetSetting = async () => {
   newSetting.hijackDns.alwaysReset = !!newSetting.hijackDns.alwaysReset;
   newSetting.sensitiveInfoMode = !!newSetting.sensitiveInfoMode;
   newSetting.dns.fakeIp = !!newSetting.dns.fakeIp;
-  newSetting.keepConnectedWhenSlept = !!newSetting.keepConnectedWhenSlept;
   return newSetting;
 };
 

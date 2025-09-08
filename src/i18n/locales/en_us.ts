@@ -166,10 +166,9 @@ export default {
   [TRANSLATION_KEY.AUTO_LAUNCH_SWITCH_LABEL]: "Launch On Startup",
   [TRANSLATION_KEY.AUTO_LAUNCH_SWITCH_TOOLTIP]:
     "Lux will open automatically when you login",
-  [TRANSLATION_KEY.KEEP_CONNECTED_WHEN_SLEPT_SWITCH_LABEL]:
-    "Keep Connected When Slept",
-  [TRANSLATION_KEY.KEEP_CONNECTED_WHEN_SLEPT_SWITCH_TOOLTIP]:
-    "Disconnect proxy when your device is slept can prevent some issues. Enable this to keep connected when slept",
+  [TRANSLATION_KEY.LIGHT_CLINT_MODE_SWITCH_LABEL]: "Light Client Mode",
+  [TRANSLATION_KEY.LIGHT_CLINT_MODE_SWITCH_TOOLTIP]:
+    "Restart the app to take effect. Lux will use native UI and disable webview",
   [TRANSLATION_KEY.AUTO_CONNECT_SWITCH_LABEL]: "Connect On Open",
   [TRANSLATION_KEY.AUTO_CONNECT_SWITCH_TOOLTIP]:
     "Lux will try to connect to proxy when it's opened",

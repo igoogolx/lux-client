@@ -36,7 +36,6 @@ export interface SettingRes {
   autoLaunch: boolean;
   autoConnect: boolean;
   sensitiveInfoMode: boolean;
-  keepConnectedWhenSlept: boolean;
 }
 
 export type GetSetting = () => Promise<SettingRes>;
