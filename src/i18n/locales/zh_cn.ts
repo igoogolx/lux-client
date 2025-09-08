@@ -158,9 +158,6 @@ export default {
     "现在你能够添加进程规则和在看到每个连接所属的进程",
   [TRANSLATION_KEY.AUTO_LAUNCH_SWITCH_LABEL]: "开机自启",
   [TRANSLATION_KEY.AUTO_LAUNCH_SWITCH_TOOLTIP]: "Lux 会在系统启动时，自动打开",
-  [TRANSLATION_KEY.LIGHT_CLINT_MODE_SWITCH_LABEL]: "轻量客户端模式",
-  [TRANSLATION_KEY.LIGHT_CLINT_MODE_SWITCH_TOOLTIP]:
-    "重启 App 以生效。Lux 将会使用原生 UI 并禁用 webview",
   [TRANSLATION_KEY.AUTO_CONNECT_SWITCH_LABEL]: "打开时自动连接",
   [TRANSLATION_KEY.AUTO_CONNECT_SWITCH_TOOLTIP]:
     "打开时，Lux 会尝试自动连接代理",
