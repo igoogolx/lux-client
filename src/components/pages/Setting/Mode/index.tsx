@@ -36,11 +36,19 @@ export default function Mode(props: Readonly<ModeProps>) {
   const isWindows = os === "windows";
 
   const onSubmit = async (value: PROXY_MODE_ENUM) => {
+    const oldValue = setting.mode;
+    if (oldValue === value) {
+      return;
+    }
     const newSetting = { ...setting, mode: value };
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
-    if (isWindows && value !== PROXY_MODE_ENUM.SYSTEM) {
+    if (
+      isWindows &&
+      value !== PROXY_MODE_ENUM.SYSTEM &&
+      oldValue !== PROXY_MODE_ENUM.SYSTEM
+    ) {
       setIsRestartAlertModalOpen(true);
     }
   };
