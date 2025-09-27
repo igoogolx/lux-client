@@ -46,6 +46,10 @@ const RULE_TYPE_OPTIONS = [
     id: RULE_TYPE.DomainSuffix,
     content: RULE_TYPE.DomainSuffix,
   },
+  {
+    id: RULE_TYPE.DnsMap,
+    content: RULE_TYPE.DnsMap,
+  },
 ];
 
 const POLICY_OPTIONS = [
