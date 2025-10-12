@@ -10,6 +10,7 @@ export enum RULE_TYPE {
   DomainRegex = "DOMAIN-REGEX",
   DomainSuffix = "DOMAIN-SUFFIX",
   Process = "PROCESS",
+  DnsMap = "DNS-MAP",
   BuiltIn = "BUILD-IN",
 }
 
