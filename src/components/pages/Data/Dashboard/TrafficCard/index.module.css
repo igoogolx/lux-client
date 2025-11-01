@@ -1,5 +1,6 @@
 @reference "tailwindcss";
 .wrapper {
+  border-color: #e5e7eb;
   @apply flex
     w-full
     flex-1
@@ -10,14 +11,14 @@
     flex-col;
 
   & .data {
-    @apply flex flex-row justify-between;
+    @apply flex flex-row justify-between border-inherit;
 
     &:not(:last-child) {
       @apply border-b;
     }
 
     & .info {
-      @apply flex-1 py-1 flex;
+      @apply flex-1 py-1 flex border-inherit;
 
       &:not(:last-child) {
         @apply border-r;
