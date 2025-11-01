@@ -2,8 +2,12 @@
 .wrapper {
   @apply w-full py-4 px-2;
 
+  & .title {
+    @apply mb-3;
+  }
+
   & .card {
-    @apply mb-6;
+    @apply mb-4;
 
     & .cardItem {
       @apply mb-4 flex w-full items-center justify-between;
