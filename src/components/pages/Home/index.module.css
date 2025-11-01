@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .wrapper {
   @apply relative flex w-full flex-col overflow-auto;
   & .header {

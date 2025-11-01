@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .container {
   & .item {
     @apply mb-2;

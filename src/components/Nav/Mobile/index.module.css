@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .container {
   @apply p-2;
 }

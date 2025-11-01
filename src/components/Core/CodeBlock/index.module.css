@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .container {
   @apply prose prose-slate relative;
 

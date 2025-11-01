@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .hidden {
   @apply invisible;
 }

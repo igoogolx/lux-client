@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .wrapper {
   @apply flex
     w-full

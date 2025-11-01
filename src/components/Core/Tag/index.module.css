@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .base {
   @apply inline-flex h-6 items-center justify-center rounded border border-solid px-1;
 }

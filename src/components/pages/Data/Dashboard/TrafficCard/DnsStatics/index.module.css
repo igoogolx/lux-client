@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .container{
     @apply w-40 flex flex-col items-center justify-center flex-1;
     & .body{

@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .wrapper {
   @apply flex h-full flex-1 flex-col items-center overflow-auto  py-4 text-sm;
 

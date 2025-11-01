@@ -4,5 +4,4 @@ module.exports = {
     extend: {},
   },
   content: ["./src/**/*.*"],
-  plugins: [require("@tailwindcss/typography")],
 };
