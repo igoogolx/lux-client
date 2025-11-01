@@ -29,6 +29,10 @@ export default function Mode(props: Readonly<ModeProps>) {
     (state) => state.manager.isStared || state.manager.isLoading,
   );
 
+  const isAdmin = useSelector<RootState, boolean>(
+    (state) => state.general.isAdmin,
+  );
+
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
 
   const [isRestartAlertModalOpen, setIsRestartAlertModalOpen] = useState(false);
@@ -46,8 +50,8 @@ export default function Mode(props: Readonly<ModeProps>) {
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
     if (
       isWindows &&
-      value !== PROXY_MODE_ENUM.SYSTEM &&
-      oldValue !== PROXY_MODE_ENUM.SYSTEM
+      !isAdmin &&
+      [PROXY_MODE_ENUM.MIXED, PROXY_MODE_ENUM.TUN].includes(value)
     ) {
       setIsRestartAlertModalOpen(true);
     }
