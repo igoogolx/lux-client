@@ -50,7 +50,6 @@
     "@types/react-highlight-words": "^0.20.0",
     "@types/semver": "^7.7.0",
     "@types/ws": "^8.18.1",
-    "autoprefixer": "^10.4.16",
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
     "dotenv-webpack": "^8.1.0",
