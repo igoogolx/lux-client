@@ -1,4 +1,6 @@
 @reference "tailwindcss";
+@plugin "@tailwindcss/typography";
+
 .container {
   @apply prose prose-slate relative;
 
