@@ -1,11 +1,12 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
 @reference "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+@layer theme, base, components, utilities;
 
 * {
   box-sizing: border-box;
-  margin: 0;
 }
 
 #app {
@@ -13,7 +14,7 @@
 }
 
 body {
-  @apply rounded overflow-hidden;
+  @apply rounded overflow-hidden m-0;
 }
 
 input {
