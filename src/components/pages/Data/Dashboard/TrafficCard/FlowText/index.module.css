@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .wrapper {
   @apply flex-1 whitespace-nowrap w-16 flex items-center;
   & .value {

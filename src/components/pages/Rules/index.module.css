@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .container {
   @apply py-4 px-2;
 }

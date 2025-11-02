@@ -204,4 +204,7 @@ export const TRANSLATION_KEY = {
   RESTART_APP: "restart_app",
   RESTART_APP_ALERT: "restart_app_alert",
   EXIT_APP: "exit_app",
+  GENERAL: "common.general",
+  ADVANCED: "common.advanced",
+  DEFAULT: "common.default",
 };

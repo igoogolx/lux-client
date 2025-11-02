@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .wrapper {
   @apply flex h-full w-full flex-col overflow-hidden px-1 pr-4 text-sm;
 }

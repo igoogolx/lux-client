@@ -233,4 +233,7 @@ export default {
   [TRANSLATION_KEY.RESTART_APP_ALERT]:
     "Please restart the app manually to take effect.",
   [TRANSLATION_KEY.EXIT_APP]: "Exit App",
+  [TRANSLATION_KEY.GENERAL]: "General",
+  [TRANSLATION_KEY.ADVANCED]: "Advanced",
+  [TRANSLATION_KEY.DEFAULT]: "Default",
 };

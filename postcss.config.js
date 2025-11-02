@@ -3,8 +3,6 @@ module.exports = {
     "postcss-preset-env": {
       stage: 0,
     },
-    "tailwindcss/nesting": {},
-    tailwindcss: {},
-    autoprefixer: {},
+    "@tailwindcss/postcss": {},
   },
 };

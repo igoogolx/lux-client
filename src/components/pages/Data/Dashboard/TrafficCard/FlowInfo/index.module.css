@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .flowInfo {
   @apply flex flex-1 flex-col justify-between px-2;
 

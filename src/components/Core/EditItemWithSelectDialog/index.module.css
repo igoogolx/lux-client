@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .dialogBody {
   @apply flex flex-col;
 

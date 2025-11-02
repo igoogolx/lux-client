@@ -19,13 +19,13 @@ export default function Language() {
   const eventHub = useContext(EventContext);
 
   const LANGUAGE_OPTIONS = [
-    { content: t(TRANSLATION_KEY.SYSTEM_SETTING), id: LANGUAGE_ENUM.SYSTEM },
+    { content: t(TRANSLATION_KEY.DEFAULT), id: LANGUAGE_ENUM.SYSTEM },
     { content: t(TRANSLATION_KEY.EN_US), id: LANGUAGE_ENUM.EN_US },
     { content: t(TRANSLATION_KEY.ZH_CN), id: LANGUAGE_ENUM.ZH_CN },
   ];
 
   const TRANSLATION_MAP = {
-    [LANGUAGE_ENUM.SYSTEM]: t(TRANSLATION_KEY.SYSTEM_SETTING),
+    [LANGUAGE_ENUM.SYSTEM]: t(TRANSLATION_KEY.DEFAULT),
     [LANGUAGE_ENUM.EN_US]: t(TRANSLATION_KEY.EN_US),
     [LANGUAGE_ENUM.ZH_CN]: t(TRANSLATION_KEY.ZH_CN),
   };

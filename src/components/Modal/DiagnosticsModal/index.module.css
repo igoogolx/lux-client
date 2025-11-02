@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .item {
   @apply flex flex-col;
   & .content {

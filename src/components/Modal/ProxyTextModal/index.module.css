@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .search {
   @apply mb-2 mt-2 flex;
 

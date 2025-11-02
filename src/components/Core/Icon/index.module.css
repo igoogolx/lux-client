@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .svg {
   @apply pointer-events-none fill-current;
 }

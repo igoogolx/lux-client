@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .wrapper {
   @apply flex h-full w-full items-center justify-between pb-1 pr-2 pl-2;
 

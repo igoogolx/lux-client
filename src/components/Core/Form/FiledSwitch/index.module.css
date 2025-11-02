@@ -1,3 +1,4 @@
+@reference "tailwindcss";
 .container {
   @apply my-4 flex flex-row justify-between;
   .label {
