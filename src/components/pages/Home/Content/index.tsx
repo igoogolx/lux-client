@@ -71,7 +71,6 @@ export function Content(): React.ReactNode {
   const handleEditFromUrl = useEffectEvent((proxies: BaseProxy[]) => {
     const mode = searchParams.get("mode");
     const proxyId = searchParams.get("proxyId");
-    console.log("handleEditFromUrl", proxyId, mode, window.location.href);
     if (mode !== ROUTE_PARAM_MODE.EDIT || typeof proxyId !== "string") {
       return;
     }
