@@ -61,7 +61,7 @@ export function Content(): React.ReactNode {
 
   const dispatch = useDispatch();
 
-  const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams(window.location.search);
 
   const onEdit = (proxy: BaseProxy) => {
     setOperatingProxy(proxy);
