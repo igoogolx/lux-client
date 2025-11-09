@@ -14,7 +14,7 @@ import {
   DeleteRegular,
   DeviceEqRegular,
   EditRegular,
-  InfoRegular,
+  MoreHorizontalFilled,
   QrCodeFilled,
   SendRegular,
 } from "@fluentui/react-icons";
@@ -165,7 +165,7 @@ export function Operation(props: Readonly<OperationProps>): React.ReactNode {
         <Button
           as={"a"}
           appearance="transparent"
-          icon={<InfoRegular />}
+          icon={<MoreHorizontalFilled />}
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
