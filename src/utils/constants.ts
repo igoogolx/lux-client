@@ -33,9 +33,9 @@ export const ROUTER_NAME = {
 };
 
 export enum PROXY_MODE_ENUM {
-  TUN='tun',
-  SYSTEM="system",
-  MIXED="mixed"
+  TUN = "tun",
+  SYSTEM = "system",
+  MIXED = "mixed",
 }
 export const MODE_TRANSLATION_KEY = {
   [PROXY_MODE_ENUM.TUN]: TRANSLATION_KEY.TUN,
@@ -43,4 +43,7 @@ export const MODE_TRANSLATION_KEY = {
   [PROXY_MODE_ENUM.MIXED]: TRANSLATION_KEY.MIXED_MODE,
 };
 
-
+export enum OtherProxyTypeEnum {
+  Subscription = "Subscription",
+  Text = "Text",
+}

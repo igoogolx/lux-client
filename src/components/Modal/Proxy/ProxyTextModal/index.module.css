@@ -1,0 +1,22 @@
+@reference "tailwindcss";
+.container {
+  @apply mb-2 mt-2 flex flex-col;
+
+  & .input {
+    @apply mr-2 w-full;
+  }
+}
+
+.buttonContainer {
+  @apply mt-6 flex justify-end;
+  & .button {
+    @apply my-2 mt-1 rounded;
+    &:first-child {
+      @apply mr-4;
+    }
+  }
+}
+
+.spinner {
+  margin-right: 8px;
+}
