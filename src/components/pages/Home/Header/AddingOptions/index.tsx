@@ -1,5 +1,5 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { OtherProxyTypeEnum } from "@/utils/constants";
+import { OtherProxyTypeEnum, ROUTE_PARAM_MODE } from "@/utils/constants";
 import {
   Button,
   Menu,
@@ -10,8 +10,9 @@ import {
 } from "@fluentui/react-components";
 import { AddFilled } from "@fluentui/react-icons";
 import { ProxyTypeEnum } from "lux-js-sdk";
-import React, { useState } from "react";
+import React, { useEffect, useEffectEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 import { EditModal } from "../../../../Modal/Proxy";
 
 enum OperationTypeEnum {
@@ -58,6 +59,20 @@ export function AddingOptions(
       content: t(TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL),
     },
   ];
+
+  const [searchParams] = useSearchParams(window.location.search);
+
+  const handleAddActionFromUrl = useEffectEvent(() => {
+    const mode = searchParams.get("mode");
+    if (mode !== ROUTE_PARAM_MODE.ADD) {
+      return;
+    }
+    setCurrentAddingType(ProxyTypeEnum.Socks5);
+  });
+
+  useEffect(() => {
+    handleAddActionFromUrl();
+  }, []);
 
   const onSelect = async (id: OperationTypeEnum) => {
     switch (id) {

@@ -47,3 +47,9 @@ export enum OtherProxyTypeEnum {
   Subscription = "Subscription",
   Text = "Text",
 }
+
+export enum ROUTE_PARAM_MODE {
+  EDIT = "edit",
+  QR_CODE = "qrCode",
+  ADD = "add",
+}

@@ -7,6 +7,7 @@ import {
   type RootState,
   selectedSlice,
 } from "@/reducers";
+import { ROUTE_PARAM_MODE } from "@/utils/constants";
 import { encode } from "@/utils/url";
 import {
   createTableColumn,
@@ -30,11 +31,6 @@ import ProxyCard, { LOCAL_SERVERS } from "./ProxyCard";
 import { DelayTag } from "./ProxyCard/DelayTag";
 import { Operation } from "./ProxyCard/Operation";
 import styles from "./index.module.css";
-
-enum ROUTE_PARAM_MODE {
-  EDIT = "edit",
-  QR_CODE = "qrCode",
-}
 
 export function Content(): React.ReactNode {
   const proxies = useSelector(proxiesSelectors.selectAll);
