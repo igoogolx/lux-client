@@ -1,5 +1,5 @@
-import ProxyTextModal from "@/components/Modal/ProxyTextModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { OtherProxyTypeEnum, ROUTE_PARAM_MODE } from "@/utils/constants";
 import {
   Button,
   Menu,
@@ -10,10 +10,10 @@ import {
 } from "@fluentui/react-components";
 import { AddFilled } from "@fluentui/react-icons";
 import { ProxyTypeEnum } from "lux-js-sdk";
-import React, { useState } from "react";
+import React, { useEffect, useEffectEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 import { EditModal } from "../../../../Modal/Proxy";
-import SubscriptionUrlModal from "../../../../Modal/SubscriptionUrlModal";
 
 enum OperationTypeEnum {
   Shadowsocks,
@@ -32,13 +32,9 @@ export function AddingOptions(
 ): React.ReactNode {
   const { className } = props;
   const { t } = useTranslation();
-  const [currentAddingType, setCurrentAddingType] =
-    useState<ProxyTypeEnum | null>(null);
-
-  const [isOpenSubscriptionUrlModal, setIsOpenSubscriptionUrlModal] =
-    useState(false);
-
-  const [isOpenProxyTextModal, setIsOpenProxyTextModal] = useState(false);
+  const [currentAddingType, setCurrentAddingType] = useState<
+    ProxyTypeEnum | OtherProxyTypeEnum | null
+  >(null);
 
   const closeAddingModal = () => {
     setCurrentAddingType(null);
@@ -60,9 +56,23 @@ export function AddingOptions(
     },
     {
       id: OperationTypeEnum.SubscriptionUrl,
-      content: t(TRANSLATION_KEY.SUBSCRIPTION_URL_IMPORT),
+      content: t(TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL),
     },
   ];
+
+  const [searchParams] = useSearchParams(window.location.search);
+
+  const handleAddActionFromUrl = useEffectEvent(() => {
+    const mode = searchParams.get("mode");
+    if (mode !== ROUTE_PARAM_MODE.ADD) {
+      return;
+    }
+    setCurrentAddingType(ProxyTypeEnum.Socks5);
+  });
+
+  useEffect(() => {
+    handleAddActionFromUrl();
+  }, []);
 
   const onSelect = async (id: OperationTypeEnum) => {
     switch (id) {
@@ -76,11 +86,11 @@ export function AddingOptions(
         setCurrentAddingType(ProxyTypeEnum.Http);
         break;
       case OperationTypeEnum.Clipboard: {
-        setIsOpenProxyTextModal(true);
+        setCurrentAddingType(OtherProxyTypeEnum.Text);
         break;
       }
       case OperationTypeEnum.SubscriptionUrl: {
-        setIsOpenSubscriptionUrlModal(true);
+        setCurrentAddingType(OtherProxyTypeEnum.Subscription);
         break;
       }
       default: {
@@ -91,24 +101,10 @@ export function AddingOptions(
 
   return (
     <div className={className}>
-      {isOpenSubscriptionUrlModal && (
-        <SubscriptionUrlModal
-          close={() => {
-            setIsOpenSubscriptionUrlModal(false);
-          }}
-        />
-      )}
       {currentAddingType != null && (
         <EditModal close={closeAddingModal} type={currentAddingType} />
       )}
 
-      {isOpenProxyTextModal && (
-        <ProxyTextModal
-          close={() => {
-            setIsOpenProxyTextModal(false);
-          }}
-        />
-      )}
       <Menu>
         <MenuTrigger disableButtonEnhancement>
           <Button icon={<AddFilled />} />

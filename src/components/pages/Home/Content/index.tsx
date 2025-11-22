@@ -7,6 +7,7 @@ import {
   type RootState,
   selectedSlice,
 } from "@/reducers";
+import { ROUTE_PARAM_MODE } from "@/utils/constants";
 import { encode } from "@/utils/url";
 import {
   createTableColumn,
@@ -30,10 +31,6 @@ import ProxyCard, { LOCAL_SERVERS } from "./ProxyCard";
 import { DelayTag } from "./ProxyCard/DelayTag";
 import { Operation } from "./ProxyCard/Operation";
 import styles from "./index.module.css";
-
-enum ROUTE_PARAM_MODE {
-  EDIT = "edit",
-}
 
 export function Content(): React.ReactNode {
   const proxies = useSelector(proxiesSelectors.selectAll);
@@ -63,36 +60,42 @@ export function Content(): React.ReactNode {
 
   const [searchParams] = useSearchParams(window.location.search);
 
+  const [isQrcodeModalOpen, setIsQrcodeModalOpen] = useState(false);
+
   const onEdit = (proxy: BaseProxy) => {
     setOperatingProxy(proxy);
     setIsEditingDialogOpen(true);
   };
 
-  const handleEditFromUrl = useEffectEvent((proxies: BaseProxy[]) => {
+  const onShowQrCode = (proxy: BaseProxy) => {
+    setOperatingProxy(proxy);
+    setIsQrcodeModalOpen(true);
+  };
+
+  const handleActionFromUrl = useEffectEvent((proxies: BaseProxy[]) => {
     const mode = searchParams.get("mode");
     const proxyId = searchParams.get("proxyId");
-    if (mode !== ROUTE_PARAM_MODE.EDIT || typeof proxyId !== "string") {
+    if (typeof proxyId !== "string") {
       return;
     }
     const targetProxy = proxies.find((proxy) => proxy.id === proxyId);
     if (!targetProxy) {
       return;
     }
-    onEdit(targetProxy);
+    if (mode === ROUTE_PARAM_MODE.EDIT) {
+      onEdit(targetProxy);
+    } else if (mode === ROUTE_PARAM_MODE.QR_CODE) {
+      onShowQrCode(targetProxy);
+    }
   });
 
   useEffect(() => {
     getProxies().then((data) => {
       dispatch(proxiesSlice.actions.received(data));
       dispatch(selectedSlice.actions.setProxy({ id: data.selectedId }));
-      handleEditFromUrl(data.proxies);
+      handleActionFromUrl(data.proxies);
     });
   }, [dispatch]);
-
-  const onShowQrCode = (proxy: BaseProxy) => {
-    setOperatingProxy(proxy);
-    setIsQrcodeModalOpen(true);
-  };
 
   const columns: Array<TableColumnDefinition<BaseProxy>> = [
     createTableColumn<BaseProxy>({
@@ -163,8 +166,6 @@ export function Content(): React.ReactNode {
 
   const preProxiesLength = useRef(proxies.length);
   const listRef = useRef<HTMLDivElement>(null);
-
-  const [isQrcodeModalOpen, setIsQrcodeModalOpen] = useState(false);
 
   const isOperatingProxySelected = useSelector<RootState, boolean>(
     (state) => state.selected.proxy === operatingProxy?.id,

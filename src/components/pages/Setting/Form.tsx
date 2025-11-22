@@ -13,7 +13,7 @@ import { PROXY_MODE_ENUM } from "@/utils/constants";
 import { makeStyles, typographyStyles } from "@fluentui/react-components";
 import classNames from "classnames";
 import { getRuntimeOS, type SettingRes } from "lux-js-sdk";
-import React, { useEffect, useState } from "react";
+import React, { JSX, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import AutoMode from "./AutoMode";
@@ -27,7 +27,12 @@ const useStyles = makeStyles({
   title3: typographyStyles.title3,
 });
 
-export function SettingForm() {
+type SettingsFormProps = {
+  directedInterfaceV4Addr: string;
+};
+
+export function SettingForm(props: SettingsFormProps): JSX.Element {
+  const { directedInterfaceV4Addr } = props;
   const [os, setOs] = useState("");
 
   const { t } = useTranslation();
@@ -53,25 +58,31 @@ export function SettingForm() {
   return (
     <div>
       <div>
-        <div className={titleCls}>{t(TRANSLATION_KEY.GENERAL)}</div>
-        <Language />
-        <Theme />
-        <AutoLaunch />
-        <AutoConnect />
+        <div className={styles.section}>
+          <div className={titleCls}>{t(TRANSLATION_KEY.GENERAL)}</div>
+          <Language />
+          <Theme />
+          <AutoLaunch />
+          <AutoConnect />
+        </div>
 
-        <div className={titleCls}>{t(TRANSLATION_KEY.NETWORK)}</div>
-        <Mode os={os} />
-        {isTun && <Dns />}
-        {isTun && <BlockQuic />}
-        {isDarwin && isTun && <HijackDns />}
-        {isTun && <DefaultInterface />}
-        <LocalHttpServer />
-        <AutoMode />
+        <div className={styles.section}>
+          <div className={titleCls}>{t(TRANSLATION_KEY.NETWORK)}</div>
+          <Mode os={os} />
+          {isTun && <Dns />}
+          {isDarwin && isTun && <HijackDns />}
+          <LocalHttpServer directedInterfaceV4Addr={directedInterfaceV4Addr} />
+          <AutoMode />
+          {isTun && <DefaultInterface />}
+          {isTun && <BlockQuic />}
+        </div>
 
-        <div className={titleCls}>{t(TRANSLATION_KEY.ADVANCED)}</div>
-        {isTun && <ShouldFindProcess />}
-        <SensitiveInfoMode />
-        <ConfigFile />
+        <div className={styles.section}>
+          <div className={titleCls}>{t(TRANSLATION_KEY.ADVANCED)}</div>
+          {isTun && <ShouldFindProcess />}
+          <SensitiveInfoMode />
+          <ConfigFile />
+        </div>
       </div>
     </div>
   );

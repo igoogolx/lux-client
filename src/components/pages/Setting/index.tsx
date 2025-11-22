@@ -1,24 +1,33 @@
 import { settingSlice } from "@/reducers";
-import { getSetting } from "lux-js-sdk";
-import React, { useCallback, useEffect } from "react";
+import { getRuntimeDetail, getSetting } from "lux-js-sdk";
+import React, { useEffect, useEffectEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { SettingForm } from "./Form";
 import styles from "./index.module.css";
 
 export default function Setting() {
   const dispatch = useDispatch();
-  const init = useCallback(async () => {
-    const data = await getSetting();
+  const [lanV4Ip, setLanV4Ip] = useState("");
+  const init = useEffectEvent(async () => {
+    const [data, runtimeDetail] = await Promise.all([
+      getSetting(),
+      getRuntimeDetail(),
+    ]);
     dispatch(settingSlice.actions.setSetting(data));
-  }, [dispatch]);
+    if (runtimeDetail) {
+      setLanV4Ip(runtimeDetail.directedInterfaceV4Addr);
+    }
+  });
 
   useEffect(() => {
-    init();
-  }, [init]);
+    init().catch((e) => {
+      console.error(e);
+    });
+  }, []);
 
   return (
     <div className={styles.wrapper}>
-      <SettingForm />
+      <SettingForm directedInterfaceV4Addr={lanV4Ip} />
     </div>
   );
 }

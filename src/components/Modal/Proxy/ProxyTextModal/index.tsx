@@ -1,14 +1,14 @@
+import { notifier } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSlice } from "@/reducers";
 import { formatError } from "@/utils/error";
 import { decode } from "@/utils/url";
-import { Textarea } from "@fluentui/react-components";
+import { Button, Spinner, Textarea } from "@fluentui/react-components";
 import axios from "axios";
 import { addProxy } from "lux-js-sdk";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { Modal, notifier } from "../../Core";
 import styles from "./index.module.css";
 
 interface ProxyTextModalProps {
@@ -45,26 +45,35 @@ function ProxyTextModal(props: Readonly<ProxyTextModalProps>) {
       setLoading(false);
     }
   };
+
+  const isValid = text.trim().length !== 0;
+
   return (
-    <Modal
-      close={close}
-      onOk={handleConfirm}
-      title={t(TRANSLATION_KEY.NEW_IMPORT_PROXY_TEXT)}
-      okText={t(TRANSLATION_KEY.FORM_SAVE)}
-      loadingOk={loading}
-    >
-      <div className={styles.search}>
-        <Textarea
-          value={text}
-          onChange={(e) => {
-            setText(e.target.value.trim());
-          }}
-          className={styles.input}
-          placeholder={t(TRANSLATION_KEY.PROXY_TEXT)}
-          autoFocus
-        />
+    <div className={styles.container}>
+      <div>{t(t(TRANSLATION_KEY.PROXY_TEXT))}</div>
+      <Textarea
+        value={text}
+        onChange={(e) => {
+          setText(e.target.value.trim());
+        }}
+        className={styles.input}
+        autoFocus
+      />
+      <div className={styles.buttonContainer}>
+        <Button onClick={close} className={styles.button}>
+          {t(TRANSLATION_KEY.FORM_CANCEL)}
+        </Button>
+        <Button
+          className={styles.button}
+          disabled={!isValid || loading}
+          onClick={handleConfirm}
+          appearance="primary"
+        >
+          {loading && <Spinner size="extra-tiny" className={styles.spinner} />}
+          {t(TRANSLATION_KEY.FORM_SAVE)}
+        </Button>
       </div>
-    </Modal>
+    </div>
   );
 }
 

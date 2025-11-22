@@ -1,4 +1,7 @@
+import ProxyTextModal from "@/components/Modal/Proxy/ProxyTextModal";
+import SubscriptionUrlModal from "@/components/Modal/Proxy/SubscriptionUrlModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
+import { OtherProxyTypeEnum } from "@/utils/constants";
 import { Dropdown, Option, Text } from "@fluentui/react-components";
 import {
   type BaseProxy,
@@ -18,7 +21,7 @@ import styles from "./index.module.css";
 
 interface EditModalProps {
   close: () => void;
-  type: BaseProxy["type"];
+  type: BaseProxy["type"] | OtherProxyTypeEnum;
   initialValue?: BaseProxy;
   isSelected?: boolean;
 }
@@ -27,10 +30,14 @@ export function EditModal(props: Readonly<EditModalProps>) {
   const { type, close, initialValue, isSelected = false } = props;
   let content = null;
 
+  const { t } = useTranslation();
+
   const typeOption = {
     [ProxyTypeEnum.Shadowsocks]: "Shadowsocks",
     [ProxyTypeEnum.Http]: "Http",
     [ProxyTypeEnum.Socks5]: "Socks5",
+    [OtherProxyTypeEnum.Subscription]: t(TRANSLATION_KEY.SUBSCRIPTION_URL),
+    [OtherProxyTypeEnum.Text]: t(TRANSLATION_KEY.PROXY_TEXT),
   };
 
   const isEdit = !!initialValue;
@@ -40,8 +47,6 @@ export function EditModal(props: Readonly<EditModalProps>) {
   const [currentType, setCurrentType] = useState(type);
 
   const [pageStep, setPageStep] = useState(PageStepEnum.First);
-
-  const { t } = useTranslation();
 
   switch (currentType) {
     case ProxyTypeEnum.Shadowsocks:
@@ -80,6 +85,15 @@ export function EditModal(props: Readonly<EditModalProps>) {
           isSelected={isSelected}
         />
       );
+      break;
+    case OtherProxyTypeEnum.Subscription:
+      titleI18nKey = TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL;
+      content = <SubscriptionUrlModal close={close} />;
+      break;
+
+    case OtherProxyTypeEnum.Text:
+      titleI18nKey = TRANSLATION_KEY.NEW_IMPORT_PROXY_TEXT;
+      content = <ProxyTextModal close={close} />;
       break;
     default: {
       throw new Error(`invalid ${type}`);

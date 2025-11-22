@@ -4,12 +4,13 @@ export type RuntimeDnsDetail = {
 };
 
 export type RuntimeDetail = {
-  directedInterfaceName: string;
-  tunInterfaceName: string;
-  localDns: RuntimeDnsDetail;
-  remoteDns: RuntimeDnsDetail;
-  boostDns: RuntimeDnsDetail;
   hubAddress: string;
+  directedInterfaceV4Addr: string;
+  directedInterfaceName?: string;
+  tunInterfaceName?: string;
+  localDns?: RuntimeDnsDetail;
+  remoteDns?: RuntimeDnsDetail;
+  boostDns?: RuntimeDnsDetail;
 };
 
 export type GetRuntimeDetail = () => Promise<RuntimeDetail | null>;
