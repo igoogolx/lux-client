@@ -99,7 +99,7 @@ export default {
   [TRANSLATION_KEY.HTTP_SERVER_SWITCH_LABEL]: "Allow Other Devices",
   [TRANSLATION_KEY.HTTP_SERVER_SWITCH_TOOLTIP]:
     "Allow other devices to connect with Socks or Http protocol in Lan: {{address}}",
-  [TRANSLATION_KEY.MODE_SWITCH_LABEL]: "Auto",
+  [TRANSLATION_KEY.MODE_SWITCH_LABEL]: "Auto Mode",
   [TRANSLATION_KEY.CONFIG_FILE]: "Config File",
   [TRANSLATION_KEY.CONFIG_FILE_TIP]: "You can edit the config file manually",
   [TRANSLATION_KEY.OPEN_DIR]: "Open Directory",
