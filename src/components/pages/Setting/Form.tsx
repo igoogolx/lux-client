@@ -58,25 +58,31 @@ export function SettingForm(props: SettingsFormProps): JSX.Element {
   return (
     <div>
       <div>
-        <div className={titleCls}>{t(TRANSLATION_KEY.GENERAL)}</div>
-        <Language />
-        <Theme />
-        <AutoLaunch />
-        <AutoConnect />
+        <div className={styles.section}>
+          <div className={titleCls}>{t(TRANSLATION_KEY.GENERAL)}</div>
+          <Language />
+          <Theme />
+          <AutoLaunch />
+          <AutoConnect />
+        </div>
 
-        <div className={titleCls}>{t(TRANSLATION_KEY.NETWORK)}</div>
-        <Mode os={os} />
-        {isTun && <Dns />}
-        {isTun && <BlockQuic />}
-        {isDarwin && isTun && <HijackDns />}
-        {isTun && <DefaultInterface />}
-        <LocalHttpServer directedInterfaceV4Addr={directedInterfaceV4Addr} />
-        <AutoMode />
+        <div className={styles.section}>
+          <div className={titleCls}>{t(TRANSLATION_KEY.NETWORK)}</div>
+          <Mode os={os} />
+          {isTun && <Dns />}
+          {isDarwin && isTun && <HijackDns />}
+          <LocalHttpServer directedInterfaceV4Addr={directedInterfaceV4Addr} />
+          <AutoMode />
+          {isTun && <DefaultInterface />}
+          {isTun && <BlockQuic />}
+        </div>
 
-        <div className={titleCls}>{t(TRANSLATION_KEY.ADVANCED)}</div>
-        {isTun && <ShouldFindProcess />}
-        <SensitiveInfoMode />
-        <ConfigFile />
+        <div className={styles.section}>
+          <div className={titleCls}>{t(TRANSLATION_KEY.ADVANCED)}</div>
+          {isTun && <ShouldFindProcess />}
+          <SensitiveInfoMode />
+          <ConfigFile />
+        </div>
       </div>
     </div>
   );

@@ -6,6 +6,10 @@
     @apply mb-3;
   }
 
+  & .section {
+    @apply mb-10;
+  }
+
   & .card {
     @apply mb-2;
 
