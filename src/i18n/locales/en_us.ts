@@ -94,10 +94,11 @@ export default {
   [TRANSLATION_KEY.COPIED]: "Copied!",
   [TRANSLATION_KEY.DELETED]: "Deleted!",
   [TRANSLATION_KEY.HTTP_SERVER_PORT_LABEL]: "Local Server Port",
-  [TRANSLATION_KEY.HTTP_SERVER_PORT_DESC]: "Connect by Ip:Port",
-  [TRANSLATION_KEY.HTTP_SERVER_SWITCH_LABEL]: "Allow Lan",
+  [TRANSLATION_KEY.HTTP_SERVER_PORT_DESC]:
+    "Connect with Socks or Http protocol: {{address}}",
+  [TRANSLATION_KEY.HTTP_SERVER_SWITCH_LABEL]: "Allow Other Devices",
   [TRANSLATION_KEY.HTTP_SERVER_SWITCH_TOOLTIP]:
-    "Allow other devices to connect in Lan",
+    "Allow other devices to connect with Socks or Http protocol in Lan: {{address}}",
   [TRANSLATION_KEY.MODE_SWITCH_LABEL]: "Auto",
   [TRANSLATION_KEY.CONFIG_FILE]: "Config File",
   [TRANSLATION_KEY.CONFIG_FILE_TIP]: "You can edit the config file manually",

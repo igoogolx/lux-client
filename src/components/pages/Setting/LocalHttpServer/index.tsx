@@ -9,7 +9,12 @@ import { notifier } from "../../../Core";
 import EditItemWithDialog from "../../../Core/EditItemWithDialog";
 import styles from "../index.module.css";
 
-export default function LocalHttpServer() {
+type LocalHttpServerProps = {
+  directedInterfaceV4Addr: string;
+};
+
+export default function LocalHttpServer(props: LocalHttpServerProps) {
+  const { directedInterfaceV4Addr } = props;
   const { t } = useTranslation();
 
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
@@ -40,23 +45,12 @@ export default function LocalHttpServer() {
     <Card className={styles.card}>
       <div className={styles.cardItem}>
         <div className={styles.desc}>
-          <Subtitle2>{t(TRANSLATION_KEY.HTTP_SERVER_SWITCH_LABEL)}</Subtitle2>
-          <Caption1>{t(TRANSLATION_KEY.HTTP_SERVER_SWITCH_TOOLTIP)}</Caption1>
-        </div>
-        <Switch
-          checked={setting.localServer.allowLan}
-          onChange={(_, data) => {
-            onSubmit({ allowLan: data.checked }).catch((e) => {
-              console.error(e);
-            });
-          }}
-          disabled={isStarted}
-        />
-      </div>
-      <div className={styles.cardItem}>
-        <div className={styles.desc}>
           <Subtitle2>{t(TRANSLATION_KEY.HTTP_SERVER_PORT_LABEL)}</Subtitle2>
-          <Caption1>{t(TRANSLATION_KEY.HTTP_SERVER_PORT_DESC)}</Caption1>
+          <Caption1>
+            {t(TRANSLATION_KEY.HTTP_SERVER_PORT_DESC, {
+              address: `127.0.0.1:${setting.localServer.port}`,
+            })}
+          </Caption1>
         </div>
         <EditItemWithDialog
           title={t(TRANSLATION_KEY.EDIT_LOCAL_HTTP_SERVER_TITLE)}
@@ -69,6 +63,26 @@ export default function LocalHttpServer() {
             });
           }}
           value={setting.localServer.port.toString()}
+          disabled={isStarted}
+        />
+      </div>
+
+      <div className={styles.cardItem}>
+        <div className={styles.desc}>
+          <Subtitle2>{t(TRANSLATION_KEY.HTTP_SERVER_SWITCH_LABEL)}</Subtitle2>
+          <Caption1>
+            {t(TRANSLATION_KEY.HTTP_SERVER_SWITCH_TOOLTIP, {
+              address: `${directedInterfaceV4Addr}:${setting.localServer.port}`,
+            })}
+          </Caption1>
+        </div>
+        <Switch
+          checked={setting.localServer.allowLan}
+          onChange={(_, data) => {
+            onSubmit({ allowLan: data.checked }).catch((e) => {
+              console.error(e);
+            });
+          }}
           disabled={isStarted}
         />
       </div>
