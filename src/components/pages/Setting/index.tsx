@@ -20,7 +20,9 @@ export default function Setting() {
   });
 
   useEffect(() => {
-    init();
+    init().catch((e) => {
+      console.error(e);
+    });
   }, []);
 
   return (
