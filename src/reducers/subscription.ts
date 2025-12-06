@@ -3,7 +3,7 @@ import {
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-import { type BaseProxy, Subscription } from "lux-js-sdk";
+import { Subscription } from "lux-js-sdk";
 
 export const subscriptionsAdapter = createEntityAdapter<Subscription>();
 
@@ -22,11 +22,13 @@ export const subscriptionsSlice = createSlice({
     },
     updateOne(
       state,
-      action: PayloadAction<{ proxy: Partial<BaseProxy> & { id: string } }>,
+      action: PayloadAction<{
+        subscription: Partial<Subscription> & { id: string };
+      }>,
     ) {
       subscriptionsAdapter.updateOne(state, {
-        id: action.payload.proxy.id,
-        changes: action.payload.proxy,
+        id: action.payload.subscription.id,
+        changes: action.payload.subscription,
       });
     },
     addMany(state, action: PayloadAction<{ subscriptions: Subscription[] }>) {

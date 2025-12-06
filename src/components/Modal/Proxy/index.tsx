@@ -1,5 +1,5 @@
 import ProxyTextModal from "@/components/Modal/Proxy/ProxyTextModal";
-import SubscriptionUrlModal from "@/components/Modal/Proxy/SubscriptionUrlModal";
+import SubscriptionModal from "@/components/Modal/Proxy/SubscriptionUrlModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { OtherProxyTypeEnum } from "@/utils/constants";
 import { Dropdown, Option, Text } from "@fluentui/react-components";
@@ -9,6 +9,7 @@ import {
   ProxyTypeEnum,
   type Shadowsocks,
   type Socks5,
+  Subscription,
 } from "lux-js-sdk";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -19,10 +20,10 @@ import { PageStepEnum } from "./EditShadowsocksModal/constant";
 import { EditSocks5Modal } from "./EditSocks5Modal";
 import styles from "./index.module.css";
 
-interface EditModalProps {
+export interface EditModalProps {
   close: () => void;
   type: BaseProxy["type"] | OtherProxyTypeEnum;
-  initialValue?: BaseProxy;
+  initialValue?: BaseProxy | Subscription;
   isSelected?: boolean;
 }
 
@@ -36,7 +37,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
     [ProxyTypeEnum.Shadowsocks]: "Shadowsocks",
     [ProxyTypeEnum.Http]: "Http",
     [ProxyTypeEnum.Socks5]: "Socks5",
-    [OtherProxyTypeEnum.Subscription]: t(TRANSLATION_KEY.SUBSCRIPTION_URL),
+    [OtherProxyTypeEnum.Subscription]: t(TRANSLATION_KEY.SUBSCRIPTION),
     [OtherProxyTypeEnum.Text]: t(TRANSLATION_KEY.PROXY_TEXT),
   };
 
@@ -87,8 +88,15 @@ export function EditModal(props: Readonly<EditModalProps>) {
       );
       break;
     case OtherProxyTypeEnum.Subscription:
-      titleI18nKey = TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL;
-      content = <SubscriptionUrlModal close={close} />;
+      titleI18nKey = isEdit
+        ? TRANSLATION_KEY.EDIT_SUBSCRIPTION
+        : TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL;
+      content = (
+        <SubscriptionModal
+          close={close}
+          initialValue={initialValue as Subscription}
+        />
+      );
       break;
 
     case OtherProxyTypeEnum.Text:

@@ -82,6 +82,10 @@ class UrlConfig {
   get subscription() {
     return `${this.httpPrefix}${this.baseUrl}/proxies/subscription`;
   }
+
+  get subscriptionProxies() {
+    return `${this.subscription}/proxies`;
+  }
 }
 
 export const urtConfig = new UrlConfig();

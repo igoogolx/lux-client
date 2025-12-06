@@ -12,6 +12,8 @@ import {
   GetSubscriptions,
   type TestProxyUdp,
   type UpdateProxy,
+  UpdateSubscription,
+  UpdateSubscriptionProxies,
 } from "./types";
 import { urtConfig } from "./url";
 
@@ -88,5 +90,19 @@ export const getSubscriptions: GetSubscriptions = async () => {
 export const deleteSubscription: DeleteSubscription = async (req) => {
   const url = `${urtConfig.subscription}`;
   const res = await axios.delete(url, { data: req });
+  return res.data;
+};
+
+export const updateSubscription: UpdateSubscription = async (req) => {
+  const url = `${urtConfig.subscription}`;
+  const res = await axios.post(url, req);
+  return res.data;
+};
+
+export const updateSubscriptionProxies: UpdateSubscriptionProxies = async (
+  req,
+) => {
+  const url = `${urtConfig.subscriptionProxies}`;
+  const res = await axios.post(url, req);
   return res.data;
 };

@@ -1,5 +1,5 @@
 import SensitiveInfo from "@/components/Core/SensitiveInfo";
-import { EditModal } from "@/components/Modal/Proxy";
+import { EditModal, EditModalProps } from "@/components/Modal/Proxy";
 import { QrCodeModal } from "@/components/Modal/QrCodeModal";
 import {
   proxiesSelectors,
@@ -9,7 +9,7 @@ import {
   subscriptionsSelectors,
   subscriptionsSlice,
 } from "@/reducers";
-import { ROUTE_PARAM_MODE } from "@/utils/constants";
+import { OtherProxyTypeEnum, ROUTE_PARAM_MODE } from "@/utils/constants";
 import { encode } from "@/utils/url";
 import {
   createTableColumn,
@@ -24,6 +24,7 @@ import {
   ProxyTypeEnum,
   type SettingRes,
   type Shadowsocks,
+  Subscription,
   updateSelectedProxyId,
 } from "lux-js-sdk";
 import * as React from "react";
@@ -77,7 +78,9 @@ export function Content(): React.ReactNode {
     (state) => state.selected.proxy,
   );
   const [isEditingDialogOpen, setIsEditingDialogOpen] = useState(false);
-  const [operatingProxy, setOperatingProxy] = useState<BaseProxy | null>(null);
+  const [curEditingData, setCurEditingData] = useState<
+    BaseProxy | Subscription | null
+  >(null);
 
   const dispatch = useDispatch();
 
@@ -86,12 +89,12 @@ export function Content(): React.ReactNode {
   const [isQrcodeModalOpen, setIsQrcodeModalOpen] = useState(false);
 
   const onEdit = (proxy: BaseProxy) => {
-    setOperatingProxy(proxy);
+    setCurEditingData(proxy);
     setIsEditingDialogOpen(true);
   };
 
   const onShowQrCode = (proxy: BaseProxy) => {
-    setOperatingProxy(proxy);
+    setCurEditingData(proxy);
     setIsQrcodeModalOpen(true);
   };
 
@@ -195,11 +198,26 @@ export function Content(): React.ReactNode {
     }
   };
 
+  const handleEditSubscription = (data: Subscription) => {
+    setCurEditingData(data);
+    setIsEditingDialogOpen(true);
+  };
+
+  const editModalType = useMemo(() => {
+    if (!curEditingData) {
+      return ProxyTypeEnum.Socks5;
+    }
+    if ("type" in curEditingData) {
+      return curEditingData.type;
+    }
+    return OtherProxyTypeEnum.Subscription;
+  }, [curEditingData]);
+
   const preProxiesLength = useRef(proxies.length);
   const listRef = useRef<HTMLDivElement>(null);
 
   const isOperatingProxySelected = useSelector<RootState, boolean>(
-    (state) => state.selected.proxy === operatingProxy?.id,
+    (state) => state.selected.proxy === curEditingData?.id,
   );
 
   useEffect(() => {
@@ -208,28 +226,28 @@ export function Content(): React.ReactNode {
       preProxiesLength.current !== 0 &&
       proxies.length > preProxiesLength.current
     ) {
-      listRef.current.scrollTop = listRef.current.scrollHeight;
+      listRef.current.scrollTop = 0;
     }
     preProxiesLength.current = proxies.length;
   }, [proxies.length]);
 
   return (
     <>
-      {isQrcodeModalOpen && operatingProxy && (
+      {isQrcodeModalOpen && curEditingData && (
         <QrCodeModal
-          url={encode(operatingProxy as Shadowsocks)}
+          url={encode(curEditingData as Shadowsocks)}
           close={() => {
             setIsQrcodeModalOpen(false);
           }}
         />
       )}
-      {isEditingDialogOpen && operatingProxy && (
+      {isEditingDialogOpen && curEditingData && (
         <EditModal
           close={() => {
             setIsEditingDialogOpen(false);
           }}
-          initialValue={operatingProxy}
-          type={operatingProxy.type as ProxyTypeEnum}
+          initialValue={curEditingData}
+          type={editModalType as EditModalProps["type"]}
           isSelected={isOperatingProxySelected}
         />
       )}
@@ -244,6 +262,7 @@ export function Content(): React.ReactNode {
               onSelectionChange={handleSelect}
               selectedItems={defaultSelectedItems}
               id={group.id}
+              onEditSubscription={handleEditSubscription}
             />
           );
         })}

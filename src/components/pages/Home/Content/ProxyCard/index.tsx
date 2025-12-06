@@ -21,20 +21,24 @@ import {
   Button,
   Card,
   type DataGridProps,
+  makeStyles,
   mergeClasses,
   type TableColumnDefinition,
   Tooltip,
+  typographyStyles,
 } from "@fluentui/react-components";
 import {
   ArrowSyncRegular,
-  ClipboardRegular,
   DeleteRegular,
+  EditRegular,
 } from "@fluentui/react-icons";
 import axios from "axios";
+import classNames from "classnames";
 import {
-  addProxiesFromSubscriptionUrl,
   deleteProxies,
   deleteSubscription,
+  Subscription,
+  updateSubscriptionProxies,
 } from "lux-js-sdk";
 import React, { MouseEventHandler, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -48,16 +52,29 @@ export interface ProxyCardProps<T> {
   selectionMode?: DataGridProps["selectionMode"];
   selectedItems?: DataGridProps["selectedItems"];
   onSelectionChange?: DataGridProps["onSelectionChange"];
+  onEditSubscription: (data: Subscription) => void;
 }
 
 export const LOCAL_SERVERS = "local_servers";
 
+const useStyles = makeStyles({
+  caption2: typographyStyles.caption2,
+});
+
 export default function ProxyCard<T extends { id: string }>(
   props: Readonly<ProxyCardProps<T>>,
 ): React.ReactNode {
-  const { id, data, selectionMode, columns, selectedItems, onSelectionChange } =
-    props;
+  const {
+    id,
+    data,
+    selectionMode,
+    columns,
+    selectedItems,
+    onSelectionChange,
+    onEditSubscription,
+  } = props;
   const { t } = useTranslation();
+  const typographyStyles = useStyles();
 
   const subscriptions = useSelector(subscriptionsSelectors.selectAll);
 
@@ -73,17 +90,15 @@ export default function ProxyCard<T extends { id: string }>(
     try {
       e.stopPropagation();
       dispatch(generalSlice.actions.setLoading({ loading: true }));
-      const decodedProxies = await decodeFromUrl(id);
-      const res = await addProxiesFromSubscriptionUrl({
+      if (!curSubscription) {
+        return;
+      }
+      const decodedProxies = await decodeFromUrl(curSubscription.url);
+      const res = await updateSubscriptionProxies({
         proxies: decodedProxies,
-        subscriptionUrl: id,
+        subscriptionId: id,
       });
       dispatch(proxiesSlice.actions.received({ proxies: res.proxies }));
-      dispatch(
-        subscriptionsSlice.actions.received({
-          subscriptions: res.subscriptions,
-        }),
-      );
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
     } catch (e) {
       if (!axios.isAxiosError(e)) {
@@ -113,14 +128,13 @@ export default function ProxyCard<T extends { id: string }>(
     }
   };
 
-  const handleCopyUrl: MouseEventHandler = async (e) => {
+  const handleEdit: MouseEventHandler = async (e) => {
     e.stopPropagation();
     const subscription = subscriptions.find((item) => item.id === id);
     if (!subscription) {
-      return "";
+      return;
     }
-    await navigator.clipboard.writeText(subscription.url);
-    notifier.success(t(TRANSLATION_KEY.COPIED));
+    onEditSubscription(subscription);
   };
 
   const inlineStyles = useDangerStyles();
@@ -134,25 +148,39 @@ export default function ProxyCard<T extends { id: string }>(
     setIsDeleteAllProxiesModalOpen(true);
   };
 
+  const curSubscription = useMemo(() => {
+    const subscription = subscriptions.find((item) => item.id === id);
+    if (!subscription) {
+      return null;
+    }
+    return subscription;
+  }, [id, subscriptions]);
+
   const title = useMemo(() => {
     if (id === LOCAL_SERVERS) {
       return t(TRANSLATION_KEY.LOCAL_SERVERS);
     }
-    const subscription = subscriptions.find((item) => item.id === id);
-    if (!subscription) {
+    if (!curSubscription) {
       return "";
     }
-    if (subscription.name) {
-      return subscription.name;
+    if (curSubscription.name) {
+      return curSubscription.name;
     }
-    if (subscription.url) {
-      const bigUrl = URL.parse(subscription.url);
+    if (curSubscription.url) {
+      const bigUrl = URL.parse(curSubscription.url);
       if (bigUrl) {
         return bigUrl.hostname;
       }
     }
     return "";
-  }, [id, subscriptions, t]);
+  }, [curSubscription, id, t]);
+
+  const subTitle = useMemo(() => {
+    if (!curSubscription) {
+      return "";
+    }
+    return curSubscription.remark;
+  }, [curSubscription]);
 
   return (
     <Card className={styles.card}>
@@ -167,9 +195,21 @@ export default function ProxyCard<T extends { id: string }>(
         <AccordionItem value="1">
           <AccordionHeader>
             <div className={styles.header}>
-              <Badge appearance="outline" size="large">
-                <SensitiveInfo value={title} />
-              </Badge>
+              <div className={styles.title}>
+                <Badge appearance="outline" size="large">
+                  <SensitiveInfo value={title} />
+                </Badge>
+                {!!subTitle && (
+                  <span
+                    className={classNames(
+                      typographyStyles.caption2,
+                      styles.subTitle,
+                    )}
+                  >
+                    {subTitle}
+                  </span>
+                )}
+              </div>
               <div className={styles.action}>
                 <Tooltip
                   content={t(TRANSLATION_KEY.COMMON_DELETE)}
@@ -188,13 +228,13 @@ export default function ProxyCard<T extends { id: string }>(
                 </Tooltip>
                 {id !== LOCAL_SERVERS && (
                   <Tooltip
-                    content={t(TRANSLATION_KEY.COMMON_COPY_URL)}
+                    content={t(TRANSLATION_KEY.COMMON_EDIT)}
                     relationship="description"
                   >
                     <Button
                       as={"a"}
-                      onClick={handleCopyUrl}
-                      icon={<ClipboardRegular />}
+                      onClick={handleEdit}
+                      icon={<EditRegular />}
                       className={styles.btn}
                     />
                   </Tooltip>

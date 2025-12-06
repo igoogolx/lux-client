@@ -84,7 +84,7 @@ export default {
   [TRANSLATION_KEY.WARNING]: "Warning",
   [TRANSLATION_KEY.INFO]: "Info",
   [TRANSLATION_KEY.DEBUG]: "Debug",
-  [TRANSLATION_KEY.SUBSCRIPTION_URL]: "Subscription URL",
+  [TRANSLATION_KEY.SUBSCRIPTION]: "Subscription",
   [TRANSLATION_KEY.PROXY_TEXT]: "Proxy Text",
   [TRANSLATION_KEY.DISCONNECTED_WARN_TIP]:
     "The core is disconnected. Trying to reconnect...",
@@ -208,7 +208,7 @@ export default {
   [TRANSLATION_KEY.NEW_HTTP]: "Create Http",
   [TRANSLATION_KEY.NEW_SOCKS5]: "Create Socks5",
   [TRANSLATION_KEY.NEW_CUSTOMIZED_DNS_OPTION]: "Create Customized DNS Option",
-  [TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL]: "Import Subscription Url",
+  [TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL]: "Create Subscription",
   [TRANSLATION_KEY.NEW_IMPORT_PROXY_TEXT]: "Import Proxy Text",
   [TRANSLATION_KEY.TOKEN]: "Token",
   [TRANSLATION_KEY.TUN]: "Tun",
@@ -237,4 +237,7 @@ export default {
   [TRANSLATION_KEY.GENERAL]: "General",
   [TRANSLATION_KEY.ADVANCED]: "Advanced",
   [TRANSLATION_KEY.DEFAULT]: "Default",
+  [TRANSLATION_KEY.REMARK]: "Remark",
+  [TRANSLATION_KEY.EDIT_SUBSCRIPTION]: "Edit Subscription",
+  [TRANSLATION_KEY.URL]: "Url",
 };

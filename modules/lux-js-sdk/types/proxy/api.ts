@@ -29,6 +29,8 @@ export type AddProxy = (req: AddProxyReq) => Promise<{ id: string }>;
 interface addProxiesFromSubscriptionUrlReq {
   proxies: Array<Omit<BaseProxy, "id">>;
   subscriptionUrl: string;
+  subscriptionName: string;
+  subscriptionRemark: string;
 }
 
 export type AddProxiesFromSubscriptionUrl = (
@@ -80,3 +82,22 @@ export interface DeleteSubscriptionReq {
 }
 
 export type DeleteSubscription = (req: DeleteSubscriptionReq) => Promise<void>;
+
+export interface UpdateSubscriptionReq {
+  subscription: Subscription;
+}
+
+export type UpdateSubscription = (req: UpdateSubscriptionReq) => Promise<void>;
+
+export interface UpdateSubscriptionProxiesReq {
+  subscriptionId: string;
+  proxies: Omit<BaseProxy, "id">[];
+}
+
+export interface UpdateSubscriptionProxiesRes {
+  proxies: BaseProxy[];
+}
+
+export type UpdateSubscriptionProxies = (
+  req: UpdateSubscriptionProxiesReq,
+) => Promise<UpdateSubscriptionProxiesRes>;
