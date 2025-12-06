@@ -1,4 +1,5 @@
 import { type BaseProxy } from "./base";
+import { Subscription } from "./subscription";
 
 export interface GetProxiesRes {
   proxies: BaseProxy[];
@@ -28,11 +29,13 @@ export type AddProxy = (req: AddProxyReq) => Promise<{ id: string }>;
 interface addProxiesFromSubscriptionUrlReq {
   proxies: Array<Omit<BaseProxy, "id">>;
   subscriptionUrl: string;
+  subscriptionName: string;
+  subscriptionRemark: string;
 }
 
 export type AddProxiesFromSubscriptionUrl = (
   req: addProxiesFromSubscriptionUrlReq,
-) => Promise<{ proxies: BaseProxy[] }>;
+) => Promise<{ proxies: BaseProxy[]; subscriptions: Subscription[] }>;
 
 interface DeleteProxiesReq {
   ids: string[];
@@ -68,3 +71,33 @@ interface GetResFromUrlReq {
 export type GetResFromUrl = (
   req: GetResFromUrlReq,
 ) => Promise<{ data: string }>;
+
+export interface GetSubscriptionsRes {
+  subscriptions: Subscription[];
+}
+export type GetSubscriptions = () => Promise<GetSubscriptionsRes>;
+
+export interface DeleteSubscriptionReq {
+  id: string;
+}
+
+export type DeleteSubscription = (req: DeleteSubscriptionReq) => Promise<void>;
+
+export interface UpdateSubscriptionReq {
+  subscription: Subscription;
+}
+
+export type UpdateSubscription = (req: UpdateSubscriptionReq) => Promise<void>;
+
+export interface UpdateSubscriptionProxiesReq {
+  subscriptionId: string;
+  proxies: Omit<BaseProxy, "id">[];
+}
+
+export interface UpdateSubscriptionProxiesRes {
+  proxies: BaseProxy[];
+}
+
+export type UpdateSubscriptionProxies = (
+  req: UpdateSubscriptionProxiesReq,
+) => Promise<UpdateSubscriptionProxiesRes>;

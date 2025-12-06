@@ -51,12 +51,12 @@ export function AddingOptions(
       content: t(TRANSLATION_KEY.HTTP),
     },
     {
-      id: OperationTypeEnum.Clipboard,
-      content: t(TRANSLATION_KEY.PROXY_TEXT_IMPORT),
+      id: OperationTypeEnum.SubscriptionUrl,
+      content: t(TRANSLATION_KEY.SUBSCRIPTION),
     },
     {
-      id: OperationTypeEnum.SubscriptionUrl,
-      content: t(TRANSLATION_KEY.NEW_IMPORT_SUBSCRIPTION_URL),
+      id: OperationTypeEnum.Clipboard,
+      content: t(TRANSLATION_KEY.PROXY_TEXT_IMPORT),
     },
   ];
 
