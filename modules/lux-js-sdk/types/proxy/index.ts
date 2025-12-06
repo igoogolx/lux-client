@@ -4,3 +4,4 @@ export * from "./http";
 export * from "./plugin";
 export * from "./shadowsocks";
 export * from "./socks5";
+export * from "./subscription";

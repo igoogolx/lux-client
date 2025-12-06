@@ -1,3 +1,4 @@
+import { subscriptionsSlice } from "@/reducers/subscription";
 import { configureStore } from "@reduxjs/toolkit";
 import { delaysSlice } from "./delay";
 import { generalSlice } from "./general";
@@ -18,6 +19,7 @@ export const store = configureStore({
     setting: settingSlice.reducer,
     general: generalSlice.reducer,
     testUdp: testUdpSlice.reducer,
+    subscriptions: subscriptionsSlice.reducer,
   },
 });
 

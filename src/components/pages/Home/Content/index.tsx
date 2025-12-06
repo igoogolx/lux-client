@@ -6,6 +6,8 @@ import {
   proxiesSlice,
   type RootState,
   selectedSlice,
+  subscriptionsSelectors,
+  subscriptionsSlice,
 } from "@/reducers";
 import { ROUTE_PARAM_MODE } from "@/utils/constants";
 import { encode } from "@/utils/url";
@@ -18,6 +20,7 @@ import {
 import {
   type BaseProxy,
   getProxies,
+  getSubscriptions,
   ProxyTypeEnum,
   type SettingRes,
   type Shadowsocks,
@@ -34,21 +37,41 @@ import styles from "./index.module.css";
 
 export function Content(): React.ReactNode {
   const proxies = useSelector(proxiesSelectors.selectAll);
+  const subscriptions = useSelector(subscriptionsSelectors.selectAll);
 
-  const proxyMap = useMemo(() => {
-    const res: Record<string, BaseProxy[]> = {};
+  const proxyGroups = useMemo(() => {
+    const proxyMap: Record<string, BaseProxy[]> = {};
+    subscriptions.forEach((subscription) => {
+      proxyMap[subscription.id] = [];
+    });
     proxies.forEach((proxy) => {
-      if (proxy.subscriptionUrl) {
-        res[proxy.subscriptionUrl] = [
-          ...(res[proxy.subscriptionUrl] || []),
+      if (proxy.subscription) {
+        proxyMap[proxy.subscription] = [
+          ...(proxyMap[proxy.subscription] || []),
           proxy,
         ];
       } else {
-        res[LOCAL_SERVERS] = [...(res[LOCAL_SERVERS] || []), proxy];
+        proxyMap[LOCAL_SERVERS] = [...(proxyMap[LOCAL_SERVERS] || []), proxy];
       }
     });
-    return res;
-  }, [proxies]);
+    const groups = Object.keys(proxyMap).map((key) => ({
+      id: key,
+      proxies: proxyMap[key],
+    }));
+    const sortedIds = [
+      LOCAL_SERVERS,
+      ...subscriptions.map((s) => s.id).reverse(),
+    ];
+    return sortedIds
+      .map((sortedId) => {
+        const group = groups.find((g) => g.id === sortedId);
+        if (!group) {
+          return null;
+        }
+        return group;
+      })
+      .filter(Boolean) as typeof groups;
+  }, [proxies, subscriptions]);
 
   const selectedId = useSelector<RootState, string>(
     (state) => state.selected.proxy,
@@ -89,13 +112,21 @@ export function Content(): React.ReactNode {
     }
   });
 
+  const init = useEffectEvent(async () => {
+    const [proxiesRes, subscriptionsRes] = await Promise.all([
+      getProxies(),
+      getSubscriptions(),
+    ]);
+    dispatch(proxiesSlice.actions.received(proxiesRes));
+    dispatch(selectedSlice.actions.setProxy({ id: proxiesRes.selectedId }));
+    handleActionFromUrl(proxiesRes.proxies);
+
+    dispatch(subscriptionsSlice.actions.received(subscriptionsRes));
+  });
+
   useEffect(() => {
-    getProxies().then((data) => {
-      dispatch(proxiesSlice.actions.received(data));
-      dispatch(selectedSlice.actions.setProxy({ id: data.selectedId }));
-      handleActionFromUrl(data.proxies);
-    });
-  }, [dispatch]);
+    init();
+  }, []);
 
   const columns: Array<TableColumnDefinition<BaseProxy>> = [
     createTableColumn<BaseProxy>({
@@ -203,16 +234,16 @@ export function Content(): React.ReactNode {
         />
       )}
       <div className={styles.wrapper} ref={listRef}>
-        {Object.keys(proxyMap).map((key) => {
+        {proxyGroups.map((group) => {
           return (
             <ProxyCard
-              key={key}
+              key={group.id}
               columns={columns}
-              data={proxyMap[key]}
+              data={group.proxies}
               selectionMode={isAutoMode ? undefined : "single"}
               onSelectionChange={handleSelect}
               selectedItems={defaultSelectedItems}
-              url={key}
+              id={group.id}
             />
           );
         })}

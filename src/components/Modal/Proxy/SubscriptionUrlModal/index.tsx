@@ -1,6 +1,6 @@
 import { notifier } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { proxiesSlice } from "@/reducers";
+import { proxiesSlice, subscriptionsSlice } from "@/reducers";
 import { formatError } from "@/utils/error";
 import { decodeFromUrl } from "@/utils/url";
 import { Button, Spinner, Textarea } from "@fluentui/react-components";
@@ -32,6 +32,11 @@ function SubscriptionUrlModal(props: Readonly<SubscriptionUrlModalProps>) {
             subscriptionUrl: destination,
           });
           dispatch(proxiesSlice.actions.received({ proxies: res.proxies }));
+          dispatch(
+            subscriptionsSlice.actions.received({
+              subscriptions: res.subscriptions,
+            }),
+          );
           close();
           notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
         } catch (e) {

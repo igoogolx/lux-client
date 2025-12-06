@@ -4,10 +4,12 @@ import {
   type AddProxy,
   type DeleteAllProxies,
   type DeleteProxies,
+  DeleteSubscription,
   type GetCurProxy,
   type GetProxies,
   type GetProxyDelay,
   type GetResFromUrl,
+  GetSubscriptions,
   type TestProxyUdp,
   type UpdateProxy,
 } from "./types";
@@ -74,5 +76,17 @@ export const getResFromUrl: GetResFromUrl = async (req) => {
   const { url: targetUrl } = req;
   const url = `${urtConfig.proxies}/url`;
   const res = await axios.post(url, { url: targetUrl });
+  return res.data;
+};
+
+export const getSubscriptions: GetSubscriptions = async () => {
+  const url = `${urtConfig.subscriptions}`;
+  const res = await axios.get(url);
+  return res.data;
+};
+
+export const deleteSubscription: DeleteSubscription = async (req) => {
+  const url = `${urtConfig.subscription}`;
+  const res = await axios.delete(url, { data: req });
   return res.data;
 };

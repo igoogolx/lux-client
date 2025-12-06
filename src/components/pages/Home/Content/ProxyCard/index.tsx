@@ -3,7 +3,13 @@ import SensitiveInfo from "@/components/Core/SensitiveInfo";
 import { DeleteAllProxiesConfirmModal } from "@/components/Modal/DeleteAllProxiesConfirmModal";
 import { useDangerStyles } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { generalSlice, proxiesSlice, type RootState } from "@/reducers";
+import {
+  generalSlice,
+  proxiesSlice,
+  type RootState,
+  subscriptionsSelectors,
+  subscriptionsSlice,
+} from "@/reducers";
 import { formatError } from "@/utils/error";
 import { decodeFromUrl } from "@/utils/url";
 import {
@@ -25,14 +31,18 @@ import {
   DeleteRegular,
 } from "@fluentui/react-icons";
 import axios from "axios";
-import { addProxiesFromSubscriptionUrl, deleteProxies } from "lux-js-sdk";
-import React, { MouseEventHandler, useState } from "react";
+import {
+  addProxiesFromSubscriptionUrl,
+  deleteProxies,
+  deleteSubscription,
+} from "lux-js-sdk";
+import React, { MouseEventHandler, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./index.module.css";
 
 export interface ProxyCardProps<T> {
-  url: string;
+  id: string;
   data: T[];
   columns: Array<TableColumnDefinition<T>>;
   selectionMode?: DataGridProps["selectionMode"];
@@ -45,15 +55,11 @@ export const LOCAL_SERVERS = "local_servers";
 export default function ProxyCard<T extends { id: string }>(
   props: Readonly<ProxyCardProps<T>>,
 ): React.ReactNode {
-  const {
-    url,
-    data,
-    selectionMode,
-    columns,
-    selectedItems,
-    onSelectionChange,
-  } = props;
+  const { id, data, selectionMode, columns, selectedItems, onSelectionChange } =
+    props;
   const { t } = useTranslation();
+
+  const subscriptions = useSelector(subscriptionsSelectors.selectAll);
 
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared,
@@ -67,12 +73,17 @@ export default function ProxyCard<T extends { id: string }>(
     try {
       e.stopPropagation();
       dispatch(generalSlice.actions.setLoading({ loading: true }));
-      const decodedProxies = await decodeFromUrl(url);
+      const decodedProxies = await decodeFromUrl(id);
       const res = await addProxiesFromSubscriptionUrl({
         proxies: decodedProxies,
-        subscriptionUrl: url,
+        subscriptionUrl: id,
       });
       dispatch(proxiesSlice.actions.received({ proxies: res.proxies }));
+      dispatch(
+        subscriptionsSlice.actions.received({
+          subscriptions: res.subscriptions,
+        }),
+      );
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
     } catch (e) {
       if (!axios.isAxiosError(e)) {
@@ -85,9 +96,15 @@ export default function ProxyCard<T extends { id: string }>(
 
   const handleDeleteProxies = async () => {
     try {
-      const ids = data.map((item) => item.id);
-      await deleteProxies({ ids: data.map((item) => item.id) });
-      dispatch(proxiesSlice.actions.deleteMany({ ids }));
+      const proxyIds = data.map((item) => item.id);
+      if (id === LOCAL_SERVERS) {
+        await deleteProxies({ ids: proxyIds });
+      } else {
+        await deleteSubscription({ id });
+      }
+
+      dispatch(subscriptionsSlice.actions.deleteOne({ id }));
+      dispatch(proxiesSlice.actions.deleteMany({ ids: proxyIds }));
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
     } catch (e) {
       if (!axios.isAxiosError(e)) {
@@ -98,7 +115,11 @@ export default function ProxyCard<T extends { id: string }>(
 
   const handleCopyUrl: MouseEventHandler = async (e) => {
     e.stopPropagation();
-    await navigator.clipboard.writeText(url);
+    const subscription = subscriptions.find((item) => item.id === id);
+    if (!subscription) {
+      return "";
+    }
+    await navigator.clipboard.writeText(subscription.url);
     notifier.success(t(TRANSLATION_KEY.COPIED));
   };
 
@@ -113,10 +134,25 @@ export default function ProxyCard<T extends { id: string }>(
     setIsDeleteAllProxiesModalOpen(true);
   };
 
-  const title =
-    url === LOCAL_SERVERS
-      ? t(TRANSLATION_KEY.LOCAL_SERVERS)
-      : new URL(url).hostname;
+  const title = useMemo(() => {
+    if (id === LOCAL_SERVERS) {
+      return t(TRANSLATION_KEY.LOCAL_SERVERS);
+    }
+    const subscription = subscriptions.find((item) => item.id === id);
+    if (!subscription) {
+      return "";
+    }
+    if (subscription.name) {
+      return subscription.name;
+    }
+    if (subscription.url) {
+      const bigUrl = URL.parse(subscription.url);
+      if (bigUrl) {
+        return bigUrl.hostname;
+      }
+    }
+    return "";
+  }, [id, subscriptions, t]);
 
   return (
     <Card className={styles.card}>
@@ -150,7 +186,7 @@ export default function ProxyCard<T extends { id: string }>(
                     disabled={isStarted}
                   />
                 </Tooltip>
-                {url !== LOCAL_SERVERS && (
+                {id !== LOCAL_SERVERS && (
                   <Tooltip
                     content={t(TRANSLATION_KEY.COMMON_COPY_URL)}
                     relationship="description"
@@ -163,7 +199,7 @@ export default function ProxyCard<T extends { id: string }>(
                     />
                   </Tooltip>
                 )}
-                {url !== LOCAL_SERVERS && (
+                {id !== LOCAL_SERVERS && (
                   <Tooltip
                     content={t(TRANSLATION_KEY.UPDATE_SUBSCRIPTION_PROXIES)}
                     relationship="description"
