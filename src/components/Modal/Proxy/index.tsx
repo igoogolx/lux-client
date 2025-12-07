@@ -1,5 +1,5 @@
 import ProxyTextModal from "@/components/Modal/Proxy/ProxyTextModal";
-import SubscriptionModal from "@/components/Modal/Proxy/SubscriptionUrlModal";
+import SubscriptionModal from "@/components/Modal/Proxy/SubscriptionModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { OtherProxyTypeEnum } from "@/utils/constants";
 import { Dropdown, Option, Text } from "@fluentui/react-components";
