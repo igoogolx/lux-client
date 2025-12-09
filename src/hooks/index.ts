@@ -9,6 +9,7 @@ import { getProxyDelay } from "lux-js-sdk";
 import {
   useCallback,
   useEffect,
+  useEffectEvent,
   useLayoutEffect,
   useRef,
   useState,
@@ -71,6 +72,10 @@ export const useDangerStyles = makeStyles({
 export const useMedia = (query: string, defaultState?: boolean) => {
   const [state, setState] = useState(defaultState);
 
+  const handleChange = useEffectEvent((value: boolean) => {
+    setState(value);
+  });
+
   useEffect(() => {
     let mounted = true;
     const mql = window.matchMedia(query);
@@ -78,11 +83,11 @@ export const useMedia = (query: string, defaultState?: boolean) => {
       if (!mounted) {
         return;
       }
-      setState(mql.matches);
+      handleChange(mql.matches);
     };
 
     mql.addEventListener("change", onChange);
-    setState(mql.matches);
+    handleChange(mql.matches);
 
     return () => {
       mounted = false;
