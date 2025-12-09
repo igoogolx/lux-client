@@ -44,7 +44,7 @@ export const addProxy: AddProxy = async (req) => {
 
 export const addProxiesFromSubscriptionUrl: AddProxiesFromSubscriptionUrl =
   async (req) => {
-    const url = `${urtConfig.proxies}/subscription-url`;
+    const url = `${urtConfig.subscription}`;
     const res = await axios.put(url, req);
     return res.data;
   };
