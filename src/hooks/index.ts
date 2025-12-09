@@ -1,11 +1,16 @@
 import { notifier } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { delaysSlice, proxiesSlice } from "@/reducers";
+import { delaysSlice, proxiesSlice, selectedSlice } from "@/reducers";
 import checkForUpdate from "@/utils/checkForUpdate";
 import { LAST_CHECK_UPDATE_DATE, LATEST_RELEASE_URL } from "@/utils/constants";
+import { decodeFromUrl } from "@/utils/url";
 import { makeStyles } from "@fluentui/react-components";
 import { tokens } from "@fluentui/react-theme";
-import { getProxyDelay } from "lux-js-sdk";
+import {
+  getProxyDelay,
+  updateSelectedProxyId,
+  updateSubscriptionProxies,
+} from "lux-js-sdk";
 import {
   useCallback,
   useEffect,
@@ -158,3 +163,26 @@ export const useThemeDetector = (onChange: (isDark: boolean) => void) => {
     return () => darkThemeMq.removeEventListener("change", mqListener);
   }, [mqListener]);
 };
+
+export function useProxySubscription() {
+  const dispatch = useDispatch();
+  const update = useCallback(
+    async (id: string, url: string) => {
+      const decodedProxies = await decodeFromUrl(url);
+      const res = await updateSubscriptionProxies({
+        subscriptionId: id,
+        proxies: decodedProxies,
+      });
+      dispatch(proxiesSlice.actions.received({ proxies: res.proxies }));
+      const subscriptionProxies = res.proxies.filter((p) => p.id === id);
+      if (subscriptionProxies.length === 1) {
+        return;
+      }
+      const firstProxy = subscriptionProxies[0];
+      await updateSelectedProxyId({ id: firstProxy.id });
+      dispatch(selectedSlice.actions.setProxy({ id: firstProxy.id }));
+    },
+    [dispatch],
+  );
+  return { update };
+}

@@ -1,5 +1,6 @@
 import { Field, Form, notifier } from "@/components/Core";
 import { TextareaField } from "@/components/Core/Form/TextareaField";
+import { useProxySubscription } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSlice, type RootState, subscriptionsSlice } from "@/reducers";
 import { formatError } from "@/utils/error";
@@ -10,7 +11,6 @@ import {
   addProxiesFromSubscriptionUrl,
   Subscription,
   updateSubscription,
-  updateSubscriptionProxies,
 } from "lux-js-sdk";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -47,6 +47,7 @@ function SubscriptionModal(props: Readonly<SubscriptionModalProps>) {
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared,
   );
+  const { update: updateSubscriptionProxies } = useProxySubscription();
 
   const onSubmit = async (data: Subscription) => {
     try {
@@ -62,12 +63,7 @@ function SubscriptionModal(props: Readonly<SubscriptionModalProps>) {
             subscriptionsSlice.actions.updateOne({ subscription: data }),
           );
           if (initialValue?.url !== data.url) {
-            const decodedProxies = await decodeFromUrl(data.url);
-            const res = await updateSubscriptionProxies({
-              subscriptionId: data.id,
-              proxies: decodedProxies,
-            });
-            dispatch(proxiesSlice.actions.received({ proxies: res.proxies }));
+            await updateSubscriptionProxies(data.id, data.url);
           }
         } else {
           const decodedProxies = await decodeFromUrl(data.url);

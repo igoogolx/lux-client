@@ -1,7 +1,7 @@
 import { notifier, Table } from "@/components/Core";
 import SensitiveInfo from "@/components/Core/SensitiveInfo";
 import { DeleteAllProxiesConfirmModal } from "@/components/Modal/DeleteAllProxiesConfirmModal";
-import { useDangerStyles } from "@/hooks";
+import { useDangerStyles, useProxySubscription } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import {
   generalSlice,
@@ -11,7 +11,6 @@ import {
   subscriptionsSlice,
 } from "@/reducers";
 import { formatError } from "@/utils/error";
-import { decodeFromUrl } from "@/utils/url";
 import {
   Accordion,
   AccordionHeader,
@@ -34,12 +33,7 @@ import {
 } from "@fluentui/react-icons";
 import axios from "axios";
 import classNames from "classnames";
-import {
-  deleteProxies,
-  deleteSubscription,
-  Subscription,
-  updateSubscriptionProxies,
-} from "lux-js-sdk";
+import { deleteProxies, deleteSubscription, Subscription } from "lux-js-sdk";
 import React, { MouseEventHandler, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -86,6 +80,9 @@ export default function ProxyCard<T extends { id: string }>(
     useState(false);
 
   const dispatch = useDispatch();
+
+  const { update: updateSubscriptionProxies } = useProxySubscription();
+
   const handleUpdateSubscriptionProxies: MouseEventHandler = async (e) => {
     try {
       e.stopPropagation();
@@ -93,12 +90,8 @@ export default function ProxyCard<T extends { id: string }>(
       if (!curSubscription) {
         return;
       }
-      const decodedProxies = await decodeFromUrl(curSubscription.url);
-      const res = await updateSubscriptionProxies({
-        proxies: decodedProxies,
-        subscriptionId: id,
-      });
-      dispatch(proxiesSlice.actions.received({ proxies: res.proxies }));
+      await updateSubscriptionProxies(curSubscription.id, curSubscription.url);
+
       notifier.success(t(TRANSLATION_KEY.UPDATE_SUCCESS));
     } catch (e) {
       if (!axios.isAxiosError(e)) {
