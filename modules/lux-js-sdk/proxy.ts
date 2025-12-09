@@ -76,13 +76,13 @@ export const testProxyUdp: TestProxyUdp = async (req) => {
 
 export const getResFromUrl: GetResFromUrl = async (req) => {
   const { url: targetUrl } = req;
-  const url = `${urtConfig.proxies}/url`;
+  const url = `${urtConfig.subscription}/url`;
   const res = await axios.post(url, { url: targetUrl });
   return res.data;
 };
 
 export const getSubscriptions: GetSubscriptions = async () => {
-  const url = `${urtConfig.subscriptions}`;
+  const url = `${urtConfig.subscription}/all`;
   const res = await axios.get(url);
   return res.data;
 };
@@ -102,7 +102,7 @@ export const updateSubscription: UpdateSubscription = async (req) => {
 export const updateSubscriptionProxies: UpdateSubscriptionProxies = async (
   req,
 ) => {
-  const url = `${urtConfig.subscriptionProxies}`;
+  const url = `${urtConfig.subscription}/proxies`;
   const res = await axios.post(url, req);
   return res.data;
 };

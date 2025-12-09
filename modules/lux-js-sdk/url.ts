@@ -75,16 +75,8 @@ class UrlConfig {
     return `${this.wsPrefix}${this.baseUrl}/event`;
   }
 
-  get subscriptions() {
-    return `${this.httpPrefix}${this.baseUrl}/proxies/subscriptions`;
-  }
-
   get subscription() {
-    return `${this.httpPrefix}${this.baseUrl}/proxies/subscription`;
-  }
-
-  get subscriptionProxies() {
-    return `${this.subscription}/proxies`;
+    return `${this.httpPrefix}${this.baseUrl}/subscription`;
   }
 }
 
