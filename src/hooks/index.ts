@@ -174,8 +174,10 @@ export function useProxySubscription() {
         proxies: decodedProxies,
       });
       dispatch(proxiesSlice.actions.received({ proxies: res.proxies }));
-      const subscriptionProxies = res.proxies.filter((p) => p.id === id);
-      if (subscriptionProxies.length === 1) {
+      const subscriptionProxies = res.proxies.filter(
+        (p) => p.subscription === id,
+      );
+      if (subscriptionProxies.length === 0) {
         return;
       }
       const firstProxy = subscriptionProxies[0];
