@@ -23,6 +23,7 @@ import {
   deleteProxies,
   ProxyTypeEnum,
   type Shadowsocks,
+  updateSelectedProxyId,
 } from "lux-js-sdk";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -130,6 +131,7 @@ export function Operation(props: Readonly<OperationProps>): React.ReactNode {
         await deleteProxies({ ids: [proxy.id] });
         dispatch(proxiesSlice.actions.deleteOne({ id: proxyId }));
         if (isSelected) {
+          await updateSelectedProxyId({ id: "" });
           dispatch(selectedSlice.actions.setProxy({ id: "" }));
         }
         notifier.success(t(TRANSLATION_KEY.DELETED));

@@ -7,6 +7,7 @@ import {
   generalSlice,
   proxiesSlice,
   type RootState,
+  selectedSlice,
   subscriptionsSelectors,
   subscriptionsSlice,
 } from "@/reducers";
@@ -34,7 +35,12 @@ import {
 } from "@fluentui/react-icons";
 import axios from "axios";
 import classNames from "classnames";
-import { deleteProxies, deleteSubscription, Subscription } from "lux-js-sdk";
+import {
+  deleteProxies,
+  deleteSubscription,
+  Subscription,
+  updateSelectedProxyId,
+} from "lux-js-sdk";
 import React, { MouseEventHandler, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -102,6 +108,8 @@ export default function ProxyCard<T extends { id: string }>(
     }
   };
 
+  const isSelected = selectedCardId === id;
+
   const handleDeleteProxies = async () => {
     try {
       const proxyIds = data.map((item) => item.id);
@@ -109,6 +117,11 @@ export default function ProxyCard<T extends { id: string }>(
         await deleteProxies({ ids: proxyIds });
       } else {
         await deleteSubscription({ id });
+      }
+
+      if (isSelected) {
+        await updateSelectedProxyId({ id: "" });
+        dispatch(selectedSlice.actions.setProxy({ id: "" }));
       }
 
       dispatch(subscriptionsSlice.actions.deleteOne({ id }));
@@ -175,7 +188,7 @@ export default function ProxyCard<T extends { id: string }>(
     return curSubscription.remark;
   }, [curSubscription]);
 
-  const isDeleteDisabled = isStarted && selectedCardId === id;
+  const isDeleteDisabled = isStarted && isSelected;
 
   return (
     <Card className={styles.card}>
