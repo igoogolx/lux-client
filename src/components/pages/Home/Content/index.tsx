@@ -9,7 +9,11 @@ import {
   subscriptionsSelectors,
   subscriptionsSlice,
 } from "@/reducers";
-import { OtherProxyTypeEnum, ROUTE_PARAM_MODE } from "@/utils/constants";
+import {
+  LOCAL_SERVERS,
+  OtherProxyTypeEnum,
+  ROUTE_PARAM_MODE,
+} from "@/utils/constants";
 import { encode } from "@/utils/url";
 import {
   createTableColumn,
@@ -31,7 +35,7 @@ import * as React from "react";
 import { useEffect, useEffectEvent, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import ProxyCard, { LOCAL_SERVERS } from "./ProxyCard";
+import ProxyCard from "./ProxyCard";
 import { DelayTag } from "./ProxyCard/DelayTag";
 import { Operation } from "./ProxyCard/Operation";
 import styles from "./index.module.css";

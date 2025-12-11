@@ -10,6 +10,7 @@ import {
   subscriptionsSelectors,
   subscriptionsSlice,
 } from "@/reducers";
+import { LOCAL_SERVERS } from "@/utils/constants";
 import { formatError } from "@/utils/error";
 import {
   Accordion,
@@ -49,8 +50,6 @@ export interface ProxyCardProps<T> {
   onEditSubscription: (data: Subscription) => void;
 }
 
-export const LOCAL_SERVERS = "local_servers";
-
 const useStyles = makeStyles({
   caption2: typographyStyles.caption2,
 });
@@ -81,7 +80,8 @@ export default function ProxyCard<T extends { id: string }>(
 
   const dispatch = useDispatch();
 
-  const { update: updateSubscriptionProxies } = useProxySubscription();
+  const { update: updateSubscriptionProxies, selectedCardId } =
+    useProxySubscription();
 
   const handleUpdateSubscriptionProxies: MouseEventHandler = async (e) => {
     try {
@@ -175,6 +175,8 @@ export default function ProxyCard<T extends { id: string }>(
     return curSubscription.remark;
   }, [curSubscription]);
 
+  const isDeleteDisabled = isStarted && selectedCardId === id;
+
   return (
     <Card className={styles.card}>
       {isDeleteAllProxiesModalOpen && (
@@ -216,7 +218,7 @@ export default function ProxyCard<T extends { id: string }>(
                       styles.btn,
                       isStarted ? "" : inlineStyles.danger,
                     )}
-                    disabled={isStarted}
+                    disabled={isDeleteDisabled}
                   />
                 </Tooltip>
                 {id !== LOCAL_SERVERS && (

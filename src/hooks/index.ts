@@ -22,7 +22,6 @@ import {
   useEffect,
   useEffectEvent,
   useLayoutEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -173,14 +172,12 @@ export const useThemeDetector = (onChange: (isDark: boolean) => void) => {
 
 export function useProxySubscription() {
   const dispatch = useDispatch();
-  const selectedId = useSelector<RootState, string>(
-    (state) => state.selected.proxy,
+  const selectedCardId = useSelector<RootState>((state) =>
+    selectedSlice.selectors.getSelectedCardId(
+      state,
+      proxiesSelectors.selectAll(state),
+    ),
   );
-  const proxies = useSelector(proxiesSelectors.selectAll);
-
-  const isSelected = useMemo(() => {
-    return !!proxies.find((p) => p.id === selectedId);
-  }, [proxies, selectedId]);
 
   const update = useCallback(
     async (id: string, url: string) => {
@@ -190,6 +187,8 @@ export function useProxySubscription() {
         proxies: decodedProxies,
       });
       dispatch(proxiesSlice.actions.received({ proxies: res.proxies }));
+
+      const isSelected = selectedCardId === id;
       if (!isSelected) {
         return;
       }
@@ -203,7 +202,7 @@ export function useProxySubscription() {
       await updateSelectedProxyId({ id: firstProxy.id });
       dispatch(selectedSlice.actions.setProxy({ id: firstProxy.id }));
     },
-    [dispatch, isSelected],
+    [dispatch, selectedCardId],
   );
-  return { update, isSelected };
+  return { update, selectedCardId };
 }
