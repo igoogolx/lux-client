@@ -1,6 +1,6 @@
 {
   "name": "lux",
-  "version": "1.20.0-beat.4",
+  "version": "1.20.0",
   "description": "A system network proxy tool",
   "main": "src/index.js",
   "scripts": {
