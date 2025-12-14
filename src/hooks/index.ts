@@ -1,20 +1,32 @@
 import { notifier } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { delaysSlice, proxiesSlice } from "@/reducers";
+import {
+  delaysSlice,
+  proxiesSelectors,
+  proxiesSlice,
+  type RootState,
+  selectedSlice,
+} from "@/reducers";
 import checkForUpdate from "@/utils/checkForUpdate";
 import { LAST_CHECK_UPDATE_DATE, LATEST_RELEASE_URL } from "@/utils/constants";
+import { decodeFromUrl } from "@/utils/url";
 import { makeStyles } from "@fluentui/react-components";
 import { tokens } from "@fluentui/react-theme";
-import { getProxyDelay } from "lux-js-sdk";
+import {
+  getProxyDelay,
+  updateSelectedProxyId,
+  updateSubscriptionProxies,
+} from "lux-js-sdk";
 import {
   useCallback,
   useEffect,
+  useEffectEvent,
   useLayoutEffect,
   useRef,
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const useTestDelay = () => {
   const dispatch = useDispatch();
@@ -71,6 +83,10 @@ export const useDangerStyles = makeStyles({
 export const useMedia = (query: string, defaultState?: boolean) => {
   const [state, setState] = useState(defaultState);
 
+  const handleChange = useEffectEvent((value: boolean) => {
+    setState(value);
+  });
+
   useEffect(() => {
     let mounted = true;
     const mql = window.matchMedia(query);
@@ -78,11 +94,11 @@ export const useMedia = (query: string, defaultState?: boolean) => {
       if (!mounted) {
         return;
       }
-      setState(mql.matches);
+      handleChange(mql.matches);
     };
 
     mql.addEventListener("change", onChange);
-    setState(mql.matches);
+    handleChange(mql.matches);
 
     return () => {
       mounted = false;
@@ -153,3 +169,40 @@ export const useThemeDetector = (onChange: (isDark: boolean) => void) => {
     return () => darkThemeMq.removeEventListener("change", mqListener);
   }, [mqListener]);
 };
+
+export function useProxySubscription() {
+  const dispatch = useDispatch();
+  const selectedCardId = useSelector<RootState>((state) =>
+    selectedSlice.selectors.getSelectedCardId(
+      state,
+      proxiesSelectors.selectAll(state),
+    ),
+  );
+
+  const update = useCallback(
+    async (id: string, url: string) => {
+      const decodedProxies = await decodeFromUrl(url);
+      const res = await updateSubscriptionProxies({
+        subscriptionId: id,
+        proxies: decodedProxies,
+      });
+      dispatch(proxiesSlice.actions.received({ proxies: res.proxies }));
+
+      const isSelected = selectedCardId === id;
+      if (!isSelected) {
+        return;
+      }
+      const subscriptionProxies = res.proxies.filter(
+        (p) => p.subscription === id,
+      );
+      if (subscriptionProxies.length === 0) {
+        return;
+      }
+      const firstProxy = subscriptionProxies[0];
+      await updateSelectedProxyId({ id: firstProxy.id });
+      dispatch(selectedSlice.actions.setProxy({ id: firstProxy.id }));
+    },
+    [dispatch, selectedCardId],
+  );
+  return { update, selectedCardId };
+}

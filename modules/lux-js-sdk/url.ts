@@ -74,6 +74,10 @@ class UrlConfig {
   get event() {
     return `${this.wsPrefix}${this.baseUrl}/event`;
   }
+
+  get subscription() {
+    return `${this.httpPrefix}${this.baseUrl}/subscription`;
+  }
 }
 
 export const urtConfig = new UrlConfig();

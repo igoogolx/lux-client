@@ -53,3 +53,4 @@ export enum ROUTE_PARAM_MODE {
   QR_CODE = "qrCode",
   ADD = "add",
 }
+export const LOCAL_SERVERS = "local_servers";

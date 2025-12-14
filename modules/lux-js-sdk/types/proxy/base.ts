@@ -11,6 +11,7 @@ export interface CommonProxy {
   name: string;
   delay?: number;
   subscriptionUrl?: string;
+  subscription?: string;
 }
 
 export interface BaseProxy extends IProxyConfig, CommonProxy {}

@@ -64,7 +64,7 @@ export const TRANSLATION_KEY = {
   HTTP: "common.http",
   PROXY_TEXT_IMPORT: "proxy_text_import",
   SUBSCRIPTION_URL_IMPORT: "subscription_url_import",
-  SUBSCRIPTION_URL: "subscription_url",
+  SUBSCRIPTION: "subscription_url",
   PROXY_TEXT: "proxy_text",
   ERROR: "common.error",
   WARNING: "common.warning",
@@ -207,4 +207,7 @@ export const TRANSLATION_KEY = {
   GENERAL: "common.general",
   ADVANCED: "common.advanced",
   DEFAULT: "common.default",
+  REMARK: "remark",
+  EDIT_SUBSCRIPTION: "edit_subscription",
+  URL: "url",
 };
