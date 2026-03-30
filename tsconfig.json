@@ -15,5 +15,9 @@
     "allowJs": true,
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "baseUrl": "."
-  }
+  },
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }
