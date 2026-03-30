@@ -1,21 +1,4 @@
 {
-  "compilerOptions": {
-    "noImplicitAny": true,
-    "module": "es2022",
-    "target": "ES2020",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "paths": {
-      "@/*": ["src/*"],
-      "lux-js-sdk": ["modules/lux-js-sdk"]
-    },
-    "strict": true,
-    "jsx": "react",
-    "allowJs": true,
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
-    "baseUrl": "."
-  },
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
