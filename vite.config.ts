@@ -9,6 +9,11 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "src"),
       "lux-js-sdk": path.resolve(__dirname, "modules", "lux-js-sdk"),
+      "proxy-uri-parser": path.resolve(
+        __dirname,
+        "modules",
+        "proxy-uri-parser",
+      ),
     },
   },
 });
