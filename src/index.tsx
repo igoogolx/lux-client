@@ -7,7 +7,6 @@ import {
   webLightTheme,
 } from "@fluentui/react-components";
 import { init } from "lux-js-sdk";
-import * as React from "react";
 import { StrictMode, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
