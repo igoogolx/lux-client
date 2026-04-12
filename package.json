@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "lint-fix": "eslint --ext .ts,.tsx --fix src",
-    "dev": "webpack serve -c build/webpack.ui.config.js --env NODE_ENV=development --mode development --hot --open",
-    "build": "webpack -c build/webpack.ui.config.js --env NODE_ENV=production --mode production"
+    "dev": "vite dev --host 127.0.0.1",
+    "build": "vite build"
   },
   "keywords": [],
   "author": "igoogolx",
