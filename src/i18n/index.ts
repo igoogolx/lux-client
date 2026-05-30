@@ -23,7 +23,7 @@ export function getLang(value?: string) {
 export async function initLanguage(language?: string) {
   return await i18n.use(initReactI18next).init({
     lng: getLang(language),
-    debug: process.env.NODE_ENV === "development",
+    debug: !import.meta.env.PROD,
     returnObjects: true,
     resources: {
       [LANGUAGE_ENUM.EN_US]: {
