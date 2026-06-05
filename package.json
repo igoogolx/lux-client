@@ -17,7 +17,7 @@
     "@fortawesome/fontawesome-free": "^7.0.0",
     "@reduxjs/toolkit": "^2.9.0",
     "@tailwindcss/postcss": "^4.1.16",
-    "axios": "^1.15.0",
+    "axios": "^1.16.0",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
     "formik": "^2.4.6",
