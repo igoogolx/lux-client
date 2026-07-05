@@ -9,10 +9,10 @@ import { Button, Spinner } from "@fluentui/react-components";
 import axios from "axios";
 import {
   addProxiesFromSubscriptionUrl,
-  Subscription,
+  type Subscription,
   updateSubscription,
 } from "lux-js-sdk";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";

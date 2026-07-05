@@ -9,9 +9,9 @@ import {
   ProxyTypeEnum,
   type Shadowsocks,
   type Socks5,
-  Subscription,
+  type Subscription,
 } from "lux-js-sdk";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal } from "../../Core";
 import { EditHttpModal } from "./EditHttpModal";
@@ -29,7 +29,7 @@ export interface EditModalProps {
 
 export function EditModal(props: Readonly<EditModalProps>) {
   const { type, close, initialValue, isSelected = false } = props;
-  let content = null;
+  let content;
 
   const { t } = useTranslation();
 
@@ -43,7 +43,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
 
   const isEdit = !!initialValue;
 
-  let titleI18nKey = "";
+  let titleI18nKey;
 
   const [currentType, setCurrentType] = useState(type);
 

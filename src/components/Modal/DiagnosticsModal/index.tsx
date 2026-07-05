@@ -4,7 +4,7 @@ import { Link, Subtitle2 } from "@fluentui/react-components";
 import {
   getRuntimeDetail,
   type RuntimeDetail,
-  RuntimeDnsDetail,
+  type RuntimeDnsDetail,
 } from "lux-js-sdk";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";

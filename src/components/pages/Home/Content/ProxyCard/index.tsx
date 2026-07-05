@@ -38,10 +38,10 @@ import classNames from "classnames";
 import {
   deleteProxies,
   deleteSubscription,
-  Subscription,
+  type Subscription,
   updateSelectedProxyId,
 } from "lux-js-sdk";
-import React, { MouseEventHandler, useMemo, useState } from "react";
+import React, { type MouseEventHandler, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./index.module.css";

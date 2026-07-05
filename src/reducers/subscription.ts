@@ -3,7 +3,7 @@ import {
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-import { Subscription } from "lux-js-sdk";
+import type { Subscription } from "lux-js-sdk";
 
 export const subscriptionsAdapter = createEntityAdapter<Subscription>();
 

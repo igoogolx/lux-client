@@ -1,5 +1,5 @@
 import SensitiveInfo from "@/components/Core/SensitiveInfo";
-import { EditModal, EditModalProps } from "@/components/Modal/Proxy";
+import { EditModal, type EditModalProps } from "@/components/Modal/Proxy";
 import { QrCodeModal } from "@/components/Modal/QrCodeModal";
 import {
   proxiesSelectors,
@@ -28,7 +28,7 @@ import {
   ProxyTypeEnum,
   type SettingRes,
   type Shadowsocks,
-  Subscription,
+  type Subscription,
   updateSelectedProxyId,
 } from "lux-js-sdk";
 import * as React from "react";

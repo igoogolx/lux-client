@@ -1,8 +1,8 @@
 import ConnStatics, {
-  ConnStaticsProps,
+  type ConnStaticsProps,
 } from "@/components/pages/Data/Dashboard/TrafficCard/ConnStatics";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { DnsStatistic, type TrafficItem } from "lux-js-sdk";
+import type { DnsStatistic, TrafficItem } from "lux-js-sdk";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import DnsStatics from "./DnsStatics";

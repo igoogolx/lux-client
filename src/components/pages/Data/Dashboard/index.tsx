@@ -1,13 +1,13 @@
 import {
-  DnsStatistic,
+  type DnsStatistic,
   subscribeDnsStatistic,
   subscribeTraffic,
-  Traffic,
+  type Traffic,
 } from "lux-js-sdk";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { ConnectionsAmount, TrafficCard } from "./TrafficCard";
+import { type ConnectionsAmount, TrafficCard } from "./TrafficCard";
 import styles from "./index.module.css";
 
 interface DashboardProps {
