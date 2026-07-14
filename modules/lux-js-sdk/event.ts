@@ -1,5 +1,5 @@
 import { getToken } from "@/utils/auth";
-import { SubscribeEvent } from "./types/event";
+import type { SubscribeEvent } from "./types/event";
 import { urtConfig } from "./url";
 import { createWebsocket } from "./websocket";
 
