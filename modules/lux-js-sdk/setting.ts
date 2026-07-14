@@ -1,10 +1,10 @@
 import axios from "axios";
-import {
-  type GetConfigFileDir,
-  type GetSetting,
-  type GetSettingInterfaces,
-  type ResetConfig,
-  type SetSetting,
+import type {
+  GetConfigFileDir,
+  GetSetting,
+  GetSettingInterfaces,
+  ResetConfig,
+  SetSetting,
   SettingRes,
 } from "./types";
 import { urtConfig } from "./url";
