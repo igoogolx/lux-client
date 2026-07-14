@@ -1,6 +1,7 @@
-import WsClient from "isomorphic-ws";
+import type WsClient from "isomorphic-ws";
 import { subscribeEvent } from "lux-js-sdk";
-import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
+import type { PropsWithChildren} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import EventContext, { EventHub } from "./context";
 
 export default function EventProvider(props: Readonly<PropsWithChildren>) {

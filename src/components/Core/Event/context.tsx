@@ -1,4 +1,4 @@
-import WsClient from "isomorphic-ws";
+import type WsClient from "isomorphic-ws";
 import { createContext } from "react";
 
 export enum EVENT_TYPE {

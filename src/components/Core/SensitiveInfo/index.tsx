@@ -1,4 +1,5 @@
-import { PropsWithChildren, useContext, useMemo } from "react";
+import type { PropsWithChildren} from "react";
+import { useContext, useMemo } from "react";
 import SensitiveInfoModeContext from "./context";
 
 interface SensitiveInfoProps extends PropsWithChildren {
