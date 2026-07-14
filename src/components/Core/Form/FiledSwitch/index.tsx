@@ -1,7 +1,7 @@
 import { Switch } from "@fluentui/react-components";
 import classNames from "classnames";
 import { useField } from "formik";
-import React from "react";
+
 import styles from "./index.module.css";
 
 interface FieldSwitchProps {

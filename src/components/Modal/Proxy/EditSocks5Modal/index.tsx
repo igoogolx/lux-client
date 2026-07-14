@@ -3,7 +3,7 @@ import { proxiesSlice, type RootState } from "@/reducers";
 import { MAX_PORT, MIN_PORT } from "@/utils/validator";
 import { Button } from "@fluentui/react-components";
 import { addProxy, ProxyTypeEnum, type Socks5, updateProxy } from "lux-js-sdk";
-import React from "react";
+
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";

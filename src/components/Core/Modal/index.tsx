@@ -12,7 +12,7 @@ import {
   Spinner,
 } from "@fluentui/react-components";
 import { DismissRegular } from "@fluentui/react-icons";
-import React from "react";
+
 import { useTranslation } from "react-i18next";
 import styles from "./index.module.css";
 

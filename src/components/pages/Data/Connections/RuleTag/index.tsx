@@ -2,7 +2,7 @@ import { Tag, TagTypeEnum } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { TableCellLayout } from "@fluentui/react-components";
 import { type RuleDetailItem, RULE_POLICY } from "lux-js-sdk";
-import React from "react";
+
 import { useTranslation } from "react-i18next";
 
 function RuleTag({ value }: Readonly<{ value: RuleDetailItem }>) {

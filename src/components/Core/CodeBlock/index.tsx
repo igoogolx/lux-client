@@ -1,7 +1,7 @@
 import { useClipboard } from "@/utils/clipboard";
 import { Button } from "@fluentui/react-components";
 import { CopyRegular } from "@fluentui/react-icons";
-import React from "react";
+
 import styles from "./index.module.css";
 
 interface CodeBlockProps {

@@ -1,5 +1,5 @@
 import { convertByte } from "@/utils/traffic";
-import React from "react";
+
 import styles from "./index.module.css";
 
 export enum FlowTextTypeEnum {
