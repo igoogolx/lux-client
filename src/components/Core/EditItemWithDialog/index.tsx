@@ -12,7 +12,7 @@ import {
   Input,
   Option,
 } from "@fluentui/react-components";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type MenuItemProps } from "../index";
 import styles from "./index.module.css";
@@ -51,6 +51,7 @@ export default function EditItemWithDialog(
   const [editedValue, setEditedValue] = useState(value);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEditedValue(value);
   }, [value]);
 
@@ -58,7 +59,7 @@ export default function EditItemWithDialog(
     <Dialog
       modalType="alert"
       open={open}
-      onOpenChange={(e, data) => {
+      onOpenChange={(_, data) => {
         setEditedValue(value);
         setOpen(data.open);
       }}
@@ -91,7 +92,7 @@ export default function EditItemWithDialog(
                 <div className={styles.selectContainer}>
                   <Dropdown
                     value={editedValue}
-                    onOptionSelect={(e, data) => {
+                    onOptionSelect={(_, data) => {
                       setEditedValue(data.optionValue as string);
                     }}
                     className={styles.select}
