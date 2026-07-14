@@ -9,12 +9,17 @@ import {
   Switch,
 } from "@fluentui/react-components";
 import { setSetting, type SettingRes } from "lux-js-sdk";
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { notifier } from "../../../Core";
 import EditItemWithDialog from "../../../Core/EditItemWithDialog";
 import styles from "../index.module.css";
+
+const MODE_TYPE_OPTIONS = [
+  { content: "url-test", id: "url-test" },
+  { content: "fallback", id: "fallback" },
+];
 
 export default function AutoMode() {
   const { t } = useTranslation();
@@ -22,11 +27,6 @@ export default function AutoMode() {
   const isStarted = useSelector<RootState, boolean>(
     (state) => state.manager.isStared || state.manager.isLoading,
   );
-
-  const modeTypeOptions = useRef([
-    { content: "url-test", id: "url-test" },
-    { content: "fallback", id: "fallback" },
-  ]);
 
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
 
@@ -87,7 +87,7 @@ export default function AutoMode() {
                 });
               }}
             >
-              {modeTypeOptions.current.map((option) => (
+              {MODE_TYPE_OPTIONS.map((option) => (
                 <Option key={option.id}>{option.content}</Option>
               ))}
             </Dropdown>
