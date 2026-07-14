@@ -12,7 +12,7 @@ import {
   Subtitle2,
 } from "@fluentui/react-components";
 import { getConfigFileDir, resetConfigFile } from "lux-js-sdk";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import styles from "../index.module.css";

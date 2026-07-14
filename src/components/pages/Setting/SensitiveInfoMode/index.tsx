@@ -38,7 +38,7 @@ export default function SensitiveInfoMode() {
         </div>
         <Switch
           checked={setting.sensitiveInfoMode}
-          onChange={(e, data) => {
+          onChange={(_, data) => {
             onSubmit(data.checked);
           }}
         />

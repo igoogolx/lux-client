@@ -1,7 +1,7 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { Button } from "@fluentui/react-components";
 import { type Obfs, ObfsModeEnum } from "lux-js-sdk";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Field, FiledSelector, Form } from "../../../../Core";
 import { getObfsPluginSchema } from "../../EditShadowsocksModal/validate";

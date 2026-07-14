@@ -1,6 +1,6 @@
 import type { RootState } from "@/reducers";
-import type { PropsWithChildren} from "react";
-import React, { useMemo } from "react";
+import type { PropsWithChildren } from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import SensitiveInfoModeContext from "./context";
 
