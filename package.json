@@ -23,7 +23,6 @@
     "formik": "^2.4.6",
     "i18next": "^25.4.0",
     "isomorphic-ws": "^5.0.0",
-    "proxy-uri-parser": "https://github.com/igoogolx/proxy-uri-parser.git#v0.3.0",
     "qrcode": "^1.5.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

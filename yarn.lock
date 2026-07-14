@@ -4829,10 +4829,6 @@ proxy-from-env@^2.1.0:
   resolved "https://registry.yarnpkg.com/proxy-from-env/-/proxy-from-env-2.1.0.tgz#a7487568adad577cfaaa7e88c49cab3ab3081aba"
   integrity sha512-cJ+oHTW1VAEa8cJslgmUZrc+sjRKgAKl3Zyse6+PV38hZe/V6Z14TbCuXcan9F9ghlz4QrFr2c92TNF82UkYHA==
 
-"proxy-uri-parser@https://github.com/igoogolx/proxy-uri-parser.git#v0.3.0":
-  version "0.3.0"
-  resolved "https://github.com/igoogolx/proxy-uri-parser.git#d4623313227e574cc4ae33d49d94a5dc818fa590"
-
 prr@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/prr/-/prr-1.0.1.tgz#d3fc114ba06995a45ec6893f484ceb1d78f5f476"
