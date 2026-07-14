@@ -13,7 +13,8 @@
 
     "paths": {
       "@/*": ["./src/*"],
-      "lux-js-sdk": ["./modules/lux-js-sdk"]
+      "lux-js-sdk": ["./modules/lux-js-sdk"],
+      "proxy-uri-parser": ["./modules/proxy-uri-parser"]
     },
 
     /* Bundler mode */
