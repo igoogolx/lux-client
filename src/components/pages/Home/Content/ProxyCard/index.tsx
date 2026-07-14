@@ -154,13 +154,15 @@ export default function ProxyCard<T extends { id: string }>(
     setIsDeleteAllProxiesModalOpen(true);
   };
 
-  const curSubscription = useMemo(() => {
+  const calcCurSubscription = () => {
     const subscription = subscriptions.find((item) => item.id === id);
     if (!subscription) {
       return null;
     }
     return subscription;
-  }, [id, subscriptions]);
+  };
+
+  const curSubscription = calcCurSubscription();
 
   const title = useMemo(() => {
     if (id === LOCAL_SERVERS) {
