@@ -32,6 +32,7 @@ export default [
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
       "@typescript-eslint/consistent-type-imports": "error",
+      "no-useless-assignment": "off",
     },
   },
 ];
