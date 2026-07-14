@@ -57,6 +57,7 @@ export default function EditItemWithSelectDialog(
   const [curType, setCurType] = useState(type);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEditedValue(value);
   }, [value]);
 
@@ -64,7 +65,7 @@ export default function EditItemWithSelectDialog(
     <Dialog
       modalType="alert"
       open={open}
-      onOpenChange={(e, data) => {
+      onOpenChange={(_, data) => {
         setEditedValue(value);
         setCurType(type);
         setOpen(data.open);
@@ -85,7 +86,7 @@ export default function EditItemWithSelectDialog(
             <div className={styles.selectContainer}>
               <Dropdown
                 value={curType}
-                onOptionSelect={(e, data) => {
+                onOptionSelect={(_, data) => {
                   setEditedValue("");
                   setCurType(data.optionValue as DnsTypeEnum);
                 }}
@@ -102,7 +103,7 @@ export default function EditItemWithSelectDialog(
               <div className={styles.selectContainer}>
                 <Dropdown
                   value={editedValue}
-                  onOptionSelect={(e, data) => {
+                  onOptionSelect={(_, data) => {
                     setEditedValue(data.optionValue as string);
                   }}
                   className={styles.select}
