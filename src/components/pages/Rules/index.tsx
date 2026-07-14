@@ -23,7 +23,7 @@ export default function Rules() {
     <div className={styles.container}>
       <TabList
         selectedValue={selectedValue}
-        onTabSelect={(event, data) => {
+        onTabSelect={(_, data) => {
           setSelectedValue(data.value as string);
         }}
       >

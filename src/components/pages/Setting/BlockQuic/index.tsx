@@ -42,7 +42,7 @@ export default function BlockQuic() {
         </div>
         <Switch
           checked={setting.blockQuic}
-          onChange={(e, data) => {
+          onChange={(_, data) => {
             onSubmit(data.checked);
           }}
           disabled={isStarted}

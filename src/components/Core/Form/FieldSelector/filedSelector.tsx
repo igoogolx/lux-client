@@ -49,7 +49,7 @@ export function FiledSelector<T extends string>(
       <div className={styles.container}>
         <Dropdown
           value={(currentSelectedOption?.content as string) || ""}
-          onOptionSelect={(e, data) => {
+          onOptionSelect={(_, data) => {
             if (clearable && data.optionValue === field.value) {
               setValue("");
               return;

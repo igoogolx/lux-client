@@ -190,7 +190,7 @@ export default function Logger(): React.ReactNode {
     <div className={styles.wrapper}>
       <div className={styles.toolbar}>
         <SearchBox
-          onChange={(e, data) => {
+          onChange={(_, data) => {
             setSearchedValue(data.value);
           }}
           placeholder={t(TRANSLATION_KEY.SEARCH_LOG_TIP)}
