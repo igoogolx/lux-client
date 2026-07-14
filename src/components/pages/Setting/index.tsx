@@ -1,6 +1,6 @@
 import { settingSlice } from "@/reducers";
 import { getRuntimeDetail, getSetting } from "lux-js-sdk";
-import React, { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { SettingForm } from "./Form";
 import styles from "./index.module.css";
@@ -20,6 +20,7 @@ export default function Setting() {
   });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     init().catch((e) => {
       console.error(e);
     });
