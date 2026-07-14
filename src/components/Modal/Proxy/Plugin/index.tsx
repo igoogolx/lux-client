@@ -8,7 +8,7 @@ import {
   type Shadowsocks,
   type V2rayObfs,
 } from "lux-js-sdk";
-import React, { useState } from "react";
+import { type ReactElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NONE_ID } from "../EditShadowsocksModal/constant";
 import { NonePlugin } from "./None";
@@ -36,7 +36,6 @@ const INIT_OBFS_DATA: Obfs = {
 
 export function EditPlugin(props: Readonly<EditPluginProps>) {
   const { type = PluginTypeEnum.Obfs, close, initialValue, onSave } = props;
-  let content = null;
 
   const typeOption = {
     [PluginTypeEnum.Obfs]: "Obfs",
@@ -48,6 +47,7 @@ export function EditPlugin(props: Readonly<EditPluginProps>) {
 
   const { t } = useTranslation();
 
+  let content: ReactElement | null = null;
   switch (currentType) {
     case PluginTypeEnum.Obfs:
       content = (
