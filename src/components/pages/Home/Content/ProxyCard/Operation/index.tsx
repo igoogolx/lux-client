@@ -25,7 +25,7 @@ import {
   type Shadowsocks,
   updateSelectedProxyId,
 } from "lux-js-sdk";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 

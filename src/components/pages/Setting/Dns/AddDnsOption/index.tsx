@@ -8,7 +8,7 @@ import {
   mergeClasses,
   Subtitle2,
 } from "@fluentui/react-components";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import styles from "../../index.module.css";

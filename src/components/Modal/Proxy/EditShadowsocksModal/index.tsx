@@ -7,7 +7,7 @@ import {
   type Shadowsocks,
   updateProxy,
 } from "lux-js-sdk";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Field, FiledSelector, Form, PasswordFiled } from "../../../Core";

@@ -1,7 +1,7 @@
 import { useClipboard } from "@/utils/clipboard";
 import { Button, TableCellLayout, Tooltip } from "@fluentui/react-components";
 import { CopyRegular } from "@fluentui/react-icons";
-import React, { useState } from "react";
+import { useState } from "react";
 import Highlighter from "react-highlight-words";
 import styles from "./index.module.css";
 

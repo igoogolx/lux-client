@@ -10,7 +10,7 @@ import {
 } from "@fluentui/react-components";
 import { AddFilled } from "@fluentui/react-icons";
 import { ProxyTypeEnum } from "lux-js-sdk";
-import React, { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { EditModal } from "../../../../Modal/Proxy";

@@ -1,7 +1,7 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState } from "@/reducers";
 import { getExecutablePath, getRuntimeOS } from "lux-js-sdk";
-import React, { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { ConfirmModal } from "../../Core";

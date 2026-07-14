@@ -2,7 +2,7 @@ import RuleTable from "@/components/pages/Rules/RuleTable";
 import { CUSTOMIZED_RULE_ID } from "@/utils/constants";
 import { Tab, TabList } from "@fluentui/react-components";
 import { getRules } from "lux-js-sdk";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./index.module.css";
 

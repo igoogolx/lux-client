@@ -14,7 +14,7 @@ import {
 } from "@fluentui/react-components";
 import { MoreHorizontalFilled } from "@fluentui/react-icons";
 import { type BaseProxy } from "lux-js-sdk";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 

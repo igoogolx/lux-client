@@ -15,7 +15,7 @@ import { DeleteRegular } from "@fluentui/react-icons";
 import { type TableColumnDefinition } from "@fluentui/react-table";
 import dayjs from "dayjs";
 import { type Log, LogLevel, subscribeLog } from "lux-js-sdk";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { useTranslation } from "react-i18next";
 import { Table, Tag, type TagTypeEnum } from "../../Core";

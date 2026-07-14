@@ -12,7 +12,7 @@ import { DeleteRegular } from "@fluentui/react-icons";
 import { type TableColumnDefinition } from "@fluentui/react-table";
 import { t } from "i18next";
 import { getSetting, setSetting, type SettingRes } from "lux-js-sdk";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./index.module.css";
 

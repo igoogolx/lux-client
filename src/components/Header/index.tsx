@@ -2,7 +2,7 @@ import MobileNav from "@/components/Nav/Mobile";
 import { settingSlice } from "@/reducers";
 import { Divider } from "@fluentui/react-components";
 import { getSetting } from "lux-js-sdk";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./index.module.css";
 

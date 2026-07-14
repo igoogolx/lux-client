@@ -1,6 +1,6 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import QRCode from "qrcode";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal, notifier } from "../../Core";
 import styles from "./index.module.css";
