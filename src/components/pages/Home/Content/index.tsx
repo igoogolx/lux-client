@@ -132,7 +132,10 @@ export function Content(): React.ReactNode {
   });
 
   useEffect(() => {
-    init();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    init().catch((e) => {
+      console.error(e);
+    });
   }, []);
 
   const columns: Array<TableColumnDefinition<BaseProxy>> = [
