@@ -1,3 +1,14 @@
-import parseUri from "./uri-parser"
-import type {IProxyConfig,IProxyShadowsocksConfig,IProxySocks5Config,IProxyHttpConfig} from "./types"
-export {parseUri,IProxyConfig,IProxyShadowsocksConfig,IProxySocks5Config,IProxyHttpConfig}
+import type {
+  IProxyConfig,
+  IProxyHttpConfig,
+  IProxyShadowsocksConfig,
+  IProxySocks5Config,
+} from "./types";
+import parseUri from "./uri-parser";
+export { parseUri };
+export type {
+  IProxyConfig,
+  IProxyHttpConfig,
+  IProxyShadowsocksConfig,
+  IProxySocks5Config,
+};

@@ -1,6 +1,18 @@
 import {
+  decodeAndTrim,
+  parseBoolOrPresence,
+  parseInteger,
+  parsePortOrDefault,
+  parseQueryStringNormalized,
+  parseUrlLike,
+  safeDecodeURIComponent,
+  splitOnce,
+  stripUriScheme,
+} from "./helpers";
+import type {
   ClientFingerprint,
-  GrpcOptions, IProxyAnyTLSConfig,
+  GrpcOptions,
+  IProxyAnyTLSConfig,
   IProxyConfig,
   IProxyHttpConfig,
   IProxyHysteria2Config,
@@ -14,17 +26,8 @@ import {
   IProxyVmessConfig,
   IProxyWireguardConfig,
   NetworkType,
-  WsOptions
+  WsOptions,
 } from "./types";
-import {
-  decodeAndTrim,
-  parseBoolOrPresence,
-  parseInteger, parsePortOrDefault,
-  parseQueryStringNormalized,
-  parseUrlLike, safeDecodeURIComponent,
-  splitOnce,
-  stripUriScheme
-} from "./helpers";
 
 export default function parseUri(uri: string): IProxyConfig {
   const head = uri.split("://")[0];
@@ -66,7 +69,7 @@ export default function parseUri(uri: string): IProxyConfig {
 
 function getIfNotBlank(
   value: string | undefined,
-  dft?: string
+  dft?: string,
 ): string | undefined {
   return value && value.trim() !== "" ? value : dft;
 }
@@ -82,11 +85,6 @@ function isPresent(value: any): boolean {
 function trimStr(str: string | undefined): string | undefined {
   return str ? str.trim() : str;
 }
-
-function isNotBlank(name: string) {
-  return name.trim().length !== 0;
-}
-
 function isIPv4(address: string): boolean {
   // Check if the address is IPv4
   const ipv4Regex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
@@ -210,7 +208,7 @@ function URI_SS(line: string): IProxyShadowsocksConfig {
         if (v2rayPlugin) {
           proxy.plugin = "v2ray-plugin";
           proxy["plugin-opts"] = JSON.parse(
-            decodeBase64OrOriginal(v2rayPlugin)
+            decodeBase64OrOriginal(v2rayPlugin),
           );
         }
       }
@@ -223,7 +221,7 @@ function URI_SS(line: string): IProxyShadowsocksConfig {
   const portIdx = serverAndPort?.lastIndexOf(":") ?? 0;
   proxy.server = serverAndPort?.substring(0, portIdx) ?? "";
   proxy.port = parseInt(
-    `${serverAndPort?.substring(portIdx + 1)}`.match(/\d+/)?.[0] ?? ""
+    `${serverAndPort?.substring(portIdx + 1)}`.match(/\d+/)?.[0] ?? "",
   );
   const userInfo = userInfoStr.match(/(^.*?):(.*$)/);
   proxy.cipher = getCipher(userInfo?.[1]);
@@ -282,7 +280,7 @@ function URI_SSR(line: string): IProxyshadowsocksRConfig {
   const serverAndPort = line.substring(0, splitIdx);
   const server = serverAndPort.substring(0, serverAndPort.lastIndexOf(":"));
   const port = parseInt(
-    serverAndPort.substring(serverAndPort.lastIndexOf(":") + 1)
+    serverAndPort.substring(serverAndPort.lastIndexOf(":") + 1),
   );
 
   let params = line
@@ -314,12 +312,12 @@ function URI_SSR(line: string): IProxyshadowsocksRConfig {
     ...proxy,
     name: other_params.remarks
       ? decodeBase64OrOriginal(other_params.remarks).trim()
-      : proxy.server ?? "",
+      : (proxy.server ?? ""),
     "protocol-param": getIfNotBlank(
-      decodeBase64OrOriginal(other_params.protoparam || "").replace(/\s/g, "")
+      decodeBase64OrOriginal(other_params.protoparam || "").replace(/\s/g, ""),
     ),
     "obfs-param": getIfNotBlank(
-      decodeBase64OrOriginal(other_params.obfsparam || "").replace(/\s/g, "")
+      decodeBase64OrOriginal(other_params.obfsparam || "").replace(/\s/g, ""),
     ),
   };
   return proxy;
@@ -360,7 +358,7 @@ function URI_VMESS(line: string): IProxyVmessConfig {
         proxy["ws-opts"] = {
           path:
             (getIfNotBlank(params["obfs-path"]) || '"/"').match(
-              /^"(.*)"$/
+              /^"(.*)"$/,
             )?.[1] || "/",
           headers: {
             Host:
@@ -722,8 +720,8 @@ function URI_Trojan(line: string): IProxyTrojanConfig {
       case "fp":
         proxy["fingerprint"] = value;
         break;
-      case "encryption":
-        let encryption = value.split(";");
+      case "encryption": {
+        const encryption = value.split(";");
         if (encryption.length === 3) {
           proxy["ss-opts"] = {
             enabled: true,
@@ -731,6 +729,8 @@ function URI_Trojan(line: string): IProxyTrojanConfig {
             password: encryption[2],
           };
         }
+        break;
+      }
       case "client-fingerprint":
         proxy["client-fingerprint"] = value as ClientFingerprint;
         break;
@@ -875,8 +875,10 @@ function URI_Hysteria(line: string): IProxyHysteriaConfig {
         break;
       case "protocol":
         proxy["protocol"] = value;
+        break;
       case "sni":
         proxy["sni"] = value;
+        break;
       default:
         break;
     }
@@ -1187,9 +1189,9 @@ function URI_SOCKS(line: string): IProxySocks5Config {
 }
 
 export function URI_AnyTLS(line: string): IProxyAnyTLSConfig {
-  const afterScheme = stripUriScheme(line, 'anytls', 'Invalid anytls uri')
+  const afterScheme = stripUriScheme(line, "anytls", "Invalid anytls uri");
   if (!afterScheme) {
-    throw new Error('Invalid anytls uri')
+    throw new Error("Invalid anytls uri");
   }
   const {
     auth: authRaw,
@@ -1198,73 +1200,73 @@ export function URI_AnyTLS(line: string): IProxyAnyTLSConfig {
     query: addons,
     fragment: nameRaw,
   } = parseUrlLike(afterScheme, {
-    errorMessage: 'Invalid anytls uri',
-  })
+    errorMessage: "Invalid anytls uri",
+  });
   if (!server) {
-    throw new Error('Invalid anytls uri')
+    throw new Error("Invalid anytls uri");
   }
-  const portNum = parsePortOrDefault(port, 443)
-  const auth = safeDecodeURIComponent(authRaw) ?? authRaw
-  const decodedName = decodeAndTrim(nameRaw)
-  const name = decodedName ?? `AnyTLS ${server}:${portNum}`
+  const portNum = parsePortOrDefault(port, 443);
+  const auth = safeDecodeURIComponent(authRaw) ?? authRaw;
+  const decodedName = decodeAndTrim(nameRaw);
+  const name = decodedName ?? `AnyTLS ${server}:${portNum}`;
   const proxy: IProxyAnyTLSConfig = {
-    type: 'anytls',
+    type: "anytls",
     name,
     server,
     port: portNum,
     udp: true,
-  }
+  };
 
   if (auth) {
-    const [username, password] = splitOnce(auth, ':')
-    proxy.password = password ?? username
+    const [username, password] = splitOnce(auth, ":");
+    proxy.password = password ?? username;
   }
 
-  const params = parseQueryStringNormalized(addons)
+  const params = parseQueryStringNormalized(addons);
   if (params.sni) {
-    proxy.sni = params.sni
+    proxy.sni = params.sni;
   }
   if (params.alpn) {
     const alpn = params.alpn
-        .split(',')
-        .map((item) => item.trim())
-        .filter(Boolean)
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
     if (alpn.length > 0) {
-      proxy.alpn = alpn
+      proxy.alpn = alpn;
     }
   }
 
-  const fingerprint = params.fingerprint ?? params.hpkp
+  const fingerprint = params.fingerprint ?? params.hpkp;
   if (fingerprint) {
-    proxy.fingerprint = fingerprint
+    proxy.fingerprint = fingerprint;
   }
-  const clientFingerprint = params['client-fingerprint'] ?? params.fp
+  const clientFingerprint = params["client-fingerprint"] ?? params.fp;
   if (clientFingerprint) {
-    proxy['client-fingerprint'] = clientFingerprint as ClientFingerprint
+    proxy["client-fingerprint"] = clientFingerprint as ClientFingerprint;
   }
 
-  if (Object.prototype.hasOwnProperty.call(params, 'skip-cert-verify')) {
-    proxy['skip-cert-verify'] = parseBoolOrPresence(params['skip-cert-verify'])
-  } else if (Object.prototype.hasOwnProperty.call(params, 'insecure')) {
-    proxy['skip-cert-verify'] = parseBoolOrPresence(params.insecure)
+  if (Object.prototype.hasOwnProperty.call(params, "skip-cert-verify")) {
+    proxy["skip-cert-verify"] = parseBoolOrPresence(params["skip-cert-verify"]);
+  } else if (Object.prototype.hasOwnProperty.call(params, "insecure")) {
+    proxy["skip-cert-verify"] = parseBoolOrPresence(params.insecure);
   }
 
-  if (Object.prototype.hasOwnProperty.call(params, 'udp')) {
-    proxy.udp = parseBoolOrPresence(params.udp)
+  if (Object.prototype.hasOwnProperty.call(params, "udp")) {
+    proxy.udp = parseBoolOrPresence(params.udp);
   }
 
-  const idleCheck = parseInteger(params['idle-session-check-interval'])
+  const idleCheck = parseInteger(params["idle-session-check-interval"]);
   if (idleCheck !== undefined) {
-    proxy['idle-session-check-interval'] = idleCheck
+    proxy["idle-session-check-interval"] = idleCheck;
   }
-  const idleTimeout = parseInteger(params['idle-session-timeout'])
+  const idleTimeout = parseInteger(params["idle-session-timeout"]);
   if (idleTimeout !== undefined) {
-    proxy['idle-session-timeout'] = idleTimeout
+    proxy["idle-session-timeout"] = idleTimeout;
   }
-  const minIdle = parseInteger(params['min-idle-session'])
+  const minIdle = parseInteger(params["min-idle-session"]);
   if (minIdle !== undefined) {
-    proxy['min-idle-session'] = minIdle
+    proxy["min-idle-session"] = minIdle;
   }
 
-  return proxy
+  return proxy;
 }

@@ -1,4 +1,4 @@
-import { type IProxyShadowsocksConfig } from "proxy-uri-parser/src/index";
+import { type IProxyShadowsocksConfig } from "proxy-uri-parser";
 
 export enum ObfsModeEnum {
   Tls = "tls",
