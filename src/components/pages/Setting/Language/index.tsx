@@ -5,7 +5,7 @@ import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import { Card, Dropdown, Option, Subtitle2 } from "@fluentui/react-components";
 import { setSetting, type SettingRes } from "lux-js-sdk";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../index.module.css";
