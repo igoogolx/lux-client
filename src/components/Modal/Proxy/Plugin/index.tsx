@@ -97,7 +97,7 @@ export function EditPlugin(props: Readonly<EditPluginProps>) {
         <Text>{t(TRANSLATION_KEY.TYPE)}</Text>
         <Dropdown
           defaultValue={typeOption[currentType]}
-          onOptionSelect={(e, data) => {
+          onOptionSelect={(_, data) => {
             setCurrentType(data.optionValue as PluginTypeEnum);
           }}
         >
