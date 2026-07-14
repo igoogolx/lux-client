@@ -1,10 +1,10 @@
 import axios from "axios";
-import {
-  type AddCustomizedRules,
-  type DeleteCustomizedRules,
+import type {
+  AddCustomizedRules,
+  DeleteCustomizedRules,
   EditCustomizedRule,
-  type GetRuleDetail,
-  type GetRules,
+  GetRuleDetail,
+  GetRules,
 } from "./types";
 import { urtConfig } from "./url";
 

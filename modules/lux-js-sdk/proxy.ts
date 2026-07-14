@@ -1,17 +1,17 @@
 import axios from "axios";
-import {
-  type AddProxiesFromSubscriptionUrl,
-  type AddProxy,
-  type DeleteAllProxies,
-  type DeleteProxies,
+import type {
+  AddProxiesFromSubscriptionUrl,
+  AddProxy,
+  DeleteAllProxies,
+  DeleteProxies,
   DeleteSubscription,
-  type GetCurProxy,
-  type GetProxies,
-  type GetProxyDelay,
-  type GetResFromUrl,
+  GetCurProxy,
+  GetProxies,
+  GetProxyDelay,
+  GetResFromUrl,
   GetSubscriptions,
-  type TestProxyUdp,
-  type UpdateProxy,
+  TestProxyUdp,
+  UpdateProxy,
   UpdateSubscription,
   UpdateSubscriptionProxies,
 } from "./types";

@@ -1,5 +1,5 @@
 import { type BaseProxy } from "./base";
-import { Subscription } from "./subscription";
+import type { Subscription } from "./subscription";
 
 export interface GetProxiesRes {
   proxies: BaseProxy[];
