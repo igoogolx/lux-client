@@ -12,7 +12,7 @@ import {
   Input,
   Option,
 } from "@fluentui/react-components";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type MenuItemProps } from "../index";
 import styles from "./index.module.css";
@@ -33,6 +33,11 @@ export enum DnsTypeEnum {
   BuiltIn = "builtIn",
 }
 
+const TYPE_OPTIONS = [
+  { id: DnsTypeEnum.BuiltIn, content: DnsTypeEnum.BuiltIn },
+  { id: DnsTypeEnum.Custom, content: DnsTypeEnum.Custom },
+];
+
 export default function EditItemWithSelectDialog(
   props: Readonly<EditItemWithSelectDialogProps>,
 ) {
@@ -50,11 +55,6 @@ export default function EditItemWithSelectDialog(
   const { t } = useTranslation();
   const [editedValue, setEditedValue] = useState(value);
   const [curType, setCurType] = useState(type);
-
-  const typeOptions = useRef([
-    { id: DnsTypeEnum.BuiltIn, content: DnsTypeEnum.BuiltIn },
-    { id: DnsTypeEnum.Custom, content: DnsTypeEnum.Custom },
-  ]);
 
   useEffect(() => {
     setEditedValue(value);
@@ -91,7 +91,7 @@ export default function EditItemWithSelectDialog(
                 }}
                 className={styles.select}
               >
-                {typeOptions.current.map((option) => (
+                {TYPE_OPTIONS.map((option) => (
                   <Option key={option.content as string}>
                     {option.content as string}
                   </Option>
