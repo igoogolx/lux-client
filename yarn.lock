@@ -1975,6 +1975,11 @@
     markdown-to-jsx "^9.8.1"
     prop-types "^15.8.1"
 
+"@rjsf/fluentui-rc@^6.6.2":
+  version "6.6.2"
+  resolved "https://registry.yarnpkg.com/@rjsf/fluentui-rc/-/fluentui-rc-6.6.2.tgz#d6da9da781331e3ff93ffb3725e573be73bf41dd"
+  integrity sha512-8hVR3shkAh/0cYOgr7MeWHdKrs5X1sfsu0leuO+eP9iUwXttz7NsNDUsM8V+BFIBaSIJE8gU8sCz2z8ASoepWQ==
+
 "@rjsf/utils@^6.6.2":
   version "6.6.2"
   resolved "https://registry.yarnpkg.com/@rjsf/utils/-/utils-6.6.2.tgz#cf7f1d0efac5b963c49e4e08688924ab07a93ab0"

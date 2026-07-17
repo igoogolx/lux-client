@@ -17,6 +17,7 @@
     "@fortawesome/fontawesome-free": "^7.0.0",
     "@reduxjs/toolkit": "^2.9.0",
     "@rjsf/core": "^6.6.2",
+    "@rjsf/fluentui-rc": "^6.6.2",
     "@rjsf/utils": "^6.6.2",
     "@rjsf/validator-ajv8": "^6.6.2",
     "@tailwindcss/postcss": "^4.1.16",
