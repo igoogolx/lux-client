@@ -1,5 +1,6 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState } from "@/reducers";
+import { getIsAppClient } from "@/utils/appClient.ts";
 import { getExecutablePath, getRuntimeOS } from "lux-js-sdk";
 import { type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -34,7 +35,9 @@ export function ElevateModal(): ReactNode {
 
   const isDarwin = os === "darwin";
 
-  return !isAdmin && isOpen ? (
+  const isAppClient = getIsAppClient();
+
+  return !isAppClient && !isAdmin && isOpen ? (
     <ConfirmModal
       title={t(TRANSLATION_KEY.ELEVATE_CORE)}
       onCancel={() => {
