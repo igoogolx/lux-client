@@ -14,6 +14,7 @@
   "dependencies": {
     "@fluentui-contrib/react-data-grid-react-window": "^1.4.2",
     "@fluentui/react-components": "^9.72.8",
+    "@fluentui/react-migration-v0-v9": "^9.6.33",
     "@fortawesome/fontawesome-free": "^7.0.0",
     "@reduxjs/toolkit": "^2.9.0",
     "@rjsf/core": "^6.6.2",
