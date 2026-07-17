@@ -1,3 +1,4 @@
+import { EditAnytlsModal } from "@/components/Modal/Proxy/EditAnytlsModal";
 import ProxyTextModal from "@/components/Modal/Proxy/ProxyTextModal";
 import SubscriptionModal from "@/components/Modal/Proxy/SubscriptionModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
@@ -37,6 +38,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
     [ProxyTypeEnum.Shadowsocks]: "Shadowsocks",
     [ProxyTypeEnum.Http]: "Http",
     [ProxyTypeEnum.Socks5]: "Socks5",
+    [ProxyTypeEnum.Anytls]: "Anytls",
     [OtherProxyTypeEnum.Subscription]: t(TRANSLATION_KEY.SUBSCRIPTION),
     [OtherProxyTypeEnum.Text]: t(TRANSLATION_KEY.PROXY_TEXT),
   };
@@ -87,6 +89,13 @@ export function EditModal(props: Readonly<EditModalProps>) {
         />
       );
       break;
+    case ProxyTypeEnum.Anytls: {
+      titleI18nKey = isEdit
+        ? TRANSLATION_KEY.EDIT_HTTP
+        : TRANSLATION_KEY.NEW_HTTP;
+      content = <EditAnytlsModal />;
+      break;
+    }
     case OtherProxyTypeEnum.Subscription:
       titleI18nKey = isEdit
         ? TRANSLATION_KEY.EDIT_SUBSCRIPTION

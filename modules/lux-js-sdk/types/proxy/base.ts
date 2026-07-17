@@ -4,6 +4,7 @@ export enum ProxyTypeEnum {
   Shadowsocks = "ss",
   Socks5 = "socks5",
   Http = "http",
+  Anytls = "anytls",
 }
 
 export interface CommonProxy {
