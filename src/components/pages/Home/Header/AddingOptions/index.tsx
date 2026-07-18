@@ -21,6 +21,7 @@ enum OperationTypeEnum {
   Clipboard,
   Http,
   SubscriptionUrl,
+  Anytls,
 }
 
 interface AddingOptionsProps {
@@ -49,6 +50,10 @@ export function AddingOptions(
     {
       id: OperationTypeEnum.Http,
       content: t(TRANSLATION_KEY.HTTP),
+    },
+    {
+      id: OperationTypeEnum.Anytls,
+      content: "TODO-AnyTls",
     },
     {
       id: OperationTypeEnum.SubscriptionUrl,
@@ -85,6 +90,9 @@ export function AddingOptions(
         break;
       case OperationTypeEnum.Http:
         setCurrentAddingType(ProxyTypeEnum.Http);
+        break;
+      case OperationTypeEnum.Anytls:
+        setCurrentAddingType(ProxyTypeEnum.Anytls);
         break;
       case OperationTypeEnum.Clipboard: {
         setCurrentAddingType(OtherProxyTypeEnum.Text);

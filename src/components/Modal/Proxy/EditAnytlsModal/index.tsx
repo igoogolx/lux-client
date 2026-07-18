@@ -5,14 +5,37 @@ import type { RJSFSchema } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
 
 const schema: RJSFSchema = {
-  title: "Test form",
   type: "object",
+  required: ["server", "port", "password"],
   properties: {
     name: {
       type: "string",
     },
-    age: {
+    server: {
+      type: "string",
+    },
+    port: {
       type: "number",
+    },
+    password: {
+      type: "string",
+    },
+
+    sni: {
+      type: "string",
+    },
+    "client-fingerprint": {
+      type: "string",
+    },
+    "skip-cert-verify": {
+      type: "boolean",
+    },
+
+    alpn: {
+      type: "array",
+      items: {
+        type: "string",
+      },
     },
   },
 };
