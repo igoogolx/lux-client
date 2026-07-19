@@ -1,8 +1,16 @@
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 
+import { PasswordWidget } from "@/components/Core";
+import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
+import { proxiesSlice } from "@/reducers";
+import { formatFormSchema } from "@/utils/form.ts";
+import type { FormProps } from "@rjsf/core";
 import Form from "@rjsf/fluentui-rc";
-import type { RJSFSchema } from "@rjsf/utils";
+import type { RJSFSchema, UiSchema } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
+import { addProxy, type Anytls, ProxyTypeEnum, updateProxy } from "lux-js-sdk";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 
 const schema: RJSFSchema = {
   type: "object",
@@ -20,12 +28,29 @@ const schema: RJSFSchema = {
     password: {
       type: "string",
     },
-
     sni: {
       type: "string",
     },
     "client-fingerprint": {
       type: "string",
+    },
+    fingerprint: {
+      type: "string",
+    },
+    certificate: {
+      type: "string",
+    },
+    "private-key": {
+      type: "string",
+    },
+    "idle-session-check-interval": {
+      type: "number",
+    },
+    "idle-session-timeout": {
+      type: "number",
+    },
+    "min-idle-session": {
+      type: "number",
     },
     "skip-cert-verify": {
       type: "boolean",
@@ -40,6 +65,81 @@ const schema: RJSFSchema = {
   },
 };
 
-export function EditAnytlsModal(): ReactNode {
-  return <Form schema={schema} validator={validator} />;
+const uiSchema: UiSchema = {
+  password: {
+    "ui:widget": PasswordWidget,
+    "ui:autocomplete": "off",
+  },
+};
+
+type EditAnytlsModalProps = {
+  close: () => void;
+  initialValue?: Anytls;
+  isSelected?: boolean;
+};
+
+const INIT_DATA: Anytls = {
+  type: ProxyTypeEnum.Anytls,
+  id: "",
+  name: "",
+  server: "",
+  password: "",
+  port: 1080,
+};
+
+const FIELD_TITLE_I18N_KEY: Record<string, string> = {
+  name: TRANSLATION_KEY.FORM_NAME,
+  server: TRANSLATION_KEY.FORM_SERVER,
+  password: TRANSLATION_KEY.FORM_PASSWORD,
+  port: TRANSLATION_KEY.FORM_PORT,
+};
+
+export function EditAnytlsModal(props: EditAnytlsModalProps): ReactNode {
+  const { initialValue } = props;
+
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+
+  const [formData, setFormData] = useState<Anytls>(initialValue || INIT_DATA);
+
+  const transFieldTitle = (key: string) => {
+    if (key in FIELD_TITLE_I18N_KEY) {
+      return t(FIELD_TITLE_I18N_KEY[key] as string);
+    }
+    return null;
+  };
+
+  const renderedSchema = formatFormSchema(schema, transFieldTitle);
+
+  const handleChange: FormProps["onChange"] = (e) => {
+    setFormData(e.formData);
+  };
+
+  const handleSubmit: FormProps["onSubmit"] = async () => {
+    if (initialValue) {
+      await updateProxy({
+        id: formData.id,
+        proxy: formData,
+      });
+      dispatch(proxiesSlice.actions.updateOne({ proxy: formData }));
+    } else {
+      const { id } = await addProxy({
+        proxy: formData,
+      });
+      dispatch(proxiesSlice.actions.addOne({ proxy: { ...formData, id } }));
+    }
+    close();
+  };
+
+  return (
+    <Form
+      autoComplete={"off"}
+      schema={renderedSchema}
+      validator={validator}
+      uiSchema={uiSchema}
+      formData={formData}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+    />
+  );
 }

@@ -93,6 +93,7 @@ export function Operation(props: Readonly<OperationProps>): React.ReactNode {
         ProxyTypeEnum.Shadowsocks as BaseProxy["type"],
         ProxyTypeEnum.Http,
         ProxyTypeEnum.Socks5,
+        ProxyTypeEnum.Anytls,
       ].includes(proxy.type)
     ) {
       return items;

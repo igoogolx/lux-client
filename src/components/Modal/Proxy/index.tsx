@@ -5,6 +5,7 @@ import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { OtherProxyTypeEnum } from "@/utils/constants";
 import { Dropdown, Option, Text } from "@fluentui/react-components";
 import {
+  type Anytls,
   type BaseProxy,
   type Http,
   ProxyTypeEnum,
@@ -93,7 +94,9 @@ export function EditModal(props: Readonly<EditModalProps>) {
       titleI18nKey = isEdit
         ? TRANSLATION_KEY.EDIT_HTTP
         : TRANSLATION_KEY.NEW_HTTP;
-      content = <EditAnytlsModal />;
+      content = (
+        <EditAnytlsModal close={close} initialValue={initialValue as Anytls} />
+      );
       break;
     }
     case OtherProxyTypeEnum.Subscription:
