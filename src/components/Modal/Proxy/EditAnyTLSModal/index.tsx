@@ -145,7 +145,7 @@ export function EditAnyTLSModal(props: EditAnytlsModalProps): ReactNode {
       });
       dispatch(proxiesSlice.actions.addOne({ proxy: { ...formData, id } }));
     }
-    close();
+    onClose();
   };
 
   return (
