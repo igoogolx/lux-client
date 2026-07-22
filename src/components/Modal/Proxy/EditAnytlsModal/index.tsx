@@ -92,6 +92,17 @@ const FIELD_TITLE_I18N_KEY: Record<string, string> = {
   server: TRANSLATION_KEY.FORM_SERVER,
   password: TRANSLATION_KEY.FORM_PASSWORD,
   port: TRANSLATION_KEY.FORM_PORT,
+  sni: TRANSLATION_KEY.FORM_SNI,
+  "client-fingerprint": TRANSLATION_KEY.FORM_CLIENT_FINGERPRINT,
+  fingerprint: TRANSLATION_KEY.FORM_FINGERPRINT,
+  certificate: TRANSLATION_KEY.FORM_CERTIFICATE,
+  "private-key": TRANSLATION_KEY.FORM_PRIVATE_KEY,
+  "idle-session-check-interval":
+    TRANSLATION_KEY.FORM_IDLE_SESSION_CHECK_INTERVAL,
+  "idle-session-timeout": TRANSLATION_KEY.FORM_IDLE_SESSION_TIMEOUT,
+  "min-idle-session": TRANSLATION_KEY.FORM_MIN_IDLE_SESSION,
+  "skip-cert-verify": TRANSLATION_KEY.SKIP_CERT_VERIFY,
+  alpn: TRANSLATION_KEY.FORM_ALPN,
 };
 
 export function EditAnytlsModal(props: EditAnytlsModalProps): ReactNode {

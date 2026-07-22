@@ -39,7 +39,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
     [ProxyTypeEnum.Shadowsocks]: "Shadowsocks",
     [ProxyTypeEnum.Http]: "Http",
     [ProxyTypeEnum.Socks5]: "Socks5",
-    [ProxyTypeEnum.Anytls]: "Anytls",
+    [ProxyTypeEnum.Anytls]: t(TRANSLATION_KEY.ANYTLS),
     [OtherProxyTypeEnum.Subscription]: t(TRANSLATION_KEY.SUBSCRIPTION),
     [OtherProxyTypeEnum.Text]: t(TRANSLATION_KEY.PROXY_TEXT),
   };
@@ -92,8 +92,8 @@ export function EditModal(props: Readonly<EditModalProps>) {
       break;
     case ProxyTypeEnum.Anytls: {
       titleI18nKey = isEdit
-        ? TRANSLATION_KEY.EDIT_HTTP
-        : TRANSLATION_KEY.NEW_HTTP;
+        ? TRANSLATION_KEY.EDIT_ANYTLS
+        : TRANSLATION_KEY.NEW_ANYTLS;
       content = (
         <EditAnytlsModal close={close} initialValue={initialValue as Anytls} />
       );

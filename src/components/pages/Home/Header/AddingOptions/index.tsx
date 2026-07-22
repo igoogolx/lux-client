@@ -53,7 +53,7 @@ export function AddingOptions(
     },
     {
       id: OperationTypeEnum.Anytls,
-      content: "TODO-AnyTls",
+      content: t(TRANSLATION_KEY.ANYTLS),
     },
     {
       id: OperationTypeEnum.SubscriptionUrl,
