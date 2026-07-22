@@ -95,7 +95,11 @@ export function EditModal(props: Readonly<EditModalProps>) {
         ? TRANSLATION_KEY.EDIT_ANYTLS
         : TRANSLATION_KEY.NEW_ANYTLS;
       content = (
-        <EditAnytlsModal close={close} initialValue={initialValue as Anytls} />
+        <EditAnytlsModal
+          close={close}
+          initialValue={initialValue as Anytls}
+          isSelected={isSelected}
+        />
       );
       break;
     }

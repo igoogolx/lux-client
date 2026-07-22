@@ -2,15 +2,17 @@ import { type ReactNode, useState } from "react";
 
 import { PasswordWidget } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
-import { proxiesSlice } from "@/reducers";
+import { proxiesSlice, type RootState } from "@/reducers";
 import { formatFormSchema } from "@/utils/form.ts";
+import { Button } from "@fluentui/react-components";
 import type { FormProps } from "@rjsf/core";
 import Form from "@rjsf/fluentui-rc";
 import type { RJSFSchema, UiSchema } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
 import { addProxy, type Anytls, ProxyTypeEnum, updateProxy } from "lux-js-sdk";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import styles from "./index.module.css";
 
 const schema: RJSFSchema = {
   type: "object",
@@ -106,10 +108,14 @@ const FIELD_TITLE_I18N_KEY: Record<string, string> = {
 };
 
 export function EditAnytlsModal(props: EditAnytlsModalProps): ReactNode {
-  const { initialValue } = props;
+  const { initialValue, isSelected } = props;
 
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const isStarted = useSelector<RootState, boolean>(
+    (state) => state.manager.isStared,
+  );
 
   const [formData, setFormData] = useState<Anytls>(initialValue || INIT_DATA);
 
@@ -151,6 +157,20 @@ export function EditAnytlsModal(props: EditAnytlsModalProps): ReactNode {
       formData={formData}
       onChange={handleChange}
       onSubmit={handleSubmit}
-    />
+    >
+      <div className={styles.buttonContainer}>
+        <Button onClick={close} className={styles.button}>
+          {t(TRANSLATION_KEY.FORM_CANCEL)}
+        </Button>
+        <Button
+          className={styles.button}
+          disabled={isSelected && isStarted}
+          type={"submit"}
+          appearance="primary"
+        >
+          {t(TRANSLATION_KEY.FORM_SAVE)}
+        </Button>
+      </div>
+    </Form>
   );
 }
