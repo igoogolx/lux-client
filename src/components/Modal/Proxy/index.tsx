@@ -96,7 +96,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
         : TRANSLATION_KEY.NEW_ANYTLS;
       content = (
         <EditAnytlsModal
-          close={close}
+          onClose={close}
           initialValue={initialValue as Anytls}
           isSelected={isSelected}
         />

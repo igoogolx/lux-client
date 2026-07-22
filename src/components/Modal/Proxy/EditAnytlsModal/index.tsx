@@ -75,7 +75,7 @@ const uiSchema: UiSchema = {
 };
 
 type EditAnytlsModalProps = {
-  close: () => void;
+  onClose: () => void;
   initialValue?: Anytls;
   isSelected?: boolean;
 };
@@ -108,7 +108,7 @@ const FIELD_TITLE_I18N_KEY: Record<string, string> = {
 };
 
 export function EditAnytlsModal(props: EditAnytlsModalProps): ReactNode {
-  const { initialValue, isSelected } = props;
+  const { initialValue, isSelected, onClose } = props;
 
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -159,7 +159,7 @@ export function EditAnytlsModal(props: EditAnytlsModalProps): ReactNode {
       onSubmit={handleSubmit}
     >
       <div className={styles.buttonContainer}>
-        <Button onClick={close} className={styles.button}>
+        <Button onClick={onClose} className={styles.button}>
           {t(TRANSLATION_KEY.FORM_CANCEL)}
         </Button>
         <Button
