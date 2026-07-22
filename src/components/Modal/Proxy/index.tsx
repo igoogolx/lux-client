@@ -1,4 +1,4 @@
-import { EditAnytlsModal } from "@/components/Modal/Proxy/EditAnytlsModal";
+import { EditAnyTLSModal } from "@/components/Modal/Proxy/EditAnyTLSModal";
 import ProxyTextModal from "@/components/Modal/Proxy/ProxyTextModal";
 import SubscriptionModal from "@/components/Modal/Proxy/SubscriptionModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
@@ -95,7 +95,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
         ? TRANSLATION_KEY.EDIT_ANYTLS
         : TRANSLATION_KEY.NEW_ANYTLS;
       content = (
-        <EditAnytlsModal
+        <EditAnyTLSModal
           onClose={close}
           initialValue={initialValue as Anytls}
           isSelected={isSelected}
