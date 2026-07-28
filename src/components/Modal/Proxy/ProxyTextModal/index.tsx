@@ -6,7 +6,7 @@ import { decode } from "@/utils/url";
 import { Button, Spinner, Textarea } from "@fluentui/react-components";
 import axios from "axios";
 import { addProxy } from "lux-js-sdk";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import styles from "./index.module.css";

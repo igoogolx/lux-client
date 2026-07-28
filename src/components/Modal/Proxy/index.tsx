@@ -1,17 +1,19 @@
+import { EditAnyTLSModal } from "@/components/Modal/Proxy/EditAnyTLSModal";
 import ProxyTextModal from "@/components/Modal/Proxy/ProxyTextModal";
 import SubscriptionModal from "@/components/Modal/Proxy/SubscriptionModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { OtherProxyTypeEnum } from "@/utils/constants";
 import { Dropdown, Option, Text } from "@fluentui/react-components";
 import {
+  type Anytls,
   type BaseProxy,
   type Http,
   ProxyTypeEnum,
   type Shadowsocks,
   type Socks5,
-  Subscription,
+  type Subscription,
 } from "lux-js-sdk";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal } from "../../Core";
 import { EditHttpModal } from "./EditHttpModal";
@@ -29,7 +31,7 @@ export interface EditModalProps {
 
 export function EditModal(props: Readonly<EditModalProps>) {
   const { type, close, initialValue, isSelected = false } = props;
-  let content = null;
+  let content;
 
   const { t } = useTranslation();
 
@@ -37,13 +39,14 @@ export function EditModal(props: Readonly<EditModalProps>) {
     [ProxyTypeEnum.Shadowsocks]: "Shadowsocks",
     [ProxyTypeEnum.Http]: "Http",
     [ProxyTypeEnum.Socks5]: "Socks5",
+    [ProxyTypeEnum.Anytls]: t(TRANSLATION_KEY.ANYTLS),
     [OtherProxyTypeEnum.Subscription]: t(TRANSLATION_KEY.SUBSCRIPTION),
     [OtherProxyTypeEnum.Text]: t(TRANSLATION_KEY.PROXY_TEXT),
   };
 
   const isEdit = !!initialValue;
 
-  let titleI18nKey = "";
+  let titleI18nKey;
 
   const [currentType, setCurrentType] = useState(type);
 
@@ -87,6 +90,19 @@ export function EditModal(props: Readonly<EditModalProps>) {
         />
       );
       break;
+    case ProxyTypeEnum.Anytls: {
+      titleI18nKey = isEdit
+        ? TRANSLATION_KEY.EDIT_ANYTLS
+        : TRANSLATION_KEY.NEW_ANYTLS;
+      content = (
+        <EditAnyTLSModal
+          onClose={close}
+          initialValue={initialValue as Anytls}
+          isSelected={isSelected}
+        />
+      );
+      break;
+    }
     case OtherProxyTypeEnum.Subscription:
       titleI18nKey = isEdit
         ? TRANSLATION_KEY.EDIT_SUBSCRIPTION

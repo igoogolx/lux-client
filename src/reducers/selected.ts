@@ -1,6 +1,6 @@
 import { LOCAL_SERVERS } from "@/utils/constants";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { BaseProxy } from "lux-js-sdk";
+import type { BaseProxy } from "lux-js-sdk";
 
 export const selectedSlice = createSlice({
   name: "selected",

@@ -11,7 +11,7 @@ import {
   useFluent,
   useScrollbarWidth,
 } from "@fluentui/react-components";
-import React, { type CSSProperties } from "react";
+import { type CSSProperties } from "react";
 
 import {
   DataGrid as VirtualizedDataGrid,

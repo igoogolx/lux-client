@@ -36,18 +36,19 @@ const useStyles = makeStyles({
 interface NavProps {
   onClick?: () => void;
 }
+
+const HomeIcon = bundleIcon(HomeFilled, HomeRegular);
+const RulesIcon = bundleIcon(RowTripleFilled, RowTripleRegular);
+const DataIcon = bundleIcon(TopSpeedFilled, TopSpeedRegular);
+const LogIcon = bundleIcon(NoteFilled, NoteRegular);
+const SettingIcon = bundleIcon(SettingsFilled, SettingsRegular);
+const AboutIcon = bundleIcon(InfoFilled, InfoRegular);
+
 export function Nav(props: Readonly<NavProps>): React.ReactNode {
   const { onClick } = props;
 
   const { t } = useTranslation();
   const items = useMemo(() => {
-    const HomeIcon = bundleIcon(HomeFilled, HomeRegular);
-    const RulesIcon = bundleIcon(RowTripleFilled, RowTripleRegular);
-    const DataIcon = bundleIcon(TopSpeedFilled, TopSpeedRegular);
-    const LogIcon = bundleIcon(NoteFilled, NoteRegular);
-    const SettingIcon = bundleIcon(SettingsFilled, SettingsRegular);
-    const AboutIcon = bundleIcon(InfoFilled, InfoRegular);
-
     return [
       {
         to: ROUTER_PATH.Home,

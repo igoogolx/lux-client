@@ -1,9 +1,10 @@
-import { type IProxyConfig } from "proxy-uri-parser/src";
+import { type IProxyConfig } from "proxy-uri-parser";
 
 export enum ProxyTypeEnum {
   Shadowsocks = "ss",
   Socks5 = "socks5",
   Http = "http",
+  Anytls = "anytls",
 }
 
 export interface CommonProxy {

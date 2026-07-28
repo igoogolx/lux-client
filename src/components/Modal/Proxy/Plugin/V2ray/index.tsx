@@ -1,7 +1,7 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { Button } from "@fluentui/react-components";
 import { type V2rayObfs } from "lux-js-sdk";
-import React from "react";
+
 import { useTranslation } from "react-i18next";
 import { Field, FieldSwitch, Form } from "../../../../Core";
 import { getV2rayPluginSchema } from "../../EditShadowsocksModal/validate";

@@ -3,7 +3,7 @@ import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSlice, type RootState } from "@/reducers";
 import { Button } from "@fluentui/react-components";
 import { addProxy, type Http, ProxyTypeEnum, updateProxy } from "lux-js-sdk";
-import React from "react";
+
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Field, Form, PasswordFiled } from "../../../Core";

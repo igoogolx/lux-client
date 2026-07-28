@@ -3,7 +3,7 @@ import { ProcessCell } from "@/components/pages/Data/Connections/ProcessCell";
 import RuleCell from "@/components/pages/Data/Connections/RuleCell";
 import RuleTag from "@/components/pages/Data/Connections/RuleTag";
 import Dashboard from "@/components/pages/Data/Dashboard";
-import { ConnectionsAmount } from "@/components/pages/Data/Dashboard/TrafficCard";
+import type { ConnectionsAmount } from "@/components/pages/Data/Dashboard/TrafficCard";
 import { useMedia } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import type { RootState } from "@/reducers";
@@ -29,7 +29,7 @@ import {
   type SettingRes,
   subscribeConnections,
 } from "lux-js-sdk";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";

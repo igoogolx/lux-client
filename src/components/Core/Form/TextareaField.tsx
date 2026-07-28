@@ -4,7 +4,6 @@ import {
   Textarea,
 } from "@fluentui/react-components";
 import { useField } from "formik";
-import React from "react";
 
 export interface TextareaFieldProps<T extends string> {
   name: T;

@@ -19,7 +19,7 @@ import {
   DocumentBulletListRegular,
   HomeMoreRegular,
 } from "@fluentui/react-icons";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ConfirmModal, Icon, IconNameEnum, IconSizeEnum } from "../../Core";
 import styles from "./index.module.css";

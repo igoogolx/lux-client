@@ -98,6 +98,7 @@ export const useMedia = (query: string, defaultState?: boolean) => {
     };
 
     mql.addEventListener("change", onChange);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     handleChange(mql.matches);
 
     return () => {

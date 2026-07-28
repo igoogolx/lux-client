@@ -8,7 +8,7 @@ import {
   type RuleDetailItem,
   type SettingRes,
 } from "lux-js-sdk";
-import React from "react";
+
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import styles from "./index.module.css";

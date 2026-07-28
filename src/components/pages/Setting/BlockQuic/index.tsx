@@ -3,7 +3,7 @@ import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import { Caption1, Card, Subtitle2, Switch } from "@fluentui/react-components";
 import { setSetting, type SettingRes } from "lux-js-sdk";
-import React from "react";
+
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { notifier } from "../../../Core";
@@ -42,7 +42,7 @@ export default function BlockQuic() {
         </div>
         <Switch
           checked={setting.blockQuic}
-          onChange={(e, data) => {
+          onChange={(_, data) => {
             onSubmit(data.checked);
           }}
           disabled={isStarted}

@@ -9,7 +9,7 @@ import {
   useId,
   useToastController,
 } from "@fluentui/react-components";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { type NotificationAction } from "./reducer";
 import { createEventManager } from "./util";

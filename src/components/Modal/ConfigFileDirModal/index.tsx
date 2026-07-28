@@ -1,5 +1,5 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { ConfirmModal } from "../../Core";
 import CodeBlock from "../../Core/CodeBlock";

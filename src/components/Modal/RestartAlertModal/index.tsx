@@ -1,6 +1,6 @@
 import { EventContext } from "@/components/Core/Event";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import React, { type ReactNode, useContext } from "react";
+import { type ReactNode, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { ConfirmModal, type ConfirmModalPros } from "../../Core";
 

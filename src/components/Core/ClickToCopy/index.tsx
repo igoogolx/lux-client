@@ -1,5 +1,5 @@
 import { useClipboard } from "@/utils/clipboard";
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 interface ClickToCopyProps {
   value: string;

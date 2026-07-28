@@ -1,5 +1,5 @@
 import SensitiveInfo from "@/components/Core/SensitiveInfo";
-import { EditModal, EditModalProps } from "@/components/Modal/Proxy";
+import { EditModal, type EditModalProps } from "@/components/Modal/Proxy";
 import { QrCodeModal } from "@/components/Modal/QrCodeModal";
 import {
   proxiesSelectors,
@@ -28,7 +28,7 @@ import {
   ProxyTypeEnum,
   type SettingRes,
   type Shadowsocks,
-  Subscription,
+  type Subscription,
   updateSelectedProxyId,
 } from "lux-js-sdk";
 import * as React from "react";
@@ -132,7 +132,10 @@ export function Content(): React.ReactNode {
   });
 
   useEffect(() => {
-    init();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    init().catch((e) => {
+      console.error(e);
+    });
   }, []);
 
   const columns: Array<TableColumnDefinition<BaseProxy>> = [

@@ -8,7 +8,7 @@ import {
   Option,
   Subtitle2,
 } from "@fluentui/react-components";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { type MenuItemProps, notifier } from "../../../../Core";
@@ -55,6 +55,7 @@ export default function EditDnsItem(props: Readonly<EditDnsItemProps>) {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setValue(
       selectedOptions
         ? selectedOptions.map((item) => DNS_LABEL[item] || item).join(",")

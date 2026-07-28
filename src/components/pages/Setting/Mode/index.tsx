@@ -10,7 +10,7 @@ import {
   Subtitle2,
 } from "@fluentui/react-components";
 import { setSetting, type SettingRes } from "lux-js-sdk";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { notifier } from "../../../Core";

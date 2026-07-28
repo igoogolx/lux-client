@@ -10,7 +10,7 @@ import {
 } from "@fluentui/react-components";
 import { AddFilled } from "@fluentui/react-icons";
 import { ProxyTypeEnum } from "lux-js-sdk";
-import React, { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { EditModal } from "../../../../Modal/Proxy";
@@ -21,6 +21,7 @@ enum OperationTypeEnum {
   Clipboard,
   Http,
   SubscriptionUrl,
+  Anytls,
 }
 
 interface AddingOptionsProps {
@@ -51,6 +52,10 @@ export function AddingOptions(
       content: t(TRANSLATION_KEY.HTTP),
     },
     {
+      id: OperationTypeEnum.Anytls,
+      content: t(TRANSLATION_KEY.ANYTLS),
+    },
+    {
       id: OperationTypeEnum.SubscriptionUrl,
       content: t(TRANSLATION_KEY.SUBSCRIPTION),
     },
@@ -71,6 +76,7 @@ export function AddingOptions(
   });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     handleAddActionFromUrl();
   }, []);
 
@@ -84,6 +90,9 @@ export function AddingOptions(
         break;
       case OperationTypeEnum.Http:
         setCurrentAddingType(ProxyTypeEnum.Http);
+        break;
+      case OperationTypeEnum.Anytls:
+        setCurrentAddingType(ProxyTypeEnum.Anytls);
         break;
       case OperationTypeEnum.Clipboard: {
         setCurrentAddingType(OtherProxyTypeEnum.Text);

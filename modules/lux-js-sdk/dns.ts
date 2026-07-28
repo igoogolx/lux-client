@@ -1,5 +1,5 @@
 import { getToken } from "@/utils/auth";
-import { SubscribeDnsStatistic } from "./types";
+import type { SubscribeDnsStatistic } from "./types";
 import { urtConfig } from "./url";
 import { createWebsocket } from "./websocket";
 

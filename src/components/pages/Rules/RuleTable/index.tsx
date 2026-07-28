@@ -21,7 +21,7 @@ import {
   getRuleDetail,
   type RuleDetailItem,
 } from "lux-js-sdk";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import styles from "./index.module.css";
 
 interface RuleTableProps {

@@ -12,7 +12,7 @@ import {
   Input,
   Option,
 } from "@fluentui/react-components";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type MenuItemProps } from "../index";
 import styles from "./index.module.css";
@@ -33,6 +33,11 @@ export enum DnsTypeEnum {
   BuiltIn = "builtIn",
 }
 
+const TYPE_OPTIONS = [
+  { id: DnsTypeEnum.BuiltIn, content: DnsTypeEnum.BuiltIn },
+  { id: DnsTypeEnum.Custom, content: DnsTypeEnum.Custom },
+];
+
 export default function EditItemWithSelectDialog(
   props: Readonly<EditItemWithSelectDialogProps>,
 ) {
@@ -51,12 +56,8 @@ export default function EditItemWithSelectDialog(
   const [editedValue, setEditedValue] = useState(value);
   const [curType, setCurType] = useState(type);
 
-  const typeOptions = useRef([
-    { id: DnsTypeEnum.BuiltIn, content: DnsTypeEnum.BuiltIn },
-    { id: DnsTypeEnum.Custom, content: DnsTypeEnum.Custom },
-  ]);
-
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEditedValue(value);
   }, [value]);
 
@@ -64,7 +65,7 @@ export default function EditItemWithSelectDialog(
     <Dialog
       modalType="alert"
       open={open}
-      onOpenChange={(e, data) => {
+      onOpenChange={(_, data) => {
         setEditedValue(value);
         setCurType(type);
         setOpen(data.open);
@@ -85,13 +86,13 @@ export default function EditItemWithSelectDialog(
             <div className={styles.selectContainer}>
               <Dropdown
                 value={curType}
-                onOptionSelect={(e, data) => {
+                onOptionSelect={(_, data) => {
                   setEditedValue("");
                   setCurType(data.optionValue as DnsTypeEnum);
                 }}
                 className={styles.select}
               >
-                {typeOptions.current.map((option) => (
+                {TYPE_OPTIONS.map((option) => (
                   <Option key={option.content as string}>
                     {option.content as string}
                   </Option>
@@ -102,7 +103,7 @@ export default function EditItemWithSelectDialog(
               <div className={styles.selectContainer}>
                 <Dropdown
                   value={editedValue}
-                  onOptionSelect={(e, data) => {
+                  onOptionSelect={(_, data) => {
                     setEditedValue(data.optionValue as string);
                   }}
                   className={styles.select}

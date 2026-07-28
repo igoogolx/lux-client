@@ -1,6 +1,5 @@
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { DnsStatisticItem } from "lux-js-sdk";
-import * as React from "react";
+import type { DnsStatisticItem } from "lux-js-sdk";
 import { useTranslation } from "react-i18next";
 import styles from "./index.module.css";
 
