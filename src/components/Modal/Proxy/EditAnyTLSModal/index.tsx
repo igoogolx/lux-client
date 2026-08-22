@@ -1,18 +1,11 @@
-import { type ReactNode, useState } from "react";
+import { type ReactNode } from "react";
 
 import { PasswordWidget } from "@/components/Core";
+import { EditProxyModal } from "@/components/Modal/Proxy/EditProxyModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
-import { proxiesSlice, type RootState } from "@/reducers";
-import { formatFormSchema } from "@/utils/form.ts";
-import { Button } from "@fluentui/react-components";
-import type { FormProps } from "@rjsf/core";
-import Form from "@rjsf/fluentui-rc";
 import type { RJSFSchema, UiSchema } from "@rjsf/utils";
-import validator from "@rjsf/validator-ajv8";
-import { addProxy, type Anytls, ProxyTypeEnum, updateProxy } from "lux-js-sdk";
+import { type Anytls, ProxyTypeEnum } from "lux-js-sdk";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import styles from "./index.module.css";
 
 const schema: RJSFSchema = {
   type: "object",
@@ -110,14 +103,7 @@ const FIELD_TITLE_I18N_KEY: Record<string, string> = {
 export function EditAnyTLSModal(props: EditAnytlsModalProps): ReactNode {
   const { initialValue, isSelected, onClose } = props;
 
-  const dispatch = useDispatch();
   const { t } = useTranslation();
-
-  const isStarted = useSelector<RootState, boolean>(
-    (state) => state.manager.isStared,
-  );
-
-  const [formData, setFormData] = useState<Anytls>(initialValue || INIT_DATA);
 
   const transFieldTitle = (key: string) => {
     if (key in FIELD_TITLE_I18N_KEY) {
@@ -126,51 +112,14 @@ export function EditAnyTLSModal(props: EditAnytlsModalProps): ReactNode {
     return null;
   };
 
-  const renderedSchema = formatFormSchema(schema, transFieldTitle);
-
-  const handleChange: FormProps["onChange"] = (e) => {
-    setFormData(e.formData);
-  };
-
-  const handleSubmit: FormProps["onSubmit"] = async () => {
-    if (initialValue) {
-      await updateProxy({
-        id: formData.id,
-        proxy: formData,
-      });
-      dispatch(proxiesSlice.actions.updateOne({ proxy: formData }));
-    } else {
-      const { id } = await addProxy({
-        proxy: formData,
-      });
-      dispatch(proxiesSlice.actions.addOne({ proxy: { ...formData, id } }));
-    }
-    onClose();
-  };
-
   return (
-    <Form
-      autoComplete={"off"}
-      schema={renderedSchema}
-      validator={validator}
+    <EditProxyModal
+      onClose={onClose}
+      initialValue={initialValue || INIT_DATA}
+      schema={schema}
       uiSchema={uiSchema}
-      formData={formData}
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <div className={styles.buttonContainer}>
-        <Button onClick={onClose} className={styles.button}>
-          {t(TRANSLATION_KEY.FORM_CANCEL)}
-        </Button>
-        <Button
-          className={styles.button}
-          disabled={isSelected && isStarted}
-          type={"submit"}
-          appearance="primary"
-        >
-          {t(TRANSLATION_KEY.FORM_SAVE)}
-        </Button>
-      </div>
-    </Form>
+      renderFieldTitle={transFieldTitle}
+      isSelected={isSelected}
+    />
   );
 }
