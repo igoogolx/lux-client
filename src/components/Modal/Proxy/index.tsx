@@ -50,7 +50,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
 
   const [currentType, setCurrentType] = useState(type);
 
-  const [pageStep, setPageStep] = useState(PageStepEnum.First);
+  const [pageStep] = useState(PageStepEnum.First);
 
   switch (currentType) {
     case ProxyTypeEnum.Shadowsocks:
@@ -59,10 +59,9 @@ export function EditModal(props: Readonly<EditModalProps>) {
         : TRANSLATION_KEY.NEW_SHADOWSOCKS;
       content = (
         <EditShadowsocksModal
-          close={close}
+          onClose={close}
           initialValue={initialValue as Shadowsocks}
           isSelected={isSelected}
-          setPageStep={setPageStep}
         />
       );
       break;

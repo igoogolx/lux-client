@@ -20,7 +20,21 @@ export const ENCRYPTION_METHODS = [
   "chacha20-ietf",
 ];
 
-export const SHADOWSOCKS_PLUINS = ["obfs", "v2ray-plugin"];
+export enum SHADOWSOCKS_PLUGIN {
+  OBFS = "obfs",
+  V2RAY = "v2ray-plugin",
+}
+
+export const SHADOWSOCKS_PLUINS = [
+  SHADOWSOCKS_PLUGIN.OBFS,
+  SHADOWSOCKS_PLUGIN.V2RAY,
+];
+
+export enum SHADOWSOCKS_PLUGIN_MODE {
+  HTTP = "http",
+  TLS = "tls",
+  WEBSOCKET = "websocket",
+}
 
 export const NONE_ID = "None";
 
