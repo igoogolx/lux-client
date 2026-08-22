@@ -107,7 +107,7 @@ const FIELD_TITLE_I18N_KEY: Record<string, string> = {
   alpn: TRANSLATION_KEY.FORM_ALPN,
 };
 
-export function EditAnyTLSModal(props: EditAnytlsModalProps): ReactNode {
+export function EditProxyModal(props: EditAnytlsModalProps): ReactNode {
   const { initialValue, isSelected, onClose } = props;
 
   const dispatch = useDispatch();
