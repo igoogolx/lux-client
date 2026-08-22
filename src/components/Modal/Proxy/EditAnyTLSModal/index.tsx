@@ -1,7 +1,10 @@
 import { type ReactNode } from "react";
 
 import { PasswordWidget } from "@/components/Core";
-import { EditProxyModal } from "@/components/Modal/Proxy/EditProxyModal";
+import {
+  EDIT_PROXY_MODAL_MODE,
+  EditProxyModal,
+} from "@/components/Modal/Proxy/EditProxyModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
 import type { RJSFSchema, UiSchema } from "@rjsf/utils";
 import { type Anytls, ProxyTypeEnum } from "lux-js-sdk";
@@ -112,6 +115,10 @@ export function EditAnyTLSModal(props: EditAnytlsModalProps): ReactNode {
     return null;
   };
 
+  const mode = initialValue
+    ? EDIT_PROXY_MODAL_MODE.EDIT
+    : EDIT_PROXY_MODAL_MODE.ADD;
+
   return (
     <EditProxyModal
       onClose={onClose}
@@ -120,6 +127,7 @@ export function EditAnyTLSModal(props: EditAnytlsModalProps): ReactNode {
       uiSchema={uiSchema}
       renderFieldTitle={transFieldTitle}
       isSelected={isSelected}
+      mode={mode}
     />
   );
 }

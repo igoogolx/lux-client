@@ -13,6 +13,11 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./index.module.css";
 
+export enum EDIT_PROXY_MODAL_MODE {
+  EDIT,
+  ADD,
+}
+
 type EditProxyModalProps<T> = {
   onClose: () => void;
   initialValue: T;
@@ -20,6 +25,7 @@ type EditProxyModalProps<T> = {
   schema: RJSFSchema;
   uiSchema: UiSchema;
   renderFieldTitle: (filedKey: string) => string | null;
+  mode: EDIT_PROXY_MODAL_MODE;
 };
 
 export function EditProxyModal<T extends BaseProxy>(
@@ -32,6 +38,7 @@ export function EditProxyModal<T extends BaseProxy>(
     schema,
     uiSchema,
     renderFieldTitle,
+    mode,
   } = props;
 
   const dispatch = useDispatch();
@@ -50,7 +57,7 @@ export function EditProxyModal<T extends BaseProxy>(
   };
 
   const handleSubmit: FormProps["onSubmit"] = async () => {
-    if (initialValue) {
+    if (mode === EDIT_PROXY_MODAL_MODE.EDIT) {
       await updateProxy({
         id: formData.id,
         proxy: formData,
