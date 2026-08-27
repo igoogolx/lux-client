@@ -36,6 +36,12 @@ const schema: RJSFSchema = {
       type: "string",
       enum: ENCRYPTION_METHODS,
     },
+    "udp-over-tcp": {
+      type: "boolean",
+    },
+    "udp-over-tcp-version": {
+      type: "number",
+    },
     plugin: {
       type: "string",
       enum: SHADOWSOCKS_PLUINS,
@@ -104,6 +110,12 @@ const schema: RJSFSchema = {
               },
               mux: {
                 type: "boolean",
+              },
+              headers: {
+                type: "object",
+                additionalProperties: {
+                  type: "string",
+                },
               },
             },
           },
