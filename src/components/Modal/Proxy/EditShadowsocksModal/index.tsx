@@ -12,6 +12,7 @@ import {
   SHADOWSOCKS_PLUINS,
 } from "@/components/Modal/Proxy/EditShadowsocksModal/constant.ts";
 import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
+import { formatSchemaMapStringField } from "@/utils/form.ts";
 import type { RJSFSchema, UiSchema } from "@rjsf/utils";
 import { ProxyTypeEnum, type Shadowsocks } from "lux-js-sdk";
 import { useTranslation } from "react-i18next";
@@ -170,6 +171,14 @@ export function EditShadowsocksModal(
     return null;
   };
 
+  const formatFormData = (formData: Record<string, never>) => {
+    if (formData["plugin"] === SHADOWSOCKS_PLUGIN.V2RAY) {
+      return formatSchemaMapStringField(formData, "plugin-opts.headers");
+    }
+
+    return formData;
+  };
+
   const mode = initialValue
     ? EDIT_PROXY_MODAL_MODE.EDIT
     : EDIT_PROXY_MODAL_MODE.ADD;
@@ -183,6 +192,7 @@ export function EditShadowsocksModal(
       renderFieldTitle={transFieldTitle}
       isSelected={isSelected}
       mode={mode}
+      formatFormData={formatFormData}
     />
   );
 }

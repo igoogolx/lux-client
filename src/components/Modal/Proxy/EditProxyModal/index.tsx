@@ -26,6 +26,7 @@ type EditProxyModalProps<T> = {
   uiSchema: UiSchema;
   renderFieldTitle: (filedKey: string) => string | null;
   mode: EDIT_PROXY_MODAL_MODE;
+  formatFormData?: (formData: T) => T;
 };
 
 export function EditProxyModal<T extends BaseProxy>(
@@ -39,6 +40,7 @@ export function EditProxyModal<T extends BaseProxy>(
     uiSchema,
     renderFieldTitle,
     mode,
+    formatFormData,
   } = props;
 
   const dispatch = useDispatch();
@@ -53,6 +55,10 @@ export function EditProxyModal<T extends BaseProxy>(
   const renderedSchema = formatFormSchema(schema, renderFieldTitle);
 
   const handleChange: FormProps["onChange"] = (e) => {
+    if (formatFormData) {
+      setFormData(formatFormData(e.formData));
+      return;
+    }
     setFormData(e.formData);
   };
 
