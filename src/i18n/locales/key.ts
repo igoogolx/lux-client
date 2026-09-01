@@ -41,6 +41,7 @@ export const TRANSLATION_KEY = {
   FORM_UDP_OVER_TCP: "form.udp_over_tcp",
   FORM_UDP_OVER_TCP_VERSION: "form.udp_over_tcp_version",
   FORM_PLUGIN_OPTS: "form.plugin_opts",
+  FORM_UDP: "form.udp",
   DELETE_PROXIES: "delete_proxies",
   COMMON_RUNTIME_DETAIL: "common.runtime_detail",
   COMMON_TUN_INTERFACE_NAME: "common.tun_interface_name",

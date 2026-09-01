@@ -33,6 +33,10 @@ const schema: RJSFSchema = {
       type: "string",
       title: TRANSLATION_KEY.FORM_SNI,
     },
+    udp: {
+      type: "boolean",
+      title: TRANSLATION_KEY.FORM_UDP,
+    },
     "client-fingerprint": {
       type: "string",
       title: TRANSLATION_KEY.FORM_CLIENT_FINGERPRINT,
