@@ -1,7 +1,14 @@
 import type { RJSFSchema } from "@rjsf/utils";
-import get from "lodash/get";
-import omitBy from "lodash/omitBy";
-import set from "lodash/set";
+import {
+  get,
+  isArray,
+  isObject,
+  isPlainObject,
+  map,
+  mapValues,
+  omitBy,
+  set,
+} from "lodash";
 
 export function formatFormSchema(
   schema: RJSFSchema,
@@ -46,4 +53,39 @@ export function formatSchemaMapStringField(
 
   set(newFormData, keyPath, newField);
   return newFormData;
+}
+
+type MapValuesFn = (value: unknown, key?: string | number) => unknown;
+
+const mapValuesDeep = (
+  obj: Parameters<typeof mapValues>[number],
+  fn: MapValuesFn,
+  key?: string | number,
+): unknown => {
+  if (isArray(obj)) {
+    return map(obj, (innerObj, idx) => mapValuesDeep(innerObj, fn, idx));
+  }
+
+  if (isPlainObject(obj)) {
+    return mapValues(obj, (val, key) => mapValuesDeep(val, fn, key));
+  }
+
+  if (isObject(obj)) {
+    return obj;
+  }
+
+  return fn(obj, key);
+};
+
+export function translateSchemaFieldTitle(
+  formData: Parameters<typeof mapValues>[number],
+  t: (key: string) => string,
+) {
+  return mapValuesDeep(formData, (value, key) => {
+    if (key === "title" && typeof value === "string") {
+      return t(value);
+    }
+
+    return value;
+  });
 }

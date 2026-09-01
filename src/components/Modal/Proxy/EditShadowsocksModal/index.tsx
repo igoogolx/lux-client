@@ -15,7 +15,6 @@ import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
 import { formatSchemaMapStringField } from "@/utils/form.ts";
 import type { RJSFSchema, UiSchema } from "@rjsf/utils";
 import { ProxyTypeEnum, type Shadowsocks } from "lux-js-sdk";
-import { useTranslation } from "react-i18next";
 
 const schema: RJSFSchema = {
   type: "object",
@@ -23,19 +22,24 @@ const schema: RJSFSchema = {
   properties: {
     name: {
       type: "string",
+      title: TRANSLATION_KEY.FORM_NAME,
     },
     server: {
       type: "string",
+      title: TRANSLATION_KEY.FORM_SERVER,
     },
     port: {
       type: "number",
+      title: TRANSLATION_KEY.FORM_PORT,
     },
     password: {
       type: "string",
+      title: TRANSLATION_KEY.FORM_PASSWORD,
     },
     cipher: {
       type: "string",
       enum: ENCRYPTION_METHODS,
+      title: TRANSLATION_KEY.FORM_ENCRYPTION,
     },
     "udp-over-tcp": {
       type: "boolean",
@@ -149,27 +153,10 @@ const INIT_DATA: Shadowsocks = {
   cipher: ENCRYPTION_METHODS[0] as Shadowsocks["cipher"],
 };
 
-const FIELD_TITLE_I18N_KEY: Record<string, string> = {
-  name: TRANSLATION_KEY.FORM_NAME,
-  server: TRANSLATION_KEY.FORM_SERVER,
-  password: TRANSLATION_KEY.FORM_PASSWORD,
-  port: TRANSLATION_KEY.FORM_PORT,
-  "skip-cert-verify": TRANSLATION_KEY.SKIP_CERT_VERIFY,
-};
-
 export function EditShadowsocksModal(
   props: EditShadowsocksModalProps,
 ): ReactNode {
   const { initialValue, isSelected, onClose } = props;
-
-  const { t } = useTranslation();
-
-  const transFieldTitle = (key: string) => {
-    if (key in FIELD_TITLE_I18N_KEY) {
-      return t(FIELD_TITLE_I18N_KEY[key] as string);
-    }
-    return null;
-  };
 
   const formatFormData = (formData: Record<string, never>) => {
     if (formData["plugin"] === SHADOWSOCKS_PLUGIN.V2RAY) {
@@ -189,7 +176,6 @@ export function EditShadowsocksModal(
       initialValue={initialValue || INIT_DATA}
       schema={schema}
       uiSchema={uiSchema}
-      renderFieldTitle={transFieldTitle}
       isSelected={isSelected}
       mode={mode}
       formatFormData={formatFormData}

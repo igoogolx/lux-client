@@ -2,7 +2,7 @@ import { type ReactNode, useState } from "react";
 
 import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
 import { proxiesSlice, type RootState } from "@/reducers";
-import { formatFormSchema } from "@/utils/form.ts";
+import { translateSchemaFieldTitle } from "@/utils/form.ts";
 import { Button } from "@fluentui/react-components";
 import type { FormProps } from "@rjsf/core";
 import Form from "@rjsf/fluentui-rc";
@@ -24,7 +24,6 @@ type EditProxyModalProps<T> = {
   isSelected?: boolean;
   schema: RJSFSchema;
   uiSchema: UiSchema;
-  renderFieldTitle: (filedKey: string) => string | null;
   mode: EDIT_PROXY_MODAL_MODE;
   formatFormData?: (formData: T) => T;
 };
@@ -38,7 +37,6 @@ export function EditProxyModal<T extends BaseProxy>(
     onClose,
     schema,
     uiSchema,
-    renderFieldTitle,
     mode,
     formatFormData,
   } = props;
@@ -52,7 +50,7 @@ export function EditProxyModal<T extends BaseProxy>(
 
   const [formData, setFormData] = useState<T>(initialValue);
 
-  const renderedSchema = formatFormSchema(schema, renderFieldTitle);
+  const renderedSchema = translateSchemaFieldTitle(schema, t) as RJSFSchema;
 
   const handleChange: FormProps["onChange"] = (e) => {
     if (formatFormData) {
