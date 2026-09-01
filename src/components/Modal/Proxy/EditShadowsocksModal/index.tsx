@@ -43,13 +43,20 @@ const schema: RJSFSchema = {
     },
     "udp-over-tcp": {
       type: "boolean",
+      title: TRANSLATION_KEY.FORM_UDP_OVER_TCP,
     },
     "udp-over-tcp-version": {
       type: "number",
+      title: TRANSLATION_KEY.FORM_UDP_OVER_TCP_VERSION,
+    },
+    "client-fingerprint": {
+      type: "string",
+      title: TRANSLATION_KEY.FORM_CLIENT_FINGERPRINT,
     },
     plugin: {
       type: "string",
       enum: SHADOWSOCKS_PLUINS,
+      title: TRANSLATION_KEY.FORM_PLUGIN,
     },
   },
   allOf: [
@@ -65,6 +72,7 @@ const schema: RJSFSchema = {
         properties: {
           "plugin-opts": {
             type: "object",
+            title: TRANSLATION_KEY.FORM_PLUGIN_OPTS,
             required: ["mode"],
             properties: {
               mode: {
