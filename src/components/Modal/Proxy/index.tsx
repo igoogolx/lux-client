@@ -1,5 +1,6 @@
 import { EditAnyTLSModal } from "@/components/Modal/Proxy/EditAnyTLSModal";
 import ProxyTextModal from "@/components/Modal/Proxy/ProxyTextModal";
+import ProxyYamlModal from "@/components/Modal/Proxy/ProxyYamlModal";
 import SubscriptionModal from "@/components/Modal/Proxy/SubscriptionModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { OtherProxyTypeEnum } from "@/utils/constants";
@@ -42,6 +43,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
     [ProxyTypeEnum.Anytls]: t(TRANSLATION_KEY.ANYTLS),
     [OtherProxyTypeEnum.Subscription]: t(TRANSLATION_KEY.SUBSCRIPTION),
     [OtherProxyTypeEnum.Text]: t(TRANSLATION_KEY.PROXY_TEXT),
+    [OtherProxyTypeEnum.Yaml]: t(TRANSLATION_KEY.PROXY_YAML),
   };
 
   const isEdit = !!initialValue;
@@ -117,6 +119,16 @@ export function EditModal(props: Readonly<EditModalProps>) {
     case OtherProxyTypeEnum.Text:
       titleI18nKey = TRANSLATION_KEY.NEW_IMPORT_PROXY_TEXT;
       content = <ProxyTextModal close={close} />;
+      break;
+
+    case OtherProxyTypeEnum.Yaml:
+      titleI18nKey = TRANSLATION_KEY.NEW_IMPORT_PROXY_TEXT;
+      content = (
+        <ProxyYamlModal
+          close={close}
+          initialValue={initialValue as BaseProxy}
+        />
+      );
       break;
     default: {
       throw new Error(`invalid ${type}`);

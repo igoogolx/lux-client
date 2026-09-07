@@ -35,7 +35,7 @@ import { encode } from "@/utils/url";
 
 interface OperationProps {
   proxy: BaseProxy;
-  onEdit: (proxy: BaseProxy) => void;
+  onEdit: (proxy: BaseProxy, isYaml?: boolean) => void;
   onShowQrCode: (proxy: BaseProxy) => void;
 }
 
@@ -46,6 +46,7 @@ enum OperationTypeEnum {
   Test = "test",
   QrCode = "qrCode",
   TestUdp = "testUdp",
+  EditYaml = "editYaml",
 }
 
 export function Operation(props: Readonly<OperationProps>): React.ReactNode {
@@ -69,6 +70,11 @@ export function Operation(props: Readonly<OperationProps>): React.ReactNode {
   );
   const menuItems: MenuItemProps[] = useMemo(() => {
     let items: MenuItemProps[] = [
+      {
+        id: OperationTypeEnum.EditYaml,
+        content: t(TRANSLATION_KEY.YAML),
+        icon: <DeviceEqRegular />,
+      },
       {
         id: OperationTypeEnum.Test,
         content: t(TRANSLATION_KEY.CONNECTIVITY_TEST),
@@ -125,6 +131,9 @@ export function Operation(props: Readonly<OperationProps>): React.ReactNode {
   }, [isSelected, isStarted, isSwitchLoading, proxy.type, t]);
   const onSelect = async (id: string) => {
     switch (id) {
+      case OperationTypeEnum.EditYaml:
+        onEdit(proxy, true);
+        return;
       case OperationTypeEnum.Edit:
         onEdit(proxy);
         return;

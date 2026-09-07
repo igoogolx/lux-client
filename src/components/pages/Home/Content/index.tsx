@@ -88,13 +88,16 @@ export function Content(): React.ReactNode {
 
   const dispatch = useDispatch();
 
+  const [isEditingYaml, setIsEditingYaml] = useState(false);
+
   const [searchParams] = useSearchParams(window.location.search);
 
   const [isQrcodeModalOpen, setIsQrcodeModalOpen] = useState(false);
 
-  const onEdit = (proxy: BaseProxy) => {
+  const onEdit = (proxy: BaseProxy, isYaml = false) => {
     setCurEditingData(proxy);
     setIsEditingDialogOpen(true);
+    setIsEditingYaml(isYaml);
   };
 
   const onShowQrCode = (proxy: BaseProxy) => {
@@ -215,10 +218,10 @@ export function Content(): React.ReactNode {
       return ProxyTypeEnum.Socks5;
     }
     if ("type" in curEditingData) {
-      return curEditingData.type;
+      return isEditingYaml ? OtherProxyTypeEnum.Yaml : curEditingData.type;
     }
     return OtherProxyTypeEnum.Subscription;
-  }, [curEditingData]);
+  }, [curEditingData, isEditingYaml]);
 
   const preProxiesLength = useRef(proxies.length);
   const listRef = useRef<HTMLDivElement>(null);

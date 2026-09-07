@@ -46,6 +46,7 @@ export const MODE_TRANSLATION_KEY = {
 export enum OtherProxyTypeEnum {
   Subscription = "Subscription",
   Text = "Text",
+  Yaml = "Yaml",
 }
 
 export enum ROUTE_PARAM_MODE {

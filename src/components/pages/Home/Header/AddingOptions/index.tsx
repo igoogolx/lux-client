@@ -22,6 +22,7 @@ enum OperationTypeEnum {
   Http,
   SubscriptionUrl,
   Anytls,
+  Yaml,
 }
 
 interface AddingOptionsProps {
@@ -63,6 +64,10 @@ export function AddingOptions(
       id: OperationTypeEnum.Clipboard,
       content: t(TRANSLATION_KEY.PROXY_TEXT_IMPORT),
     },
+    {
+      id: OperationTypeEnum.Yaml,
+      content: t(TRANSLATION_KEY.PROXY_YAML),
+    },
   ];
 
   const [searchParams] = useSearchParams(window.location.search);
@@ -102,6 +107,11 @@ export function AddingOptions(
         setCurrentAddingType(OtherProxyTypeEnum.Subscription);
         break;
       }
+      case OperationTypeEnum.Yaml: {
+        setCurrentAddingType(OtherProxyTypeEnum.Yaml);
+        break;
+      }
+
       default: {
         throw new Error("invalid id");
       }

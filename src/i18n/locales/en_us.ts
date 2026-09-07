@@ -101,6 +101,8 @@ export default {
   [TRANSLATION_KEY.DEBUG]: "Debug",
   [TRANSLATION_KEY.SUBSCRIPTION]: "Subscription",
   [TRANSLATION_KEY.PROXY_TEXT]: "Proxy Text",
+  [TRANSLATION_KEY.PROXY_YAML]: "Proxy YAML",
+  [TRANSLATION_KEY.YAML]: "YAML",
   [TRANSLATION_KEY.DISCONNECTED_WARN_TIP]:
     "The core is disconnected. Trying to reconnect...",
   [TRANSLATION_KEY.PROXY]: "Proxy",

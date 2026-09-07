@@ -81,6 +81,8 @@ export const TRANSLATION_KEY = {
   SUBSCRIPTION_URL_IMPORT: "subscription_url_import",
   SUBSCRIPTION: "subscription_url",
   PROXY_TEXT: "proxy_text",
+  PROXY_YAML: "proxy_yaml",
+  YAML: "yaml",
   ERROR: "common.error",
   WARNING: "common.warning",
   INFO: "common.info",
