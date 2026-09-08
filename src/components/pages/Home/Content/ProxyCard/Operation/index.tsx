@@ -10,6 +10,7 @@ import {
   MenuTrigger,
 } from "@fluentui/react-components";
 import {
+  BeakerEditRegular,
   ClipboardRegular,
   DeleteRegular,
   DeviceEqRegular,
@@ -73,7 +74,7 @@ export function Operation(props: Readonly<OperationProps>): React.ReactNode {
       {
         id: OperationTypeEnum.EditYaml,
         content: t(TRANSLATION_KEY.YAML),
-        icon: <DeviceEqRegular />,
+        icon: <BeakerEditRegular />,
       },
       {
         id: OperationTypeEnum.Test,
