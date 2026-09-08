@@ -73,7 +73,7 @@ export function Operation(props: Readonly<OperationProps>): React.ReactNode {
     let items: MenuItemProps[] = [
       {
         id: OperationTypeEnum.EditYaml,
-        content: t(TRANSLATION_KEY.YAML),
+        content: t(TRANSLATION_KEY.EDIT_YAML),
         icon: <BeakerEditRegular />,
       },
       {

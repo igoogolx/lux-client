@@ -83,6 +83,7 @@ export const TRANSLATION_KEY = {
   PROXY_TEXT: "proxy_text",
   PROXY_YAML: "proxy_yaml",
   YAML: "yaml",
+  EDIT_YAML: "edit_yaml",
   ERROR: "common.error",
   WARNING: "common.warning",
   INFO: "common.info",

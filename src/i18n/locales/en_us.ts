@@ -103,6 +103,7 @@ export default {
   [TRANSLATION_KEY.PROXY_TEXT]: "Proxy Text",
   [TRANSLATION_KEY.PROXY_YAML]: "Proxy YAML",
   [TRANSLATION_KEY.YAML]: "YAML",
+  [TRANSLATION_KEY.EDIT_YAML]: "Edit YAML",
   [TRANSLATION_KEY.DISCONNECTED_WARN_TIP]:
     "The core is disconnected. Trying to reconnect...",
   [TRANSLATION_KEY.PROXY]: "Proxy",
