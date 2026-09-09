@@ -42,7 +42,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
     [ProxyTypeEnum.Socks5]: "Socks5",
     [ProxyTypeEnum.Anytls]: t(TRANSLATION_KEY.ANYTLS),
     [OtherProxyTypeEnum.Subscription]: t(TRANSLATION_KEY.SUBSCRIPTION),
-    [OtherProxyTypeEnum.Text]: t(TRANSLATION_KEY.PROXY_TEXT),
+    [OtherProxyTypeEnum.Text]: t(TRANSLATION_KEY.PROXY_URI),
     [OtherProxyTypeEnum.Yaml]: t(TRANSLATION_KEY.CLASH_YAML),
   };
 
@@ -117,12 +117,12 @@ export function EditModal(props: Readonly<EditModalProps>) {
       break;
 
     case OtherProxyTypeEnum.Text:
-      titleI18nKey = TRANSLATION_KEY.NEW_IMPORT_PROXY_TEXT;
+      titleI18nKey = TRANSLATION_KEY.IMPORT_PROXY_URI;
       content = <ProxyTextModal close={close} />;
       break;
 
     case OtherProxyTypeEnum.Yaml:
-      titleI18nKey = TRANSLATION_KEY.NEW_IMPORT_PROXY_TEXT;
+      titleI18nKey = TRANSLATION_KEY.IMPORT_PROXY_FROM_CLASH_YAML;
       content = (
         <ProxyYamlModal
           close={close}

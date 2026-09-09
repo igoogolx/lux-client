@@ -62,7 +62,7 @@ export function AddingOptions(
     },
     {
       id: OperationTypeEnum.Clipboard,
-      content: t(TRANSLATION_KEY.PROXY_TEXT_IMPORT),
+      content: t(TRANSLATION_KEY.PROXY_URI),
     },
     {
       id: OperationTypeEnum.Yaml,

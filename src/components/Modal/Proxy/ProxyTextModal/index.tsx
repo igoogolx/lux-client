@@ -50,7 +50,7 @@ function ProxyTextModal(props: Readonly<ProxyTextModalProps>) {
 
   return (
     <div className={styles.container}>
-      <div>{t(t(TRANSLATION_KEY.PROXY_TEXT))}</div>
+      <div>{t(t(TRANSLATION_KEY.PROXY_URI))}</div>
       <Textarea
         value={text}
         onChange={(e) => {
