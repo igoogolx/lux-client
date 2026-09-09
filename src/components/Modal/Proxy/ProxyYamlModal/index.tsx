@@ -2,14 +2,14 @@ import { notifier } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSlice } from "@/reducers";
 import { formatError } from "@/utils/error";
-import { decode } from "@/utils/url";
+import { decodeClashYaml } from "@/utils/url";
 import { Button, Spinner, Textarea } from "@fluentui/react-components";
 import axios from "axios";
-import { addProxy, type BaseProxy } from "lux-js-sdk";
+import { addProxy, type BaseProxy, updateProxy } from "lux-js-sdk";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { stringify as stringifyYaml } from "yaml";
+import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
 import styles from "./index.module.css";
 
 interface ProxyYamlModalProps {
@@ -28,29 +28,67 @@ const DEFAULT_VALUE = {
   ],
 };
 
+const INVALID_EDIT_KEYS: (keyof BaseProxy)[] = [
+  "id",
+  "delay",
+  "subscription",
+  "subscriptionUrl",
+];
+
+const formatValueToEdit = (value: BaseProxy) => {
+  const newValue = { ...value };
+
+  for (const key of INVALID_EDIT_KEYS) {
+    delete newValue[key];
+  }
+
+  return newValue;
+};
+
 function ProxyYamlModal(props: Readonly<ProxyYamlModalProps>) {
   const { close, initialValue } = props;
   const { t } = useTranslation();
+
+  const isEdit = !!initialValue;
+
   const [text, setText] = useState(
-    stringifyYaml(initialValue ?? DEFAULT_VALUE),
+    stringifyYaml(isEdit ? formatValueToEdit(initialValue) : DEFAULT_VALUE),
   );
+
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const handleConfirm = async () => {
     setLoading(true);
     try {
-      const proxyConfigs = decode(text);
-      await Promise.all(
-        proxyConfigs.map(async (proxyConfig) => {
-          const proxy = { ...proxyConfig };
-          const res = await addProxy({ proxy });
-          dispatch(
-            proxiesSlice.actions.addOne({
-              proxy: { ...proxy, id: res.id },
-            }),
-          );
-        }),
-      );
+      if (isEdit) {
+        const parsedProxy = parseYaml(text);
+
+        if (!(typeof parsedProxy === "object" && "type" in parsedProxy)) {
+          throw new Error("invalid proxy config");
+        }
+
+        const newProxy = { ...initialValue, ...parsedProxy };
+
+        await updateProxy({
+          id: initialValue.id,
+          proxy: newProxy,
+        });
+        dispatch(proxiesSlice.actions.updateOne({ proxy: newProxy }));
+      } else {
+        const proxyConfigs = decodeClashYaml(text);
+        await Promise.all(
+          proxyConfigs.map(async (proxyConfig) => {
+            const proxy = { ...proxyConfig };
+            const res = await addProxy({ proxy });
+            dispatch(
+              proxiesSlice.actions.addOne({
+                proxy: { ...proxy, id: res.id },
+              }),
+            );
+          }),
+        );
+      }
+
       close();
     } catch (e) {
       if (!axios.isAxiosError(e)) {

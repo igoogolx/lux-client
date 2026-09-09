@@ -26,16 +26,27 @@ export const convertPluginOptsStr = (
   return plugin;
 };
 
+export const decodeClashYaml = (text: string) => {
+  const rawText = text.trim();
+  if (isClashYaml(rawText)) {
+    return parseYaml(rawText).proxies as Omit<BaseProxy, "id">[];
+  }
+  return [] as Omit<BaseProxy, "id">[];
+};
+
 export const decode = (text: string) => {
   const rawText = text.trim();
   if (rawText.length === 0) {
     return [];
   }
-  if (isClashYaml(rawText)) {
-    return parseYaml(rawText).proxies as Array<Omit<BaseProxy, "id">>;
+
+  const proxiesFromClashYaml = decodeClashYaml(rawText);
+
+  if (proxiesFromClashYaml.length !== 0) {
+    return proxiesFromClashYaml;
   } else {
     const names: string[] = [];
-    let uris = "";
+    let uris: string;
     try {
       uris = atob(rawText);
     } catch {
