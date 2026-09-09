@@ -43,7 +43,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
     [ProxyTypeEnum.Anytls]: t(TRANSLATION_KEY.ANYTLS),
     [OtherProxyTypeEnum.Subscription]: t(TRANSLATION_KEY.SUBSCRIPTION),
     [OtherProxyTypeEnum.Text]: t(TRANSLATION_KEY.PROXY_TEXT),
-    [OtherProxyTypeEnum.Yaml]: t(TRANSLATION_KEY.PROXY_YAML),
+    [OtherProxyTypeEnum.Yaml]: t(TRANSLATION_KEY.CLASH_YAML),
   };
 
   const isEdit = !!initialValue;

@@ -76,6 +76,7 @@ function ProxyYamlModal(props: Readonly<ProxyYamlModalProps>) {
         dispatch(proxiesSlice.actions.updateOne({ proxy: newProxy }));
       } else {
         const proxyConfigs = decodeClashYaml(text);
+        console.log(proxyConfigs);
         await Promise.all(
           proxyConfigs.map(async (proxyConfig) => {
             const proxy = { ...proxyConfig };

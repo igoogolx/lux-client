@@ -66,7 +66,7 @@ export function AddingOptions(
     },
     {
       id: OperationTypeEnum.Yaml,
-      content: t(TRANSLATION_KEY.PROXY_YAML),
+      content: t(TRANSLATION_KEY.CLASH_YAML),
     },
   ];
 
