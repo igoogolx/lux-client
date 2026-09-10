@@ -11,11 +11,11 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import styles from "./index.module.css";
 
-interface ProxyTextModalProps {
+interface ProxyUriModalProps {
   close: () => void;
 }
 
-function ProxyTextModal(props: Readonly<ProxyTextModalProps>) {
+function ProxyUriModal(props: Readonly<ProxyUriModalProps>) {
   const { close } = props;
   const { t } = useTranslation();
   const [text, setText] = useState("");
@@ -78,4 +78,4 @@ function ProxyTextModal(props: Readonly<ProxyTextModalProps>) {
   );
 }
 
-export default ProxyTextModal;
+export default ProxyUriModal;

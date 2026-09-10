@@ -1,5 +1,5 @@
 import { EditAnyTLSModal } from "@/components/Modal/Proxy/EditAnyTLSModal";
-import ProxyTextModal from "@/components/Modal/Proxy/ProxyTextModal";
+import ProxyUriModal from "@/components/Modal/Proxy/ProxyUriModal";
 import ProxyYamlModal from "@/components/Modal/Proxy/ProxyYamlModal";
 import SubscriptionModal from "@/components/Modal/Proxy/SubscriptionModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
@@ -118,7 +118,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
 
     case OtherProxyTypeEnum.Text:
       titleI18nKey = TRANSLATION_KEY.IMPORT_PROXY_URI;
-      content = <ProxyTextModal close={close} />;
+      content = <ProxyUriModal close={close} />;
       break;
 
     case OtherProxyTypeEnum.Yaml:
