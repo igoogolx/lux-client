@@ -45,6 +45,7 @@ export const decode = (text: string) => {
   if (proxiesFromClashYaml.length !== 0) {
     return proxiesFromClashYaml;
   } else {
+    // TODO: extract decodeFromProxyUri
     const names: string[] = [];
     let uris: string;
     try {
