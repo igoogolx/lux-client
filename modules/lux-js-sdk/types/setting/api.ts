@@ -1,5 +1,5 @@
-import { PROXY_MODE_ENUM } from "@/utils/constants";
-import { ThemeEnum } from "@/utils/theme";
+import type { PROXY_MODE_ENUM } from "@/utils/constants";
+import type { ThemeEnum } from "@/utils/theme";
 
 export interface SettingRes {
   mode: PROXY_MODE_ENUM;

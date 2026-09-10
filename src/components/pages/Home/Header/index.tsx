@@ -7,6 +7,7 @@ import {
   rulesSlice,
   selectedSlice,
 } from "@/reducers";
+import { MODE_TRANSLATION_KEY, PROXY_MODE_ENUM } from "@/utils/constants";
 import { isLocalAddr } from "@/utils/validator";
 import {
   Caption1,
@@ -25,6 +26,7 @@ import {
   getCurProxy,
   type GetCurProxyRes,
   getRules,
+  ProxyTypeEnum,
   type SettingRes,
   start,
   stop,
@@ -39,13 +41,13 @@ import { type MenuItemProps, notifier } from "../../../Core";
 import { AddingOptions } from "./AddingOptions";
 import styles from "./index.module.css";
 import { Operation } from "./Operation";
-import {MODE_TRANSLATION_KEY} from "@/utils/constants";
 
 export function Header(): React.ReactNode {
   const { t } = useTranslation();
   const [curProxy, setCurProxy] = useState<GetCurProxyRes>({
     name: "",
     addr: "",
+    type: "",
   });
 
   const isStarted = useSelector<RootState, boolean>(
@@ -72,6 +74,33 @@ export function Header(): React.ReactNode {
       state.setting.dns.server.local.length <= 2
     );
   });
+
+  const remoteDnsServers = useSelector<RootState, string[]>((state) => {
+    return state.setting.dns.server.remote;
+  });
+
+  const isFakeIpEnabled = useSelector<RootState, boolean>((state) => {
+    return state.setting.dns.fakeIp;
+  });
+
+  const isSystemMode = useSelector<RootState, boolean>((state) => {
+    return state.setting.mode === PROXY_MODE_ENUM.SYSTEM;
+  });
+
+  const getIsDnsValidForHttpProxy = (proxyType: string) => {
+    if (proxyType !== ProxyTypeEnum.Http) {
+      return true;
+    }
+    if (isFakeIpEnabled) {
+      return true;
+    }
+    if (isSystemMode) {
+      return true;
+    }
+
+    return remoteDnsServers.some((s) => s.startsWith("https"));
+  };
+
   const dispatch = useDispatch();
   const rules = useSelector(rulesSelectors.selectAll);
   const selectedRuleId = useSelector<RootState, string>(
@@ -91,6 +120,7 @@ export function Header(): React.ReactNode {
         setCurProxy({
           name: msg.name,
           addr: msg.addr,
+          type: msg.type,
         });
         dispatch(
           managerSlice.actions.setIsStarted({ isStarted: msg.isStarted }),
@@ -138,6 +168,9 @@ export function Header(): React.ReactNode {
         }
         if (!isDnsSettingValid) {
           notifier.warn(t(TRANSLATION_KEY.DNS_SERVER_NUM_MSG));
+        }
+        if (!getIsDnsValidForHttpProxy(latestProxy.type)) {
+          notifier.warn(t(TRANSLATION_KEY.INVALID_DNS_FOR_HTTP_PROXY));
         }
       }
     } finally {
@@ -188,9 +221,9 @@ export function Header(): React.ReactNode {
           relationship="label"
         >
           <InteractionTag appearance="brand" className={styles.tag}>
-            <InteractionTagPrimary>{`${
-              t(MODE_TRANSLATION_KEY[setting.mode])
-            }`}</InteractionTagPrimary>
+            <InteractionTagPrimary>{`${t(
+              MODE_TRANSLATION_KEY[setting.mode],
+            )}`}</InteractionTagPrimary>
           </InteractionTag>
         </Tooltip>
         {setting.autoMode.enabled && (

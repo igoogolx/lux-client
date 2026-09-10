@@ -264,4 +264,6 @@ export default {
   [TRANSLATION_KEY.REMARK]: "Remark",
   [TRANSLATION_KEY.EDIT_SUBSCRIPTION]: "Edit Subscription",
   [TRANSLATION_KEY.URL]: "Url",
+  [TRANSLATION_KEY.INVALID_DNS_FOR_HTTP_PROXY]:
+    "For Tun mode, HTTP proxy cannot forward network connections that use non-HTTP protocols. Please enable Fake IP in the settings or configure a DoH (DNS over HTTPS) address under Remote DNS; otherwise, the proxy will not work.",
 };

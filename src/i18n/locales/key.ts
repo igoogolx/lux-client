@@ -233,4 +233,5 @@ export const TRANSLATION_KEY = {
   REMARK: "remark",
   EDIT_SUBSCRIPTION: "edit_subscription",
   URL: "url",
+  INVALID_DNS_FOR_HTTP_PROXY: "invalid_dns_for_http_proxy",
 };

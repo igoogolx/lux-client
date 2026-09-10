@@ -253,4 +253,6 @@ export default {
   [TRANSLATION_KEY.REMARK]: "备注",
   [TRANSLATION_KEY.EDIT_SUBSCRIPTION]: "编辑订阅",
   [TRANSLATION_KEY.URL]: "链接",
+  [TRANSLATION_KEY.INVALID_DNS_FOR_HTTP_PROXY]:
+    "对于 Tun 模式，HTTP 代理不能转发非 HTTP 协议的网络连接，请在设置开启 Fake IP 或者在远程 DNS 配置 DoT(DNS Over HTTPS) 地址，否则代理无法工作",
 };
