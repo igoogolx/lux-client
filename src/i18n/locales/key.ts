@@ -83,6 +83,8 @@ export const TRANSLATION_KEY = {
   PROXY_URI: "proxy_uri",
   CLASH_YAML: "clash_yaml",
   YAML: "yaml",
+  SEE: "see",
+  HOW_TO_CONFIG: "how_to_config",
   EDIT_YAML: "edit_yaml",
   ERROR: "common.error",
   WARNING: "common.warning",

@@ -1,9 +1,10 @@
 import { notifier } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSlice } from "@/reducers";
+import { CLASH_YAML_CONFIG_DOCS_URL } from "@/utils/constants.ts";
 import { formatError } from "@/utils/error";
 import { decodeClashYaml } from "@/utils/url";
-import { Button, Spinner, Textarea } from "@fluentui/react-components";
+import { Button, Link, Spinner, Textarea } from "@fluentui/react-components";
 import axios from "axios";
 import { addProxy, type BaseProxy, updateProxy } from "lux-js-sdk";
 import { useState } from "react";
@@ -104,7 +105,16 @@ function ProxyYamlModal(props: Readonly<ProxyYamlModalProps>) {
 
   return (
     <div className={styles.container}>
-      <div>{t(t(TRANSLATION_KEY.YAML))}</div>
+      <div>
+        {t(t(TRANSLATION_KEY.YAML))} (
+        <span>
+          {`${t(TRANSLATION_KEY.SEE)} `}
+          <Link href={CLASH_YAML_CONFIG_DOCS_URL} target={"_blank"}>
+            {t(TRANSLATION_KEY.HOW_TO_CONFIG)}
+          </Link>
+        </span>
+        )
+      </div>
       <Textarea
         value={text}
         onChange={(e) => {

@@ -103,6 +103,8 @@ export default {
   [TRANSLATION_KEY.PROXY_URI]: "Proxy URI",
   [TRANSLATION_KEY.CLASH_YAML]: "Clash YAML",
   [TRANSLATION_KEY.YAML]: "YAML",
+  [TRANSLATION_KEY.SEE]: "See",
+  [TRANSLATION_KEY.HOW_TO_CONFIG]: "how to configure",
   [TRANSLATION_KEY.EDIT_YAML]: "Edit YAML",
   [TRANSLATION_KEY.DISCONNECTED_WARN_TIP]:
     "The core is disconnected. Trying to reconnect...",

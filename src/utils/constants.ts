@@ -6,6 +6,9 @@ export const DOCS_URL = "https://igoogolx.github.io/lux-docs/docs/intro";
 
 export const REPOSITORY_ISSUE_URL = "https://github.com/igoogolx/lux/issues";
 
+export const CLASH_YAML_CONFIG_DOCS_URL =
+  "https://wiki.metacubex.one/en/config/proxies/";
+
 export const LATEST_RELEASE_URL = `${REPOSITORY_URL}/releases/latest`;
 
 export const APP_CONTAINER_ID = "app-content";
