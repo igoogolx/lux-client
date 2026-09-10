@@ -57,6 +57,7 @@ function ProxyTextModal(props: Readonly<ProxyTextModalProps>) {
           setText(e.target.value.trim());
         }}
         className={styles.input}
+        placeholder={"ss://method:password@hostname:port\n..."}
         autoFocus
       />
       <div className={styles.buttonContainer}>
