@@ -2,7 +2,7 @@ import { notifier } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSlice } from "@/reducers";
 import { formatError } from "@/utils/error";
-import { decode } from "@/utils/url";
+import { decodeFromProxyUri } from "@/utils/url";
 import { Button, Spinner, Textarea } from "@fluentui/react-components";
 import axios from "axios";
 import { addProxy } from "lux-js-sdk";
@@ -24,7 +24,7 @@ function ProxyUriModal(props: Readonly<ProxyUriModalProps>) {
   const handleConfirm = async () => {
     setLoading(true);
     try {
-      const proxyConfigs = decode(text);
+      const proxyConfigs = decodeFromProxyUri(text);
       await Promise.all(
         proxyConfigs.map(async (proxyConfig) => {
           const proxy = { ...proxyConfig };

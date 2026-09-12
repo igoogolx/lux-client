@@ -34,6 +34,34 @@ export const decodeClashYaml = (text: string) => {
   return [] as Omit<BaseProxy, "id">[];
 };
 
+export const decodeFromProxyUri = (text: string) => {
+  const rawText = text.trim();
+  const names: string[] = [];
+  let uris: string;
+  try {
+    uris = atob(rawText);
+  } catch {
+    uris = rawText;
+  }
+  return uris
+    .trim()
+    .split("\n")
+    .map((uri) => {
+      const proxy = parseUri(uri.trim());
+      if (proxy.name === "undefined") {
+        const newProxy = { ...proxy };
+        proxy.name = "";
+        return newProxy;
+      }
+      if (!names.includes(proxy.name)) {
+        names.push(proxy.name);
+        return proxy;
+      }
+      return null;
+    })
+    .filter(Boolean) as Array<Omit<BaseProxy, "id">>;
+};
+
 export const decode = (text: string) => {
   const rawText = text.trim();
   if (rawText.length === 0) {
@@ -45,31 +73,7 @@ export const decode = (text: string) => {
   if (proxiesFromClashYaml.length !== 0) {
     return proxiesFromClashYaml;
   } else {
-    // TODO: extract decodeFromProxyUri
-    const names: string[] = [];
-    let uris: string;
-    try {
-      uris = atob(rawText);
-    } catch {
-      uris = rawText;
-    }
-    return uris
-      .trim()
-      .split("\n")
-      .map((uri) => {
-        const proxy = parseUri(uri.trim());
-        if (proxy.name === "undefined") {
-          const newProxy = { ...proxy };
-          proxy.name = "";
-          return newProxy;
-        }
-        if (!names.includes(proxy.name)) {
-          names.push(proxy.name);
-          return proxy;
-        }
-        return null;
-      })
-      .filter(Boolean) as Array<Omit<BaseProxy, "id">>;
+    return decodeFromProxyUri(text);
   }
 };
 
