@@ -6,6 +6,11 @@ import {
   EditProxyModal,
 } from "@/components/Modal/Proxy/EditProxyModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
+import {
+  JLS_OPTS,
+  RESTLS_OPTS,
+  SHADOW_TLS_OPTIONS,
+} from "@/utils/formSchema.ts";
 import type { RJSFSchema, UiSchema } from "@rjsf/utils";
 import { type Anytls, ProxyTypeEnum } from "lux-js-sdk";
 
@@ -61,13 +66,24 @@ const schema: RJSFSchema = {
       type: "number",
       title: TRANSLATION_KEY.FORM_IDLE_SESSION_TIMEOUT,
     },
+    "client-metadata": {
+      type: "string",
+      title: TRANSLATION_KEY.CLIENT_METADATA,
+    },
+
     "min-idle-session": {
       type: "number",
       title: TRANSLATION_KEY.FORM_MIN_IDLE_SESSION,
     },
+
     "skip-cert-verify": {
       type: "boolean",
       title: TRANSLATION_KEY.SKIP_CERT_VERIFY,
+    },
+
+    "disable-reuse": {
+      type: "boolean",
+      title: TRANSLATION_KEY.DISABLE_RESUE,
     },
 
     alpn: {
@@ -77,6 +93,27 @@ const schema: RJSFSchema = {
         type: "string",
       },
     },
+    "ech-opts": {
+      type: "object",
+      title: TRANSLATION_KEY.ECH_OPTS,
+      properties: {
+        enable: {
+          type: "boolean",
+          title: TRANSLATION_KEY.ENABLE,
+        },
+        config: {
+          type: "string",
+          title: TRANSLATION_KEY.CONFIG,
+        },
+        "query-server-name": {
+          type: "string",
+          title: TRANSLATION_KEY.QUERY_SERVER_NAME,
+        },
+      },
+    },
+    "shadow-tls-opts": SHADOW_TLS_OPTIONS,
+    "restls-opts": RESTLS_OPTS,
+    "jls-opts": JLS_OPTS,
   },
 };
 
