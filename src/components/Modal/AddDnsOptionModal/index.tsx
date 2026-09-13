@@ -13,7 +13,12 @@ import {
 import { DeleteRegular } from "@fluentui/react-icons";
 import { type TableColumnDefinition } from "@fluentui/react-table";
 import { t } from "i18next";
-import { getSetting, setSetting, type SettingRes } from "lux-js-sdk";
+import {
+  getSetting,
+  setSetting,
+  type SettingRes,
+  validateDnsServer,
+} from "lux-js-sdk";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./index.module.css";
@@ -98,6 +103,8 @@ export default function AddDnsOptionModal(
 
   const handleAddCustomizedOption = useCallback(async () => {
     const newOption = `${newDnsType}://${newDnsPayload}`;
+
+    await validateDnsServer({ servers: [newOption] });
 
     const newSetting = {
       ...setting,
@@ -212,6 +219,8 @@ export default function AddDnsOptionModal(
     setNewDnsType(value);
   };
 
+  const isAddBtnDisabled = newDnsPayload.trim().length === 0;
+
   return (
     <Modal
       close={close}
@@ -224,6 +233,7 @@ export default function AddDnsOptionModal(
             className={styles.select}
             value={t(typeTranslation[newDnsType])}
             onOptionSelect={(_, data) => {
+              setNewDnsPayload("");
               handleSubmit(data.optionValue as DNS_TYPE);
             }}
           >
@@ -252,6 +262,7 @@ export default function AddDnsOptionModal(
                   appearance={"primary"}
                   onClick={handleAddCustomizedOption}
                   className={styles.closeAll}
+                  disabled={isAddBtnDisabled}
                 >
                   {t(TRANSLATION_KEY.ADD)}
                 </Button>
