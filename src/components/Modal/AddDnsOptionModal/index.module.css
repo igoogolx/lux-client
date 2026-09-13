@@ -3,7 +3,11 @@
   @apply flex h-full flex-1 flex-col items-center overflow-auto  py-4 text-sm;
 
   & .toolbar {
-    @apply mb-2 flex w-full justify-between;
+    @apply mb-2 flex w-full justify-between gap-2;
+
+    & .select {
+      @apply min-w-24;
+    }
 
     & .input {
       @apply w-96;

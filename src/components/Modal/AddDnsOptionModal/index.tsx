@@ -4,7 +4,9 @@ import { type RootState, settingSlice } from "@/reducers";
 import {
   Button,
   createTableColumn,
+  Dropdown,
   Input,
+  Option,
   TableCellLayout,
   Tooltip,
 } from "@fluentui/react-components";
@@ -26,14 +28,34 @@ interface DnsOption {
   value: string;
 }
 
-const VALID_DNS_PREFIXES = ["https://", "udp://", "tcp://"];
+enum DNS_TYPE {
+  UDP = "udp",
+  TCP = "tcp",
+  TLS = "tls",
+  HTTPS = "https",
+  QUIC = "quic",
+  DHCP = "dhcp",
+  RCODE = "rcode",
+}
+
+const DNS_PAYLOAD_PLACEHOLDER = {
+  [DNS_TYPE.UDP]: "8.8.8.8:53",
+  [DNS_TYPE.TCP]: "8.8.8.8:53",
+  [DNS_TYPE.TLS]: "1.1.1.1",
+
+  [DNS_TYPE.HTTPS]: "doh.pub/dns-query",
+  [DNS_TYPE.QUIC]: "dns.adguard.com:784",
+  [DNS_TYPE.DHCP]: "en0",
+  [DNS_TYPE.RCODE]: "success or server_failure",
+};
 
 export default function AddDnsOptionModal(
   props: Readonly<AddDnsOptionModalProps>,
 ) {
   const { close } = props;
 
-  const [newDnsOption, setNewDnsOption] = useState("");
+  const [newDnsPayload, setNewDnsPayload] = useState("");
+  const [newDnsType, setNewDnsType] = useState(DNS_TYPE.UDP);
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
   const dispatch = useDispatch();
 
@@ -75,26 +97,20 @@ export default function AddDnsOptionModal(
   );
 
   const handleAddCustomizedOption = useCallback(async () => {
-    if (!VALID_DNS_PREFIXES.some((prefix) => newDnsOption.startsWith(prefix))) {
-      notifier.error(
-        `${t(TRANSLATION_KEY.INVALID_DNS_PREFIX)} ${VALID_DNS_PREFIXES.join(
-          ",",
-        )}`,
-      );
-      return;
-    }
+    const newOption = `${newDnsType}://${newDnsPayload}`;
+
     const newSetting = {
       ...setting,
       dns: {
         ...setting.dns,
-        customizedOptions: [...setting.dns.customizedOptions, newDnsOption],
+        customizedOptions: [...setting.dns.customizedOptions, newOption],
       },
     };
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
     await refresh();
-  }, [setting, newDnsOption, dispatch, refresh]);
+  }, [newDnsType, newDnsPayload, setting, dispatch, refresh]);
 
   const data = useMemo(() => {
     return setting.dns.customizedOptions
@@ -156,6 +172,46 @@ export default function AddDnsOptionModal(
       }),
     ].filter(Boolean) as Array<TableColumnDefinition<DnsOption>>;
   }, [handleDeleteCustomizedOption]);
+
+  const typeOptions = [
+    {
+      id: DNS_TYPE.UDP,
+      content: "UDP",
+    },
+    {
+      id: DNS_TYPE.TCP,
+      content: "TCP",
+    },
+    {
+      id: DNS_TYPE.HTTPS,
+      content: "HTTPS",
+    },
+    {
+      id: DNS_TYPE.TLS,
+      content: "TLS",
+    },
+    {
+      id: DNS_TYPE.DHCP,
+      content: "DHCP",
+    },
+    {
+      id: DNS_TYPE.QUIC,
+      content: "QUIC",
+    },
+    {
+      id: DNS_TYPE.RCODE,
+      content: "RCODE",
+    },
+  ];
+
+  const typeTranslation = Object.fromEntries(
+    typeOptions.map((o) => [o.id, o.content]),
+  );
+
+  const handleSubmit = (value: DNS_TYPE) => {
+    setNewDnsType(value);
+  };
+
   return (
     <Modal
       close={close}
@@ -164,12 +220,26 @@ export default function AddDnsOptionModal(
     >
       <div className={styles.wrapper}>
         <div className={styles.toolbar}>
-          <Input
-            value={newDnsOption}
-            onChange={(e) => {
-              setNewDnsOption(e.target.value.trim());
+          <Dropdown
+            className={styles.select}
+            value={t(typeTranslation[newDnsType])}
+            onOptionSelect={(_, data) => {
+              handleSubmit(data.optionValue as DNS_TYPE);
             }}
-            placeholder={t(TRANSLATION_KEY.DNS_OPTION_TIP)}
+          >
+            {typeOptions.map((option) => (
+              <Option key={option.id} value={option.id}>
+                {option.content}
+              </Option>
+            ))}
+          </Dropdown>
+
+          <Input
+            value={newDnsPayload}
+            onChange={(e) => {
+              setNewDnsPayload(e.target.value.trim());
+            }}
+            placeholder={DNS_PAYLOAD_PLACEHOLDER[newDnsType]}
             className={styles.input}
           />
           <div className={styles.actions}>
