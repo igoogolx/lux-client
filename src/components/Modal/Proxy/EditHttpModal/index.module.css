@@ -1,4 +1,9 @@
 @reference "tailwindcss";
+
+.container {
+  @apply flex flex-col gap-2;
+}
+
 .buttonContainer {
   @apply mt-6 flex justify-end;
   & .button {
