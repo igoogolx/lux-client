@@ -2,6 +2,12 @@ import { Modal, notifier, Table } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import {
+  DNS_PAYLOAD_PLACEHOLDER,
+  DNS_TYPE,
+  DNS_TYPE_OPTIONS,
+  DNS_TYPE_TRANSLATION,
+} from "@/utils/constants.ts";
+import {
   Button,
   createTableColumn,
   Dropdown,
@@ -33,27 +39,6 @@ interface DnsOption {
   value: string;
 }
 
-enum DNS_TYPE {
-  UDP = "udp",
-  TCP = "tcp",
-  TLS = "tls",
-  HTTPS = "https",
-  QUIC = "quic",
-  DHCP = "dhcp",
-  RCODE = "rcode",
-}
-
-const DNS_PAYLOAD_PLACEHOLDER = {
-  [DNS_TYPE.UDP]: "8.8.8.8:53",
-  [DNS_TYPE.TCP]: "8.8.8.8:53",
-  [DNS_TYPE.TLS]: "1.1.1.1",
-
-  [DNS_TYPE.HTTPS]: "doh.pub/dns-query",
-  [DNS_TYPE.QUIC]: "dns.adguard.com:784",
-  [DNS_TYPE.DHCP]: "en0",
-  [DNS_TYPE.RCODE]: "success or server_failure",
-};
-
 export default function AddDnsOptionModal(
   props: Readonly<AddDnsOptionModalProps>,
 ) {
@@ -71,7 +56,7 @@ export default function AddDnsOptionModal(
   }, [dispatch]);
 
   useEffect(() => {
-    refresh();
+    void refresh();
   }, [refresh]);
 
   const handleDeleteCustomizedOption = useCallback(
@@ -140,7 +125,11 @@ export default function AddDnsOptionModal(
           return t(TRANSLATION_KEY.TYPE);
         },
         renderCell: (item) => {
-          return <TableCellLayout truncate>{item.type}</TableCellLayout>;
+          return (
+            <TableCellLayout truncate>
+              {DNS_TYPE_TRANSLATION[item.type]}
+            </TableCellLayout>
+          );
         },
       }),
       createTableColumn<DnsOption>({
@@ -180,41 +169,6 @@ export default function AddDnsOptionModal(
     ].filter(Boolean) as Array<TableColumnDefinition<DnsOption>>;
   }, [handleDeleteCustomizedOption]);
 
-  const typeOptions = [
-    {
-      id: DNS_TYPE.UDP,
-      content: "UDP",
-    },
-    {
-      id: DNS_TYPE.TCP,
-      content: "TCP",
-    },
-    {
-      id: DNS_TYPE.HTTPS,
-      content: "HTTPS",
-    },
-    {
-      id: DNS_TYPE.TLS,
-      content: "TLS",
-    },
-    {
-      id: DNS_TYPE.DHCP,
-      content: "DHCP",
-    },
-    {
-      id: DNS_TYPE.QUIC,
-      content: "QUIC",
-    },
-    {
-      id: DNS_TYPE.RCODE,
-      content: "RCODE",
-    },
-  ];
-
-  const typeTranslation = Object.fromEntries(
-    typeOptions.map((o) => [o.id, o.content]),
-  );
-
   const handleSubmit = (value: DNS_TYPE) => {
     setNewDnsType(value);
   };
@@ -231,13 +185,13 @@ export default function AddDnsOptionModal(
         <div className={styles.toolbar}>
           <Dropdown
             className={styles.select}
-            value={t(typeTranslation[newDnsType])}
+            value={DNS_TYPE_TRANSLATION[newDnsType]}
             onOptionSelect={(_, data) => {
               setNewDnsPayload("");
               handleSubmit(data.optionValue as DNS_TYPE);
             }}
           >
-            {typeOptions.map((option) => (
+            {DNS_TYPE_OPTIONS.map((option) => (
               <Option key={option.id} value={option.id}>
                 {option.content}
               </Option>

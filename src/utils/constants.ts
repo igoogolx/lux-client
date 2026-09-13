@@ -58,3 +58,58 @@ export enum ROUTE_PARAM_MODE {
   ADD = "add",
 }
 export const LOCAL_SERVERS = "local_servers";
+export enum DNS_TYPE {
+  UDP = "udp",
+  TCP = "tcp",
+  TLS = "tls",
+  HTTPS = "https",
+  QUIC = "quic",
+  DHCP = "dhcp",
+  RCODE = "rcode",
+}
+
+export const DNS_PAYLOAD_PLACEHOLDER = {
+  [DNS_TYPE.UDP]: "8.8.8.8:53",
+  [DNS_TYPE.TCP]: "8.8.8.8:53",
+  [DNS_TYPE.TLS]: "1.1.1.1",
+
+  [DNS_TYPE.HTTPS]: "doh.pub/dns-query",
+  [DNS_TYPE.QUIC]: "dns.adguard.com:784",
+  [DNS_TYPE.DHCP]: "en0",
+  [DNS_TYPE.RCODE]: "success or server_failure",
+};
+
+export const DNS_TYPE_OPTIONS = [
+  {
+    id: DNS_TYPE.UDP,
+    content: "UDP",
+  },
+  {
+    id: DNS_TYPE.TCP,
+    content: "TCP",
+  },
+  {
+    id: DNS_TYPE.HTTPS,
+    content: "HTTPS",
+  },
+  {
+    id: DNS_TYPE.TLS,
+    content: "TLS",
+  },
+  {
+    id: DNS_TYPE.DHCP,
+    content: "DHCP",
+  },
+  {
+    id: DNS_TYPE.QUIC,
+    content: "QUIC",
+  },
+  {
+    id: DNS_TYPE.RCODE,
+    content: "RCODE",
+  },
+];
+
+export const DNS_TYPE_TRANSLATION = Object.fromEntries(
+  DNS_TYPE_OPTIONS.map((o) => [o.id, o.content]),
+);
