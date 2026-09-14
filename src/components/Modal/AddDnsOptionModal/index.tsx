@@ -3,7 +3,7 @@ import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import {
   DNS_PAYLOAD_PLACEHOLDER,
-  DNS_TYPE,
+  DNS_SERVER_TYPE,
   DNS_TYPE_OPTIONS,
   DNS_TYPE_TRANSLATION,
 } from "@/utils/constants.ts";
@@ -45,7 +45,7 @@ export default function AddDnsOptionModal(
   const { close } = props;
 
   const [newDnsPayload, setNewDnsPayload] = useState("");
-  const [newDnsType, setNewDnsType] = useState(DNS_TYPE.UDP);
+  const [newDnsType, setNewDnsType] = useState(DNS_SERVER_TYPE.UDP);
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
   const dispatch = useDispatch();
 
@@ -169,7 +169,7 @@ export default function AddDnsOptionModal(
     ].filter(Boolean) as Array<TableColumnDefinition<DnsOption>>;
   }, [handleDeleteCustomizedOption]);
 
-  const handleSubmit = (value: DNS_TYPE) => {
+  const handleSubmit = (value: DNS_SERVER_TYPE) => {
     setNewDnsType(value);
   };
 
@@ -188,7 +188,7 @@ export default function AddDnsOptionModal(
             value={DNS_TYPE_TRANSLATION[newDnsType]}
             onOptionSelect={(_, data) => {
               setNewDnsPayload("");
-              handleSubmit(data.optionValue as DNS_TYPE);
+              handleSubmit(data.optionValue as DNS_SERVER_TYPE);
             }}
           >
             {DNS_TYPE_OPTIONS.map((option) => (
