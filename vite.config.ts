@@ -2,7 +2,6 @@ import babel from "@rolldown/plugin-babel";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
-import checker from "vite-plugin-checker";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -10,9 +9,6 @@ export default defineConfig({
     react(),
     babel({
       presets: [reactCompilerPreset()],
-    }),
-    checker({
-      typescript: true,
     }),
   ],
   resolve: {
