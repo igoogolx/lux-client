@@ -1,4 +1,5 @@
 import { Modal, notifier, Table } from "@/components/Core";
+import { useDangerStyles } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import {
@@ -48,6 +49,8 @@ export default function AddDnsOptionModal(
   const [newDnsType, setNewDnsType] = useState(DNS_SERVER_TYPE.UDP);
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
   const dispatch = useDispatch();
+
+  const inlineStyles = useDangerStyles();
 
   const refresh = useCallback(async () => {
     getSetting().then((res) => {
@@ -157,8 +160,9 @@ export default function AddDnsOptionModal(
               >
                 <Button
                   icon={<DeleteRegular />}
+                  className={inlineStyles.danger}
                   onClick={() => {
-                    handleDeleteCustomizedOption(item);
+                    void handleDeleteCustomizedOption(item);
                   }}
                 />
               </div>
@@ -167,7 +171,7 @@ export default function AddDnsOptionModal(
         },
       }),
     ].filter(Boolean) as Array<TableColumnDefinition<DnsOption>>;
-  }, [handleDeleteCustomizedOption]);
+  }, [handleDeleteCustomizedOption, inlineStyles.danger]);
 
   const handleSubmit = (value: DNS_SERVER_TYPE) => {
     setNewDnsType(value);
