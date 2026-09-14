@@ -78,6 +78,7 @@ export const DNS_PAYLOAD_PLACEHOLDER = {
   [DNS_SERVER_TYPE.QUIC]: "dns.adguard.com:784",
   [DNS_SERVER_TYPE.DHCP]: "en0",
   [DNS_SERVER_TYPE.RCODE]: "success or server_failure",
+  [DNS_SERVER_TYPE.SYSTEM]: "",
 };
 
 export const DNS_TYPE_OPTIONS = [
