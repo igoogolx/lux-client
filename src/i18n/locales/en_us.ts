@@ -145,11 +145,13 @@ export default {
   [TRANSLATION_KEY.PROXY_MODE_TYPE_DESC]: "Same configuration as clash",
   [TRANSLATION_KEY.BOOST_DNS_LABEL]: "Boost DNS",
   [TRANSLATION_KEY.BOOST_DNS_DESC]:
-    "DNS server used to lookup DOH(DNS Over Https) domains. Only support {{servers}}",
+    "DNS server used to lookup domains of proxy server and DoH(DNS over Https). Only support {{servers}}",
   [TRANSLATION_KEY.REMOTE_DNS_LABEL]: "Remote DNS",
-  [TRANSLATION_KEY.REMOTE_DNS_DESC]: "DNS server used to lookup proxy domains",
+  [TRANSLATION_KEY.REMOTE_DNS_DESC]:
+    "DNS server used to lookup domains of proxy connections",
   [TRANSLATION_KEY.LOCAL_DNS_LABEL]: "Local DNS",
-  [TRANSLATION_KEY.LOCAL_DNS_DESC]: "DNS server used to lookup local domains",
+  [TRANSLATION_KEY.LOCAL_DNS_DESC]:
+    "DNS server used to lookup domains of directed connections",
   [TRANSLATION_KEY.COMMON_TEST_UDP]: "Test UDP",
   [TRANSLATION_KEY.UDP_FAILED_NOTIFICATION]: "UDP is not supported",
   [TRANSLATION_KEY.UDP_OK_NOTIFICATION]: "UDP is ok",
