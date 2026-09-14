@@ -78,6 +78,7 @@ export default function EditDnsItem(props: Readonly<EditDnsItemProps>) {
         disabled={isStarted}
         selectedOptions={selectedOptions}
         onOptionSelect={handelOnOptionSelect}
+        spellCheck={false}
       >
         {items.map((option) => (
           <Option key={option.id} text={option.id as string}>
