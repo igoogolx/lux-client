@@ -66,6 +66,7 @@ export enum DNS_SERVER_TYPE {
   QUIC = "quic",
   DHCP = "dhcp",
   RCODE = "rcode",
+  SYSTEM = "system",
 }
 
 export const DNS_PAYLOAD_PLACEHOLDER = {

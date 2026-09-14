@@ -141,7 +141,7 @@ export default {
   [TRANSLATION_KEY.PROXY_MODE_TYPE_DESC]: "与 Clash 配置相同",
   [TRANSLATION_KEY.BOOST_DNS_LABEL]: "启发 DNS",
   [TRANSLATION_KEY.BOOST_DNS_DESC]:
-    "用于查找 DOH（DNS over Https) 域名的 DNS 服务器",
+    "用于查找 DOH（DNS over Https) 域名的 DNS 服务器，仅支持 {{servers}}",
   [TRANSLATION_KEY.REMOTE_DNS_LABEL]: "远程 DNS",
   [TRANSLATION_KEY.REMOTE_DNS_DESC]: "用于查找代理域名的 DNS 服务器",
   [TRANSLATION_KEY.LOCAL_DNS_LABEL]: "本地 DNS",
