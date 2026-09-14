@@ -4,6 +4,7 @@ import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import { DNS_SERVER_TYPE } from "@/utils/constants.ts";
 import { Caption1, Card, Subtitle2, Switch } from "@fluentui/react-components";
+import { uniq } from "lodash";
 import { setSetting, type SettingRes } from "lux-js-sdk";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -58,7 +59,7 @@ export default function Dns() {
 
   const remoteDnsOptions = useMemo(
     () =>
-      [...REMOTE_DNS, ...setting.dns.customizedOptions].map((item) => ({
+      uniq([...REMOTE_DNS, ...setting.dns.customizedOptions]).map((item) => ({
         content: item,
         id: item,
       })),
@@ -67,7 +68,7 @@ export default function Dns() {
 
   const localDnsOptions = useMemo(
     () =>
-      [...LOCAL_DNS, ...setting.dns.customizedOptions].map((item) => ({
+      uniq([...LOCAL_DNS, ...setting.dns.customizedOptions]).map((item) => ({
         content: item,
         id: item,
       })),
@@ -76,7 +77,7 @@ export default function Dns() {
 
   const boostDnsOptions = useMemo(
     () =>
-      [...BOOST_DNS, ...setting.dns.customizedOptions]
+      uniq([...BOOST_DNS, ...setting.dns.customizedOptions])
         .filter((item) =>
           VALID_BOOST_DNS_PREFIXES.some((p) => item.startsWith(p)),
         )
