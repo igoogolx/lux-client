@@ -52,4 +52,3 @@ initI18n().then(() => {
   const root = createRoot(container as HTMLElement); // createRoot(container!) if you use TypeScript
   root.render(<Root />);
 });
-export { LOCAL_SERVERS } from "@/utils/constants";

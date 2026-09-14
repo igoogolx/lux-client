@@ -17,3 +17,7 @@ interface BaseParams {
 }
 
 export type SubscribeDnsStatistic = (params: BaseParams) => WsClient;
+
+export type ValidateDnsServer = (params: {
+  servers: string[];
+}) => Promise<void>;

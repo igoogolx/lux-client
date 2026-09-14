@@ -1,5 +1,6 @@
 import { EditAnyTLSModal } from "@/components/Modal/Proxy/EditAnyTLSModal";
-import ProxyTextModal from "@/components/Modal/Proxy/ProxyTextModal";
+import ProxyUriModal from "@/components/Modal/Proxy/ProxyUriModal";
+import ProxyYamlModal from "@/components/Modal/Proxy/ProxyYamlModal";
 import SubscriptionModal from "@/components/Modal/Proxy/SubscriptionModal";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { OtherProxyTypeEnum } from "@/utils/constants";
@@ -41,7 +42,8 @@ export function EditModal(props: Readonly<EditModalProps>) {
     [ProxyTypeEnum.Socks5]: "Socks5",
     [ProxyTypeEnum.Anytls]: t(TRANSLATION_KEY.ANYTLS),
     [OtherProxyTypeEnum.Subscription]: t(TRANSLATION_KEY.SUBSCRIPTION),
-    [OtherProxyTypeEnum.Text]: t(TRANSLATION_KEY.PROXY_TEXT),
+    [OtherProxyTypeEnum.Text]: t(TRANSLATION_KEY.PROXY_URI),
+    [OtherProxyTypeEnum.Yaml]: t(TRANSLATION_KEY.CLASH_YAML),
   };
 
   const isEdit = !!initialValue;
@@ -50,7 +52,7 @@ export function EditModal(props: Readonly<EditModalProps>) {
 
   const [currentType, setCurrentType] = useState(type);
 
-  const [pageStep, setPageStep] = useState(PageStepEnum.First);
+  const [pageStep] = useState(PageStepEnum.First);
 
   switch (currentType) {
     case ProxyTypeEnum.Shadowsocks:
@@ -59,10 +61,9 @@ export function EditModal(props: Readonly<EditModalProps>) {
         : TRANSLATION_KEY.NEW_SHADOWSOCKS;
       content = (
         <EditShadowsocksModal
-          close={close}
+          onClose={close}
           initialValue={initialValue as Shadowsocks}
           isSelected={isSelected}
-          setPageStep={setPageStep}
         />
       );
       break;
@@ -116,8 +117,18 @@ export function EditModal(props: Readonly<EditModalProps>) {
       break;
 
     case OtherProxyTypeEnum.Text:
-      titleI18nKey = TRANSLATION_KEY.NEW_IMPORT_PROXY_TEXT;
-      content = <ProxyTextModal close={close} />;
+      titleI18nKey = TRANSLATION_KEY.IMPORT_PROXY_URI;
+      content = <ProxyUriModal close={close} />;
+      break;
+
+    case OtherProxyTypeEnum.Yaml:
+      titleI18nKey = TRANSLATION_KEY.IMPORT_PROXY_FROM_CLASH_YAML;
+      content = (
+        <ProxyYamlModal
+          close={close}
+          initialValue={initialValue as BaseProxy}
+        />
+      );
       break;
     default: {
       throw new Error(`invalid ${type}`);

@@ -1,5 +1,6 @@
 import { getToken } from "@/utils/auth";
-import type { SubscribeDnsStatistic } from "./types";
+import axios from "axios";
+import type { SubscribeDnsStatistic, ValidateDnsServer } from "./types";
 import { urtConfig } from "./url";
 import { createWebsocket } from "./websocket";
 
@@ -16,4 +17,9 @@ export const subscribeDnsStatistic: SubscribeDnsStatistic = (config) => {
     },
     onClose,
   });
+};
+
+export const validateDnsServer: ValidateDnsServer = (params) => {
+  const url = `${urtConfig.dns}/validate`;
+  return axios.post(url, params);
 };

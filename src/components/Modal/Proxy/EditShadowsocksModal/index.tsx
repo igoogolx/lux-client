@@ -1,32 +1,155 @@
-import { TRANSLATION_KEY } from "@/i18n/locales/key";
-import { proxiesSlice, type RootState } from "@/reducers";
-import { Button } from "@fluentui/react-components";
+import { type ReactNode } from "react";
+
+import { PasswordWidget } from "@/components/Core";
 import {
-  addProxy,
-  ProxyTypeEnum,
-  type Shadowsocks,
-  updateProxy,
-} from "lux-js-sdk";
-import React, { useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { Field, FiledSelector, Form, PasswordFiled } from "../../../Core";
-import { EditPlugin } from "../Plugin";
+  EDIT_PROXY_MODAL_MODE,
+  EditProxyModal,
+} from "@/components/Modal/Proxy/EditProxyModal";
 import {
   ENCRYPTION_METHODS,
-  NONE_ID,
-  PageStepEnum,
+  SHADOWSOCKS_PLUGIN,
+  SHADOWSOCKS_PLUGIN_MODE,
   SHADOWSOCKS_PLUINS,
-} from "./constant";
-import styles from "./index.module.css";
-import { getShadowsocksSchema } from "./validate";
+} from "@/components/Modal/Proxy/EditShadowsocksModal/constant.ts";
+import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
+import { formatSchemaMapStringField } from "@/utils/form.ts";
+import type { RJSFSchema, UiSchema } from "@rjsf/utils";
+import { ProxyTypeEnum, type Shadowsocks } from "lux-js-sdk";
 
-interface EditShadowsocksModalProps {
-  close: () => void;
+const schema: RJSFSchema = {
+  type: "object",
+  required: ["server", "port", "password", "cipher"],
+  properties: {
+    name: {
+      type: "string",
+      title: TRANSLATION_KEY.FORM_NAME,
+    },
+    server: {
+      type: "string",
+      title: TRANSLATION_KEY.FORM_SERVER,
+    },
+    port: {
+      type: "number",
+      title: TRANSLATION_KEY.FORM_PORT,
+    },
+    password: {
+      type: "string",
+      title: TRANSLATION_KEY.FORM_PASSWORD,
+    },
+    cipher: {
+      type: "string",
+      enum: ENCRYPTION_METHODS,
+      title: TRANSLATION_KEY.FORM_ENCRYPTION,
+    },
+    "udp-over-tcp": {
+      type: "boolean",
+      title: TRANSLATION_KEY.FORM_UDP_OVER_TCP,
+    },
+    "udp-over-tcp-version": {
+      type: "number",
+      title: TRANSLATION_KEY.FORM_UDP_OVER_TCP_VERSION,
+    },
+    "client-fingerprint": {
+      type: "string",
+      title: TRANSLATION_KEY.FORM_CLIENT_FINGERPRINT,
+    },
+    plugin: {
+      type: "string",
+      enum: SHADOWSOCKS_PLUINS,
+      title: TRANSLATION_KEY.FORM_PLUGIN,
+    },
+  },
+  allOf: [
+    {
+      if: {
+        properties: {
+          plugin: {
+            const: SHADOWSOCKS_PLUGIN.OBFS,
+          },
+        },
+      },
+      then: {
+        properties: {
+          "plugin-opts": {
+            type: "object",
+            title: TRANSLATION_KEY.FORM_PLUGIN_OPTS,
+            required: ["mode"],
+            properties: {
+              mode: {
+                type: "string",
+                enum: [
+                  SHADOWSOCKS_PLUGIN_MODE.HTTP,
+                  SHADOWSOCKS_PLUGIN_MODE.TLS,
+                ],
+              },
+              host: {
+                type: "string",
+              },
+            },
+          },
+        },
+      },
+    },
+    {
+      if: {
+        properties: {
+          plugin: {
+            const: SHADOWSOCKS_PLUGIN.V2RAY,
+          },
+        },
+      },
+      then: {
+        properties: {
+          "plugin-opts": {
+            required: ["mode"],
+
+            type: "object",
+            properties: {
+              mode: {
+                type: "string",
+                enum: [SHADOWSOCKS_PLUGIN_MODE.WEBSOCKET],
+              },
+              host: {
+                type: "string",
+              },
+              path: {
+                type: "string",
+              },
+              tls: {
+                type: "boolean",
+              },
+              "skip-cert-verify": {
+                type: "boolean",
+              },
+              mux: {
+                type: "boolean",
+              },
+              headers: {
+                type: "object",
+                additionalProperties: {
+                  type: "string",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  ],
+};
+
+const uiSchema: UiSchema = {
+  password: {
+    "ui:widget": PasswordWidget,
+    "ui:autocomplete": "off",
+  },
+};
+
+type EditShadowsocksModalProps = {
+  onClose: () => void;
   initialValue?: Shadowsocks;
   isSelected?: boolean;
-  setPageStep?: (step: PageStepEnum) => void;
-}
+};
 
 const INIT_DATA: Shadowsocks = {
   type: ProxyTypeEnum.Shadowsocks,
@@ -38,142 +161,32 @@ const INIT_DATA: Shadowsocks = {
   cipher: ENCRYPTION_METHODS[0] as Shadowsocks["cipher"],
 };
 
-export const EditShadowsocksModal = React.memo(
-  (props: EditShadowsocksModalProps) => {
-    const { close, initialValue, isSelected = false, setPageStep } = props;
-    const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const methodsOptions = useRef(
-      ENCRYPTION_METHODS.map((METHOD) => ({ content: METHOD, id: METHOD })),
-    );
+export function EditShadowsocksModal(
+  props: EditShadowsocksModalProps,
+): ReactNode {
+  const { initialValue, isSelected, onClose } = props;
 
-    const pluginOptions = useRef(
-      [...SHADOWSOCKS_PLUINS, NONE_ID].map((METHOD) => ({
-        content: METHOD,
-        id: METHOD,
-      })),
-    );
+  const formatFormData = (formData: Record<string, never>) => {
+    if (formData["plugin"] === SHADOWSOCKS_PLUGIN.V2RAY) {
+      return formatSchemaMapStringField(formData, "plugin-opts.headers");
+    }
 
-    const isStarted = useSelector<RootState, boolean>(
-      (state) => state.manager.isStared,
-    );
+    return formData;
+  };
 
-    const [editingPlugin, setEditingPlugin] = useState(false);
+  const mode = initialValue
+    ? EDIT_PROXY_MODAL_MODE.EDIT
+    : EDIT_PROXY_MODAL_MODE.ADD;
 
-    const initData = initialValue ?? INIT_DATA;
-
-    const initPlugin = {
-      plugin: initData.plugin,
-      "plugin-opts": initData["plugin-opts"],
-    };
-
-    const [pluginData, setPluginData] =
-      useState<Partial<typeof initPlugin>>(initPlugin);
-
-    const onSubmit = async (value: Shadowsocks) => {
-      if (initialValue) {
-        await updateProxy({
-          id: value.id,
-          proxy: { ...value, ...pluginData },
-        });
-        dispatch(
-          proxiesSlice.actions.updateOne({
-            proxy: { ...value, ...pluginData },
-          }),
-        );
-      } else {
-        const { id } = await addProxy({
-          proxy: { ...value, ...pluginData },
-        });
-        dispatch(
-          proxiesSlice.actions.addOne({
-            proxy: { ...value, ...pluginData, id },
-          }),
-        );
-      }
-      close();
-    };
-    return (
-      <div>
-        {editingPlugin ? (
-          <div>
-            <EditPlugin
-              type={pluginData.plugin}
-              initialValue={pluginData}
-              onSave={(data) => {
-                setPluginData(data);
-              }}
-              close={() => {
-                setEditingPlugin(false);
-                if (setPageStep) {
-                  setPageStep(PageStepEnum.First);
-                }
-              }}
-            />
-          </div>
-        ) : null}
-        <div style={{ display: !editingPlugin ? "block" : "none" }}>
-          <Form
-            validationSchema={getShadowsocksSchema(t)}
-            initialValues={initData}
-            onSubmit={onSubmit}
-          >
-            {({ submitForm, isValid }) => {
-              return (
-                <div className={styles.container}>
-                  <Field name="name" label={t(TRANSLATION_KEY.FORM_NAME)} />
-                  <Field name="server" label={t(TRANSLATION_KEY.FORM_SERVER)} />
-                  <FiledSelector
-                    name="cipher"
-                    items={methodsOptions.current}
-                    label={t(TRANSLATION_KEY.FORM_ENCRYPTION)}
-                  />
-                  <Field
-                    name="port"
-                    label={t(TRANSLATION_KEY.FORM_PORT)}
-                    type="number"
-                  />
-                  <PasswordFiled
-                    name="password"
-                    label={t(TRANSLATION_KEY.FORM_PASSWORD)}
-                  />
-                  <FiledSelector
-                    clearable
-                    value={pluginData.plugin ?? NONE_ID}
-                    name="plugin"
-                    items={pluginOptions.current}
-                    label={`${t(TRANSLATION_KEY.FORM_PLUGIN)}(${t(
-                      TRANSLATION_KEY.FORM_OPTIONAL,
-                    )})`}
-                    editable
-                    onEditClick={() => {
-                      setEditingPlugin(true);
-                      if (setPageStep) {
-                        setPageStep(PageStepEnum.Second);
-                      }
-                    }}
-                  />
-                  <div className={styles.buttonContainer}>
-                    <Button onClick={close} className={styles.button}>
-                      {t(TRANSLATION_KEY.FORM_CANCEL)}
-                    </Button>
-                    <Button
-                      className={styles.button}
-                      disabled={!isValid || (isSelected && isStarted)}
-                      onClick={submitForm}
-                      appearance="primary"
-                    >
-                      {t(TRANSLATION_KEY.FORM_SAVE)}
-                    </Button>
-                  </div>
-                </div>
-              );
-            }}
-          </Form>
-        </div>
-      </div>
-    );
-  },
-);
-
-EditShadowsocksModal.displayName = "EditShadowsocksModal";
+  return (
+    <EditProxyModal
+      onClose={onClose}
+      initialValue={initialValue || INIT_DATA}
+      schema={schema}
+      uiSchema={uiSchema}
+      isSelected={isSelected}
+      mode={mode}
+      formatFormData={formatFormData}
+    />
+  );
+}

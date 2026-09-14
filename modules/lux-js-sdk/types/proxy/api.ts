@@ -10,6 +10,7 @@ export type GetProxies = () => Promise<GetProxiesRes>;
 export interface GetCurProxyRes {
   name: string;
   addr: string;
+  type: string;
 }
 
 export type GetCurProxy = () => Promise<GetCurProxyRes>;

@@ -1,7 +1,14 @@
 @reference "tailwindcss";
-
 .container {
-  @apply flex flex-col gap-2;
+  @apply mb-2 mt-2 flex flex-col;
+
+  & .input {
+    @apply mr-2 w-full;
+  }
+
+  & .textarea {
+    @apply max-h-none h-96;
+  }
 }
 
 .buttonContainer {
@@ -12,4 +19,8 @@
       @apply mr-4;
     }
   }
+}
+
+.spinner {
+  margin-right: 8px;
 }

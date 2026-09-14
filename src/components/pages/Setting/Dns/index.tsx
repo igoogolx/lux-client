@@ -2,7 +2,9 @@ import AddDnsOption from "@/components/pages/Setting/Dns/AddDnsOption";
 import TunTag from "@/components/pages/Setting/TunTag";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
+import { DNS_SERVER_TYPE } from "@/utils/constants.ts";
 import { Caption1, Card, Subtitle2, Switch } from "@fluentui/react-components";
+import { uniq } from "lodash";
 import { setSetting, type SettingRes } from "lux-js-sdk";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -39,15 +41,12 @@ const LOCAL_DNS = [
   "system://auto",
 ];
 
-const VALID_REMOTE_DNS_PREFIXES = ["tcp://", "https://"];
-const VALID_LOCAL_DNS_PREFIXES = [
-  "tcp://",
-  "https://",
-  "dhcp://",
-  "udp://",
-  "system://",
+const VALID_BOOST_DNS_PREFIXES = [
+  DNS_SERVER_TYPE.TCP,
+  DNS_SERVER_TYPE.UDP,
+  DNS_SERVER_TYPE.DHCP,
+  DNS_SERVER_TYPE.SYSTEM,
 ];
-const VALID_BOOST_DNS_PREFIXES = ["tcp://", "dhcp://", "udp://", "system://"];
 
 export default function Dns() {
   const { t } = useTranslation();
@@ -60,7 +59,7 @@ export default function Dns() {
 
   const remoteDnsOptions = useMemo(
     () =>
-      [...REMOTE_DNS, ...setting.dns.customizedOptions].map((item) => ({
+      uniq([...REMOTE_DNS, ...setting.dns.customizedOptions]).map((item) => ({
         content: item,
         id: item,
       })),
@@ -69,7 +68,7 @@ export default function Dns() {
 
   const localDnsOptions = useMemo(
     () =>
-      [...LOCAL_DNS, ...setting.dns.customizedOptions].map((item) => ({
+      uniq([...LOCAL_DNS, ...setting.dns.customizedOptions]).map((item) => ({
         content: item,
         id: item,
       })),
@@ -78,10 +77,14 @@ export default function Dns() {
 
   const boostDnsOptions = useMemo(
     () =>
-      [...BOOST_DNS, ...setting.dns.customizedOptions].map((item) => ({
-        content: item,
-        id: item,
-      })),
+      uniq([...BOOST_DNS, ...setting.dns.customizedOptions])
+        .filter((item) =>
+          VALID_BOOST_DNS_PREFIXES.some((p) => item.startsWith(p)),
+        )
+        .map((item) => ({
+          content: item,
+          id: item,
+        })),
     [setting.dns.customizedOptions],
   );
 
@@ -91,47 +94,14 @@ export default function Dns() {
     let newDns = { ...setting.dns };
     switch (dnsType) {
       case DNS_TYPE.REMOTE: {
-        const isValid = items.every((item) =>
-          VALID_REMOTE_DNS_PREFIXES.some((prefix) => item.startsWith(prefix)),
-        );
-        if (!isValid) {
-          notifier.error(
-            `${t(
-              TRANSLATION_KEY.INVALID_DNS_PREFIX,
-            )}${VALID_REMOTE_DNS_PREFIXES.join(",")}`,
-          );
-          return;
-        }
         newDns = { ...newDns, server: { ...newDns.server, remote: items } };
         break;
       }
       case DNS_TYPE.LOCAL: {
-        const isValid = items.every((item) =>
-          VALID_LOCAL_DNS_PREFIXES.some((prefix) => item.startsWith(prefix)),
-        );
-        if (!isValid) {
-          notifier.error(
-            `${t(
-              TRANSLATION_KEY.INVALID_DNS_PREFIX,
-            )}${VALID_LOCAL_DNS_PREFIXES.join(",")}`,
-          );
-          return;
-        }
         newDns = { ...newDns, server: { ...newDns.server, local: items } };
         break;
       }
       case DNS_TYPE.BOOST: {
-        const isValid = items.every((item) =>
-          VALID_BOOST_DNS_PREFIXES.some((prefix) => item.startsWith(prefix)),
-        );
-        if (!isValid) {
-          notifier.error(
-            `${t(
-              TRANSLATION_KEY.INVALID_DNS_PREFIX,
-            )}${VALID_BOOST_DNS_PREFIXES.join(",")}`,
-          );
-          return;
-        }
         newDns = { ...newDns, server: { ...newDns.server, boost: items } };
         break;
       }
@@ -223,7 +193,9 @@ export default function Dns() {
         }}
         selectedOptions={setting.dns.server.boost}
         title={t(TRANSLATION_KEY.BOOST_DNS_LABEL)}
-        desc={t(TRANSLATION_KEY.BOOST_DNS_DESC)}
+        desc={t(TRANSLATION_KEY.BOOST_DNS_DESC, {
+          servers: VALID_BOOST_DNS_PREFIXES.join(", "),
+        })}
       />
       <div className={styles.cardItem}>
         <div className={styles.desc}>

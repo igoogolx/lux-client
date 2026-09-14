@@ -2,7 +2,7 @@ import { notifier } from "@/components/Core";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { proxiesSlice } from "@/reducers";
 import { formatError } from "@/utils/error";
-import { decode } from "@/utils/url";
+import { decodeFromProxyUri } from "@/utils/url";
 import { Button, Spinner, Textarea } from "@fluentui/react-components";
 import axios from "axios";
 import { addProxy } from "lux-js-sdk";
@@ -11,11 +11,11 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import styles from "./index.module.css";
 
-interface ProxyTextModalProps {
+interface ProxyUriModalProps {
   close: () => void;
 }
 
-function ProxyTextModal(props: Readonly<ProxyTextModalProps>) {
+function ProxyUriModal(props: Readonly<ProxyUriModalProps>) {
   const { close } = props;
   const { t } = useTranslation();
   const [text, setText] = useState("");
@@ -24,7 +24,7 @@ function ProxyTextModal(props: Readonly<ProxyTextModalProps>) {
   const handleConfirm = async () => {
     setLoading(true);
     try {
-      const proxyConfigs = decode(text);
+      const proxyConfigs = decodeFromProxyUri(text);
       await Promise.all(
         proxyConfigs.map(async (proxyConfig) => {
           const proxy = { ...proxyConfig };
@@ -50,13 +50,14 @@ function ProxyTextModal(props: Readonly<ProxyTextModalProps>) {
 
   return (
     <div className={styles.container}>
-      <div>{t(t(TRANSLATION_KEY.PROXY_TEXT))}</div>
+      <div>{t(t(TRANSLATION_KEY.PROXY_URI))}</div>
       <Textarea
         value={text}
         onChange={(e) => {
           setText(e.target.value.trim());
         }}
         className={styles.input}
+        placeholder={"ss://method:password@hostname:port\n..."}
         autoFocus
       />
       <div className={styles.buttonContainer}>
@@ -77,4 +78,4 @@ function ProxyTextModal(props: Readonly<ProxyTextModalProps>) {
   );
 }
 
-export default ProxyTextModal;
+export default ProxyUriModal;

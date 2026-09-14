@@ -1,17 +1,31 @@
 import { Modal, notifier, Table } from "@/components/Core";
+import { useDangerStyles } from "@/hooks";
 import { TRANSLATION_KEY } from "@/i18n/locales/key";
 import { type RootState, settingSlice } from "@/reducers";
 import {
+  DNS_PAYLOAD_PLACEHOLDER,
+  DNS_SERVER_TYPE,
+  DNS_TYPE_OPTIONS,
+  DNS_TYPE_TRANSLATION,
+} from "@/utils/constants.ts";
+import {
   Button,
   createTableColumn,
+  Dropdown,
   Input,
+  Option,
   TableCellLayout,
   Tooltip,
 } from "@fluentui/react-components";
 import { DeleteRegular } from "@fluentui/react-icons";
 import { type TableColumnDefinition } from "@fluentui/react-table";
 import { t } from "i18next";
-import { getSetting, setSetting, type SettingRes } from "lux-js-sdk";
+import {
+  getSetting,
+  setSetting,
+  type SettingRes,
+  validateDnsServer,
+} from "lux-js-sdk";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./index.module.css";
@@ -26,16 +40,17 @@ interface DnsOption {
   value: string;
 }
 
-const VALID_DNS_PREFIXES = ["https://", "udp://", "tcp://"];
-
 export default function AddDnsOptionModal(
   props: Readonly<AddDnsOptionModalProps>,
 ) {
   const { close } = props;
 
-  const [newDnsOption, setNewDnsOption] = useState("");
+  const [newDnsPayload, setNewDnsPayload] = useState("");
+  const [newDnsType, setNewDnsType] = useState(DNS_SERVER_TYPE.UDP);
   const setting = useSelector<RootState, SettingRes>((state) => state.setting);
   const dispatch = useDispatch();
+
+  const inlineStyles = useDangerStyles();
 
   const refresh = useCallback(async () => {
     getSetting().then((res) => {
@@ -44,7 +59,7 @@ export default function AddDnsOptionModal(
   }, [dispatch]);
 
   useEffect(() => {
-    refresh();
+    void refresh();
   }, [refresh]);
 
   const handleDeleteCustomizedOption = useCallback(
@@ -75,26 +90,22 @@ export default function AddDnsOptionModal(
   );
 
   const handleAddCustomizedOption = useCallback(async () => {
-    if (!VALID_DNS_PREFIXES.some((prefix) => newDnsOption.startsWith(prefix))) {
-      notifier.error(
-        `${t(TRANSLATION_KEY.INVALID_DNS_PREFIX)} ${VALID_DNS_PREFIXES.join(
-          ",",
-        )}`,
-      );
-      return;
-    }
+    const newOption = `${newDnsType}://${newDnsPayload}`;
+
+    await validateDnsServer({ servers: [newOption] });
+
     const newSetting = {
       ...setting,
       dns: {
         ...setting.dns,
-        customizedOptions: [...setting.dns.customizedOptions, newDnsOption],
+        customizedOptions: [...setting.dns.customizedOptions, newOption],
       },
     };
     await setSetting(newSetting);
     dispatch(settingSlice.actions.setSetting(newSetting));
     notifier.success(t(TRANSLATION_KEY.SAVE_SUCCESS));
     await refresh();
-  }, [setting, newDnsOption, dispatch, refresh]);
+  }, [newDnsType, newDnsPayload, setting, dispatch, refresh]);
 
   const data = useMemo(() => {
     return setting.dns.customizedOptions
@@ -117,7 +128,11 @@ export default function AddDnsOptionModal(
           return t(TRANSLATION_KEY.TYPE);
         },
         renderCell: (item) => {
-          return <TableCellLayout truncate>{item.type}</TableCellLayout>;
+          return (
+            <TableCellLayout truncate>
+              {DNS_TYPE_TRANSLATION[item.type]}
+            </TableCellLayout>
+          );
         },
       }),
       createTableColumn<DnsOption>({
@@ -145,8 +160,9 @@ export default function AddDnsOptionModal(
               >
                 <Button
                   icon={<DeleteRegular />}
+                  className={inlineStyles.danger}
                   onClick={() => {
-                    handleDeleteCustomizedOption(item);
+                    void handleDeleteCustomizedOption(item);
                   }}
                 />
               </div>
@@ -155,7 +171,14 @@ export default function AddDnsOptionModal(
         },
       }),
     ].filter(Boolean) as Array<TableColumnDefinition<DnsOption>>;
-  }, [handleDeleteCustomizedOption]);
+  }, [handleDeleteCustomizedOption, inlineStyles.danger]);
+
+  const handleSubmit = (value: DNS_SERVER_TYPE) => {
+    setNewDnsType(value);
+  };
+
+  const isAddBtnDisabled = newDnsPayload.trim().length === 0;
+
   return (
     <Modal
       close={close}
@@ -164,12 +187,27 @@ export default function AddDnsOptionModal(
     >
       <div className={styles.wrapper}>
         <div className={styles.toolbar}>
-          <Input
-            value={newDnsOption}
-            onChange={(e) => {
-              setNewDnsOption(e.target.value.trim());
+          <Dropdown
+            className={styles.select}
+            value={DNS_TYPE_TRANSLATION[newDnsType]}
+            onOptionSelect={(_, data) => {
+              setNewDnsPayload("");
+              handleSubmit(data.optionValue as DNS_SERVER_TYPE);
             }}
-            placeholder={t(TRANSLATION_KEY.DNS_OPTION_TIP)}
+          >
+            {DNS_TYPE_OPTIONS.map((option) => (
+              <Option key={option.id} value={option.id}>
+                {option.content}
+              </Option>
+            ))}
+          </Dropdown>
+
+          <Input
+            value={newDnsPayload}
+            onChange={(e) => {
+              setNewDnsPayload(e.target.value.trim());
+            }}
+            placeholder={DNS_PAYLOAD_PLACEHOLDER[newDnsType]}
             className={styles.input}
           />
           <div className={styles.actions}>
@@ -182,6 +220,7 @@ export default function AddDnsOptionModal(
                   appearance={"primary"}
                   onClick={handleAddCustomizedOption}
                   className={styles.closeAll}
+                  disabled={isAddBtnDisabled}
                 >
                   {t(TRANSLATION_KEY.ADD)}
                 </Button>

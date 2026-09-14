@@ -11,6 +11,7 @@ export type SubscribePing = (params: PingParams) => WsClient;
 interface RuntimeStatus {
   addr: string;
   name: string;
+  type: string;
   isStarted: boolean;
 }
 
