@@ -7,7 +7,7 @@ import {
 import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
 import type { RJSFSchema } from "@rjsf/utils";
 
-export const schema: RJSFSchema = {
+export const SHADOWSOCKS_SCHEMA: RJSFSchema = {
   type: "object",
   required: ["server", "port", "password", "cipher"],
   properties: {

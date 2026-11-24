@@ -1,1 +1,1 @@
-export { schema } from "@/components/Modal/Proxy/schema/shadowsocks.ts";
+export { SHADOWSOCKS_SCHEMA } from "@/components/Modal/Proxy/schema/shadowsocks.ts";

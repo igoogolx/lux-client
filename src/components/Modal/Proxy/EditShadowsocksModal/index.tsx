@@ -5,7 +5,7 @@ import {
   EDIT_PROXY_MODAL_MODE,
   EditProxyModal,
 } from "@/components/Modal/Proxy/EditProxyModal";
-import { schema } from "@/components/Modal/Proxy/schema";
+import { SHADOWSOCKS_SCHEMA } from "@/components/Modal/Proxy/schema";
 import {
   SHADOWSOCKS_ENCRYPTION_METHODS,
   SHADOWSOCKS_PLUGIN,
@@ -58,7 +58,7 @@ export function EditShadowsocksModal(
     <EditProxyModal
       onClose={onClose}
       initialValue={initialValue || INIT_DATA}
-      schema={schema}
+      schema={SHADOWSOCKS_SCHEMA}
       uiSchema={uiSchema}
       isSelected={isSelected}
       mode={mode}
