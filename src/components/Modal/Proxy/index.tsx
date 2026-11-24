@@ -19,7 +19,6 @@ import { useTranslation } from "react-i18next";
 import { Modal } from "../../Core";
 import { EditHttpModal } from "./EditHttpModal";
 import { EditShadowsocksModal } from "./EditShadowsocksModal";
-import { PageStepEnum } from "./EditShadowsocksModal/constant";
 import { EditSocks5Modal } from "./EditSocks5Modal";
 import styles from "./index.module.css";
 
@@ -51,8 +50,6 @@ export function EditModal(props: Readonly<EditModalProps>) {
   let titleI18nKey;
 
   const [currentType, setCurrentType] = useState(type);
-
-  const [pageStep] = useState(PageStepEnum.First);
 
   switch (currentType) {
     case ProxyTypeEnum.Shadowsocks:
@@ -136,28 +133,27 @@ export function EditModal(props: Readonly<EditModalProps>) {
   }
   return (
     <Modal close={close} hideCloseButton hideOkButton title={t(titleI18nKey)}>
-      {pageStep === PageStepEnum.First && (
-        <div className={styles.type}>
-          <Text>{t(TRANSLATION_KEY.TYPE)}</Text>
-          <Dropdown
-            disabled={isEdit}
-            defaultValue={typeOption[currentType]}
-            onOptionSelect={(_, data) => {
-              setCurrentType(data.optionValue as ProxyTypeEnum);
-            }}
-          >
-            {Object.keys(typeOption).map((key: string) => (
-              <Option
-                key={key}
-                text={typeOption[key as ProxyTypeEnum]}
-                value={key}
-              >
-                {typeOption[key as ProxyTypeEnum]}
-              </Option>
-            ))}
-          </Dropdown>
-        </div>
-      )}
+      <div className={styles.type}>
+        <Text>{t(TRANSLATION_KEY.TYPE)}</Text>
+        <Dropdown
+          disabled={isEdit}
+          defaultValue={typeOption[currentType]}
+          onOptionSelect={(_, data) => {
+            setCurrentType(data.optionValue as ProxyTypeEnum);
+          }}
+        >
+          {Object.keys(typeOption).map((key: string) => (
+            <Option
+              key={key}
+              text={typeOption[key as ProxyTypeEnum]}
+              value={key}
+            >
+              {typeOption[key as ProxyTypeEnum]}
+            </Option>
+          ))}
+        </Dropdown>
+      </div>
+
       {content}
     </Modal>
   );

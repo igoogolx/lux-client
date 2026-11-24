@@ -35,10 +35,3 @@ export enum SHADOWSOCKS_PLUGIN_MODE {
   TLS = "tls",
   WEBSOCKET = "websocket",
 }
-
-export const NONE_ID = "None";
-
-export enum PageStepEnum {
-  First,
-  Second,
-}
