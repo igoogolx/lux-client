@@ -1,4 +1,0 @@
-@reference "tailwindcss";
-.type {
-  @apply mb-6 flex w-full flex-col;
-}

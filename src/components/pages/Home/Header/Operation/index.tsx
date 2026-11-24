@@ -14,17 +14,20 @@ import {
 } from "@fluentui/react-components";
 import { MoreHorizontalFilled } from "@fluentui/react-icons";
 import { type BaseProxy } from "lux-js-sdk";
-import { useMemo, useState } from "react";
+import { type ReactNode, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 
 enum OperationTypeEnum {
   Diagnostics = "0",
   TestDelay = "1",
 }
 
-export function Operation(): React.ReactNode {
+export function Operation(): ReactNode {
   const { t } = useTranslation();
+
+  const store = useStore<RootState>();
+
   const dispatch = useDispatch();
   const [isDiagnosticsOpen, setIsDiagnosticsOpen] = useState(false);
 
@@ -49,6 +52,12 @@ export function Operation(): React.ReactNode {
       for (const element of subProxies) {
         await Promise.all(
           element.map(async (proxy) => {
+            const latestProxiesState = store.getState().proxies;
+
+            if (!(proxy.id in latestProxiesState.entities)) {
+              return;
+            }
+
             await testDelay(proxy.id);
           }),
         );

@@ -1,4 +1,4 @@
-export const ENCRYPTION_METHODS = [
+export const SHADOWSOCKS_ENCRYPTION_METHODS = [
   "aes-128-gcm",
   "aes-192-gcm",
   "aes-256-gcm",
@@ -25,7 +25,7 @@ export enum SHADOWSOCKS_PLUGIN {
   V2RAY = "v2ray-plugin",
 }
 
-export const SHADOWSOCKS_PLUINS = [
+export const SHADOWSOCKS_PLUGINS = [
   SHADOWSOCKS_PLUGIN.OBFS,
   SHADOWSOCKS_PLUGIN.V2RAY,
 ];
@@ -34,11 +34,4 @@ export enum SHADOWSOCKS_PLUGIN_MODE {
   HTTP = "http",
   TLS = "tls",
   WEBSOCKET = "websocket",
-}
-
-export const NONE_ID = "None";
-
-export enum PageStepEnum {
-  First,
-  Second,
 }
