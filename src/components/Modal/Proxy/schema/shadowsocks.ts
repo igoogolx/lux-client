@@ -1,8 +1,8 @@
 import {
-  ENCRYPTION_METHODS,
+  SHADOWSOCKS_ENCRYPTION_METHODS,
   SHADOWSOCKS_PLUGIN,
   SHADOWSOCKS_PLUGIN_MODE,
-  SHADOWSOCKS_PLUINS,
+  SHADOWSOCKS_PLUGINS,
 } from "@/components/Modal/Proxy/schema/constant.ts";
 import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
 import type { RJSFSchema } from "@rjsf/utils";
@@ -29,7 +29,7 @@ export const schema: RJSFSchema = {
     },
     cipher: {
       type: "string",
-      enum: ENCRYPTION_METHODS,
+      enum: SHADOWSOCKS_ENCRYPTION_METHODS,
       title: TRANSLATION_KEY.FORM_ENCRYPTION,
     },
     "udp-over-tcp": {
@@ -46,7 +46,7 @@ export const schema: RJSFSchema = {
     },
     plugin: {
       type: "string",
-      enum: SHADOWSOCKS_PLUINS,
+      enum: SHADOWSOCKS_PLUGINS,
       title: TRANSLATION_KEY.FORM_PLUGIN,
     },
   },

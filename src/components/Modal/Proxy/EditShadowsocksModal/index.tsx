@@ -7,7 +7,7 @@ import {
 } from "@/components/Modal/Proxy/EditProxyModal";
 import { schema } from "@/components/Modal/Proxy/schema";
 import {
-  ENCRYPTION_METHODS,
+  SHADOWSOCKS_ENCRYPTION_METHODS,
   SHADOWSOCKS_PLUGIN,
 } from "@/components/Modal/Proxy/schema/constant.ts";
 import { formatSchemaMapStringField } from "@/utils/form.ts";
@@ -34,7 +34,7 @@ const INIT_DATA: Shadowsocks = {
   server: "",
   password: "",
   port: 1080,
-  cipher: ENCRYPTION_METHODS[0] as Shadowsocks["cipher"],
+  cipher: SHADOWSOCKS_ENCRYPTION_METHODS[0] as Shadowsocks["cipher"],
 };
 
 export function EditShadowsocksModal(
