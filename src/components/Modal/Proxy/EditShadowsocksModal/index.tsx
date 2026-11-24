@@ -5,14 +5,14 @@ import {
   EDIT_PROXY_MODAL_MODE,
   EditProxyModal,
 } from "@/components/Modal/Proxy/EditProxyModal";
+import { schema } from "@/components/Modal/Proxy/schema";
 import {
   ENCRYPTION_METHODS,
   SHADOWSOCKS_PLUGIN,
-} from "@/components/Modal/Proxy/EditShadowsocksModal/constant.ts";
+} from "@/components/Modal/Proxy/schema/constant.ts";
 import { formatSchemaMapStringField } from "@/utils/form.ts";
 import type { UiSchema } from "@rjsf/utils";
 import { ProxyTypeEnum, type Shadowsocks } from "lux-js-sdk";
-import { schema } from "@/components/Modal/Proxy/schema";
 
 const uiSchema: UiSchema = {
   password: {

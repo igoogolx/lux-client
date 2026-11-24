@@ -3,7 +3,7 @@ import {
   SHADOWSOCKS_PLUGIN,
   SHADOWSOCKS_PLUGIN_MODE,
   SHADOWSOCKS_PLUINS,
-} from "@/components/Modal/Proxy/EditShadowsocksModal/constant.ts";
+} from "@/components/Modal/Proxy/schema/constant.ts";
 import { TRANSLATION_KEY } from "@/i18n/locales/key.ts";
 import type { RJSFSchema } from "@rjsf/utils";
 
